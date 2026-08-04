@@ -53,7 +53,9 @@ class ProjectAnalyzer {
       };
     }
     this.trained = true;
-    return { projectCount: this.projects.length, typeCount: Object.keys(groups).length };
+    this._projectCount = this.projects.length;
+    this.projects = null;
+    return { projectCount: this._projectCount, typeCount: Object.keys(groups).length };
   }
 
   analyzeProject(description, options = {}) {

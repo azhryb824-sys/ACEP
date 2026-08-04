@@ -64,7 +64,9 @@ class ScheduleOptimizer {
     }
 
     this.trained = true;
-    return { total: this.projects.length, types: Object.keys(this.byType).length };
+    this._projectCount = this.projects.length;
+    this.projects = null;
+    return { total: this._projectCount, types: Object.keys(this.byType).length };
   }
 
   generateSchedule(projectType, totalArea, floors, finishing = 'Standard', region = 'Riyadh', method = 'Traditional') {

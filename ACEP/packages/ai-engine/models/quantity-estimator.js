@@ -53,7 +53,9 @@ class QuantityEstimator {
     }
 
     this.trained = true;
-    return { items: this.boqData.length, categories: Object.keys(this.byCategory).length };
+    this._boqCount = this.boqData.length;
+    this.boqData = null;
+    return { items: this._boqCount, categories: Object.keys(this.byCategory).length };
   }
 
   /**
@@ -107,7 +109,7 @@ class QuantityEstimator {
       phase: result.phase,
       summary: {
         ...result.summary,
-        trainingDataAvailable: this.boqData.length,
+        trainingDataAvailable: this._boqCount || 0,
         priceDataPoints: Object.keys(this.byCategory).length,
         region,
         finishing

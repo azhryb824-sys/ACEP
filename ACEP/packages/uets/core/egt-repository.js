@@ -178,13 +178,25 @@ class EGTRepository {
 
   save() {
     this._ensureDirectory();
-    const data = this.getAll().map(r => r.toJSON());
-    fs.writeFileSync(this.repoPath, JSON.stringify(data, null, 2), 'utf8');
+    this._saveRepo();
     this.index.total = this.records.size;
     this.index.lastUpdated = new Date().toISOString();
-    fs.writeFileSync(this.indexPath, JSON.stringify(this.index, null, 2), 'utf8');
+    fs.writeFileSync(this.indexPath, JSON.stringify(this.index), 'utf8');
     console.log(`[UETS] EGT Repository saved: ${this.index.total} records`);
     return true;
+  }
+
+  _saveRepo() {
+    const tmpPath = this.repoPath + '.tmp';
+    const fd = fs.openSync(tmpPath, 'w');
+    try {
+      for (const egt of this.records.values()) {
+        fs.writeSync(fd, JSON.stringify(egt.toJSON()) + '\n');
+      }
+    } finally {
+      fs.closeSync(fd);
+    }
+    fs.renameSync(tmpPath, this.repoPath);
   }
 
   _ensureDirectory() {
@@ -197,13 +209,7 @@ class EGTRepository {
   _loadFromDisk() {
     try {
       if (fs.existsSync(this.repoPath)) {
-        const raw = fs.readFileSync(this.repoPath, 'utf8');
-        const data = JSON.parse(raw);
-        if (Array.isArray(data)) {
-          for (const item of data) {
-            this.add(new EngineeringGroundTruth(item));
-          }
-        }
+        this._loadRepo();
         console.log(`[UETS] Loaded ${this.records.size} EGT records from disk`);
       }
     } catch (e) {
@@ -216,6 +222,52 @@ class EGTRepository {
       }
     } catch (e) {
       // index will be rebuilt
+    }
+  }
+
+  _loadRepo() {
+    const fd = fs.openSync(this.repoPath, 'r');
+    try {
+      const first = Buffer.alloc(1);
+      fs.readSync(fd, first, 0, 1, 0);
+      if (first[0] === 0x5b) {
+        const raw = fs.readFileSync(this.repoPath, 'utf8');
+        const data = JSON.parse(raw);
+        for (const item of data) {
+          this.add(new EngineeringGroundTruth(item));
+        }
+        return;
+      }
+      let buf = '';
+      const chunk = Buffer.alloc(64 * 1024);
+      let pos = 0;
+      const size = fs.fstatSync(fd).size;
+      while (pos < size) {
+        const n = fs.readSync(fd, chunk, 0, chunk.length, pos);
+        if (n <= 0) break;
+        pos += n;
+        buf += chunk.toString('utf8', 0, n);
+        let nl;
+        while ((nl = buf.indexOf('\n')) !== -1) {
+          const line = buf.slice(0, nl).trim();
+          buf = buf.slice(nl + 1);
+          if (!line) continue;
+          try {
+            this.add(new EngineeringGroundTruth(JSON.parse(line)));
+          } catch (e) {
+            // skip malformed record
+          }
+        }
+      }
+      if (buf.trim()) {
+        try {
+          this.add(new EngineeringGroundTruth(JSON.parse(buf.trim())));
+        } catch (e) {
+          // skip malformed trailing record
+        }
+      }
+    } finally {
+      fs.closeSync(fd);
     }
   }
 
