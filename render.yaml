@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: acep
+    runtime: docker
+    rootDir: ACEP
+    dockerfilePath: Dockerfile.web
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: TOGETHER_API_KEY
+        sync: false
+      - key: REPLICATE_API_KEY
+        sync: false
+      - key: HF_TOKEN
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
