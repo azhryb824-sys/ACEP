@@ -3,7 +3,7 @@ services:
     name: acep
     runtime: docker
     rootDir: ACEP
-    dockerfilePath: Dockerfile.web
+    dockerfilePath: Dockerfile
     healthCheckPath: /health
     envVars:
       - key: NODE_VERSION
