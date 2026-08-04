@@ -2,7 +2,8 @@
 FROM node:20-slim
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    NPM_CONFIG_LOGLEVEL=warn
+    NPM_CONFIG_LOGLEVEL=warn \
+    NODE_ENV=production
 
 WORKDIR /acep
 
@@ -14,10 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Full source (node_modules and .git are excluded via .dockerignore)
 COPY . .
 
-# Workspace install (npm workspaces hoist deps to /acep/node_modules)
-RUN npm install
-
-ENV NODE_ENV=production
+# Production workspace install (NODE_ENV=production omits dev/test deps,
+# avoiding jest/chokidar optional-dep resolution issues and shrinking the image)
+RUN npm install --no-audit --no-fund
 
 EXPOSE 3000
 

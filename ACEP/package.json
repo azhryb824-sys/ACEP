@@ -1,59 +1,52 @@
-﻿{
-    "name":  "acep",
-    "version":  "1.0.0",
-    "private":  true,
+{
+    "name": "acep",
+    "version": "1.0.0",
+    "private": true,
     "workspaces": [
-        "packages/*",
-        "packages/engines/*",
-        "packages/services/*",
+        "packages/ace-core",
         "packages/agents/*",
         "packages/ai-services/*",
+        "packages/databases",
+        "packages/engines/*",
+        "packages/knowledge-base",
+        "packages/platforms/*",
         "packages/plugins/*",
-        "packages/platforms/ggip",
-        "packages/platforms/iseip",
-        "packages/platforms/pmiamp",
-        "packages/platforms/craep",
-        "packages/platforms/ebisdp",
-        "packages/platforms/secip",
-        "packages/platforms/qaiip",
-        "packages/platforms/siapp",
-        "packages/platforms/cmpep",
-        "packages/platforms/easgp",
-        "packages/platforms/sadp",
-        "packages/platforms/gdlmsp"
+        "packages/services/*",
+        "packages/uets",
+        "packages/vision-ai",
+        "packages/vision-training"
     ],
-    "description":  "AI Construction Engineering Platform - Hybrid Engineering Intelligence Platform",
-    "scripts":  {
-                    "build":  "tsc -b",
-                    "test":  "jest",
-                    "lint":  "eslint . --ext .ts",
-                    "clean":  "rimraf dist *.tsbuildinfo",
-                    "start": "node server.js",
-                    "dev": "node server.js"
-                },
-    "dependencies":  {
-                          "express": "^4.21.0"
-                      },
-    "devDependencies":  {
-                            "@types/jest":  "^29.5.0",
-                            "@types/node":  "^20.19.43",
-                            "@types/uuid":  "^9.0.0",
-                            "concurrently":  "^8.2.0",
-                            "eslint":  "^8.56.0",
-                            "jest":  "^29.7.0",
-                            "prettier":  "^3.2.0",
-                            "rimraf":  "^5.0.0",
-                            "ts-jest":  "^29.1.0",
-                            "ts-node":  "^10.9.0"
-                        },
-    "main":  "index.js",
-    "directories":  {
-                        "doc":  "docs",
-                        "example":  "examples"
-                    },
-    "keywords":  [
-
-                 ],
-    "author":  "",
-    "license":  "ISC"
+    "description": "AI Construction Engineering Platform - Hybrid Engineering Intelligence Platform",
+    "scripts": {
+        "build": "tsc -b",
+        "test": "jest",
+        "lint": "eslint . --ext .ts",
+        "clean": "rimraf dist *.tsbuildinfo",
+        "start": "node server.js",
+        "dev": "node server.js"
+    },
+    "dependencies": {
+        "axios": "^1.19.0",
+        "express": "^4.21.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.5.0",
+        "@types/node": "^20.19.43",
+        "@types/uuid": "^9.0.0",
+        "concurrently": "^8.2.0",
+        "eslint": "^8.56.0",
+        "jest": "^29.7.0",
+        "prettier": "^3.2.0",
+        "rimraf": "^5.0.0",
+        "ts-jest": "^29.1.0",
+        "ts-node": "^10.9.0"
+    },
+    "main": "index.js",
+    "directories": {
+        "doc": "docs",
+        "example": "examples"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }

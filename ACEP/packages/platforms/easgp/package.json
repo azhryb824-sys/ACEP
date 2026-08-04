@@ -1,6 +1,6 @@
 {
   "name": "@acep/easgp",
-  "version": "47.0.0",
+  "version": "1.0.0",
   "description": "Enterprise Administration, Security & Governance Platform - Volume 47",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
