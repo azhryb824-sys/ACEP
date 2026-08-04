@@ -1,0 +1,1002 @@
+[
+  {
+    "project_id": "SA-R00001",
+    "defect_type": "Efflorescence",
+    "severity": "Critical",
+    "location": "Floor 2 - East Wing",
+    "element_type": "Slab",
+    "detected_by": "Inspector",
+    "confidence": 95,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00002",
+    "defect_type": "Crack",
+    "severity": "High",
+    "location": "Floor 3 - Zone B",
+    "element_type": "Wall",
+    "detected_by": "Inspector",
+    "confidence": 81,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00003",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 2 - Zone B",
+    "element_type": "Slab",
+    "detected_by": "AI",
+    "confidence": 89,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00003",
+    "defect_type": "Honeycombing",
+    "severity": "Medium",
+    "location": "Floor 1 - West Wing",
+    "element_type": "Wall",
+    "detected_by": "Inspector",
+    "confidence": 81,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00003",
+    "defect_type": "Crack",
+    "severity": "Critical",
+    "location": "Floor 1 - East Wing",
+    "element_type": "Slab",
+    "detected_by": "AI",
+    "confidence": 77,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00004",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 1 - Zone C",
+    "element_type": "Slab",
+    "detected_by": "AI",
+    "confidence": 79,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00004",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 1 - Zone C",
+    "element_type": "Slab",
+    "detected_by": "Inspector",
+    "confidence": 75,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00004",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 2 - West Wing",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 92,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00005",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 2 - Zone C",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 85,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00005",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 8 - Core Area",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 98,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00005",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 11 - Zone B",
+    "element_type": "Foundation",
+    "detected_by": "Inspector",
+    "confidence": 90,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00006",
+    "defect_type": "Crack",
+    "severity": "High",
+    "location": "Floor 1 - Core Area",
+    "element_type": "Wall",
+    "detected_by": "AI",
+    "confidence": 77,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00007",
+    "defect_type": "Crack",
+    "severity": "High",
+    "location": "Floor 1 - Core Area",
+    "element_type": "Slab",
+    "detected_by": "Inspector",
+    "confidence": 94,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00008",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 3 - West Wing",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 84,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00008",
+    "defect_type": "Efflorescence",
+    "severity": "Critical",
+    "location": "Floor 8 - Core Area",
+    "element_type": "Wall",
+    "detected_by": "AI",
+    "confidence": 75,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00009",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 1 - Core Area",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 78,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00009",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 1 - Zone A",
+    "element_type": "Slab",
+    "detected_by": "Inspector",
+    "confidence": 78,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00009",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 1 - Zone C",
+    "element_type": "Column",
+    "detected_by": "AI",
+    "confidence": 81,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00010",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 3 - Zone C",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 87,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00010",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 1 - Zone C",
+    "element_type": "Slab",
+    "detected_by": "AI",
+    "confidence": 94,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00012",
+    "defect_type": "Honeycombing",
+    "severity": "Medium",
+    "location": "Floor 5 - West Wing",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 99,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00012",
+    "defect_type": "Spalling",
+    "severity": "Critical",
+    "location": "Floor 2 - Zone B",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 98,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00012",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 5 - Zone C",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 84,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00013",
+    "defect_type": "Corrosion",
+    "severity": "Critical",
+    "location": "Floor 1 - East Wing",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 89,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00013",
+    "defect_type": "Settlement Crack",
+    "severity": "High",
+    "location": "Floor 4 - Zone C",
+    "element_type": "Foundation",
+    "detected_by": "Inspector",
+    "confidence": 82,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00013",
+    "defect_type": "Crack",
+    "severity": "Critical",
+    "location": "Floor 4 - Core Area",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 91,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00014",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 1 - Core Area",
+    "element_type": "Slab",
+    "detected_by": "Inspector",
+    "confidence": 99,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00015",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 2 - West Wing",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 95,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00015",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 6 - East Wing",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 93,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00016",
+    "defect_type": "Crack",
+    "severity": "Critical",
+    "location": "Floor 7 - Zone B",
+    "element_type": "Wall",
+    "detected_by": "AI",
+    "confidence": 87,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00018",
+    "defect_type": "Corrosion",
+    "severity": "Critical",
+    "location": "Floor 2 - East Wing",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 86,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00018",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 2 - West Wing",
+    "element_type": "Column",
+    "detected_by": "AI",
+    "confidence": 76,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00018",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 2 - West Wing",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 91,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00019",
+    "defect_type": "Spalling",
+    "severity": "Critical",
+    "location": "Floor 3 - Zone A",
+    "element_type": "Slab",
+    "detected_by": "AI",
+    "confidence": 75,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00020",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 1 - East Wing",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 77,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00020",
+    "defect_type": "Honeycombing",
+    "severity": "Medium",
+    "location": "Floor 1 - West Wing",
+    "element_type": "Wall",
+    "detected_by": "Inspector",
+    "confidence": 80,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00021",
+    "defect_type": "Honeycombing",
+    "severity": "Medium",
+    "location": "Floor 2 - Zone A",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 85,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00021",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 2 - Core Area",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 88,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00022",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 4 - East Wing",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 89,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00022",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 2 - West Wing",
+    "element_type": "Slab",
+    "detected_by": "Inspector",
+    "confidence": 97,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00023",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 3 - Zone A",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 86,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00023",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 2 - West Wing",
+    "element_type": "Column",
+    "detected_by": "AI",
+    "confidence": 95,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00024",
+    "defect_type": "Honeycombing",
+    "severity": "Medium",
+    "location": "Floor 2 - Zone B",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 92,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00024",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 2 - East Wing",
+    "element_type": "Foundation",
+    "detected_by": "Inspector",
+    "confidence": 91,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00024",
+    "defect_type": "Efflorescence",
+    "severity": "Low",
+    "location": "Floor 1 - Zone B",
+    "element_type": "Wall",
+    "detected_by": "AI",
+    "confidence": 89,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00025",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 2 - East Wing",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 80,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00025",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 2 - Core Area",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 92,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00025",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 3 - West Wing",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 88,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00026",
+    "defect_type": "Efflorescence",
+    "severity": "High",
+    "location": "Floor 2 - West Wing",
+    "element_type": "Wall",
+    "detected_by": "AI",
+    "confidence": 91,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00026",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 1 - Zone C",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 88,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00026",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 1 - Core Area",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 80,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00027",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 4 - Zone C",
+    "element_type": "Column",
+    "detected_by": "AI",
+    "confidence": 84,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00027",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 1 - Zone B",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 89,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00028",
+    "defect_type": "Settlement Crack",
+    "severity": "High",
+    "location": "Floor 1 - Core Area",
+    "element_type": "Foundation",
+    "detected_by": "Inspector",
+    "confidence": 92,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00028",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 1 - Zone B",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 92,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00028",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 1 - Zone B",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 89,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00029",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 2 - Zone A",
+    "element_type": "Slab",
+    "detected_by": "AI",
+    "confidence": 78,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00029",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 3 - Zone B",
+    "element_type": "Column",
+    "detected_by": "AI",
+    "confidence": 92,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00029",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 2 - West Wing",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 87,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00030",
+    "defect_type": "Corrosion",
+    "severity": "Critical",
+    "location": "Floor 1 - Zone B",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 75,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00030",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 5 - Zone B",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 91,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00030",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 2 - West Wing",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 90,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00031",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 1 - Core Area",
+    "element_type": "Foundation",
+    "detected_by": "Inspector",
+    "confidence": 76,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00032",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 1 - West Wing",
+    "element_type": "Wall",
+    "detected_by": "Inspector",
+    "confidence": 99,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00032",
+    "defect_type": "Honeycombing",
+    "severity": "Critical",
+    "location": "Floor 1 - Zone B",
+    "element_type": "Wall",
+    "detected_by": "AI",
+    "confidence": 91,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00033",
+    "defect_type": "Corrosion",
+    "severity": "Critical",
+    "location": "Floor 9 - Zone B",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 81,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00034",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 3 - Zone A",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 90,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00034",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 3 - West Wing",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 89,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00034",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 2 - Zone B",
+    "element_type": "Column",
+    "detected_by": "AI",
+    "confidence": 76,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00037",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 3 - West Wing",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 85,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00037",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 5 - East Wing",
+    "element_type": "Foundation",
+    "detected_by": "Inspector",
+    "confidence": 97,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00038",
+    "defect_type": "Efflorescence",
+    "severity": "Low",
+    "location": "Floor 11 - West Wing",
+    "element_type": "Slab",
+    "detected_by": "AI",
+    "confidence": 90,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00038",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 6 - Zone A",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 78,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00039",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 1 - Core Area",
+    "element_type": "Wall",
+    "detected_by": "Inspector",
+    "confidence": 75,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00040",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 4 - West Wing",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 86,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00040",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 5 - Core Area",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 80,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00041",
+    "defect_type": "Corrosion",
+    "severity": "Critical",
+    "location": "Floor 6 - East Wing",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 99,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00041",
+    "defect_type": "Efflorescence",
+    "severity": "Low",
+    "location": "Floor 4 - East Wing",
+    "element_type": "Wall",
+    "detected_by": "AI",
+    "confidence": 75,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00041",
+    "defect_type": "Honeycombing",
+    "severity": "Critical",
+    "location": "Floor 3 - West Wing",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 87,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00042",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 58 - Zone B",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 94,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00043",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 2 - Core Area",
+    "element_type": "Wall",
+    "detected_by": "AI",
+    "confidence": 80,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00043",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 4 - East Wing",
+    "element_type": "Slab",
+    "detected_by": "Inspector",
+    "confidence": 90,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00043",
+    "defect_type": "Crack",
+    "severity": "Medium",
+    "location": "Floor 5 - Zone B",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 97,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00044",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 4 - Zone A",
+    "element_type": "Foundation",
+    "detected_by": "Inspector",
+    "confidence": 82,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00044",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 4 - Zone A",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 98,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00046",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 1 - Zone B",
+    "element_type": "Column",
+    "detected_by": "AI",
+    "confidence": 83,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00046",
+    "defect_type": "Efflorescence",
+    "severity": "Critical",
+    "location": "Floor 1 - Core Area",
+    "element_type": "Slab",
+    "detected_by": "Inspector",
+    "confidence": 94,
+    "status": "InProgress"
+  },
+  {
+    "project_id": "SA-R00047",
+    "defect_type": "Honeycombing",
+    "severity": "Medium",
+    "location": "Floor 5 - Core Area",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 79,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00047",
+    "defect_type": "Efflorescence",
+    "severity": "High",
+    "location": "Floor 3 - East Wing",
+    "element_type": "Wall",
+    "detected_by": "Inspector",
+    "confidence": 93,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00048",
+    "defect_type": "Honeycombing",
+    "severity": "High",
+    "location": "Floor 3 - Zone C",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 84,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00048",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 2 - Zone B",
+    "element_type": "Slab",
+    "detected_by": "Inspector",
+    "confidence": 80,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00050",
+    "defect_type": "Efflorescence",
+    "severity": "Low",
+    "location": "Floor 2 - Zone A",
+    "element_type": "Slab",
+    "detected_by": "AI",
+    "confidence": 87,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00050",
+    "defect_type": "Settlement Crack",
+    "severity": "High",
+    "location": "Floor 7 - East Wing",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 94,
+    "status": "Open"
+  },
+  {
+    "project_id": "SA-R00050",
+    "defect_type": "Crack",
+    "severity": "Critical",
+    "location": "Floor 4 - Zone B",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 87,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00051",
+    "defect_type": "Settlement Crack",
+    "severity": "Critical",
+    "location": "Floor 2 - Zone B",
+    "element_type": "Foundation",
+    "detected_by": "AI",
+    "confidence": 88,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00052",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 4 - Zone A",
+    "element_type": "Beam",
+    "detected_by": "AI",
+    "confidence": 99,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00053",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 7 - Zone C",
+    "element_type": "Column",
+    "detected_by": "AI",
+    "confidence": 90,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00053",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 3 - Zone B",
+    "element_type": "Column",
+    "detected_by": "AI",
+    "confidence": 86,
+    "status": "Resolved"
+  },
+  {
+    "project_id": "SA-R00053",
+    "defect_type": "Spalling",
+    "severity": "High",
+    "location": "Floor 1 - West Wing",
+    "element_type": "Column",
+    "detected_by": "Inspector",
+    "confidence": 83,
+    "status": "Verified"
+  },
+  {
+    "project_id": "SA-R00054",
+    "defect_type": "Corrosion",
+    "severity": "High",
+    "location": "Floor 1 - East Wing",
+    "element_type": "Beam",
+    "detected_by": "Inspector",
+    "confidence": 98,
+    "status": "Resolved"
+  }
+]

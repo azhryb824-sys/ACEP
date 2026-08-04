@@ -1,0 +1,231 @@
+version: '3.8'
+
+x-service-defaults: &service-defaults
+  restart: unless-stopped
+  networks:
+    - acep-net
+
+services:
+  api-gateway:
+    <<: *service-defaults
+    build:
+      context: ../../packages/services/api-gateway
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - REDIS_URL=redis://message-bus:6379
+      - IDENTITY_URL=http://identity-service:8081
+      - PROJECTS_URL=http://project-engine:8082
+      - COST_URL=http://cost-engine:8083
+      - KNOWLEDGE_URL=http://knowledge-service:8084
+      - LLM_URL=http://llm-service:8085
+    depends_on:
+      message-bus: { condition: service_started }
+      identity-service: { condition: service_started }
+
+  message-bus:
+    <<: *service-defaults
+    build:
+      context: ../../packages/services/message-bus
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "6379:6379"
+
+  identity-service:
+    <<: *service-defaults
+    build:
+      context: ../../packages/services/identity
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - NODE_ENV=production
+      - PORT=8081
+      - MONGODB_URI=mongodb://mongodb:27017/acep_identity
+      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+    depends_on:
+      mongodb: { condition: service_started }
+
+  project-engine:
+    <<: *service-defaults
+    build:
+      context: ../../packages/engines/project-understanding
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - NODE_ENV=production
+      - PORT=8082
+      - REDIS_URL=redis://message-bus:6379
+      - DATABASE_URL=postgresql://acep:${DB_PASSWORD:-acep_secret}@postgres:5432/acep
+    depends_on:
+      message-bus: { condition: service_started }
+      postgres: { condition: service_started }
+
+  cost-engine:
+    <<: *service-defaults
+    build:
+      context: ../../packages/engines/cost
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      - NODE_ENV=production
+      - PORT=8083
+      - REDIS_URL=redis://message-bus:6379
+      - DATABASE_URL=postgresql://acep:${DB_PASSWORD:-acep_secret}@postgres:5432/acep
+    depends_on:
+      message-bus: { condition: service_started }
+      postgres: { condition: service_started }
+
+  knowledge-service:
+    <<: *service-defaults
+    build:
+      context: ../../packages/knowledge-base
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "8084:8084"
+    environment:
+      - NODE_ENV=production
+      - PORT=8084
+      - REDIS_URL=redis://message-bus:6379
+    depends_on:
+      message-bus: { condition: service_started }
+
+  llm-service:
+    <<: *service-defaults
+    build:
+      context: ../../packages/ai-services/llm
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "8085:8085"
+    environment:
+      - NODE_ENV=production
+      - PORT=8085
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - REDIS_URL=redis://message-bus:6379
+    depends_on:
+      message-bus: { condition: service_started }
+
+  reasoning-engine:
+    <<: *service-defaults
+    build:
+      context: ../../packages/engines/reasoning
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "8086:8086"
+    environment:
+      - NODE_ENV=production
+      - PORT=8086
+      - REDIS_URL=redis://message-bus:6379
+    depends_on:
+      message-bus: { condition: service_started }
+
+  boq-engine:
+    <<: *service-defaults
+    build:
+      context: ../../packages/engines/boq
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "8087:8087"
+    environment:
+      - NODE_ENV=production
+      - PORT=8087
+      - REDIS_URL=redis://message-bus:6379
+      - DATABASE_URL=postgresql://acep:${DB_PASSWORD:-acep_secret}@postgres:5432/acep
+    depends_on:
+      message-bus: { condition: service_started }
+      postgres: { condition: service_started }
+
+  schedule-engine:
+    <<: *service-defaults
+    build:
+      context: ../../packages/engines/schedule
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "8088:8088"
+    environment:
+      - NODE_ENV=production
+      - PORT=8088
+      - REDIS_URL=redis://message-bus:6379
+    depends_on:
+      message-bus: { condition: service_started }
+
+  risk-engine:
+    <<: *service-defaults
+    build:
+      context: ../../packages/engines/risk
+      dockerfile: ../../../infrastructure/docker/Dockerfile
+    ports:
+      - "8089:8089"
+    environment:
+      - NODE_ENV=production
+      - PORT=8089
+      - REDIS_URL=redis://message-bus:6379
+    depends_on:
+      message-bus: { condition: service_started }
+
+  mongodb:
+    <<: *service-defaults
+    image: mongo:7
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+  postgres:
+    <<: *service-defaults
+    image: postgres:16
+    environment:
+      POSTGRES_DB: acep
+      POSTGRES_USER: acep
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-acep_secret}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    <<: *service-defaults
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+  prometheus:
+    <<: *service-defaults
+    image: prom/prometheus:v2.50
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+
+  grafana:
+    <<: *service-defaults
+    image: grafana/grafana:10.3
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana-dashboard.json:/etc/grafana/provisioning/dashboards/acep.json
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    depends_on:
+      prometheus: { condition: service_started }
+
+volumes:
+  mongo-data:
+  postgres-data:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  acep-net:
+    driver: bridge

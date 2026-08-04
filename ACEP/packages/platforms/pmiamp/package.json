@@ -1,0 +1,14 @@
+{
+  "name": "@acep/pmiamp",
+  "version": "1.0.0",
+  "description": "Predictive Maintenance & Intelligent Asset Management Platform - الصيانة التنبؤية والإدارة الذكية للأصول",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@acep/core": "^1.0.0"
+  }
+}

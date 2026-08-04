@@ -1,0 +1,108 @@
+{
+  "title": "ACEP Platform Dashboard",
+  "version": 1,
+  "uid": "acep-platform",
+  "description": "Main dashboard for monitoring ACEP Construction Engineering Platform",
+  "tags": ["acep", "construction", "engineering"],
+  "schemaVersion": 38,
+  "timezone": "browser",
+  "editable": true,
+  "panels": [
+    {
+      "title": "Active Projects",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "acep_active_projects_total",
+          "legendFormat": "Active Projects"
+        }
+      ],
+      "description": "Total number of active projects in the system"
+    },
+    {
+      "title": "API Request Rate",
+      "type": "graph",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "targets": [
+        {
+          "expr": "rate(http_requests_total[5m])",
+          "legendFormat": "Requests/s"
+        }
+      ],
+      "description": "API request rate across all services"
+    },
+    {
+      "title": "CPU Usage by Service",
+      "type": "graph",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"acep\"}[5m])) by (pod)",
+          "legendFormat": "{{pod}}"
+        }
+      ],
+      "description": "CPU usage per service pod"
+    },
+    {
+      "title": "Memory Usage by Service",
+      "type": "graph",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 },
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{namespace=\"acep\"}) by (pod)",
+          "legendFormat": "{{pod}}"
+        }
+      ],
+      "description": "Memory usage per service pod"
+    },
+    {
+      "title": "API Response Time (p95)",
+      "type": "graph",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 28 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service))",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "description": "95th percentile API response time"
+    },
+    {
+      "title": "Error Rate by Service",
+      "type": "graph",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 28 },
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) by (service) / sum(rate(http_requests_total[5m])) by (service) * 100",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "description": "Error rate percentage by service"
+    },
+    {
+      "title": "Database Connections",
+      "type": "graph",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 36 },
+      "targets": [
+        {
+          "expr": "pg_stat_database_numbackends",
+          "legendFormat": "PostgreSQL"
+        }
+      ],
+      "description": "Active database connections"
+    },
+    {
+      "title": "Redis Memory Usage",
+      "type": "gauge",
+      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 36 },
+      "targets": [
+        {
+          "expr": "redis_memory_used_bytes / redis_memory_max_bytes * 100",
+          "legendFormat": "Redis Memory %"
+        }
+      ],
+      "description": "Redis memory usage percentage"
+    }
+  ]
+}

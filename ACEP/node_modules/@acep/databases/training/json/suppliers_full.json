@@ -1,0 +1,1242 @@
+[
+  {
+    "supplier_name": "Saudi Ceramics - 1",
+    "city": "Khobar",
+    "speciality": "General Construction",
+    "rating": 3.8,
+    "delivery_speed_days": 3,
+    "contract_years": 8,
+    "compliance_percent": 82,
+    "total_deals": 291
+  },
+  {
+    "supplier_name": "Al-Fanar Group - 2",
+    "city": "Najran",
+    "speciality": "Concrete",
+    "rating": 4.1,
+    "delivery_speed_days": 6,
+    "contract_years": 4,
+    "compliance_percent": 87,
+    "total_deals": 394
+  },
+  {
+    "supplier_name": "Otis Saudi - 3",
+    "city": "Dammam",
+    "speciality": "Electrical",
+    "rating": 4.2,
+    "delivery_speed_days": 17,
+    "contract_years": 0,
+    "compliance_percent": 87,
+    "total_deals": 8
+  },
+  {
+    "supplier_name": "ABB Saudi - 4",
+    "city": "Taif",
+    "speciality": "Plumbing",
+    "rating": 3.2,
+    "delivery_speed_days": 12,
+    "contract_years": 10,
+    "compliance_percent": 85,
+    "total_deals": 356
+  },
+  {
+    "supplier_name": "ABB Saudi - 5",
+    "city": "Madinah",
+    "speciality": "Steel",
+    "rating": 4.1,
+    "delivery_speed_days": 11,
+    "contract_years": 6,
+    "compliance_percent": 96,
+    "total_deals": 92
+  },
+  {
+    "supplier_name": "Qassim Cement - 6",
+    "city": "Riyadh",
+    "speciality": "General Construction",
+    "rating": 4.3,
+    "delivery_speed_days": 15,
+    "contract_years": 0,
+    "compliance_percent": 96,
+    "total_deals": 58
+  },
+  {
+    "supplier_name": "Al-Yamama Steel - 7",
+    "city": "Tabuk",
+    "speciality": "HVAC",
+    "rating": 4.1,
+    "delivery_speed_days": 15,
+    "contract_years": 7,
+    "compliance_percent": 80,
+    "total_deals": 317
+  },
+  {
+    "supplier_name": "Bin Laden Group - 8",
+    "city": "Tabuk",
+    "speciality": "Steel",
+    "rating": 4.3,
+    "delivery_speed_days": 4,
+    "contract_years": 2,
+    "compliance_percent": 83,
+    "total_deals": 386
+  },
+  {
+    "supplier_name": "Siemens Saudi - 9",
+    "city": "Khamis Mushait",
+    "speciality": "Steel",
+    "rating": 4.1,
+    "delivery_speed_days": 13,
+    "contract_years": 4,
+    "compliance_percent": 93,
+    "total_deals": 94
+  },
+  {
+    "supplier_name": "Arabian Construction Supply - 10",
+    "city": "Najran",
+    "speciality": "Finishing",
+    "rating": 4.7,
+    "delivery_speed_days": 18,
+    "contract_years": 6,
+    "compliance_percent": 88,
+    "total_deals": 32
+  },
+  {
+    "supplier_name": "Saudi Elevator - 11",
+    "city": "Makkah",
+    "speciality": "Finishing",
+    "rating": 4.1,
+    "delivery_speed_days": 14,
+    "contract_years": 5,
+    "compliance_percent": 92,
+    "total_deals": 263
+  },
+  {
+    "supplier_name": "Arabian Pipes - 12",
+    "city": "Tabuk",
+    "speciality": "HVAC",
+    "rating": 4.2,
+    "delivery_speed_days": 1,
+    "contract_years": 5,
+    "compliance_percent": 77,
+    "total_deals": 168
+  },
+  {
+    "supplier_name": "Saudi Cable - 13",
+    "city": "Taif",
+    "speciality": "Concrete",
+    "rating": 4.9,
+    "delivery_speed_days": 12,
+    "contract_years": 2,
+    "compliance_percent": 85,
+    "total_deals": 444
+  },
+  {
+    "supplier_name": "Qassim Cement - 14",
+    "city": "Abha",
+    "speciality": "Plumbing",
+    "rating": 4.3,
+    "delivery_speed_days": 15,
+    "contract_years": 6,
+    "compliance_percent": 96,
+    "total_deals": 316
+  },
+  {
+    "supplier_name": "Qassim Cement - 15",
+    "city": "Najran",
+    "speciality": "Electrical",
+    "rating": 4,
+    "delivery_speed_days": 18,
+    "contract_years": 7,
+    "compliance_percent": 99,
+    "total_deals": 261
+  },
+  {
+    "supplier_name": "Al-Omran Group - 16",
+    "city": "Najran",
+    "speciality": "Plumbing",
+    "rating": 2.9,
+    "delivery_speed_days": 18,
+    "contract_years": 4,
+    "compliance_percent": 93,
+    "total_deals": 222
+  },
+  {
+    "supplier_name": "Al-Rajhi Steel - 17",
+    "city": "Jeddah",
+    "speciality": "Steel",
+    "rating": 4.4,
+    "delivery_speed_days": 20,
+    "contract_years": 5,
+    "compliance_percent": 93,
+    "total_deals": 417
+  },
+  {
+    "supplier_name": "Al-Dabbagh Group - 18",
+    "city": "Khobar",
+    "speciality": "General Construction",
+    "rating": 4.9,
+    "delivery_speed_days": 5,
+    "contract_years": 1,
+    "compliance_percent": 98,
+    "total_deals": 440
+  },
+  {
+    "supplier_name": "Al-Ghurair - 19",
+    "city": "Najran",
+    "speciality": "Plumbing",
+    "rating": 4.2,
+    "delivery_speed_days": 6,
+    "contract_years": 8,
+    "compliance_percent": 93,
+    "total_deals": 224
+  },
+  {
+    "supplier_name": "Saudi Panel - 20",
+    "city": "Dammam",
+    "speciality": "Concrete",
+    "rating": 3.7,
+    "delivery_speed_days": 18,
+    "contract_years": 6,
+    "compliance_percent": 75,
+    "total_deals": 93
+  },
+  {
+    "supplier_name": "Arabian Pipes - 21",
+    "city": "Buraydah",
+    "speciality": "General Construction",
+    "rating": 4,
+    "delivery_speed_days": 7,
+    "contract_years": 1,
+    "compliance_percent": 100,
+    "total_deals": 433
+  },
+  {
+    "supplier_name": "Al-Jabr Trading - 22",
+    "city": "Khamis Mushait",
+    "speciality": "HVAC",
+    "rating": 4.3,
+    "delivery_speed_days": 16,
+    "contract_years": 5,
+    "compliance_percent": 84,
+    "total_deals": 167
+  },
+  {
+    "supplier_name": "Saudi Elevator - 23",
+    "city": "Hail",
+    "speciality": "HVAC",
+    "rating": 4,
+    "delivery_speed_days": 6,
+    "contract_years": 0,
+    "compliance_percent": 95,
+    "total_deals": 357
+  },
+  {
+    "supplier_name": "Al-Safi Danone - 24",
+    "city": "Taif",
+    "speciality": "Electrical",
+    "rating": 4.4,
+    "delivery_speed_days": 9,
+    "contract_years": 9,
+    "compliance_percent": 95,
+    "total_deals": 77
+  },
+  {
+    "supplier_name": "Safwa Cement - 25",
+    "city": "Makkah",
+    "speciality": "Concrete",
+    "rating": 3.6,
+    "delivery_speed_days": 10,
+    "contract_years": 10,
+    "compliance_percent": 83,
+    "total_deals": 173
+  },
+  {
+    "supplier_name": "Yamama Cement - 26",
+    "city": "Dammam",
+    "speciality": "General Construction",
+    "rating": 3.3,
+    "delivery_speed_days": 5,
+    "contract_years": 10,
+    "compliance_percent": 82,
+    "total_deals": 210
+  },
+  {
+    "supplier_name": "Al-Omran Group - 27",
+    "city": "Najran",
+    "speciality": "General Construction",
+    "rating": 4.2,
+    "delivery_speed_days": 8,
+    "contract_years": 10,
+    "compliance_percent": 81,
+    "total_deals": 52
+  },
+  {
+    "supplier_name": "Al-Safi Danone - 28",
+    "city": "Khobar",
+    "speciality": "Finishing",
+    "rating": 2.6,
+    "delivery_speed_days": 4,
+    "contract_years": 2,
+    "compliance_percent": 91,
+    "total_deals": 460
+  },
+  {
+    "supplier_name": "Schneider Saudi - 29",
+    "city": "Buraydah",
+    "speciality": "Concrete",
+    "rating": 3.5,
+    "delivery_speed_days": 8,
+    "contract_years": 0,
+    "compliance_percent": 78,
+    "total_deals": 345
+  },
+  {
+    "supplier_name": "Al-Wehaiby Co. - 30",
+    "city": "Abha",
+    "speciality": "Concrete",
+    "rating": 4.8,
+    "delivery_speed_days": 20,
+    "contract_years": 6,
+    "compliance_percent": 78,
+    "total_deals": 486
+  },
+  {
+    "supplier_name": "Al-Madina Cement - 31",
+    "city": "Dammam",
+    "speciality": "Concrete",
+    "rating": 4.5,
+    "delivery_speed_days": 21,
+    "contract_years": 3,
+    "compliance_percent": 94,
+    "total_deals": 436
+  },
+  {
+    "supplier_name": "Arabian Cement - 34",
+    "city": "Madinah",
+    "speciality": "Concrete",
+    "rating": 4.2,
+    "delivery_speed_days": 20,
+    "contract_years": 4,
+    "compliance_percent": 96,
+    "total_deals": 114
+  },
+  {
+    "supplier_name": "National Gypsum - 35",
+    "city": "Makkah",
+    "speciality": "Finishing",
+    "rating": 4.4,
+    "delivery_speed_days": 21,
+    "contract_years": 3,
+    "compliance_percent": 83,
+    "total_deals": 265
+  },
+  {
+    "supplier_name": "ABB Saudi - 36",
+    "city": "Riyadh",
+    "speciality": "Plumbing",
+    "rating": 4.3,
+    "delivery_speed_days": 6,
+    "contract_years": 3,
+    "compliance_percent": 93,
+    "total_deals": 174
+  },
+  {
+    "supplier_name": "Siemens Saudi - 37",
+    "city": "Buraydah",
+    "speciality": "Concrete",
+    "rating": 4.1,
+    "delivery_speed_days": 14,
+    "contract_years": 1,
+    "compliance_percent": 81,
+    "total_deals": 168
+  },
+  {
+    "supplier_name": "Arabian Construction Supply - 39",
+    "city": "Tabuk",
+    "speciality": "Electrical",
+    "rating": 3.9,
+    "delivery_speed_days": 4,
+    "contract_years": 4,
+    "compliance_percent": 95,
+    "total_deals": 402
+  },
+  {
+    "supplier_name": "Saudi Modern Factory - 40",
+    "city": "Khamis Mushait",
+    "speciality": "Plumbing",
+    "rating": 3.5,
+    "delivery_speed_days": 16,
+    "contract_years": 5,
+    "compliance_percent": 87,
+    "total_deals": 285
+  },
+  {
+    "supplier_name": "National Ready Mix - 41",
+    "city": "Riyadh",
+    "speciality": "Steel",
+    "rating": 4.6,
+    "delivery_speed_days": 21,
+    "contract_years": 6,
+    "compliance_percent": 86,
+    "total_deals": 385
+  },
+  {
+    "supplier_name": "Saudi Plaster - 42",
+    "city": "Khobar",
+    "speciality": "Finishing",
+    "rating": 3,
+    "delivery_speed_days": 12,
+    "contract_years": 4,
+    "compliance_percent": 83,
+    "total_deals": 179
+  },
+  {
+    "supplier_name": "Saudi Modern Factory - 43",
+    "city": "Buraydah",
+    "speciality": "Plumbing",
+    "rating": 4.5,
+    "delivery_speed_days": 3,
+    "contract_years": 2,
+    "compliance_percent": 96,
+    "total_deals": 163
+  },
+  {
+    "supplier_name": "Al-Yamama Steel - 44",
+    "city": "Taif",
+    "speciality": "Finishing",
+    "rating": 4.5,
+    "delivery_speed_days": 7,
+    "contract_years": 8,
+    "compliance_percent": 76,
+    "total_deals": 64
+  },
+  {
+    "supplier_name": "Saudi Modern Factory - 46",
+    "city": "Tabuk",
+    "speciality": "Plumbing",
+    "rating": 3.2,
+    "delivery_speed_days": 1,
+    "contract_years": 10,
+    "compliance_percent": 79,
+    "total_deals": 356
+  },
+  {
+    "supplier_name": "Kone Saudi - 48",
+    "city": "Riyadh",
+    "speciality": "Concrete",
+    "rating": 4.6,
+    "delivery_speed_days": 14,
+    "contract_years": 7,
+    "compliance_percent": 93,
+    "total_deals": 235
+  },
+  {
+    "supplier_name": "Al-Wehaiby Co. - 49",
+    "city": "Khobar",
+    "speciality": "Finishing",
+    "rating": 3.8,
+    "delivery_speed_days": 17,
+    "contract_years": 2,
+    "compliance_percent": 99,
+    "total_deals": 111
+  },
+  {
+    "supplier_name": "Al-Omran Group - 50",
+    "city": "Jeddah",
+    "speciality": "Finishing",
+    "rating": 4.3,
+    "delivery_speed_days": 15,
+    "contract_years": 0,
+    "compliance_percent": 97,
+    "total_deals": 182
+  },
+  {
+    "supplier_name": "Sahara PVC - 51",
+    "city": "Makkah",
+    "speciality": "General Construction",
+    "rating": 3.8,
+    "delivery_speed_days": 1,
+    "contract_years": 7,
+    "compliance_percent": 85,
+    "total_deals": 399
+  },
+  {
+    "supplier_name": "Schneider Saudi - 52",
+    "city": "Taif",
+    "speciality": "Electrical",
+    "rating": 3.5,
+    "delivery_speed_days": 2,
+    "contract_years": 1,
+    "compliance_percent": 77,
+    "total_deals": 396
+  },
+  {
+    "supplier_name": "Arabian Construction Supply - 53",
+    "city": "Khobar",
+    "speciality": "HVAC",
+    "rating": 4,
+    "delivery_speed_days": 20,
+    "contract_years": 10,
+    "compliance_percent": 94,
+    "total_deals": 392
+  },
+  {
+    "supplier_name": "Al-Yamama Steel - 55",
+    "city": "Khamis Mushait",
+    "speciality": "Concrete",
+    "rating": 4.4,
+    "delivery_speed_days": 5,
+    "contract_years": 5,
+    "compliance_percent": 84,
+    "total_deals": 338
+  },
+  {
+    "supplier_name": "Arabian Construction Supply - 57",
+    "city": "Abha",
+    "speciality": "HVAC",
+    "rating": 3.3,
+    "delivery_speed_days": 9,
+    "contract_years": 5,
+    "compliance_percent": 80,
+    "total_deals": 337
+  },
+  {
+    "supplier_name": "ABB Saudi - 58",
+    "city": "Madinah",
+    "speciality": "HVAC",
+    "rating": 3.2,
+    "delivery_speed_days": 7,
+    "contract_years": 2,
+    "compliance_percent": 97,
+    "total_deals": 313
+  },
+  {
+    "supplier_name": "Southern Province Cement - 59",
+    "city": "Riyadh",
+    "speciality": "Finishing",
+    "rating": 4.4,
+    "delivery_speed_days": 16,
+    "contract_years": 10,
+    "compliance_percent": 95,
+    "total_deals": 342
+  },
+  {
+    "supplier_name": "Otis Saudi - 62",
+    "city": "Abha",
+    "speciality": "General Construction",
+    "rating": 4.8,
+    "delivery_speed_days": 12,
+    "contract_years": 8,
+    "compliance_percent": 100,
+    "total_deals": 249
+  },
+  {
+    "supplier_name": "Southern Province Cement - 63",
+    "city": "Jeddah",
+    "speciality": "Steel",
+    "rating": 3.8,
+    "delivery_speed_days": 13,
+    "contract_years": 1,
+    "compliance_percent": 87,
+    "total_deals": 52
+  },
+  {
+    "supplier_name": "Saudi Plaster - 64",
+    "city": "Khobar",
+    "speciality": "Plumbing",
+    "rating": 4,
+    "delivery_speed_days": 1,
+    "contract_years": 1,
+    "compliance_percent": 96,
+    "total_deals": 320
+  },
+  {
+    "supplier_name": "Al-Rajhi Steel - 65",
+    "city": "Taif",
+    "speciality": "Finishing",
+    "rating": 4.4,
+    "delivery_speed_days": 21,
+    "contract_years": 0,
+    "compliance_percent": 84,
+    "total_deals": 440
+  },
+  {
+    "supplier_name": "Saudi Technical Supply - 66",
+    "city": "Abha",
+    "speciality": "Finishing",
+    "rating": 3.9,
+    "delivery_speed_days": 3,
+    "contract_years": 4,
+    "compliance_percent": 80,
+    "total_deals": 303
+  },
+  {
+    "supplier_name": "Safwa Cement - 67",
+    "city": "Jeddah",
+    "speciality": "Steel",
+    "rating": 3.7,
+    "delivery_speed_days": 21,
+    "contract_years": 7,
+    "compliance_percent": 97,
+    "total_deals": 330
+  },
+  {
+    "supplier_name": "Saudi Plaster - 68",
+    "city": "Dammam",
+    "speciality": "General Construction",
+    "rating": 3.8,
+    "delivery_speed_days": 19,
+    "contract_years": 0,
+    "compliance_percent": 87,
+    "total_deals": 11
+  },
+  {
+    "supplier_name": "Otis Saudi - 69",
+    "city": "Khobar",
+    "speciality": "HVAC",
+    "rating": 3.1,
+    "delivery_speed_days": 15,
+    "contract_years": 8,
+    "compliance_percent": 91,
+    "total_deals": 133
+  },
+  {
+    "supplier_name": "Al-Ghurair - 70",
+    "city": "Tabuk",
+    "speciality": "Finishing",
+    "rating": 3.9,
+    "delivery_speed_days": 1,
+    "contract_years": 1,
+    "compliance_percent": 85,
+    "total_deals": 226
+  },
+  {
+    "supplier_name": "Bin Laden Group - 71",
+    "city": "Madinah",
+    "speciality": "HVAC",
+    "rating": 4.6,
+    "delivery_speed_days": 12,
+    "contract_years": 8,
+    "compliance_percent": 91,
+    "total_deals": 163
+  },
+  {
+    "supplier_name": "Saudi Modern Factory - 72",
+    "city": "Jeddah",
+    "speciality": "Electrical",
+    "rating": 4.5,
+    "delivery_speed_days": 14,
+    "contract_years": 5,
+    "compliance_percent": 92,
+    "total_deals": 90
+  },
+  {
+    "supplier_name": "Al-Jabr Trading - 73",
+    "city": "Makkah",
+    "speciality": "Finishing",
+    "rating": 4.2,
+    "delivery_speed_days": 21,
+    "contract_years": 10,
+    "compliance_percent": 83,
+    "total_deals": 353
+  },
+  {
+    "supplier_name": "Saudi Technical Supply - 75",
+    "city": "Hail",
+    "speciality": "Plumbing",
+    "rating": 4.2,
+    "delivery_speed_days": 18,
+    "contract_years": 1,
+    "compliance_percent": 75,
+    "total_deals": 247
+  },
+  {
+    "supplier_name": "Qassim Cement - 78",
+    "city": "Khamis Mushait",
+    "speciality": "Finishing",
+    "rating": 4.3,
+    "delivery_speed_days": 1,
+    "contract_years": 2,
+    "compliance_percent": 85,
+    "total_deals": 199
+  },
+  {
+    "supplier_name": "Sahara PVC - 79",
+    "city": "Taif",
+    "speciality": "Finishing",
+    "rating": 4.2,
+    "delivery_speed_days": 16,
+    "contract_years": 0,
+    "compliance_percent": 88,
+    "total_deals": 237
+  },
+  {
+    "supplier_name": "Southern Province Cement - 81",
+    "city": "Tabuk",
+    "speciality": "Finishing",
+    "rating": 4.4,
+    "delivery_speed_days": 13,
+    "contract_years": 1,
+    "compliance_percent": 89,
+    "total_deals": 255
+  },
+  {
+    "supplier_name": "Southern Province Cement - 82",
+    "city": "Dammam",
+    "speciality": "Steel",
+    "rating": 4.1,
+    "delivery_speed_days": 2,
+    "contract_years": 6,
+    "compliance_percent": 81,
+    "total_deals": 13
+  },
+  {
+    "supplier_name": "Dubai Cable - 83",
+    "city": "Taif",
+    "speciality": "Electrical",
+    "rating": 4,
+    "delivery_speed_days": 8,
+    "contract_years": 7,
+    "compliance_percent": 99,
+    "total_deals": 279
+  },
+  {
+    "supplier_name": "Al-Madina Cement - 84",
+    "city": "Abha",
+    "speciality": "HVAC",
+    "rating": 3.7,
+    "delivery_speed_days": 21,
+    "contract_years": 6,
+    "compliance_percent": 94,
+    "total_deals": 11
+  },
+  {
+    "supplier_name": "Al-Babtain Group - 85",
+    "city": "Dammam",
+    "speciality": "HVAC",
+    "rating": 3.7,
+    "delivery_speed_days": 18,
+    "contract_years": 9,
+    "compliance_percent": 90,
+    "total_deals": 148
+  },
+  {
+    "supplier_name": "Al-Zamil Steel - 88",
+    "city": "Jeddah",
+    "speciality": "General Construction",
+    "rating": 3.4,
+    "delivery_speed_days": 4,
+    "contract_years": 6,
+    "compliance_percent": 81,
+    "total_deals": 409
+  },
+  {
+    "supplier_name": "Saudi Technical Supply - 89",
+    "city": "Khamis Mushait",
+    "speciality": "Concrete",
+    "rating": 3.7,
+    "delivery_speed_days": 4,
+    "contract_years": 7,
+    "compliance_percent": 99,
+    "total_deals": 14
+  },
+  {
+    "supplier_name": "Southern Province Cement - 90",
+    "city": "Khobar",
+    "speciality": "Plumbing",
+    "rating": 2.9,
+    "delivery_speed_days": 19,
+    "contract_years": 10,
+    "compliance_percent": 92,
+    "total_deals": 28
+  },
+  {
+    "supplier_name": "Al-Babtain Group - 91",
+    "city": "Madinah",
+    "speciality": "Concrete",
+    "rating": 4.1,
+    "delivery_speed_days": 11,
+    "contract_years": 7,
+    "compliance_percent": 81,
+    "total_deals": 202
+  },
+  {
+    "supplier_name": "Saudi Building Materials Co. - 96",
+    "city": "Riyadh",
+    "speciality": "General Construction",
+    "rating": 4.5,
+    "delivery_speed_days": 16,
+    "contract_years": 2,
+    "compliance_percent": 87,
+    "total_deals": 339
+  },
+  {
+    "supplier_name": "Kone Saudi - 97",
+    "city": "Taif",
+    "speciality": "HVAC",
+    "rating": 3.2,
+    "delivery_speed_days": 15,
+    "contract_years": 4,
+    "compliance_percent": 92,
+    "total_deals": 32
+  },
+  {
+    "supplier_name": "Al-Ghurair - 98",
+    "city": "Tabuk",
+    "speciality": "Steel",
+    "rating": 3.1,
+    "delivery_speed_days": 10,
+    "contract_years": 1,
+    "compliance_percent": 88,
+    "total_deals": 236
+  },
+  {
+    "supplier_name": "Al-Dabbagh Group - 101",
+    "city": "Madinah",
+    "speciality": "Electrical",
+    "rating": 4.1,
+    "delivery_speed_days": 9,
+    "contract_years": 1,
+    "compliance_percent": 94,
+    "total_deals": 376
+  },
+  {
+    "supplier_name": "Saudi Technical Supply - 103",
+    "city": "Tabuk",
+    "speciality": "Concrete",
+    "rating": 3.9,
+    "delivery_speed_days": 14,
+    "contract_years": 8,
+    "compliance_percent": 98,
+    "total_deals": 91
+  },
+  {
+    "supplier_name": "Al-Omran Group - 104",
+    "city": "Khobar",
+    "speciality": "Plumbing",
+    "rating": 4.4,
+    "delivery_speed_days": 19,
+    "contract_years": 3,
+    "compliance_percent": 99,
+    "total_deals": 132
+  },
+  {
+    "supplier_name": "Bin Laden Group - 105",
+    "city": "Buraydah",
+    "speciality": "HVAC",
+    "rating": 4.3,
+    "delivery_speed_days": 17,
+    "contract_years": 3,
+    "compliance_percent": 91,
+    "total_deals": 11
+  },
+  {
+    "supplier_name": "Saudi Plaster - 106",
+    "city": "Najran",
+    "speciality": "Concrete",
+    "rating": 4.2,
+    "delivery_speed_days": 18,
+    "contract_years": 0,
+    "compliance_percent": 79,
+    "total_deals": 8
+  },
+  {
+    "supplier_name": "National Ready Mix - 107",
+    "city": "Tabuk",
+    "speciality": "General Construction",
+    "rating": 4.3,
+    "delivery_speed_days": 12,
+    "contract_years": 2,
+    "compliance_percent": 87,
+    "total_deals": 211
+  },
+  {
+    "supplier_name": "Saudi Ceramics - 108",
+    "city": "Buraydah",
+    "speciality": "Concrete",
+    "rating": 3.3,
+    "delivery_speed_days": 3,
+    "contract_years": 10,
+    "compliance_percent": 94,
+    "total_deals": 113
+  },
+  {
+    "supplier_name": "Al-Safi Danone - 111",
+    "city": "Makkah",
+    "speciality": "General Construction",
+    "rating": 4.3,
+    "delivery_speed_days": 21,
+    "contract_years": 7,
+    "compliance_percent": 86,
+    "total_deals": 324
+  },
+  {
+    "supplier_name": "Al-Madina Cement - 112",
+    "city": "Tabuk",
+    "speciality": "Plumbing",
+    "rating": 3.8,
+    "delivery_speed_days": 14,
+    "contract_years": 2,
+    "compliance_percent": 91,
+    "total_deals": 326
+  },
+  {
+    "supplier_name": "Saudi Panel - 116",
+    "city": "Hail",
+    "speciality": "Steel",
+    "rating": 4,
+    "delivery_speed_days": 15,
+    "contract_years": 6,
+    "compliance_percent": 88,
+    "total_deals": 467
+  },
+  {
+    "supplier_name": "Al-Safi Danone - 117",
+    "city": "Makkah",
+    "speciality": "Steel",
+    "rating": 4.4,
+    "delivery_speed_days": 2,
+    "contract_years": 3,
+    "compliance_percent": 99,
+    "total_deals": 21
+  },
+  {
+    "supplier_name": "Saudi Building Materials Co. - 118",
+    "city": "Madinah",
+    "speciality": "Steel",
+    "rating": 4.6,
+    "delivery_speed_days": 10,
+    "contract_years": 3,
+    "compliance_percent": 96,
+    "total_deals": 71
+  },
+  {
+    "supplier_name": "Saudi Glass - 119",
+    "city": "Dammam",
+    "speciality": "Finishing",
+    "rating": 4.6,
+    "delivery_speed_days": 17,
+    "contract_years": 6,
+    "compliance_percent": 97,
+    "total_deals": 476
+  },
+  {
+    "supplier_name": "Siemens Saudi - 121",
+    "city": "Makkah",
+    "speciality": "Concrete",
+    "rating": 4.4,
+    "delivery_speed_days": 7,
+    "contract_years": 4,
+    "compliance_percent": 84,
+    "total_deals": 391
+  },
+  {
+    "supplier_name": "Saudi Chemical Co. - 122",
+    "city": "Dammam",
+    "speciality": "HVAC",
+    "rating": 4.6,
+    "delivery_speed_days": 12,
+    "contract_years": 10,
+    "compliance_percent": 92,
+    "total_deals": 142
+  },
+  {
+    "supplier_name": "Al-Jabr Trading - 125",
+    "city": "Dammam",
+    "speciality": "Electrical",
+    "rating": 3.8,
+    "delivery_speed_days": 1,
+    "contract_years": 6,
+    "compliance_percent": 85,
+    "total_deals": 233
+  },
+  {
+    "supplier_name": "Al-Rajhi Steel - 126",
+    "city": "Makkah",
+    "speciality": "HVAC",
+    "rating": 4.3,
+    "delivery_speed_days": 20,
+    "contract_years": 2,
+    "compliance_percent": 76,
+    "total_deals": 69
+  },
+  {
+    "supplier_name": "Saudi Glass - 128",
+    "city": "Madinah",
+    "speciality": "Steel",
+    "rating": 4.5,
+    "delivery_speed_days": 3,
+    "contract_years": 9,
+    "compliance_percent": 86,
+    "total_deals": 105
+  },
+  {
+    "supplier_name": "Saudi Cable - 129",
+    "city": "Khamis Mushait",
+    "speciality": "Finishing",
+    "rating": 5.3,
+    "delivery_speed_days": 6,
+    "contract_years": 7,
+    "compliance_percent": 97,
+    "total_deals": 328
+  },
+  {
+    "supplier_name": "Arabian Construction Supply - 131",
+    "city": "Taif",
+    "speciality": "Concrete",
+    "rating": 4.3,
+    "delivery_speed_days": 16,
+    "contract_years": 0,
+    "compliance_percent": 78,
+    "total_deals": 279
+  },
+  {
+    "supplier_name": "Saudi Chemical Co. - 133",
+    "city": "Hail",
+    "speciality": "General Construction",
+    "rating": 4.2,
+    "delivery_speed_days": 14,
+    "contract_years": 8,
+    "compliance_percent": 75,
+    "total_deals": 86
+  },
+  {
+    "supplier_name": "Saudi Modern Factory - 134",
+    "city": "Najran",
+    "speciality": "HVAC",
+    "rating": 4,
+    "delivery_speed_days": 13,
+    "contract_years": 10,
+    "compliance_percent": 81,
+    "total_deals": 412
+  },
+  {
+    "supplier_name": "Arabian Pipes - 138",
+    "city": "Hail",
+    "speciality": "Steel",
+    "rating": 3.9,
+    "delivery_speed_days": 19,
+    "contract_years": 6,
+    "compliance_percent": 100,
+    "total_deals": 420
+  },
+  {
+    "supplier_name": "Al-Muhaidib Group - 140",
+    "city": "Jeddah",
+    "speciality": "Finishing",
+    "rating": 4.5,
+    "delivery_speed_days": 7,
+    "contract_years": 9,
+    "compliance_percent": 82,
+    "total_deals": 35
+  },
+  {
+    "supplier_name": "Kone Saudi - 141",
+    "city": "Taif",
+    "speciality": "Plumbing",
+    "rating": 4.1,
+    "delivery_speed_days": 15,
+    "contract_years": 9,
+    "compliance_percent": 90,
+    "total_deals": 54
+  },
+  {
+    "supplier_name": "National Gypsum - 143",
+    "city": "Madinah",
+    "speciality": "Finishing",
+    "rating": 3.8,
+    "delivery_speed_days": 19,
+    "contract_years": 7,
+    "compliance_percent": 92,
+    "total_deals": 361
+  },
+  {
+    "supplier_name": "Al-Muhaidib Group - 144",
+    "city": "Madinah",
+    "speciality": "Steel",
+    "rating": 3.4,
+    "delivery_speed_days": 19,
+    "contract_years": 9,
+    "compliance_percent": 96,
+    "total_deals": 14
+  },
+  {
+    "supplier_name": "Saudi Ceramics - 150",
+    "city": "Makkah",
+    "speciality": "General Construction",
+    "rating": 3.8,
+    "delivery_speed_days": 8,
+    "contract_years": 6,
+    "compliance_percent": 81,
+    "total_deals": 149
+  },
+  {
+    "supplier_name": "Saudi Chemical Co. - 156",
+    "city": "Tabuk",
+    "speciality": "Plumbing",
+    "rating": 3.4,
+    "delivery_speed_days": 19,
+    "contract_years": 2,
+    "compliance_percent": 79,
+    "total_deals": 423
+  },
+  {
+    "supplier_name": "Saudi Cable - 157",
+    "city": "Makkah",
+    "speciality": "Electrical",
+    "rating": 3.9,
+    "delivery_speed_days": 20,
+    "contract_years": 0,
+    "compliance_percent": 93,
+    "total_deals": 36
+  },
+  {
+    "supplier_name": "Al-Zamil Steel - 162",
+    "city": "Khobar",
+    "speciality": "Electrical",
+    "rating": 3.7,
+    "delivery_speed_days": 1,
+    "contract_years": 8,
+    "compliance_percent": 86,
+    "total_deals": 373
+  },
+  {
+    "supplier_name": "Sahara PVC - 165",
+    "city": "Hail",
+    "speciality": "Steel",
+    "rating": 3.2,
+    "delivery_speed_days": 16,
+    "contract_years": 5,
+    "compliance_percent": 99,
+    "total_deals": 496
+  },
+  {
+    "supplier_name": "Saudi Panel - 167",
+    "city": "Hail",
+    "speciality": "HVAC",
+    "rating": 3.9,
+    "delivery_speed_days": 15,
+    "contract_years": 9,
+    "compliance_percent": 82,
+    "total_deals": 377
+  },
+  {
+    "supplier_name": "Schneider Saudi - 168",
+    "city": "Buraydah",
+    "speciality": "Plumbing",
+    "rating": 4.5,
+    "delivery_speed_days": 20,
+    "contract_years": 2,
+    "compliance_percent": 81,
+    "total_deals": 219
+  },
+  {
+    "supplier_name": "Yamama Cement - 170",
+    "city": "Buraydah",
+    "speciality": "Finishing",
+    "rating": 4.1,
+    "delivery_speed_days": 9,
+    "contract_years": 3,
+    "compliance_percent": 75,
+    "total_deals": 50
+  },
+  {
+    "supplier_name": "Arabian Cement - 173",
+    "city": "Abha",
+    "speciality": "HVAC",
+    "rating": 3.4,
+    "delivery_speed_days": 7,
+    "contract_years": 3,
+    "compliance_percent": 97,
+    "total_deals": 113
+  },
+  {
+    "supplier_name": "Al-Babtain Group - 178",
+    "city": "Taif",
+    "speciality": "HVAC",
+    "rating": 3.6,
+    "delivery_speed_days": 3,
+    "contract_years": 10,
+    "compliance_percent": 89,
+    "total_deals": 192
+  },
+  {
+    "supplier_name": "Saudi Plaster - 180",
+    "city": "Tabuk",
+    "speciality": "Plumbing",
+    "rating": 4.9,
+    "delivery_speed_days": 17,
+    "contract_years": 5,
+    "compliance_percent": 84,
+    "total_deals": 31
+  },
+  {
+    "supplier_name": "Saudi Glass - 181",
+    "city": "Najran",
+    "speciality": "Concrete",
+    "rating": 4.6,
+    "delivery_speed_days": 7,
+    "contract_years": 4,
+    "compliance_percent": 98,
+    "total_deals": 208
+  },
+  {
+    "supplier_name": "Al-Jabr Trading - 184",
+    "city": "Najran",
+    "speciality": "Plumbing",
+    "rating": 3.4,
+    "delivery_speed_days": 17,
+    "contract_years": 8,
+    "compliance_percent": 90,
+    "total_deals": 114
+  },
+  {
+    "supplier_name": "Sahara PVC - 188",
+    "city": "Jeddah",
+    "speciality": "Electrical",
+    "rating": 3.9,
+    "delivery_speed_days": 15,
+    "contract_years": 3,
+    "compliance_percent": 76,
+    "total_deals": 243
+  },
+  {
+    "supplier_name": "Kone Saudi - 190",
+    "city": "Tabuk",
+    "speciality": "Electrical",
+    "rating": 4.4,
+    "delivery_speed_days": 8,
+    "contract_years": 3,
+    "compliance_percent": 97,
+    "total_deals": 101
+  },
+  {
+    "supplier_name": "Al-Wehaiby Co. - 191",
+    "city": "Taif",
+    "speciality": "Plumbing",
+    "rating": 4.7,
+    "delivery_speed_days": 12,
+    "contract_years": 5,
+    "compliance_percent": 77,
+    "total_deals": 240
+  },
+  {
+    "supplier_name": "Al-Safi Danone - 195",
+    "city": "Khamis Mushait",
+    "speciality": "Steel",
+    "rating": 3.8,
+    "delivery_speed_days": 6,
+    "contract_years": 4,
+    "compliance_percent": 82,
+    "total_deals": 488
+  },
+  {
+    "supplier_name": "Saudi Chemical Co. - 199",
+    "city": "Hail",
+    "speciality": "Finishing",
+    "rating": 4.6,
+    "delivery_speed_days": 6,
+    "contract_years": 9,
+    "compliance_percent": 98,
+    "total_deals": 57
+  }
+]

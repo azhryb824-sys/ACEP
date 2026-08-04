@@ -1,0 +1,41 @@
+import { IEdgeGateway, ProcessedData, LocalInferenceResult, GatewayHealth } from './interfaces';
+import { EdgeGatewayConfig, SensorReading, EdgeDataPoint, CriticalEvent, FirmwareInfo } from './types';
+export declare class EdgeGateway implements IEdgeGateway {
+    readonly id: string;
+    readonly config: EdgeGatewayConfig;
+    private connected;
+    private online;
+    private buffer;
+    private offlineCache;
+    private startTime;
+    private cpuUsage;
+    private memoryUsage;
+    private errors;
+    constructor(config: EdgeGatewayConfig);
+    initialize(): Promise<void>;
+    connect(): Promise<boolean>;
+    disconnect(): Promise<void>;
+    receiveData(sensorId: string, reading: SensorReading): Promise<void>;
+    processData(data: EdgeDataPoint[]): Promise<ProcessedData>;
+    runLocalInference(data: EdgeDataPoint[]): Promise<LocalInferenceResult>;
+    cacheOffline(data: EdgeDataPoint[]): Promise<void>;
+    syncToCloud(): Promise<void>;
+    detectCriticalEvents(readings: SensorReading[]): Promise<CriticalEvent[]>;
+    checkFirmwareUpdate(): Promise<FirmwareInfo | null>;
+    applyFirmwareUpdate(firmware: FirmwareInfo): Promise<void>;
+    getHealth(): GatewayHealth;
+    getCacheSize(): number;
+    flushCache(): Promise<void>;
+    compressData(data: EdgeDataPoint[]): Promise<EdgeDataPoint[]>;
+    filterData(data: EdgeDataPoint[]): Promise<EdgeDataPoint[]>;
+    private deadbandFilter;
+    private groupBySensor;
+    private detectTrend;
+    private predictNext;
+    private getWarningThreshold;
+    private findSensorConfig;
+    private createCriticalEvent;
+    private log;
+    private delay;
+}
+//# sourceMappingURL=edge-gateway.d.ts.map

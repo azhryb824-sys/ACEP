@@ -1,0 +1,18 @@
+{
+  "name": "@acep/documents",
+  "version": "1.0.0",
+  "description": "Intelligent Document & Communication Intelligence Engine (IDCIE) - Volume 30",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "@acep/core": "*",
+    "@acep/knowledge-base": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@acep/plugin-marketplace",
+  "version": "1.0.0",
+  "description": "ACEP Plugin Marketplace - Install, manage, and discover plugins",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@acep/core": "^1.0.0",
+    "@acep/plugin-sdk": "^1.0.0"
+  }
+}

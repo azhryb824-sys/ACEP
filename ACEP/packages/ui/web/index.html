@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACEP - AI Construction Engineering Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles/acep-design-system.css">
+  <style>
+    .page-view { display: none; }
+    .page-view.active { display: block; }
+    .design-system-showcase { display: none; }
+    .design-system-showcase.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- AI Floating Button -->
+  <button class="ai-fab" id="ai-fab" title="مساعد AI">🤖</button>
+
+  <!-- ===== APP SHELL ===== -->
+  <div class="app-shell">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">AC</div>
+        <div>
+          <div class="sidebar-logo-text">ACEP</div>
+          <div class="sidebar-logo-sub">AI Construction Platform</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">الرئيسية</div>
+          <a class="sidebar-item active" data-page="dashboard"><span class="sidebar-item-icon">📊</span><span class="sidebar-item-label">لوحة التحكم</span></a>
+          <a class="sidebar-item" data-page="projects"><span class="sidebar-item-icon">📁</span><span class="sidebar-item-label">المشاريع</span><span class="sidebar-item-badge">3</span></a>
+          <a class="sidebar-item" data-page="analysis"><span class="sidebar-item-icon">🤖</span><span class="sidebar-item-label">تحليل AI</span></a>
+          <a class="sidebar-item" data-page="bi"><span class="sidebar-item-icon">📈</span><span class="sidebar-item-label">ذكاء الأعمال</span></a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">الهندسة</div>
+          <a class="sidebar-item" data-page="boq"><span class="sidebar-item-icon">📋</span><span class="sidebar-item-label">جدول الكميات</span></a>
+          <a class="sidebar-item" data-page="cost"><span class="sidebar-item-icon">💰</span><span class="sidebar-item-label">التكاليف</span></a>
+          <a class="sidebar-item" data-page="schedule"><span class="sidebar-item-icon">📅</span><span class="sidebar-item-label">الجدول الزمني</span></a>
+          <a class="sidebar-item" data-page="risks"><span class="sidebar-item-icon">⚠️</span><span class="sidebar-item-label">المخاطر</span></a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">المنصات</div>
+          <a class="sidebar-item" data-page="gis"><span class="sidebar-item-icon">🗺️</span><span class="sidebar-item-label">GIS & الموقع</span></a>
+          <a class="sidebar-item" data-page="iot"><span class="sidebar-item-icon">📡</span><span class="sidebar-item-label">IoT & الاستشعار</span></a>
+          <a class="sidebar-item" data-page="quality"><span class="sidebar-item-icon">✅</span><span class="sidebar-item-label">الجودة والتفتيش</span></a>
+          <a class="sidebar-item" data-page="safety"><span class="sidebar-item-icon">🛡️</span><span class="sidebar-item-label">السلامة</span></a>
+          <a class="sidebar-item" data-page="sustainability"><span class="sidebar-item-icon">🌱</span><span class="sidebar-item-label">الاستدامة ESG</span></a>
+          <a class="sidebar-item" data-page="marketplace"><span class="sidebar-item-icon">🏪</span><span class="sidebar-item-label">السوق والموردين</span></a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">النظام</div>
+          <a class="sidebar-item" data-page="admin"><span class="sidebar-item-icon">⚙️</span><span class="sidebar-item-label">الإدارة</span></a>
+          <a class="sidebar-item" data-page="developer"><span class="sidebar-item-icon">💻</span><span class="sidebar-item-label">المطورين</span></a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">أ</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name">أ. عبدالرحمن</div>
+            <div class="sidebar-user-role">مدير مشروع</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <button class="mobile-toggle" id="mobile-toggle">☰</button>
+          <div class="breadcrumb">
+            <a href="javascript:void(0)" onclick="navigate('dashboard')">ACEP</a>
+            <span class="breadcrumb-sep">›</span>
+            <span id="breadcrumb-current">لوحة التحكم</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="header-search">
+            <span>🔍</span>
+            <input type="text" placeholder="بحث في المنصة..." aria-label="بحث">
+          </div>
+          <div class="header-actions">
+            <button class="header-btn" title="الإشعارات">
+              🔔
+              <span class="header-btn-badge">5</span>
+            </button>
+            <button class="header-btn" title="الإعدادات السريعة">⚙️</button>
+            <div class="dropdown">
+              <button class="header-btn dropdown-toggle" title="اللغة">🌐</button>
+              <div class="dropdown-menu">
+                <div class="dropdown-item">🇸🇦 العربية</div>
+                <div class="dropdown-item">🇬🇧 English</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== PAGE CONTENT ===== -->
+      <div class="page-content">
+
+        <!-- ============================== PAGE: DASHBOARD ============================== -->
+        <div id="page-dashboard" class="page-view active">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">لوحة التحكم</h1>
+              <p class="page-subtitle">نظرة شاملة على جميع مشاريعك ومؤشرات الأداء</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" data-toast="جاري إنشاء مشروع جديد..." data-toast-type="info">+ مشروع جديد</button>
+              <button class="btn btn-outline">تقرير سريع</button>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="card card-stat">
+              <div class="card-stat-label">إجمالي المشاريع</div>
+              <div class="card-stat-value">24</div>
+              <div class="card-stat-change positive">↑ 3 هذا الشهر</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">قيد التنفيذ</div>
+              <div class="card-stat-value">12</div>
+              <div class="card-stat-change positive">↑ 2</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">نسبة الإنجاز</div>
+              <div class="card-stat-value">78%</div>
+              <div class="card-stat-change positive">↑ 5.2%</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">الميزانية الإجمالية</div>
+              <div class="card-stat-value">2.4B</div>
+              <div class="card-stat-label">ريال</div>
+            </div>
+          </div>
+
+          <!-- Row: Projects Overview + KPI -->
+          <div class="grid grid-3 mb-8">
+            <div class="card col-span-2">
+              <div class="card-header">
+                <span class="card-title">أداء المشاريع</span>
+                <span class="badge badge-primary">آخر تحديث: منذ 5 دقائق</span>
+              </div>
+              <div class="card-body">
+                <div class="chart-bar-group" style="height:200px;padding-top:20px;">
+                  <div class="chart-bar" style="height:65%;background:linear-gradient(to top,var(--color-primary-600),var(--color-primary-400));"><span class="chart-bar-label">مشروع A</span></div>
+                  <div class="chart-bar" style="height:80%;background:linear-gradient(to top,var(--color-primary-600),var(--color-primary-400));"><span class="chart-bar-label">مشروع B</span></div>
+                  <div class="chart-bar" style="height:45%;background:linear-gradient(to top,var(--color-primary-600),var(--color-primary-400));"><span class="chart-bar-label">مشروع C</span></div>
+                  <div class="chart-bar" style="height:90%;background:linear-gradient(to top,var(--color-primary-600),var(--color-primary-400));"><span class="chart-bar-label">مشروع D</span></div>
+                  <div class="chart-bar" style="height:55%;background:linear-gradient(to top,var(--color-primary-600),var(--color-primary-400));"><span class="chart-bar-label">مشروع E</span></div>
+                  <div class="chart-bar" style="height:70%;background:linear-gradient(to top,var(--color-primary-600),var(--color-primary-400));"><span class="chart-bar-label">مشروع F</span></div>
+                  <div class="chart-bar" style="height:35%;background:linear-gradient(to top,var(--color-warning-500),var(--color-warning-400));"><span class="chart-bar-label">مشروع G</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="card kpi-card">
+              <div class="kpi-value" style="color:var(--color-accent-500);">A+</div>
+              <div class="kpi-label">مؤشر صحة المنصة</div>
+              <div class="kpi-trend" style="color:var(--color-accent-600);">↑ 2.3% عن الشهر الماضي</div>
+              <div class="progress-bar mt-4" style="height:4px;">
+                <div class="progress-fill" style="width:94%;background:var(--color-accent-500);"></div>
+              </div>
+              <div class="flex justify-between mt-2 text-xs text-tertiary">
+                <span>محركات AI: 12/12 نشطة</span>
+                <span>٪94</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Projects Table -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">أحدث المشاريع</span>
+              <button class="btn btn-sm btn-ghost" onclick="navigate('projects')">عرض الكل ←</button>
+            </div>
+            <div class="table-container" style="border:none;border-radius:0;">
+              <table>
+                <thead>
+                  <tr><th>المشروع</th><th>النوع</th><th>الإنجاز</th><th>الميزانية</th><th>الحالة</th><th></th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="font-semibold">برج المملكة السكني</span><div class="text-xs text-tertiary">P-2024-001</div></td>
+                    <td>سكني تجاري</td>
+                    <td><div class="flex items-center gap-2"><div class="progress-bar" style="width:100px;"><div class="progress-fill" style="width:72%;"></div></div><span class="text-sm">72%</span></div></td>
+                    <td class="font-semibold">450M</td>
+                    <td><span class="badge badge-success">قيد التنفيذ</span></td>
+                    <td><button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل</button></td>
+                  </tr>
+                  <tr>
+                    <td><span class="font-semibold">مستشفى المدينة الطبي</span><div class="text-xs text-tertiary">P-2024-002</div></td>
+                    <td>طبي</td>
+                    <td><div class="flex items-center gap-2"><div class="progress-bar" style="width:100px;"><div class="progress-fill" style="width:45%;"></div></div><span class="text-sm">45%</span></div></td>
+                    <td class="font-semibold">1.2B</td>
+                    <td><span class="badge badge-warning">تأخير 15 يوم</span></td>
+                    <td><button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل</button></td>
+                  </tr>
+                  <tr>
+                    <td><span class="font-semibold">مشروع جدة السكني</span><div class="text-xs text-tertiary">P-2024-003</div></td>
+                    <td>سكني</td>
+                    <td><div class="flex items-center gap-2"><div class="progress-bar" style="width:100px;"><div class="progress-fill" style="width:15%;"></div></div><span class="text-sm">15%</span></div></td>
+                    <td class="font-semibold">280M</td>
+                    <td><span class="badge badge-primary">استشارة أولية</span></td>
+                    <td><button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: PROJECTS ============================== -->
+        <div id="page-projects" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">المشاريع</h1>
+              <p class="page-subtitle">إدارة جميع مشاريعك الهندسية في مكان واحد</p>
+            </div>
+            <button class="btn btn-primary">+ مشروع جديد</button>
+          </div>
+
+          <!-- Filters -->
+          <div class="card mb-6">
+            <div class="card-body">
+              <div class="grid grid-4">
+                <div class="form-group">
+                  <label class="form-label">بحث</label>
+                  <input class="form-input" placeholder="اسم المشروع، الرقم...">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">الحالة</label>
+                  <select class="form-select">
+                    <option>الكل</option>
+                    <option>قيد التنفيذ</option>
+                    <option>مكتمل</option>
+                    <option>متأخر</option>
+                    <option>استشارة أولية</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">النوع</label>
+                  <select class="form-select">
+                    <option>الكل</option>
+                    <option>سكني</option>
+                    <option>تجاري</option>
+                    <option>طبي</option>
+                    <option>صناعي</option>
+                    <option>بنية تحتية</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">الفرز</label>
+                  <select class="form-select">
+                    <option>تاريخ الإنشاء</option>
+                    <option>الميزانية</option>
+                    <option>نسبة الإنجاز</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projects List -->
+          <div class="grid grid-3">
+            <div class="card card-hover">
+              <div class="card-body">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="badge badge-success">قيد التنفيذ</span>
+                  <span class="text-xs text-tertiary">P-2024-001</span>
+                </div>
+                <h3 class="font-semibold mb-2">برج المملكة السكني</h3>
+                <p class="text-sm text-tertiary mb-4">مشروع سكني تجاري مكون من 30 دور في الرياض</p>
+                <div class="flex justify-between text-sm mb-2">
+                  <span class="text-tertiary">الإنجاز</span>
+                  <span class="font-semibold">72%</span>
+                </div>
+                <div class="progress-bar mb-4"><div class="progress-fill" style="width:72%;"></div></div>
+                <div class="flex justify-between text-sm">
+                  <div><span class="text-tertiary">الميزانية</span><div class="font-semibold">450M ر.س</div></div>
+                  <div><span class="text-tertiary">تاريخ التسليم</span><div class="font-semibold">2026-03</div></div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-sm btn-outline">فتح</button>
+                <button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل AI</button>
+              </div>
+            </div>
+
+            <div class="card card-hover">
+              <div class="card-body">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="badge badge-warning">تأخير 15 يوم</span>
+                  <span class="text-xs text-tertiary">P-2024-002</span>
+                </div>
+                <h3 class="font-semibold mb-2">مستشفى المدينة الطبي</h3>
+                <p class="text-sm text-tertiary mb-4">مستشفى بسعة 300 سرير + مرافق طبية مساندة</p>
+                <div class="flex justify-between text-sm mb-2">
+                  <span class="text-tertiary">الإنجاز</span>
+                  <span class="font-semibold">45%</span>
+                </div>
+                <div class="progress-bar mb-4"><div class="progress-fill" style="width:45%;background:var(--color-warning-500);"></div></div>
+                <div class="flex justify-between text-sm">
+                  <div><span class="text-tertiary">الميزانية</span><div class="font-semibold">1.2B ر.س</div></div>
+                  <div><span class="text-tertiary">تاريخ التسليم</span><div class="font-semibold">2027-01</div></div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-sm btn-outline">فتح</button>
+                <button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل AI</button>
+              </div>
+            </div>
+
+            <div class="card card-hover">
+              <div class="card-body">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="badge badge-primary">استشارة أولية</span>
+                  <span class="text-xs text-tertiary">P-2024-003</span>
+                </div>
+                <h3 class="font-semibold mb-2">مشروع جدة السكني</h3>
+                <p class="text-sm text-tertiary mb-4">مخطط سكني متكامل بمساحة 500,000 م²</p>
+                <div class="flex justify-between text-sm mb-2">
+                  <span class="text-tertiary">الإنجاز</span>
+                  <span class="font-semibold">15%</span>
+                </div>
+                <div class="progress-bar mb-4"><div class="progress-fill" style="width:15%;"></div></div>
+                <div class="flex justify-between text-sm">
+                  <div><span class="text-tertiary">الميزانية</span><div class="font-semibold">280M ر.س</div></div>
+                  <div><span class="text-tertiary">تاريخ التسليم</span><div class="font-semibold">2026-09</div></div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-sm btn-outline">فتح</button>
+                <button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل AI</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: ANALYSIS ============================== -->
+        <div id="page-analysis" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">تحليل المشروع بالذكاء الاصطناعي</h1>
+              <p class="page-subtitle">برج المملكة السكني - P-2024-001 • تحليل شامل متعدد المراحل</p>
+            </div>
+            <button class="btn btn-outline" onclick="showToast('جاري إعادة التحليل...','info')">⟳ إعادة تحليل</button>
+          </div>
+
+          <!-- AI Confidence -->
+          <div class="ai-result">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2">
+                <span style="font-size:24px;">🤖</span>
+                <span class="font-semibold">تحليل ACEP الذكي</span>
+              </div>
+              <div class="ai-confidence">
+                <span class="text-sm">نسبة الثقة</span>
+                <div class="confidence-bar" style="width:120px;">
+                  <div class="confidence-fill high" style="width:94%;"></div>
+                </div>
+                <span class="font-semibold">94%</span>
+              </div>
+            </div>
+            <p class="text-sm mb-4" style="line-height:1.8;">
+              بناءً على تحليل وصف المشروع والمخططات المرفوعة، تم استنتاج أن المشروع يتكون من <strong>مبنى سكني تجاري</strong> 
+              مكون من <strong>30 دورًا</strong> (3 أدوار مواقف + 2 تجاري + 25 سكني) على أرض مساحتها <strong>2,500 م²</strong> 
+              في مدينة الرياض. إجمالي المساحة المبنية المتوقعة: <strong>42,000 م²</strong>.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="badge badge-primary">🧱 هيكل خرساني</span>
+              <span class="badge badge-secondary">🔧 أنظمة ميكانيكية</span>
+              <span class="badge badge-info">⚡ أنظمة كهربائية</span>
+              <span class="badge badge-success">🌿 أنظمة سباكة</span>
+              <span class="badge badge-warning">🔥 أنظمة حريق</span>
+            </div>
+          </div>
+
+          <!-- Analysis Stages -->
+          <div class="grid grid-3 mb-6">
+            <div class="card card-hover" onclick="navigate('boq')">
+              <div class="card-stat">
+                <div style="font-size:32px;margin-bottom:8px;">📋</div>
+                <div class="card-stat-label">بنود الأعمال (BOQ)</div>
+                <div class="card-stat-value" style="font-size:var(--text-2xl);">157 بند</div>
+                <div class="card-stat-change positive">بثقة 92%</div>
+              </div>
+            </div>
+            <div class="card card-hover" onclick="navigate('cost')">
+              <div class="card-stat">
+                <div style="font-size:32px;margin-bottom:8px;">💰</div>
+                <div class="card-stat-label">التكلفة التقديرية</div>
+                <div class="card-stat-value" style="font-size:var(--text-2xl);">412.5M</div>
+                <div class="card-stat-change positive">هامش ±8%</div>
+              </div>
+            </div>
+            <div class="card card-hover" onclick="navigate('schedule')">
+              <div class="card-stat">
+                <div style="font-size:32px;margin-bottom:8px;">📅</div>
+                <div class="card-stat-label">مدة المشروع</div>
+                <div class="card-stat-value" style="font-size:var(--text-2xl);">24 شهر</div>
+                <div class="card-stat-change positive">المسار الحاسم: 22 شهر</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Full pipeline -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">سلسلة التحليل الهندسي</span></div>
+            <div class="card-body">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot active">✓</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">فهم المشروع</div>
+                    <div class="timeline-time">اكتمل - 95% ثقة</div>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot active">✓</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">المبنى الافتراضي</div>
+                    <div class="timeline-time">اكتمل - تم إنشاء 8 أنظمة رئيسية</div>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot active">✓</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">جدول الكميات (BOQ)</div>
+                    <div class="timeline-time">اكتمل - 157 بنداً</div>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot active">✓</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">تحليل التكاليف</div>
+                    <div class="timeline-time">اكتمل - 412.5M ر.س</div>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot active">✓</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">الجدول الزمني</div>
+                    <div class="timeline-time">اكتمل - 24 شهراً</div>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot warning">◷</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">تحليل المخاطر</div>
+                    <div class="timeline-time">قيد المعالجة... </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: BOQ ============================== -->
+        <div id="page-boq" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">جدول الكميات الذكي (BOQ)</h1>
+              <p class="page-subtitle">برج المملكة السكني • 157 بنداً • ثقة 92%</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-outline">📥 تصدير Excel</button>
+              <button class="btn btn-outline">📄 تصدير PDF</button>
+              <button class="btn btn-primary">+ إضافة بند</button>
+            </div>
+          </div>
+
+          <!-- BOQ Summary -->
+          <div class="stats-grid mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">إجمالي بنود الأعمال</div>
+              <div class="card-stat-value">157</div>
+              <div class="card-stat-change positive">↑ 3 بنود مقترحة من AI</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">الكميات الإجمالية</div>
+              <div class="card-stat-value">42,500</div>
+              <div class="card-stat-label">م³ / م² / طن</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">التكلفة الإجمالية</div>
+              <div class="card-stat-value">412.5M</div>
+              <div class="card-stat-label">ريال سعودي</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">بنود تحتاج مراجعة</div>
+              <div class="card-stat-value" style="color:var(--color-warning-600);">12</div>
+              <div class="card-stat-change negative">بثقة أقل من 80%</div>
+            </div>
+          </div>
+
+          <!-- BOQ Table -->
+          <div class="card">
+            <div class="card-body" style="padding:0;">
+              <div class="table-container" style="border:none;">
+                <table class="boq-table">
+                  <thead>
+                    <tr>
+                      <th style="width:60px;">#</th>
+                      <th>بند العمل</th>
+                      <th>الكمية</th>
+                      <th>الوحدة</th>
+                      <th>سعر الوحدة</th>
+                      <th>الإجمالي</th>
+                      <th>الثقة</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-tertiary">1</td>
+                      <td><span class="font-semibold">حفر أساسات</span><div class="text-xs text-tertiary">أعمال الحفر والردم</div></td>
+                      <td>12,500</td>
+                      <td>م³</td>
+                      <td>45</td>
+                      <td class="font-semibold">562,500</td>
+                      <td><span class="badge badge-success">96%</span></td>
+                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
+                    </tr>
+                    <tr>
+                      <td class="text-tertiary">2</td>
+                      <td><span class="font-semibold">خرسانة مسلحة للأساسات</span><div class="text-xs text-tertiary">خرسانة مسلحة</div></td>
+                      <td>4,200</td>
+                      <td>م³</td>
+                      <td>650</td>
+                      <td class="font-semibold">2,730,000</td>
+                      <td><span class="badge badge-success">94%</span></td>
+                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
+                    </tr>
+                    <tr>
+                      <td class="text-tertiary">3</td>
+                      <td><span class="font-semibold">حديد تسليح</span><div class="text-xs text-tertiary">حديد عالي المقاومة 60ksi</div></td>
+                      <td>520</td>
+                      <td>طن</td>
+                      <td>3,800</td>
+                      <td class="font-semibold">1,976,000</td>
+                      <td><span class="badge badge-success">93%</span></td>
+                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
+                    </tr>
+                    <tr>
+                      <td class="text-tertiary">4</td>
+                      <td><span class="font-semibold">صب الخرسانة للأعمدة</span><div class="text-xs text-tertiary">خرسانة جاهزة 40MPa</div></td>
+                      <td>1,800</td>
+                      <td>م³</td>
+                      <td>720</td>
+                      <td class="font-semibold">1,296,000</td>
+                      <td><span class="badge badge-success">91%</span></td>
+                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
+                    </tr>
+                    <tr>
+                      <td class="text-tertiary">5</td>
+                      <td><span class="font-semibold">طوب أسمنتي مصمت</span><div class="text-xs text-tertiary">جدران خارجية 20سم</div></td>
+                      <td>85,000</td>
+                      <td>طوبة</td>
+                      <td>2.5</td>
+                      <td class="font-semibold">212,500</td>
+                      <td><span class="badge badge-warning">82%</span></td>
+                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
+                    </tr>
+                    <tr>
+                      <td class="text-tertiary">6</td>
+                      <td><span class="font-semibold">تركيب شبابيك ألمنيوم</span><div class="text-xs text-tertiary">شبابيك ألمنيوم مزدوجة</div></td>
+                      <td>620</td>
+                      <td>م²</td>
+                      <td>850</td>
+                      <td class="font-semibold">527,000</td>
+                      <td><span class="badge badge-warning">78%</span></td>
+                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
+                    </tr>
+                    <tr class="boq-total-row">
+                      <td colspan="5" class="font-bold">الإجمالي (6 بنود)</td>
+                      <td class="font-bold">7,304,000</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span class="text-sm text-tertiary">* الأسعار شاملة ضريبة القيمة المضافة</span>
+              <span class="text-sm text-tertiary">جاري تحميل باقي البنود...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: COST ============================== -->
+        <div id="page-cost" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">تحليل التكاليف</h1>
+              <p class="page-subtitle">برج المملكة السكني • التكلفة التقديرية: 412.5M ر.س</p>
+            </div>
+            <button class="btn btn-primary" data-toast="جاري إنشاء تقرير التكاليف..." data-toast-type="info">إنشاء تقرير</button>
+          </div>
+
+          <div class="grid grid-3 mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">التكلفة المباشرة</div>
+              <div class="card-stat-value">325.8M</div>
+              <div class="card-stat-label">مواد + عمالة + معدات</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">التكلفة غير المباشرة</div>
+              <div class="card-stat-value">48.6M</div>
+              <div class="card-stat-label">إدارة + استشارات + تصاريح</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">هامش الربح</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">38.1M</div>
+              <div class="card-stat-label">9.2% من الإجمالي</div>
+            </div>
+          </div>
+
+          <!-- Cost Breakdown -->
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header"><span class="card-title">توزيع التكاليف حسب التخصص</span></div>
+              <div class="card-body">
+                <div class="flex flex-col gap-3">
+                  <div><div class="flex justify-between text-sm mb-1"><span>أعمال خرسانية</span><span>38% - 125.4M</span></div><div class="progress-bar"><div class="progress-fill" style="width:38%;background:var(--color-primary-500);"></div></div></div>
+                  <div><div class="flex justify-between text-sm mb-1"><span>أعمال حديد</span><span>22% - 72.6M</span></div><div class="progress-bar"><div class="progress-fill" style="width:22%;background:var(--color-secondary-500);"></div></div></div>
+                  <div><div class="flex justify-between text-sm mb-1"><span>أعمال معمارية</span><span>18% - 59.4M</span></div><div class="progress-bar"><div class="progress-fill" style="width:18%;background:var(--color-accent-500);"></div></div></div>
+                  <div><div class="flex justify-between text-sm mb-1"><span>أعمال ميكانيكية</span><span>12% - 39.6M</span></div><div class="progress-bar"><div class="progress-fill" style="width:12%;background:var(--color-warning-500);"></div></div></div>
+                  <div><div class="flex justify-between text-sm mb-1"><span>أعمال كهربائية</span><span>10% - 33.0M</span></div><div class="progress-bar"><div class="progress-fill" style="width:10%;background:var(--color-danger-500);"></div></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">مقارنة الأسعار - الموردين</span></div>
+              <div class="card-body">
+                <div class="table-container" style="border:none;">
+                  <table>
+                    <thead><tr><th>المادة</th><th>أفضل سعر</th><th>متوسط السوق</th><th>التوفير</th></tr></thead>
+                    <tbody>
+                      <tr><td>خرسانة جاهزة 40MPa</td><td class="font-semibold" style="color:var(--color-accent-600);">620 ر.س</td><td>680 ر.س</td><td class="badge badge-success">8.8%</td></tr>
+                      <tr><td>حديد تسليح 60ksi</td><td class="font-semibold" style="color:var(--color-accent-600);">3,600 ر.س</td><td>3,800 ر.س</td><td class="badge badge-success">5.3%</td></tr>
+                      <tr><td>طوب أسمنتي</td><td class="font-semibold" style="color:var(--color-accent-600);">2.2 ر.س</td><td>2.5 ر.س</td><td class="badge badge-success">12%</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: SCHEDULE ============================== -->
+        <div id="page-schedule" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">الجدول الزمني</h1>
+              <p class="page-subtitle">برج المملكة السكني • 24 شهراً • المسار الحاسم: 22 شهراً</p>
+            </div>
+            <div class="flex gap-3">
+              <span class="badge badge-warning">المسار الحاسم معلم باللون البرتقالي</span>
+              <button class="btn btn-outline">تحديث الجدول</button>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="card mb-6">
+            <div class="card-header">
+              <span class="card-title">مخطط كانت (Gantt Chart)</span>
+              <div class="flex gap-2">
+                <button class="btn btn-sm btn-ghost">📅 شهري</button>
+                <button class="btn btn-sm btn-primary">📅 أسبوعي</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="gantt-container">
+                <div class="gantt-chart">
+                  <div class="gantt-header">
+                    <div class="gantt-task-name">النشاط</div>
+                    <div class="gantt-timeline">
+                      <div class="gantt-week">شهر 1</div>
+                      <div class="gantt-week">شهر 2</div>
+                      <div class="gantt-week">شهر 3</div>
+                      <div class="gantt-week">شهر 4</div>
+                      <div class="gantt-week">شهر 5</div>
+                      <div class="gantt-week">شهر 6</div>
+                      <div class="gantt-week">شهر 7</div>
+                      <div class="gantt-week">شهر 8</div>
+                      <div class="gantt-week">شهر 9</div>
+                      <div class="gantt-week">شهر 10</div>
+                      <div class="gantt-week">شهر 11</div>
+                      <div class="gantt-week">شهر 12</div>
+                    </div>
+                  </div>
+                  <div class="gantt-row">
+                    <div class="gantt-task-name"><span class="text-sm font-semibold">أساسات</span></div>
+                    <div class="gantt-timeline" style="position:relative;">
+                      <div class="gantt-bar" style="position:absolute;right:0;width:25%;background:var(--color-primary-500);"></div>
+                    </div>
+                  </div>
+                  <div class="gantt-row">
+                    <div class="gantt-task-name"><span class="text-sm font-semibold">هيكل خرساني</span></div>
+                    <div class="gantt-timeline" style="position:relative;">
+                      <div class="gantt-bar" style="position:absolute;right:20%;width:45%;background:var(--color-warning-500);"></div>
+                    </div>
+                  </div>
+                  <div class="gantt-row">
+                    <div class="gantt-task-name"><span class="text-sm font-semibold">واجهات زجاج</span></div>
+                    <div class="gantt-timeline" style="position:relative;">
+                      <div class="gantt-bar" style="position:absolute;right:55%;width:30%;background:var(--color-secondary-500);"></div>
+                    </div>
+                  </div>
+                  <div class="gantt-row">
+                    <div class="gantt-task-name"><span class="text-sm font-semibold">أعمال ميكانيكا</span></div>
+                    <div class="gantt-timeline" style="position:relative;">
+                      <div class="gantt-bar" style="position:absolute;right:40%;width:40%;background:var(--color-accent-500);"></div>
+                    </div>
+                  </div>
+                  <div class="gantt-row">
+                    <div class="gantt-task-name"><span class="text-sm font-semibold">أعمال كهرباء</span></div>
+                    <div class="gantt-timeline" style="position:relative;">
+                      <div class="gantt-bar" style="position:absolute;right:45%;width:35%;background:var(--color-info-500);"></div>
+                    </div>
+                  </div>
+                  <div class="gantt-row">
+                    <div class="gantt-task-name"><span class="text-sm font-semibold">تشطيبات داخلية</span></div>
+                    <div class="gantt-timeline" style="position:relative;">
+                      <div class="gantt-bar" style="position:absolute;right:65%;width:35%;background:var(--color-primary-500);"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Critical path -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">المسار الحاسم للمشروع</span></div>
+            <div class="card-body">
+              <div class="flex flex-wrap gap-2">
+                <span class="badge badge-warning" style="font-size:var(--text-sm);padding:6px 14px;">أساسات ← هيكل خرساني ← واجهات ← تشطيبات ← تسليم</span>
+              </div>
+              <p class="text-sm text-tertiary mt-4">إجمالي مدة المسار الحاسم: 22 شهراً. تأخير أي من هذه الأنشطة يؤثر على تاريخ التسليم النهائي.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: RISKS ============================== -->
+        <div id="page-risks" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">إدارة المخاطر</h1>
+              <p class="page-subtitle">برج المملكة السكني • 18 خطراً محدداً • 4 حرجة</p>
+            </div>
+            <button class="btn btn-primary" data-toast="جاري تحليل المخاطر..." data-toast-type="info">تحليل AI للمخاطر</button>
+          </div>
+
+          <div class="stats-grid mb-6">
+            <div class="card card-stat">
+              <div class="flex items-center gap-2"><span class="status-dot critical"></span><span class="card-stat-label">حرجة</span></div>
+              <div class="card-stat-value" style="color:var(--color-danger-500);">4</div>
+            </div>
+            <div class="card card-stat">
+              <div class="flex items-center gap-2"><span class="status-dot warning"></span><span class="card-stat-label">عالية</span></div>
+              <div class="card-stat-value" style="color:var(--color-warning-600);">6</div>
+            </div>
+            <div class="card card-stat">
+              <div class="flex items-center gap-2"><span class="status-dot info"></span><span class="card-stat-label">متوسطة</span></div>
+              <div class="card-stat-value" style="color:var(--color-secondary-600);">5</div>
+            </div>
+            <div class="card card-stat">
+              <div class="flex items-center gap-2"><span class="status-dot active"></span><span class="card-stat-label">منخفضة</span></div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">3</div>
+            </div>
+          </div>
+
+          <!-- Risk Matrix -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">مصفوفة المخاطر - أهم 5 مخاطر</span></div>
+            <div class="table-container" style="border:none;">
+              <table>
+                <thead><tr><th>الخطر</th><th>الفئة</th><th>الاحتمالية</th><th>التأثير</th><th>المستوى</th><th>إجراء التخفيف</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><span class="font-semibold">تأخير صب الخرسانة</span><div class="text-xs text-tertiary">نقص الإمدادات</div></td>
+                    <td>لوجستي</td>
+                    <td><span class="badge badge-warning">متوسطة</span></td>
+                    <td><span class="badge badge-danger">عالٍ</span></td>
+                    <td><span class="badge badge-danger">حرج</span></td>
+                    <td class="text-sm">تأمين 3 موردين احتياطيين</td>
+                  </tr>
+                  <tr>
+                    <td><span class="font-semibold">ارتفاع أسعار الحديد</span><div class="text-xs text-tertiary">تقلبات السوق</div></td>
+                    <td>مالي</td>
+                    <td><span class="badge badge-warning">متوسطة</span></td>
+                    <td><span class="badge badge-danger">عالٍ</span></td>
+                    <td><span class="badge badge-danger">حرج</span></td>
+                    <td class="text-sm">تثبيت أسعار بعقود طويلة</td>
+                  </tr>
+                  <tr>
+                    <td><span class="font-semibold">مخالفات الكود السعودي</span><div class="text-xs text-tertiary">SBC</div></td>
+                    <td>امتثال</td>
+                    <td><span class="badge badge-primary">منخفضة</span></td>
+                    <td><span class="badge badge-danger">عالٍ</span></td>
+                    <td><span class="badge badge-warning">عالٍ</span></td>
+                    <td class="text-sm">مراجعة آلية SBC مع كل تصميم</td>
+                  </tr>
+                  <tr>
+                    <td><span class="font-semibold">إصابات عمل</span><div class="text-xs text-tertiary">سلامة</div></td>
+                    <td>سلامة</td>
+                    <td><span class="badge badge-primary">منخفضة</span></td>
+                    <td><span class="badge badge-danger">عالٍ</span></td>
+                    <td><span class="badge badge-warning">عالٍ</span></td>
+                    <td class="text-sm">تدريب + مراقبة كاميرات AI</td>
+                  </tr>
+                  <tr>
+                    <td><span class="font-semibold">تأخير التصاريح</span><div class="text-xs text-tertiary">بلدية</div></td>
+                    <td>إداري</td>
+                    <td><span class="badge badge-warning">متوسطة</span></td>
+                    <td><span class="badge badge-warning">متوسط</span></td>
+                    <td><span class="badge badge-warning">عالٍ</span></td>
+                    <td class="text-sm">متابعة يومية + مستشار</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: GIS ============================== -->
+        <div id="page-gis" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">GIS & تحليل الموقع</h1>
+              <p class="page-subtitle">منصة المعلومات الجغرافية والاستخبارات المكانية</p>
+            </div>
+            <div class="flex gap-3">
+              <span class="badge badge-success">✓ متصل بخدمات GIS</span>
+              <button class="btn btn-outline">تحليل موقع جديد</button>
+            </div>
+          </div>
+
+          <div class="grid grid-3 mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">مساحة الأرض</div>
+              <div class="card-stat-value">2,500</div>
+              <div class="card-stat-label">م²</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">نوع التربة</div>
+              <div class="card-stat-value" style="font-size:var(--text-2xl);">صخرية</div>
+              <div class="card-stat-label">قدرة تحمل: 4.5 كجم/سم²</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">مخاطر الموقع</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">منخفضة</div>
+              <div class="card-stat-label">درجة المخاطر: 23/100</div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header"><span class="card-title">خريطة الموقع</span></div>
+              <div class="card-body">
+                <div class="map-placeholder">
+                  <span style="z-index:1;background:white;padding:8px 16px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);">🗺️ خريطة القمر الصناعي - الرياض</span>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">تحليل التربة والمناخ</span></div>
+              <div class="card-body">
+                <div class="flex flex-col gap-4">
+                  <div class="flex justify-between"><span class="text-tertiary">نوع التربة</span><span class="font-semibold">صخرية كلسية</span></div>
+                  <div class="flex justify-between"><span class="text-tertiary">قدرة التحمل</span><span class="font-semibold">4.5 كجم/سم²</span></div>
+                  <div class="flex justify-between"><span class="text-tertiary">مستوى الماء الأرضي</span><span class="font-semibold">18 متر</span></div>
+                  <div class="flex justify-between"><span class="text-tertiary">متوسط الحرارة</span><span class="font-semibold">32°C صيفاً / 16°C شتاءً</span></div>
+                  <div class="flex justify-between"><span class="text-tertiary">اتجاه الرياح السائد</span><span class="font-semibold">شمالي غربي</span></div>
+                  <div class="flex justify-between"><span class="text-tertiary">معدل الأمطار</span><span class="font-semibold">85 مم/سنة</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">تحليل الوصول والخدمات</span></div>
+            <div class="card-body">
+              <div class="grid grid-4 text-center">
+                <div><div class="font-bold text-lg">2.3 كم</div><div class="text-xs text-tertiary">أقرب طريق رئيسي</div></div>
+                <div><div class="font-bold text-lg">1.8 كم</div><div class="text-xs text-tertiary">أقرب محطة كهرباء</div></div>
+                <div><div class="font-bold text-lg">3.5 كم</div><div class="text-xs text-tertiary">شبكة مياه رئيسية</div></div>
+                <div><div class="font-bold text-lg">4.2 كم</div><div class="text-xs text-tertiary">أقرب مستشفى</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: IoT ============================== -->
+        <div id="page-iot" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">إنترنت الأشياء (IoT)</h1>
+              <p class="page-subtitle">الاستشعار الذكي وإنترنت الأشياء والحوسبة الطرفية</p>
+            </div>
+            <span class="badge badge-success">✓ 48 جهازاً متصلاً</span>
+          </div>
+
+          <div class="stats-grid mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">الأجهزة المتصلة</div>
+              <div class="card-stat-value">48</div>
+              <div class="card-stat-change positive">↑ 6 هذا الأسبوع</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">المستشعرات النشطة</div>
+              <div class="card-stat-value">124</div>
+              <div class="card-stat-change positive">نشاط 98%</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">بوابات الحافة</div>
+              <div class="card-stat-value">8</div>
+              <div class="card-stat-label">جميعها متصلة</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">قراءات/ثانية</div>
+              <div class="card-stat-value">2,450</div>
+              <div class="card-stat-label">معدل المعالجة</div>
+            </div>
+          </div>
+
+          <div class="card mb-6">
+            <div class="card-header"><span class="card-title">لوحة المستشعرات المباشرة</span></div>
+            <div class="table-container" style="border:none;">
+              <table>
+                <thead><tr><th>الجهاز</th><th>النوع</th><th>الموقع</th><th>آخر قراءة</th><th>الحالة</th></tr></thead>
+                <tbody>
+                  <tr><td>MQ-001</td><td>درجة حرارة</td><td>الدور 5 - غرفة م</td><td>38.2°C</td><td><span class="status-dot active"></span> متصل</td></tr>
+                  <tr><td>MQ-002</td><td>رطوبة</td><td>الدور 5 - غرفة م</td><td>52%</td><td><span class="status-dot active"></span> متصل</td></tr>
+                  <tr><td>MQ-003</td><td>اهتزاز</td><td>مضخة مياه</td><td>0.12 مم/ث</td><td><span class="status-dot active"></span> متصل</td></tr>
+                  <tr><td>CM-001</td><td>كاميرا حرارية</td><td>سطح المبنى</td><td>—</td><td><span class="status-dot warning"></span> تحليل</td></tr>
+                  <tr><td>EN-002</td><td>استهلاك طاقة</td><td>لوحة رئيسية</td><td>142 kWh</td><td><span class="status-dot active"></span> متصل</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">كاميرات المراقبة بالذكاء الاصطناعي</span></div>
+            <div class="card-body">
+              <div class="grid grid-4">
+                <div class="card" style="border:1px solid var(--color-border);">
+                  <div class="card-body text-center">
+                    <div style="font-size:48px;margin-bottom:8px;">📹</div>
+                    <div class="font-semibold text-sm">كاميرا A - المدخل</div>
+                    <div class="badge badge-success mt-2">✓ تشغيل</div>
+                  </div>
+                </div>
+                <div class="card" style="border:1px solid var(--color-border);">
+                  <div class="card-body text-center">
+                    <div style="font-size:48px;margin-bottom:8px;">📹</div>
+                    <div class="font-semibold text-sm">كاميرا B - الموقع</div>
+                    <div class="badge badge-success mt-2">✓ تشغيل</div>
+                  </div>
+                </div>
+                <div class="card" style="border:1px solid var(--color-border);">
+                  <div class="card-body text-center">
+                    <div style="font-size:48px;margin-bottom:8px;">📹</div>
+                    <div class="font-semibold text-sm">كاميرا C - مستودع</div>
+                    <div class="badge badge-warning mt-2">تحليل متقدم</div>
+                  </div>
+                </div>
+                <div class="card" style="border:1px solid var(--color-border);">
+                  <div class="card-body text-center">
+                    <div style="font-size:48px;margin-bottom:8px;">📹</div>
+                    <div class="font-semibold text-sm">كاميرا D - سطح</div>
+                    <div class="badge badge-success mt-2">✓ تشغيل</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: QUALITY ============================== -->
+        <div id="page-quality" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">الجودة والتفتيش</h1>
+              <p class="page-subtitle">فحص الجودة بالذكاء الاصطناعي وإدارة التفتيش</p>
+            </div>
+            <button class="btn btn-primary" data-toast="جاري بدء تفتيش جديد..." data-toast-type="info">+ تفتيش جديد</button>
+          </div>
+
+          <div class="stats-grid mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">إجمالي التفتيشات</div>
+              <div class="card-stat-value">86</div>
+              <div class="card-stat-change positive">هذا الربع</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">مطابق</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">72</div>
+              <div class="card-stat-change positive">83.7%</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">NCR مفتوحة</div>
+              <div class="card-stat-value" style="color:var(--color-danger-500);">8</div>
+              <div class="card-stat-change negative">↑ 3 جديدة</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">عيوب AI مكتشفة</div>
+              <div class="card-stat-value">124</div>
+              <div class="card-stat-change positive">دقة 96%</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">كشف العيوب بالذكاء الاصطناعي - تحليل الصور</span></div>
+            <div class="card-body">
+              <div class="grid grid-4">
+                <div class="card" style="border:2px solid var(--color-danger-300);">
+                  <div class="card-body">
+                    <div style="height:120px;background:var(--color-surface);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:8px;">🧱</div>
+                    <div class="font-semibold text-sm">تشقق عمود</div>
+                    <div class="flex justify-between mt-1"><span class="text-xs text-tertiary">الدور 3</span><span class="badge badge-danger">حرج</span></div>
+                  </div>
+                </div>
+                <div class="card" style="border:2px solid var(--color-warning-300);">
+                  <div class="card-body">
+                    <div style="height:120px;background:var(--color-surface);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:8px;">🧱</div>
+                    <div class="font-semibold text-sm">تسوس خرسانة</div>
+                    <div class="flex justify-between mt-1"><span class="text-xs text-tertiary">الدور 7</span><span class="badge badge-warning">متوسط</span></div>
+                  </div>
+                </div>
+                <div class="card" style="border:2px solid var(--color-warning-300);">
+                  <div class="card-body">
+                    <div style="height:120px;background:var(--color-surface);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:8px;">🔩</div>
+                    <div class="font-semibold text-sm">حديد مكشوف</div>
+                    <div class="flex justify-between mt-1"><span class="text-xs text-tertiary">الدور 2</span><span class="badge badge-warning">متوسط</span></div>
+                  </div>
+                </div>
+                <div class="card" style="border:2px solid var(--color-accent-300);">
+                  <div class="card-body">
+                    <div style="height:120px;background:var(--color-surface);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:8px;">🔧</div>
+                    <div class="font-semibold text-sm">مطابق للمواصفات</div>
+                    <div class="flex justify-between mt-1"><span class="text-xs text-tertiary">الدور 5</span><span class="badge badge-success">مقبول</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: SAFETY ============================== -->
+        <div id="page-safety" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">السلامة المهنية</h1>
+              <p class="page-subtitle">تحليل المخاطر والسلامة بالرؤية الحاسوبية والذكاء الاصطناعي</p>
+            </div>
+            <button class="btn btn-primary" data-toast="جاري تقييم المخاطر..." data-toast-type="info">تقييم مخاطر جديد</button>
+          </div>
+
+          <div class="stats-grid mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">أيام بدون إصابات</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">127</div>
+              <div class="card-stat-label">🚑 آخر إصابة: 127 يوم</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">معدل TRIR</div>
+              <div class="card-stat-value">0.42</div>
+              <div class="card-stat-label">أقل من المستهدف 0.8</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">مخالفات السلامة</div>
+              <div class="card-stat-value" style="color:var(--color-warning-600);">3</div>
+              <div class="card-stat-change negative">هذا الأسبوع</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">تدريبات مكتملة</div>
+              <div class="card-stat-value">24</div>
+              <div class="card-stat-label">عامل مدرب: 96%</div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header"><span class="card-title">مراقبة PPE بالذكاء الاصطناعي</span></div>
+              <div class="card-body">
+                <div class="flex flex-col gap-4">
+                  <div class="flex justify-between items-center"><span>خوذة السلامة</span><span class="badge badge-success">95% التزام</span></div>
+                  <div class="flex justify-between items-center"><span>سترة عاكسة</span><span class="badge badge-success">92% التزام</span></div>
+                  <div class="flex justify-between items-center"><span>حذاء سلامة</span><span class="badge badge-success">88% التزام</span></div>
+                  <div class="flex justify-between items-center"><span>حزام أمان</span><span class="badge badge-warning">76% التزام</span></div>
+                  <div class="flex justify-between items-center"><span>قناع / كمامة</span><span class="badge badge-primary">98% التزام</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">التصاريح النشطة</span></div>
+              <div class="table-container" style="border:none;">
+                <table>
+                  <thead><tr><th>النوع</th><th>الموقع</th><th>تاريخ</th><th>الحالة</th></tr></thead>
+                  <tbody>
+                    <tr><td>عمل ساخن</td><td>الدور 5</td><td>2024-12-15</td><td><span class="badge badge-success">ساري</span></td></tr>
+                    <tr><td>عمل في ارتفاع</td><td>الدور 10</td><td>2024-12-14</td><td><span class="badge badge-warning">ينتهي اليوم</span></td></tr>
+                    <tr><td>حفر</td><td>الموقع</td><td>2024-12-20</td><td><span class="badge badge-success">ساري</span></td></tr>
+                    <tr><td>كهرباء</td><td>غرفة المحولات</td><td>2024-12-10</td><td><span class="badge badge-danger">منتهي</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Feed -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">بث مباشر - كاميرات السلامة</span></div>
+            <div class="card-body">
+              <div class="grid grid-3">
+                <div class="card" style="border:1px solid var(--color-border);">
+                  <div class="card-body text-center">
+                    <div style="font-size:48px;">📹</div>
+                    <div class="font-semibold text-sm mt-2">PPE Monitoring</div>
+                    <span class="badge badge-success mt-2">✓ 12 عاملاً</span>
+                  </div>
+                </div>
+                <div class="card" style="border:1px solid var(--color-border);">
+                  <div class="card-body text-center">
+                    <div style="font-size:48px;">📹</div>
+                    <div class="font-semibold text-sm mt-2">منطقة خطر</div>
+                    <span class="badge badge-success mt-2">✓ آمنة</span>
+                  </div>
+                </div>
+                <div class="card" style="border:1px solid var(--color-border);">
+                  <div class="card-body text-center">
+                    <div style="font-size:48px;">📹</div>
+                    <div class="font-semibold text-sm mt-2">مستودع مواد خطرة</div>
+                    <span class="badge badge-warning mt-2">تطلب انتباهاً</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: SUSTAINABILITY ============================== -->
+        <div id="page-sustainability" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">الاستدامة ESG</h1>
+              <p class="page-subtitle">البصمة الكربونية، الطاقة، المياه، النفايات، وتقارير ESG</p>
+            </div>
+            <span class="badge badge-success">✓ متوافق مع مبادرة السعودية الخضراء</span>
+          </div>
+
+          <div class="stats-grid mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">البصمة الكربونية</div>
+              <div class="card-stat-value">2,450</div>
+              <div class="card-stat-label">طن CO₂/سنة</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">هدف الحياد الصفري</div>
+              <div class="card-stat-value">2045</div>
+              <div class="card-stat-change positive">خفض 40% بحلول 2030</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">درجة ESG</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">BB+</div>
+              <div class="card-stat-change positive">↑ من B في 2023</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">استهلاك الطاقة المتجددة</div>
+              <div class="card-stat-value">35%</div>
+              <div class="card-stat-change positive">↑ 12% عن العام الماضي</div>
+            </div>
+          </div>
+
+          <div class="grid grid-3 mb-6">
+            <div class="card">
+              <div class="card-body text-center">
+                <div style="font-size:36px;margin-bottom:8px;">💧</div>
+                <div class="font-semibold">المياه</div>
+                <div class="card-stat-value" style="font-size:var(--text-2xl);">42,000 م³</div>
+                <div class="text-xs text-tertiary">استهلاك سنوي</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body text-center">
+                <div style="font-size:36px;margin-bottom:8px;">⚡</div>
+                <div class="font-semibold">الطاقة</div>
+                <div class="card-stat-value" style="font-size:var(--text-2xl);">1.8 MWh</div>
+                <div class="text-xs text-tertiary">استهلاك سنوي</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body text-center">
+                <div style="font-size:36px;margin-bottom:8px;">♻️</div>
+                <div class="font-semibold">النفايات</div>
+                <div class="card-stat-value" style="font-size:var(--text-2xl);">86 طن</div>
+                <div class="text-xs text-tertiary">نفايات بناء - 62% معاد تدويره</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: MARKETPLACE ============================== -->
+        <div id="page-marketplace" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">السوق والموردين</h1>
+              <p class="page-subtitle">منصة الموردين والمناقصات والمشتريات الذكية</p>
+            </div>
+            <button class="btn btn-primary" data-toast="جاري نشر مناقصة جديدة..." data-toast-type="info">+ مناقصة جديدة</button>
+          </div>
+
+          <div class="stats-grid mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">الموردون المسجلون</div>
+              <div class="card-stat-value">248</div>
+              <div class="card-stat-change positive">↑ 12 هذا الشهر</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">المناقصات النشطة</div>
+              <div class="card-stat-value" style="color:var(--color-warning-600);">18</div>
+              <div class="card-stat-label">بقيمة 320M ر.س</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">مؤشر ثقة الموردين</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">4.8</div>
+              <div class="card-stat-label">من 5.0</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">التوفير المحقق</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">12.5M</div>
+              <div class="card-stat-change positive">بفضل AI</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">مطابقة الموردين بالذكاء الاصطناعي</span></div>
+            <div class="table-container" style="border:none;">
+              <table>
+                <thead><tr><th>المورد</th><th>التخصص</th><th>التقييم</th><th>المسافة</th><th>درجة المطابقة</th><th>السعر</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><span class="font-semibold">مؤسسة الخرسانة</span></td>
+                    <td>خرسانة جاهزة</td>
+                    <td>⭐ 4.9</td>
+                    <td>12 كم</td>
+                    <td><span class="badge badge-success">98%</span></td>
+                    <td className="font-semibold">620 ر.س</td>
+                  </tr>
+                  <tr>
+                    <td><span class="font-semibold">شركة الحديد المتحد</span></td>
+                    <td>حديد تسليح</td>
+                    <td>⭐ 4.7</td>
+                    <td>25 كم</td>
+                    <td><span class="badge badge-success">95%</span></td>
+                    <td>3,600 ر.س</td>
+                  </tr>
+                  <tr>
+                    <td><span class="font-semibold">مجموعة البناء</span></td>
+                    <td>طوب وبلوك</td>
+                    <td>⭐ 4.5</td>
+                    <td>8 كم</td>
+                    <td><span class="badge badge-success">93%</span></td>
+                    <td>2.2 ر.س</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: BI ============================== -->
+        <div id="page-bi" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">ذكاء الأعمال</h1>
+              <p class="page-subtitle">لوحات الأداء التنفيذية والتقارير الاستراتيجية</p>
+            </div>
+            <button class="btn btn-primary" data-toast="جاري إنشاء تقرير تنفيذي..." data-toast-type="info">تقرير جديد</button>
+          </div>
+
+          <div class="stats-grid mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">مؤشر صحة المنصة</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">A+</div>
+              <div class="card-stat-label">94/100 - استثنائي</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">نمو الإيرادات</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">+18.5%</div>
+              <div class="card-stat-label">الربع الحالي</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">مؤشر الأداء (KPI)</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">86%</div>
+              <div class="card-stat-label">SPI: 1.12 | CPI: 0.98</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">المشاريع المنجزة</div>
+              <div class="card-stat-value">18</div>
+              <div class="card-stat-label">من 24 مشروعاً</div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header"><span class="card-title">تحليل الميزانية</span></div>
+              <div class="card-body">
+                <div class="flex flex-col gap-4">
+                  <div>
+                    <div class="flex justify-between text-sm mb-1"><span>المخطط له</span><span>2.8B ر.س</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--color-primary-500);"></div></div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm mb-1"><span>المنصرف</span><span>2.1B ر.س (75%)</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:75%;background:var(--color-secondary-500);"></div></div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm mb-1"><span>المتبقي</span><span>700M ر.س (25%)</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:25%;background:var(--color-accent-500);"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">مؤشرات OKR</span></div>
+              <div class="card-body">
+                <div class="flex flex-col gap-3">
+                  <div><div class="flex justify-between text-sm"><span>رضا العملاء</span><span>4.7/5.0</span></div><div class="progress-bar mt-1"><div class="progress-fill" style="width:94%;background:var(--color-accent-500);"></div></div></div>
+                  <div><div class="flex justify-between text-sm"><span>تسليم في الوقت</span><span>83%</span></div><div class="progress-bar mt-1"><div class="progress-fill" style="width:83%;background:var(--color-secondary-500);"></div></div></div>
+                  <div><div class="flex justify-between text-sm"><span>دقة التكاليف</span><span>92%</span></div><div class="progress-bar mt-1"><div class="progress-fill" style="width:92%;background:var(--color-primary-500);"></div></div></div>
+                  <div><div class="flex justify-between text-sm"><span>معدل السلامة</span><span>96%</span></div><div class="progress-bar mt-1"><div class="progress-fill" style="width:96%;background:var(--color-accent-500);"></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: ADMIN ============================== -->
+        <div id="page-admin" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">الإدارة والأمان</h1>
+              <p class="page-subtitle">المستخدمين، الصلاحيات، الأمان، الامتثال، وإعدادات النظام</p>
+            </div>
+            <button class="btn btn-primary">+ مستخدم جديد</button>
+          </div>
+
+          <div class="grid grid-4 mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">إجمالي المستخدمين</div>
+              <div class="card-stat-value">48</div>
+              <div class="card-stat-change positive">↑ 3 هذا الشهر</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">الدورات النشطة</div>
+              <div class="card-stat-value">6</div>
+              <div class="card-stat-label">راجع EASGP</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">حالة الامتثال</div>
+              <div class="card-stat-value" style="color:var(--color-accent-600);">ممتثل</div>
+              <div class="card-stat-label">ISO 27001, 9001</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">سجلات الأمان</div>
+              <div class="card-stat-value">2,450</div>
+              <div class="card-stat-change positive">آخر 24 ساعة</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">المستخدمون النشطون</span></div>
+            <div class="table-container" style="border:none;">
+              <table>
+                <thead><tr><th>الاسم</th><th>البريد</th><th>الدور</th><th>آخر نشاط</th><th>الحالة</th></tr></thead>
+                <tbody>
+                  <tr><td>أ. عبدالرحمن</td><td>a.ahmed@acep.com</td><td><span class="badge badge-primary">مدير مشروع</span></td><td>منذ 5 دقائق</td><td><span class="status-dot active"></span> متصل</td></tr>
+                  <tr><td>م. خالد السبيعي</td><td>k.alsubaie@acep.com</td><td><span class="badge badge-secondary">مهندس مدني</span></td><td>منذ 15 دقيقة</td><td><span class="status-dot active"></span> متصل</td></tr>
+                  <tr><td>م. فيصل الدوسري</td><td>f.aldossary@acep.com</td><td><span class="badge badge-info">Quantity Surveyor</span></td><td>منذ ساعة</td><td><span class="status-dot warning"></span> غير نشط</td></tr>
+                  <tr><td>د. نورة القحطاني</td><td>n.alqahtani@acep.com</td><td><span class="badge badge-success">مشرف جودة</span></td><td>منذ 3 ساعات</td><td><span class="status-dot warning"></span> غير نشط</td></tr>
+                  <tr><td>أ. سعود المالكي</td><td>s.almalki@acep.com</td><td><span class="badge badge-warning">مشرف سلامة</span></td><td>أمس</td><td><span class="status-dot inactive"></span> غير متصل</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: DEVELOPER ============================== -->
+        <div id="page-developer" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">بوابة المطورين</h1>
+              <p class="page-subtitle">API، SDK، Webhooks، وإضافات المنصة</p>
+            </div>
+            <button class="btn btn-primary" data-toast="تم إنشاء مفتاح API جديد" data-toast-type="success">+ مفتاح API</button>
+          </div>
+
+          <div class="grid grid-3 mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">مفاتيح API النشطة</div>
+              <div class="card-stat-value">12</div>
+              <div class="card-stat-change positive">↑ 2 هذا الشهر</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">طلبات API/يوم</div>
+              <div class="card-stat-value">142K</div>
+              <div class="card-stat-change positive">متوسط زمن الاستجابة: 42ms</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">الإضافات المثبتة</div>
+              <div class="card-stat-value">8</div>
+              <div class="card-stat-label">من سوق الإضافات</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">API Endpoints</span></div>
+            <div class="table-container" style="border:none;">
+              <table>
+                <thead><tr><th>الطريقة</th><th>المسار</th><th>الوصف</th><th>الحالة</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="badge badge-success">GET</span></td><td class="font-mono text-sm" style="font-family:monospace;direction:ltr;text-align:left;">/api/v1/projects</td><td>قائمة المشاريع</td><td><span class="status-dot active"></span> نشط</td></tr>
+                  <tr><td><span class="badge badge-info">POST</span></td><td class="font-mono text-sm" style="font-family:monospace;direction:ltr;text-align:left;">/api/v1/analyze</td><td>تحليل المشروع</td><td><span class="status-dot active"></span> نشط</td></tr>
+                  <tr><td><span class="badge badge-warning">PUT</span></td><td class="font-mono text-sm" style="font-family:monospace;direction:ltr;text-align:left;">/api/v1/projects/:id</td><td>تحديث مشروع</td><td><span class="status-dot active"></span> نشط</td></tr>
+                  <tr><td><span class="badge badge-danger">DELETE</span></td><td class="font-mono text-sm" style="font-family:monospace;direction:ltr;text-align:left;">/api/v1/projects/:id</td><td>حذف مشروع</td><td><span class="status-dot active"></span> نشط</td></tr>
+                  <tr><td><span class="badge badge-info">POST</span></td><td class="font-mono text-sm" style="font-family:monospace;direction:ltr;text-align:left;">/api/v1/ggip/analyze-terrain</td><td>تحليل تضاريس (GGIP)</td><td><span class="status-dot active"></span> نشط</td></tr>
+                  <tr><td><span class="badge badge-info">POST</span></td><td class="font-mono text-sm" style="font-family:monospace;direction:ltr;text-align:left;">/api/v1/iseip/sensor-data</td><td>بيانات المستشعرات (ISEIP)</td><td><span class="status-dot active"></span> نشط</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-content -->
+
+    </main>
+  </div><!-- /app-shell -->
+
+  <!-- ===== AI PANEL ===== -->
+  <div class="ai-panel" id="ai-panel">
+    <div class="ai-panel-header">
+      <div class="ai-panel-title"><span>🤖</span> مساعد ACEP الذكي</div>
+      <button class="btn btn-sm btn-ghost" id="ai-panel-close">✕</button>
+    </div>
+    <div class="ai-panel-body" id="ai-messages">
+      <div class="ai-message">
+        <div class="ai-message-avatar">🤖</div>
+        <div class="ai-message-content">
+          مرحباً! أنا المساعد الذكي لـ ACEP. كيف يمكنني مساعدتك اليوم؟ يمكنني:
+          <div class="flex flex-col gap-1 mt-2">
+            <button class="btn btn-sm btn-ghost ai-quick-btn" data-query="أظهر لي ملخص المشاريع النشطة">📋 ملخص المشاريع</button>
+            <button class="btn btn-sm btn-ghost ai-quick-btn" data-query="حلل المخاطر في مشروع برج المملكة">⚠️ تحليل المخاطر</button>
+            <button class="btn btn-sm btn-ghost ai-quick-btn" data-query="قارن أسعار الموردين للخرسانة">💰 مقارنة أسعار</button>
+            <button class="btn btn-sm btn-ghost ai-quick-btn" data-query="أنشئ تقرير أداء الربع الحالي">📊 تقرير أداء</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-panel-footer">
+      <div class="flex gap-2">
+        <input class="form-input" id="ai-input" placeholder="اسأل المساعد الذكي..." style="flex:1;">
+        <button class="btn btn-primary btn-icon" id="ai-send-btn">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-title">تأكيد</span>
+        <button class="btn btn-sm btn-ghost" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-message">
+        هل أنت متأكد من تنفيذ هذا الإجراء؟
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="modal-cancel-btn">إلغاء</button>
+        <button class="btn btn-primary" id="modal-confirm-btn">تأكيد</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MOBILE NAV ===== -->
+  <nav class="mobile-nav">
+    <a class="mobile-nav-item active" data-page="dashboard"><span class="mobile-nav-item-icon">📊</span><span>الرئيسية</span></a>
+    <a class="mobile-nav-item" data-page="projects"><span class="mobile-nav-item-icon">📁</span><span>المشاريع</span></a>
+    <a class="mobile-nav-item" data-page="analysis"><span class="mobile-nav-item-icon">🤖</span><span>تحليل</span></a>
+    <a class="mobile-nav-item" data-page="boq"><span class="mobile-nav-item-icon">📋</span><span>BOQ</span></a>
+    <a class="mobile-nav-item" data-page="cost"><span class="mobile-nav-item-icon">💰</span><span>التكاليف</span></a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="src/app.js"></script>
+</body>
+</html>

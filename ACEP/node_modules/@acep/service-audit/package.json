@@ -1,0 +1,15 @@
+{
+  "name": "@acep/service-audit",
+  "version": "1.0.0",
+  "description": "Audit Service - Immutable audit logging for ACEP",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsc", "start": "node dist/index.js", "dev": "ts-node src/index.ts" },
+  "dependencies": {
+    "@acep/core": "^1.0.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.0"
+  }
+}

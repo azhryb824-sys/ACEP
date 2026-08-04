@@ -1,0 +1,16 @@
+{
+  "name": "@acep/ebisdp",
+  "version": "1.0.0",
+  "description": "Executive Business Intelligence & Strategic Decision Platform - منصة الذكاء التجاري التنفيذي والقرارات الاستراتيجية",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@acep/core": "^1.0.0",
+    "@acep/knowledge-base": "^1.0.0",
+    "uuid": "^9.0.0"
+  }
+}

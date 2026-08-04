@@ -1,0 +1,16 @@
+{
+  "name": "@acep/craep",
+  "version": "1.0.0",
+  "description": "Construction Robotics & Autonomous Equipment Platform - منصة الروبوتات والمعدات الذاتية التشغيل للبناء",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@acep/core": "^1.0.0",
+    "@acep/knowledge-base": "^1.0.0",
+    "uuid": "^9.0.0"
+  }
+}

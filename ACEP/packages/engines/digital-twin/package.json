@@ -1,0 +1,17 @@
+{
+  "name": "@acep/engines/digital-twin",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "@acep/core": "workspace:*",
+    "@acep/knowledge-base": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

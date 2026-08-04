@@ -1,0 +1,602 @@
+[
+  {
+    "trade": "Mason",
+    "city": "Riyadh",
+    "daily_rate_sar": 184,
+    "year": 2023
+  },
+  {
+    "trade": "Mason",
+    "city": "Jeddah",
+    "daily_rate_sar": 171,
+    "year": 2024
+  },
+  {
+    "trade": "Mason",
+    "city": "Makkah",
+    "daily_rate_sar": 157.2,
+    "year": 2024
+  },
+  {
+    "trade": "Mason",
+    "city": "Madinah",
+    "daily_rate_sar": 158.7,
+    "year": 2024
+  },
+  {
+    "trade": "Mason",
+    "city": "Dammam",
+    "daily_rate_sar": 171.8,
+    "year": 2024
+  },
+  {
+    "trade": "Mason",
+    "city": "Khobar",
+    "daily_rate_sar": 175,
+    "year": 2025
+  },
+  {
+    "trade": "Mason",
+    "city": "Taif",
+    "daily_rate_sar": 149.8,
+    "year": 2025
+  },
+  {
+    "trade": "Mason",
+    "city": "Abha",
+    "daily_rate_sar": 151.1,
+    "year": 2023
+  },
+  {
+    "trade": "Mason",
+    "city": "Tabuk",
+    "daily_rate_sar": 145.2,
+    "year": 2023
+  },
+  {
+    "trade": "Mason",
+    "city": "Buraydah",
+    "daily_rate_sar": 153.9,
+    "year": 2024
+  },
+  {
+    "trade": "Mason",
+    "city": "Khamis Mushait",
+    "daily_rate_sar": 136.9,
+    "year": 2024
+  },
+  {
+    "trade": "Mason",
+    "city": "Najran",
+    "daily_rate_sar": 139.1,
+    "year": 2025
+  },
+  {
+    "trade": "Mason",
+    "city": "Hail",
+    "daily_rate_sar": 146.2,
+    "year": 2025
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Riyadh",
+    "daily_rate_sar": 225.2,
+    "year": 2025
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Jeddah",
+    "daily_rate_sar": 212.5,
+    "year": 2025
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Makkah",
+    "daily_rate_sar": 202.2,
+    "year": 2025
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Madinah",
+    "daily_rate_sar": 202.4,
+    "year": 2025
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Dammam",
+    "daily_rate_sar": 197.2,
+    "year": 2024
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Khobar",
+    "daily_rate_sar": 209.8,
+    "year": 2024
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Taif",
+    "daily_rate_sar": 181.3,
+    "year": 2024
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Abha",
+    "daily_rate_sar": 180.3,
+    "year": 2024
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Tabuk",
+    "daily_rate_sar": 174.1,
+    "year": 2023
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Buraydah",
+    "daily_rate_sar": 190.8,
+    "year": 2024
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Khamis Mushait",
+    "daily_rate_sar": 168.1,
+    "year": 2025
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Najran",
+    "daily_rate_sar": 165,
+    "year": 2024
+  },
+  {
+    "trade": "Steel Fixer",
+    "city": "Hail",
+    "daily_rate_sar": 176.6,
+    "year": 2025
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Riyadh",
+    "daily_rate_sar": 192.4,
+    "year": 2025
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Jeddah",
+    "daily_rate_sar": 189.8,
+    "year": 2023
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Makkah",
+    "daily_rate_sar": 172.4,
+    "year": 2024
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Madinah",
+    "daily_rate_sar": 185.9,
+    "year": 2024
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Dammam",
+    "daily_rate_sar": 185.4,
+    "year": 2024
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Khobar",
+    "daily_rate_sar": 198.8,
+    "year": 2024
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Taif",
+    "daily_rate_sar": 167,
+    "year": 2023
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Abha",
+    "daily_rate_sar": 169,
+    "year": 2025
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Tabuk",
+    "daily_rate_sar": 156.5,
+    "year": 2025
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Buraydah",
+    "daily_rate_sar": 176.9,
+    "year": 2023
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Khamis Mushait",
+    "daily_rate_sar": 158.2,
+    "year": 2023
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Najran",
+    "daily_rate_sar": 155.3,
+    "year": 2025
+  },
+  {
+    "trade": "Carpenter",
+    "city": "Hail",
+    "daily_rate_sar": 159.3,
+    "year": 2023
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Riyadh",
+    "daily_rate_sar": 169.9,
+    "year": 2025
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Jeddah",
+    "daily_rate_sar": 158.4,
+    "year": 2023
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Makkah",
+    "daily_rate_sar": 152.3,
+    "year": 2024
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Madinah",
+    "daily_rate_sar": 151.3,
+    "year": 2024
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Dammam",
+    "daily_rate_sar": 154.2,
+    "year": 2025
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Khobar",
+    "daily_rate_sar": 150.9,
+    "year": 2023
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Taif",
+    "daily_rate_sar": 148.5,
+    "year": 2025
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Abha",
+    "daily_rate_sar": 131.9,
+    "year": 2025
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Tabuk",
+    "daily_rate_sar": 140.6,
+    "year": 2024
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Buraydah",
+    "daily_rate_sar": 155.7,
+    "year": 2025
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Khamis Mushait",
+    "daily_rate_sar": 126.3,
+    "year": 2025
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Najran",
+    "daily_rate_sar": 131.1,
+    "year": 2025
+  },
+  {
+    "trade": "Concrete Worker",
+    "city": "Hail",
+    "daily_rate_sar": 133.8,
+    "year": 2024
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Riyadh",
+    "daily_rate_sar": 180.7,
+    "year": 2024
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Jeddah",
+    "daily_rate_sar": 180.8,
+    "year": 2024
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Makkah",
+    "daily_rate_sar": 170.4,
+    "year": 2023
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Madinah",
+    "daily_rate_sar": 167.1,
+    "year": 2024
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Dammam",
+    "daily_rate_sar": 169.3,
+    "year": 2025
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Khobar",
+    "daily_rate_sar": 186.1,
+    "year": 2024
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Taif",
+    "daily_rate_sar": 159.9,
+    "year": 2025
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Abha",
+    "daily_rate_sar": 155.8,
+    "year": 2025
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Tabuk",
+    "daily_rate_sar": 151.2,
+    "year": 2024
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Buraydah",
+    "daily_rate_sar": 167.7,
+    "year": 2025
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Khamis Mushait",
+    "daily_rate_sar": 152.4,
+    "year": 2025
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Najran",
+    "daily_rate_sar": 152.4,
+    "year": 2023
+  },
+  {
+    "trade": "Plasterer",
+    "city": "Hail",
+    "daily_rate_sar": 152,
+    "year": 2025
+  },
+  {
+    "trade": "Painter",
+    "city": "Riyadh",
+    "daily_rate_sar": 174.2,
+    "year": 2025
+  },
+  {
+    "trade": "Painter",
+    "city": "Jeddah",
+    "daily_rate_sar": 161.4,
+    "year": 2025
+  },
+  {
+    "trade": "Painter",
+    "city": "Makkah",
+    "daily_rate_sar": 159.8,
+    "year": 2025
+  },
+  {
+    "trade": "Painter",
+    "city": "Madinah",
+    "daily_rate_sar": 154.4,
+    "year": 2023
+  },
+  {
+    "trade": "Painter",
+    "city": "Dammam",
+    "daily_rate_sar": 168.3,
+    "year": 2024
+  },
+  {
+    "trade": "Painter",
+    "city": "Khobar",
+    "daily_rate_sar": 166.2,
+    "year": 2024
+  },
+  {
+    "trade": "Painter",
+    "city": "Taif",
+    "daily_rate_sar": 152.3,
+    "year": 2025
+  },
+  {
+    "trade": "Painter",
+    "city": "Abha",
+    "daily_rate_sar": 142.3,
+    "year": 2025
+  },
+  {
+    "trade": "Painter",
+    "city": "Tabuk",
+    "daily_rate_sar": 142.2,
+    "year": 2023
+  },
+  {
+    "trade": "Painter",
+    "city": "Buraydah",
+    "daily_rate_sar": 157,
+    "year": 2024
+  },
+  {
+    "trade": "Painter",
+    "city": "Khamis Mushait",
+    "daily_rate_sar": 138.4,
+    "year": 2024
+  },
+  {
+    "trade": "Painter",
+    "city": "Najran",
+    "daily_rate_sar": 137.4,
+    "year": 2024
+  },
+  {
+    "trade": "Painter",
+    "city": "Hail",
+    "daily_rate_sar": 142.6,
+    "year": 2025
+  },
+  {
+    "trade": "Tiler",
+    "city": "Riyadh",
+    "daily_rate_sar": 210.2,
+    "year": 2024
+  },
+  {
+    "trade": "Tiler",
+    "city": "Jeddah",
+    "daily_rate_sar": 196,
+    "year": 2025
+  },
+  {
+    "trade": "Tiler",
+    "city": "Makkah",
+    "daily_rate_sar": 194.5,
+    "year": 2023
+  },
+  {
+    "trade": "Tiler",
+    "city": "Madinah",
+    "daily_rate_sar": 182,
+    "year": 2024
+  },
+  {
+    "trade": "Tiler",
+    "city": "Dammam",
+    "daily_rate_sar": 204.7,
+    "year": 2023
+  },
+  {
+    "trade": "Tiler",
+    "city": "Khobar",
+    "daily_rate_sar": 199.6,
+    "year": 2025
+  },
+  {
+    "trade": "Tiler",
+    "city": "Taif",
+    "daily_rate_sar": 181.4,
+    "year": 2024
+  },
+  {
+    "trade": "Tiler",
+    "city": "Abha",
+    "daily_rate_sar": 167.6,
+    "year": 2025
+  },
+  {
+    "trade": "Tiler",
+    "city": "Tabuk",
+    "daily_rate_sar": 163.7,
+    "year": 2023
+  },
+  {
+    "trade": "Tiler",
+    "city": "Buraydah",
+    "daily_rate_sar": 182.7,
+    "year": 2023
+  },
+  {
+    "trade": "Tiler",
+    "city": "Khamis Mushait",
+    "daily_rate_sar": 163.1,
+    "year": 2024
+  },
+  {
+    "trade": "Tiler",
+    "city": "Najran",
+    "daily_rate_sar": 158.4,
+    "year": 2023
+  },
+  {
+    "trade": "Tiler",
+    "city": "Hail",
+    "daily_rate_sar": 171.1,
+    "year": 2023
+  },
+  {
+    "trade": "Plumber",
+    "city": "Riyadh",
+    "daily_rate_sar": 248,
+    "year": 2025
+  },
+  {
+    "trade": "Plumber",
+    "city": "Jeddah",
+    "daily_rate_sar": 239.4,
+    "year": 2024
+  },
+  {
+    "trade": "Plumber",
+    "city": "Makkah",
+    "daily_rate_sar": 231,
+    "year": 2025
+  },
+  {
+    "trade": "Plumber",
+    "city": "Madinah",
+    "daily_rate_sar": 227.6,
+    "year": 2024
+  },
+  {
+    "trade": "Plumber",
+    "city": "Dammam",
+    "daily_rate_sar": 231.7,
+    "year": 2023
+  },
+  {
+    "trade": "Plumber",
+    "city": "Khobar",
+    "daily_rate_sar": 232.3,
+    "year": 2024
+  },
+  {
+    "trade": "Plumber",
+    "city": "Taif",
+    "daily_rate_sar": 216.6,
+    "year": 2023
+  },
+  {
+    "trade": "Plumber",
+    "city": "Abha",
+    "daily_rate_sar": 207,
+    "year": 2024
+  },
+  {
+    "trade": "Plumber",
+    "city": "Tabuk",
+    "daily_rate_sar": 208.3,
+    "year": 2024
+  }
+]

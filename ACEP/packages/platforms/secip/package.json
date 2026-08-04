@@ -1,0 +1,38 @@
+{
+  "name": "@acep/secip",
+  "version": "1.0.0",
+  "description": "ACEP Sustainability, ESG & Carbon Intelligence Platform - المجلد الثالث والأربعون",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --passWithNoTests",
+    "lint": "eslint src/",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@acep/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "rimraf": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "acep",
+    "sustainability",
+    "esg",
+    "carbon",
+    "intelligence",
+    "secip",
+    "green-building",
+    "net-zero"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anomalyco/acep",
+    "directory": "packages/platforms/secip"
+  }
+}

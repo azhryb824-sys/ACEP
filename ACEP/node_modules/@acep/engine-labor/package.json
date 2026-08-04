@@ -1,0 +1,12 @@
+{
+  "name": "@acep/engine-labor",
+  "version": "1.0.0",
+  "description": "Labor Engine - Calculates labor requirements, builds crews, and optimizes workforce",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsc", "test": "jest" },
+  "dependencies": {
+    "@acep/core": "^1.0.0",
+    "@acep/knowledge-base": "^1.0.0"
+  }
+}

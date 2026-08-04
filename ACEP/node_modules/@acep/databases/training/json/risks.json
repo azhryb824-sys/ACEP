@@ -1,0 +1,902 @@
+[
+  {
+    "project_id": "SA-R00001",
+    "risk_category": "Schedule",
+    "description": "Site handover delay",
+    "probability": 4,
+    "impact": 3,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00001",
+    "risk_category": "Safety",
+    "description": "Confined space hazard",
+    "probability": 2,
+    "impact": 1,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00001",
+    "risk_category": "Financial",
+    "description": "Cash flow constraint",
+    "probability": 2,
+    "impact": 3,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00001",
+    "risk_category": "Quality",
+    "description": "Testing failure rate high",
+    "probability": 1,
+    "impact": 2,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00001",
+    "risk_category": "Material",
+    "description": "Steel corrosion risk",
+    "probability": 4,
+    "impact": 4,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00001",
+    "risk_category": "Structural",
+    "description": "Foundation settlement risk",
+    "probability": 4,
+    "impact": 1,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00002",
+    "risk_category": "Structural",
+    "description": "Foundation settlement risk",
+    "probability": 4,
+    "impact": 1,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00002",
+    "risk_category": "Quality",
+    "description": "Incomplete waterproofing",
+    "probability": 4,
+    "impact": 1,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00002",
+    "risk_category": "Financial",
+    "description": "Steel price volatility",
+    "probability": 1,
+    "impact": 3,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00002",
+    "risk_category": "Material",
+    "description": "Aggregate gradation issue",
+    "probability": 3,
+    "impact": 3,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00003",
+    "risk_category": "Material",
+    "description": "Aggregate gradation issue",
+    "probability": 2,
+    "impact": 5,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00003",
+    "risk_category": "Structural",
+    "description": "Column failure potential",
+    "probability": 5,
+    "impact": 3,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00003",
+    "risk_category": "Financial",
+    "description": "Cash flow constraint",
+    "probability": 4,
+    "impact": 1,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00003",
+    "risk_category": "Quality",
+    "description": "Incomplete waterproofing",
+    "probability": 3,
+    "impact": 1,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00003",
+    "risk_category": "Schedule",
+    "description": "Subcontractor availability",
+    "probability": 4,
+    "impact": 5,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00003",
+    "risk_category": "Safety",
+    "description": "Heavy lifting accident potential",
+    "probability": 4,
+    "impact": 1,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00004",
+    "risk_category": "Structural",
+    "description": "Slab deflection beyond limits",
+    "probability": 1,
+    "impact": 2,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00004",
+    "risk_category": "Material",
+    "description": "Block moisture absorption high",
+    "probability": 4,
+    "impact": 5,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00004",
+    "risk_category": "Schedule",
+    "description": "Site handover delay",
+    "probability": 1,
+    "impact": 5,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00004",
+    "risk_category": "Quality",
+    "description": "Testing failure rate high",
+    "probability": 5,
+    "impact": 1,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00005",
+    "risk_category": "Quality",
+    "description": "Testing failure rate high",
+    "probability": 1,
+    "impact": 3,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00005",
+    "risk_category": "Safety",
+    "description": "Working at height risk",
+    "probability": 5,
+    "impact": 3,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00005",
+    "risk_category": "Schedule",
+    "description": "Permit approval delay",
+    "probability": 2,
+    "impact": 4,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00006",
+    "risk_category": "Financial",
+    "description": "Cash flow constraint",
+    "probability": 3,
+    "impact": 2,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00006",
+    "risk_category": "Structural",
+    "description": "Slab deflection beyond limits",
+    "probability": 4,
+    "impact": 5,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00007",
+    "risk_category": "Material",
+    "description": "Concrete strength below spec",
+    "probability": 2,
+    "impact": 2,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00007",
+    "risk_category": "Financial",
+    "description": "Cement price increase",
+    "probability": 5,
+    "impact": 2,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00007",
+    "risk_category": "Quality",
+    "description": "Tolerance deviation",
+    "probability": 3,
+    "impact": 2,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00007",
+    "risk_category": "Structural",
+    "description": "Slab deflection beyond limits",
+    "probability": 1,
+    "impact": 5,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00007",
+    "risk_category": "Schedule",
+    "description": "Permit approval delay",
+    "probability": 4,
+    "impact": 2,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00007",
+    "risk_category": "Safety",
+    "description": "Electrical shock risk",
+    "probability": 2,
+    "impact": 2,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00008",
+    "risk_category": "Safety",
+    "description": "Heavy lifting accident potential",
+    "probability": 1,
+    "impact": 4,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00008",
+    "risk_category": "Financial",
+    "description": "Cement price increase",
+    "probability": 3,
+    "impact": 3,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00009",
+    "risk_category": "Schedule",
+    "description": "Site handover delay",
+    "probability": 2,
+    "impact": 4,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00009",
+    "risk_category": "Financial",
+    "description": "Currency fluctuation risk",
+    "probability": 3,
+    "impact": 2,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00009",
+    "risk_category": "Structural",
+    "description": "Foundation settlement risk",
+    "probability": 1,
+    "impact": 2,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00009",
+    "risk_category": "Quality",
+    "description": "Incomplete waterproofing",
+    "probability": 3,
+    "impact": 1,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00010",
+    "risk_category": "Safety",
+    "description": "Working at height risk",
+    "probability": 1,
+    "impact": 1,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00010",
+    "risk_category": "Structural",
+    "description": "Column failure potential",
+    "probability": 5,
+    "impact": 5,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00010",
+    "risk_category": "Financial",
+    "description": "Steel price volatility",
+    "probability": 5,
+    "impact": 4,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00011",
+    "risk_category": "Financial",
+    "description": "Steel price volatility",
+    "probability": 4,
+    "impact": 3,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00011",
+    "risk_category": "Quality",
+    "description": "Incomplete waterproofing",
+    "probability": 4,
+    "impact": 3,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00011",
+    "risk_category": "Structural",
+    "description": "Foundation settlement risk",
+    "probability": 1,
+    "impact": 4,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00011",
+    "risk_category": "Material",
+    "description": "Aggregate gradation issue",
+    "probability": 2,
+    "impact": 4,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00012",
+    "risk_category": "Schedule",
+    "description": "Subcontractor availability",
+    "probability": 3,
+    "impact": 5,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00012",
+    "risk_category": "Financial",
+    "description": "Cash flow constraint",
+    "probability": 1,
+    "impact": 4,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00012",
+    "risk_category": "Quality",
+    "description": "Curing duration not met",
+    "probability": 4,
+    "impact": 3,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00012",
+    "risk_category": "Material",
+    "description": "Cement setting time abnormal",
+    "probability": 4,
+    "impact": 3,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00013",
+    "risk_category": "Quality",
+    "description": "Incomplete waterproofing",
+    "probability": 3,
+    "impact": 2,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00013",
+    "risk_category": "Structural",
+    "description": "Crack propagation in shear walls",
+    "probability": 5,
+    "impact": 5,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00014",
+    "risk_category": "Structural",
+    "description": "Inadequate reinforcement detailing",
+    "probability": 2,
+    "impact": 2,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00014",
+    "risk_category": "Financial",
+    "description": "Steel price volatility",
+    "probability": 2,
+    "impact": 4,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00014",
+    "risk_category": "Quality",
+    "description": "Curing duration not met",
+    "probability": 3,
+    "impact": 5,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00014",
+    "risk_category": "Material",
+    "description": "Steel corrosion risk",
+    "probability": 1,
+    "impact": 2,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00014",
+    "risk_category": "Schedule",
+    "description": "Material procurement delay",
+    "probability": 5,
+    "impact": 2,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00015",
+    "risk_category": "Safety",
+    "description": "Electrical shock risk",
+    "probability": 5,
+    "impact": 1,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00015",
+    "risk_category": "Financial",
+    "description": "Currency fluctuation risk",
+    "probability": 2,
+    "impact": 4,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00015",
+    "risk_category": "Schedule",
+    "description": "Material procurement delay",
+    "probability": 4,
+    "impact": 2,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00015",
+    "risk_category": "Material",
+    "description": "Aggregate gradation issue",
+    "probability": 1,
+    "impact": 4,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00015",
+    "risk_category": "Structural",
+    "description": "Foundation settlement risk",
+    "probability": 1,
+    "impact": 2,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00015",
+    "risk_category": "Quality",
+    "description": "Curing duration not met",
+    "probability": 3,
+    "impact": 1,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00016",
+    "risk_category": "Quality",
+    "description": "Incomplete waterproofing",
+    "probability": 3,
+    "impact": 4,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00016",
+    "risk_category": "Material",
+    "description": "Cement setting time abnormal",
+    "probability": 3,
+    "impact": 2,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00016",
+    "risk_category": "Structural",
+    "description": "Column failure potential",
+    "probability": 4,
+    "impact": 1,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00016",
+    "risk_category": "Schedule",
+    "description": "Permit approval delay",
+    "probability": 2,
+    "impact": 4,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00016",
+    "risk_category": "Safety",
+    "description": "Fire hazard from hot work",
+    "probability": 5,
+    "impact": 4,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00017",
+    "risk_category": "Material",
+    "description": "Cement setting time abnormal",
+    "probability": 5,
+    "impact": 4,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00017",
+    "risk_category": "Financial",
+    "description": "Steel price volatility",
+    "probability": 1,
+    "impact": 4,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00018",
+    "risk_category": "Schedule",
+    "description": "Subcontractor availability",
+    "probability": 2,
+    "impact": 2,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00018",
+    "risk_category": "Financial",
+    "description": "Steel price volatility",
+    "probability": 5,
+    "impact": 4,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00018",
+    "risk_category": "Quality",
+    "description": "Incomplete waterproofing",
+    "probability": 1,
+    "impact": 4,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00018",
+    "risk_category": "Safety",
+    "description": "Electrical shock risk",
+    "probability": 1,
+    "impact": 3,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00018",
+    "risk_category": "Structural",
+    "description": "Inadequate reinforcement detailing",
+    "probability": 4,
+    "impact": 4,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00019",
+    "risk_category": "Quality",
+    "description": "Poor workmanship risk",
+    "probability": 3,
+    "impact": 4,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00019",
+    "risk_category": "Safety",
+    "description": "Fire hazard from hot work",
+    "probability": 4,
+    "impact": 2,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00020",
+    "risk_category": "Material",
+    "description": "Aggregate gradation issue",
+    "probability": 2,
+    "impact": 2,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00020",
+    "risk_category": "Financial",
+    "description": "Currency fluctuation risk",
+    "probability": 5,
+    "impact": 3,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00021",
+    "risk_category": "Structural",
+    "description": "Slab deflection beyond limits",
+    "probability": 4,
+    "impact": 2,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00021",
+    "risk_category": "Material",
+    "description": "Cement setting time abnormal",
+    "probability": 5,
+    "impact": 1,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00021",
+    "risk_category": "Quality",
+    "description": "Poor workmanship risk",
+    "probability": 3,
+    "impact": 2,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00021",
+    "risk_category": "Schedule",
+    "description": "Material procurement delay",
+    "probability": 2,
+    "impact": 5,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00021",
+    "risk_category": "Financial",
+    "description": "Steel price volatility",
+    "probability": 3,
+    "impact": 2,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00022",
+    "risk_category": "Financial",
+    "description": "Currency fluctuation risk",
+    "probability": 2,
+    "impact": 3,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00022",
+    "risk_category": "Quality",
+    "description": "Curing duration not met",
+    "probability": 2,
+    "impact": 3,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00023",
+    "risk_category": "Structural",
+    "description": "Slab deflection beyond limits",
+    "probability": 3,
+    "impact": 3,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00023",
+    "risk_category": "Material",
+    "description": "Steel corrosion risk",
+    "probability": 2,
+    "impact": 4,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00023",
+    "risk_category": "Schedule",
+    "description": "Site handover delay",
+    "probability": 1,
+    "impact": 1,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00023",
+    "risk_category": "Financial",
+    "description": "Currency fluctuation risk",
+    "probability": 2,
+    "impact": 4,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00024",
+    "risk_category": "Material",
+    "description": "Concrete strength below spec",
+    "probability": 3,
+    "impact": 5,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00024",
+    "risk_category": "Structural",
+    "description": "Inadequate reinforcement detailing",
+    "probability": 4,
+    "impact": 1,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00024",
+    "risk_category": "Schedule",
+    "description": "Material procurement delay",
+    "probability": 4,
+    "impact": 5,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00024",
+    "risk_category": "Financial",
+    "description": "Steel price volatility",
+    "probability": 4,
+    "impact": 1,
+    "mitigation": "Fixed price contracts",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00025",
+    "risk_category": "Quality",
+    "description": "Testing failure rate high",
+    "probability": 4,
+    "impact": 4,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00025",
+    "risk_category": "Structural",
+    "description": "Inadequate reinforcement detailing",
+    "probability": 5,
+    "impact": 1,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00025",
+    "risk_category": "Material",
+    "description": "Cement setting time abnormal",
+    "probability": 5,
+    "impact": 2,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00026",
+    "risk_category": "Quality",
+    "description": "Tolerance deviation",
+    "probability": 5,
+    "impact": 1,
+    "mitigation": "Additional testing regime",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00026",
+    "risk_category": "Safety",
+    "description": "Electrical shock risk",
+    "probability": 1,
+    "impact": 3,
+    "mitigation": "Enhanced safety training",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00026",
+    "risk_category": "Schedule",
+    "description": "Permit approval delay",
+    "probability": 2,
+    "impact": 2,
+    "mitigation": "Accelerated procurement plan",
+    "detected_by_ai": true
+  },
+  {
+    "project_id": "SA-R00026",
+    "risk_category": "Material",
+    "description": "Concrete strength below spec",
+    "probability": 4,
+    "impact": 1,
+    "mitigation": "Alternative supplier sourcing",
+    "detected_by_ai": false
+  },
+  {
+    "project_id": "SA-R00026",
+    "risk_category": "Structural",
+    "description": "Slab deflection beyond limits",
+    "probability": 4,
+    "impact": 5,
+    "mitigation": "Design review and structural analysis",
+    "detected_by_ai": false
+  }
+]

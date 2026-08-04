@@ -1,0 +1,18 @@
+{
+  "name": "@acep/sadp",
+  "version": "1.0.0",
+  "description": "SDK, APIs & Developer Platform - منصة الـ SDK والواجهات البرمجية للمطورين",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@acep/core": "^1.0.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.0"
+  }
+}

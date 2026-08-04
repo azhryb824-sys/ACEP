@@ -1,0 +1,12 @@
+{
+  "name": "@acep/engine-boq",
+  "version": "1.0.0",
+  "description": "BOQ Engine - Generates Bill of Quantities from virtual building model",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsc", "test": "jest" },
+  "dependencies": {
+    "@acep/core": "^1.0.0",
+    "@acep/knowledge-base": "^1.0.0"
+  }
+}

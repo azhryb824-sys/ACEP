@@ -1,0 +1,15 @@
+{
+  "name": "@acep/plugin-saudi-code",
+  "version": "1.0.0",
+  "description": "Saudi Building Code (SBC) Plugin - Compliance validation against Saudi regulations",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@acep/core": "^1.0.0",
+    "@acep/plugin-sdk": "^1.0.0"
+  }
+}

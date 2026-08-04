@@ -1,0 +1,1002 @@
+[
+  {
+    "raw_description": "Residential_Compound Abha على أرض مساحتها 9611 م²، مساحة البناء 5366 م²، 18 أدوار.",
+    "project_type": "Residential_Compound",
+    "city": "Abha",
+    "area_m2": 5551,
+    "floors": 19,
+    "finishing_level": "Luxury",
+    "confidence": 64,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Hotel في Makkah بمساحة 14304 م² وعدد 4 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Hotel",
+    "city": "Makkah",
+    "area_m2": 14175,
+    "floors": 4,
+    "finishing_level": "Raw",
+    "confidence": 61,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Hotel in Riyadh, built-up area 18113 sqm, 30 floors. Quality finishing required.",
+    "project_type": "Hotel",
+    "city": "Riyadh",
+    "area_m2": 17656,
+    "floors": 29,
+    "finishing_level": "UltraLuxury",
+    "confidence": 91,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Villa في Madinah بمساحة 16726 م² وعدد 25 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Villa",
+    "city": "Madinah",
+    "area_m2": 16493,
+    "floors": 26,
+    "finishing_level": "Premium",
+    "confidence": 63,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Mosque في Khamis Mushait بمساحة 16911 م² وعدد 15 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Mosque",
+    "city": "Khamis Mushait",
+    "area_m2": 16978,
+    "floors": 15,
+    "finishing_level": "Premium",
+    "confidence": 76,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Government_Building in Dammam with a total area of 18738 square meters across 17 floors.",
+    "project_type": "Government_Building",
+    "city": "Dammam",
+    "area_m2": 18881,
+    "floors": 18,
+    "finishing_level": "Standard",
+    "confidence": 77,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Hospital in Taif with a total area of 2145 square meters across 13 floors.",
+    "project_type": "Hospital",
+    "city": "Taif",
+    "area_m2": 2182,
+    "floors": 12,
+    "finishing_level": "Standard",
+    "confidence": 91,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Residential_Compound in Makkah with a total area of 10392 square meters across 10 floors.",
+    "project_type": "Residential_Compound",
+    "city": "Makkah",
+    "area_m2": 10005,
+    "floors": 10,
+    "finishing_level": "Luxury",
+    "confidence": 76,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Apartment_Building في Najran بمساحة 15039 م² وعدد 11 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Apartment_Building",
+    "city": "Najran",
+    "area_m2": 14786,
+    "floors": 10,
+    "finishing_level": "Standard",
+    "confidence": 89,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: School in Khobar, built-up area 10871 sqm, 21 floors. Quality finishing required.",
+    "project_type": "School",
+    "city": "Khobar",
+    "area_m2": 11086,
+    "floors": 22,
+    "finishing_level": "Raw",
+    "confidence": 64,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Hospital Khobar على أرض مساحتها 22212 م²، مساحة البناء 15425 م²، 19 أدوار.",
+    "project_type": "Hospital",
+    "city": "Khobar",
+    "area_m2": 15365,
+    "floors": 19,
+    "finishing_level": "Standard",
+    "confidence": 74,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Luxury_Villa in Hail with a total area of 19697 square meters across 9 floors.",
+    "project_type": "Luxury_Villa",
+    "city": "Hail",
+    "area_m2": 18331,
+    "floors": 9,
+    "finishing_level": "UltraLuxury",
+    "confidence": 78,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء School في مدينة Tabuk بمساحة إجمالية 16072 متر مربع مكون من 7 طوابق.",
+    "project_type": "School",
+    "city": "Tabuk",
+    "area_m2": 15699,
+    "floors": 7,
+    "finishing_level": "UltraLuxury",
+    "confidence": 78,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Hotel in Dammam, built-up area 13666 sqm, 2 floors. Quality finishing required.",
+    "project_type": "Hotel",
+    "city": "Dammam",
+    "area_m2": 13231,
+    "floors": 2,
+    "finishing_level": "Luxury",
+    "confidence": 96,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Hotel في Makkah بمساحة 9517 م² وعدد 18 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Hotel",
+    "city": "Makkah",
+    "area_m2": 9785,
+    "floors": 19,
+    "finishing_level": "Raw",
+    "confidence": 79,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Townhouse_Project in Khobar, built-up area 12725 sqm, 16 floors. Quality finishing required.",
+    "project_type": "Townhouse_Project",
+    "city": "Khobar",
+    "area_m2": 12264,
+    "floors": 15,
+    "finishing_level": "Raw",
+    "confidence": 78,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Parking in Buraydah, built-up area 16122 sqm, 15 floors. Quality finishing required.",
+    "project_type": "Parking",
+    "city": "Buraydah",
+    "area_m2": 15454,
+    "floors": 15,
+    "finishing_level": "Raw",
+    "confidence": 95,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع University في Makkah بمساحة 7401 م² وعدد 11 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "University",
+    "city": "Makkah",
+    "area_m2": 7534,
+    "floors": 11,
+    "finishing_level": "Good",
+    "confidence": 85,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Mall in Khobar, built-up area 11676 sqm, 30 floors. Quality finishing required.",
+    "project_type": "Mall",
+    "city": "Khobar",
+    "area_m2": 11386,
+    "floors": 29,
+    "finishing_level": "Luxury",
+    "confidence": 93,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "DataCenter Riyadh على أرض مساحتها 51892 م²، مساحة البناء 17334 م²، 4 أدوار.",
+    "project_type": "DataCenter",
+    "city": "Riyadh",
+    "area_m2": 17600,
+    "floors": 4,
+    "finishing_level": "Standard",
+    "confidence": 77,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Townhouse_Project Madinah على أرض مساحتها 1898 م²، مساحة البناء 604 م²، 23 أدوار.",
+    "project_type": "Townhouse_Project",
+    "city": "Madinah",
+    "area_m2": 620,
+    "floors": 23,
+    "finishing_level": "Standard",
+    "confidence": 95,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Office_Building في Dammam بمساحة 2339 م² وعدد 20 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Office_Building",
+    "city": "Dammam",
+    "area_m2": 2322,
+    "floors": 20,
+    "finishing_level": "Raw",
+    "confidence": 71,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Road في مدينة Riyadh بمساحة إجمالية 13890 متر مربع مكون من 2 طوابق.",
+    "project_type": "Road",
+    "city": "Riyadh",
+    "area_m2": 12950,
+    "floors": 2,
+    "finishing_level": "Standard",
+    "confidence": 97,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Residential_Compound in Najran, built-up area 5433 sqm, 13 floors. Quality finishing required.",
+    "project_type": "Residential_Compound",
+    "city": "Najran",
+    "area_m2": 5276,
+    "floors": 13,
+    "finishing_level": "Raw",
+    "confidence": 93,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Road في مدينة Buraydah بمساحة إجمالية 7074 متر مربع مكون من 2 طوابق.",
+    "project_type": "Road",
+    "city": "Buraydah",
+    "area_m2": 6668,
+    "floors": 2,
+    "finishing_level": "UltraLuxury",
+    "confidence": 75,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "University Makkah على أرض مساحتها 4608 م²، مساحة البناء 1844 م²، 27 أدوار.",
+    "project_type": "University",
+    "city": "Makkah",
+    "area_m2": 1872,
+    "floors": 27,
+    "finishing_level": "UltraLuxury",
+    "confidence": 82,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Townhouse_Project in Abha with a total area of 17890 square meters across 24 floors.",
+    "project_type": "Townhouse_Project",
+    "city": "Abha",
+    "area_m2": 18121,
+    "floors": 25,
+    "finishing_level": "Good",
+    "confidence": 91,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Factory in Najran with a total area of 16345 square meters across 30 floors.",
+    "project_type": "Factory",
+    "city": "Najran",
+    "area_m2": 16190,
+    "floors": 30,
+    "finishing_level": "UltraLuxury",
+    "confidence": 60,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Luxury_Villa في Riyadh بمساحة 11334 م² وعدد 20 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Luxury_Villa",
+    "city": "Riyadh",
+    "area_m2": 12331,
+    "floors": 21,
+    "finishing_level": "Luxury",
+    "confidence": 65,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Government_Building في Riyadh بمساحة 4365 م² وعدد 30 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Government_Building",
+    "city": "Riyadh",
+    "area_m2": 4595,
+    "floors": 28,
+    "finishing_level": "Raw",
+    "confidence": 86,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Bridge في مدينة Khobar بمساحة إجمالية 4763 متر مربع مكون من 29 طوابق.",
+    "project_type": "Bridge",
+    "city": "Khobar",
+    "area_m2": 4728,
+    "floors": 28,
+    "finishing_level": "UltraLuxury",
+    "confidence": 87,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Road in Tabuk, built-up area 6283 sqm, 17 floors. Quality finishing required.",
+    "project_type": "Road",
+    "city": "Tabuk",
+    "area_m2": 6163,
+    "floors": 18,
+    "finishing_level": "Standard",
+    "confidence": 85,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Bridge Jeddah على أرض مساحتها 28476 م²، مساحة البناء 16349 م²، 12 أدوار.",
+    "project_type": "Bridge",
+    "city": "Jeddah",
+    "area_m2": 15753,
+    "floors": 11,
+    "finishing_level": "Luxury",
+    "confidence": 97,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Parking in Dammam, built-up area 15511 sqm, 11 floors. Quality finishing required.",
+    "project_type": "Parking",
+    "city": "Dammam",
+    "area_m2": 15694,
+    "floors": 10,
+    "finishing_level": "Premium",
+    "confidence": 78,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "DataCenter Khobar على أرض مساحتها 16706 م²، مساحة البناء 7008 م²، 16 أدوار.",
+    "project_type": "DataCenter",
+    "city": "Khobar",
+    "area_m2": 7073,
+    "floors": 15,
+    "finishing_level": "Luxury",
+    "confidence": 75,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Bridge Dammam على أرض مساحتها 21546 م²، مساحة البناء 11672 م²، 23 أدوار.",
+    "project_type": "Bridge",
+    "city": "Dammam",
+    "area_m2": 11202,
+    "floors": 24,
+    "finishing_level": "Good",
+    "confidence": 61,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Parking in Dammam, built-up area 1098 sqm, 28 floors. Quality finishing required.",
+    "project_type": "Parking",
+    "city": "Dammam",
+    "area_m2": 1115,
+    "floors": 28,
+    "finishing_level": "Standard",
+    "confidence": 91,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Government_Building Buraydah على أرض مساحتها 33022 م²، مساحة البناء 13703 م²، 28 أدوار.",
+    "project_type": "Government_Building",
+    "city": "Buraydah",
+    "area_m2": 14467,
+    "floors": 27,
+    "finishing_level": "Standard",
+    "confidence": 69,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Road in Hail with a total area of 1110 square meters across 18 floors.",
+    "project_type": "Road",
+    "city": "Hail",
+    "area_m2": 1076,
+    "floors": 17,
+    "finishing_level": "Luxury",
+    "confidence": 93,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Townhouse_Project in Madinah with a total area of 2745 square meters across 8 floors.",
+    "project_type": "Townhouse_Project",
+    "city": "Madinah",
+    "area_m2": 2710,
+    "floors": 8,
+    "finishing_level": "UltraLuxury",
+    "confidence": 98,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a School in Dammam with a total area of 2309 square meters across 30 floors.",
+    "project_type": "School",
+    "city": "Dammam",
+    "area_m2": 2230,
+    "floors": 29,
+    "finishing_level": "Standard",
+    "confidence": 98,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Hospital Buraydah على أرض مساحتها 3247 م²، مساحة البناء 2052 م²، 29 أدوار.",
+    "project_type": "Hospital",
+    "city": "Buraydah",
+    "area_m2": 1971,
+    "floors": 30,
+    "finishing_level": "Luxury",
+    "confidence": 80,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Road في Buraydah بمساحة 4793 م² وعدد 3 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Road",
+    "city": "Buraydah",
+    "area_m2": 4983,
+    "floors": 3,
+    "finishing_level": "UltraLuxury",
+    "confidence": 77,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Parking في مدينة Abha بمساحة إجمالية 15826 متر مربع مكون من 13 طوابق.",
+    "project_type": "Parking",
+    "city": "Abha",
+    "area_m2": 16126,
+    "floors": 13,
+    "finishing_level": "Luxury",
+    "confidence": 85,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع DataCenter في Riyadh بمساحة 10214 م² وعدد 26 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "DataCenter",
+    "city": "Riyadh",
+    "area_m2": 10419,
+    "floors": 25,
+    "finishing_level": "Good",
+    "confidence": 84,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Residential_Tower Hail على أرض مساحتها 12544 م²، مساحة البناء 6775 م²، 30 أدوار.",
+    "project_type": "Residential_Tower",
+    "city": "Hail",
+    "area_m2": 6623,
+    "floors": 30,
+    "finishing_level": "UltraLuxury",
+    "confidence": 84,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Villa in Makkah, built-up area 3758 sqm, 28 floors. Quality finishing required.",
+    "project_type": "Villa",
+    "city": "Makkah",
+    "area_m2": 3706,
+    "floors": 28,
+    "finishing_level": "Raw",
+    "confidence": 61,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Mosque in Riyadh, built-up area 4856 sqm, 28 floors. Quality finishing required.",
+    "project_type": "Mosque",
+    "city": "Riyadh",
+    "area_m2": 4899,
+    "floors": 29,
+    "finishing_level": "Good",
+    "confidence": 98,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Factory in Jeddah with a total area of 8826 square meters across 11 floors.",
+    "project_type": "Factory",
+    "city": "Jeddah",
+    "area_m2": 9042,
+    "floors": 11,
+    "finishing_level": "Premium",
+    "confidence": 90,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Hospital في Riyadh بمساحة 17586 م² وعدد 11 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Hospital",
+    "city": "Riyadh",
+    "area_m2": 16840,
+    "floors": 11,
+    "finishing_level": "UltraLuxury",
+    "confidence": 81,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء CommercialComplex في مدينة Madinah بمساحة إجمالية 7821 متر مربع مكون من 11 طوابق.",
+    "project_type": "CommercialComplex",
+    "city": "Madinah",
+    "area_m2": 8067,
+    "floors": 11,
+    "finishing_level": "Premium",
+    "confidence": 81,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Residential_Tower in Dammam with a total area of 17844 square meters across 13 floors.",
+    "project_type": "Residential_Tower",
+    "city": "Dammam",
+    "area_m2": 17457,
+    "floors": 13,
+    "finishing_level": "UltraLuxury",
+    "confidence": 88,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Hotel في مدينة Hail بمساحة إجمالية 17751 متر مربع مكون من 14 طوابق.",
+    "project_type": "Hotel",
+    "city": "Hail",
+    "area_m2": 18281,
+    "floors": 14,
+    "finishing_level": "Premium",
+    "confidence": 77,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a University in Khamis Mushait with a total area of 5806 square meters across 15 floors.",
+    "project_type": "University",
+    "city": "Khamis Mushait",
+    "area_m2": 5836,
+    "floors": 15,
+    "finishing_level": "Raw",
+    "confidence": 61,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Residential_Compound in Tabuk with a total area of 16304 square meters across 4 floors.",
+    "project_type": "Residential_Compound",
+    "city": "Tabuk",
+    "area_m2": 16531,
+    "floors": 4,
+    "finishing_level": "Raw",
+    "confidence": 67,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Parking in Khamis Mushait with a total area of 2722 square meters across 27 floors.",
+    "project_type": "Parking",
+    "city": "Khamis Mushait",
+    "area_m2": 2669,
+    "floors": 26,
+    "finishing_level": "Standard",
+    "confidence": 81,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Villa في Dammam بمساحة 13477 م² وعدد 8 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Villa",
+    "city": "Dammam",
+    "area_m2": 13748,
+    "floors": 8,
+    "finishing_level": "Premium",
+    "confidence": 71,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: School in Abha, built-up area 18583 sqm, 4 floors. Quality finishing required.",
+    "project_type": "School",
+    "city": "Abha",
+    "area_m2": 19724,
+    "floors": 4,
+    "finishing_level": "Luxury",
+    "confidence": 75,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Parking in Najran with a total area of 18106 square meters across 21 floors.",
+    "project_type": "Parking",
+    "city": "Najran",
+    "area_m2": 18456,
+    "floors": 19,
+    "finishing_level": "Luxury",
+    "confidence": 93,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Mosque في Jeddah بمساحة 15186 م² وعدد 20 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Mosque",
+    "city": "Jeddah",
+    "area_m2": 15285,
+    "floors": 20,
+    "finishing_level": "Premium",
+    "confidence": 77,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Road في Makkah بمساحة 14837 م² وعدد 30 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Road",
+    "city": "Makkah",
+    "area_m2": 15726,
+    "floors": 30,
+    "finishing_level": "Good",
+    "confidence": 88,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع CommercialComplex في Buraydah بمساحة 15638 م² وعدد 4 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "CommercialComplex",
+    "city": "Buraydah",
+    "area_m2": 16207,
+    "floors": 4,
+    "finishing_level": "Luxury",
+    "confidence": 94,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Government_Building in Hail with a total area of 10561 square meters across 19 floors.",
+    "project_type": "Government_Building",
+    "city": "Hail",
+    "area_m2": 11064,
+    "floors": 18,
+    "finishing_level": "Good",
+    "confidence": 84,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Mosque Buraydah على أرض مساحتها 17442 م²، مساحة البناء 8216 م²، 2 أدوار.",
+    "project_type": "Mosque",
+    "city": "Buraydah",
+    "area_m2": 8095,
+    "floors": 2,
+    "finishing_level": "Good",
+    "confidence": 64,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Factory in Buraydah, built-up area 8035 sqm, 5 floors. Quality finishing required.",
+    "project_type": "Factory",
+    "city": "Buraydah",
+    "area_m2": 7904,
+    "floors": 5,
+    "finishing_level": "Premium",
+    "confidence": 78,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Parking في مدينة Riyadh بمساحة إجمالية 5038 متر مربع مكون من 6 طوابق.",
+    "project_type": "Parking",
+    "city": "Riyadh",
+    "area_m2": 5188,
+    "floors": 5,
+    "finishing_level": "Standard",
+    "confidence": 81,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Warehouse in Makkah with a total area of 17618 square meters across 10 floors.",
+    "project_type": "Warehouse",
+    "city": "Makkah",
+    "area_m2": 16296,
+    "floors": 9,
+    "finishing_level": "Premium",
+    "confidence": 95,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Mall in Abha with a total area of 4662 square meters across 24 floors.",
+    "project_type": "Mall",
+    "city": "Abha",
+    "area_m2": 4361,
+    "floors": 24,
+    "finishing_level": "Standard",
+    "confidence": 73,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Factory في Hail بمساحة 18013 م² وعدد 29 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Factory",
+    "city": "Hail",
+    "area_m2": 18535,
+    "floors": 28,
+    "finishing_level": "Raw",
+    "confidence": 73,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Bridge في مدينة Riyadh بمساحة إجمالية 12622 متر مربع مكون من 20 طوابق.",
+    "project_type": "Bridge",
+    "city": "Riyadh",
+    "area_m2": 13196,
+    "floors": 20,
+    "finishing_level": "Good",
+    "confidence": 93,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Parking في Riyadh بمساحة 18930 م² وعدد 17 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Parking",
+    "city": "Riyadh",
+    "area_m2": 20212,
+    "floors": 17,
+    "finishing_level": "Luxury",
+    "confidence": 75,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Office_Building في مدينة Khamis Mushait بمساحة إجمالية 19707 متر مربع مكون من 16 طوابق.",
+    "project_type": "Office_Building",
+    "city": "Khamis Mushait",
+    "area_m2": 19512,
+    "floors": 16,
+    "finishing_level": "Standard",
+    "confidence": 82,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Mosque في Makkah بمساحة 11617 م² وعدد 12 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Mosque",
+    "city": "Makkah",
+    "area_m2": 12047,
+    "floors": 12,
+    "finishing_level": "Raw",
+    "confidence": 63,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Road في مدينة Buraydah بمساحة إجمالية 1803 متر مربع مكون من 9 طوابق.",
+    "project_type": "Road",
+    "city": "Buraydah",
+    "area_m2": 1897,
+    "floors": 10,
+    "finishing_level": "Raw",
+    "confidence": 60,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Factory في مدينة Makkah بمساحة إجمالية 9895 متر مربع مكون من 2 طوابق.",
+    "project_type": "Factory",
+    "city": "Makkah",
+    "area_m2": 10069,
+    "floors": 2,
+    "finishing_level": "Luxury",
+    "confidence": 68,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: CommercialComplex in Dammam, built-up area 10062 sqm, 15 floors. Quality finishing required.",
+    "project_type": "CommercialComplex",
+    "city": "Dammam",
+    "area_m2": 9895,
+    "floors": 15,
+    "finishing_level": "Luxury",
+    "confidence": 95,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Government_Building Dammam على أرض مساحتها 11997 م²، مساحة البناء 4872 م²، 22 أدوار.",
+    "project_type": "Government_Building",
+    "city": "Dammam",
+    "area_m2": 5155,
+    "floors": 22,
+    "finishing_level": "Luxury",
+    "confidence": 60,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء DataCenter في مدينة Taif بمساحة إجمالية 1931 متر مربع مكون من 19 طوابق.",
+    "project_type": "DataCenter",
+    "city": "Taif",
+    "area_m2": 1949,
+    "floors": 19,
+    "finishing_level": "Premium",
+    "confidence": 78,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Townhouse_Project in Najran with a total area of 6058 square meters across 28 floors.",
+    "project_type": "Townhouse_Project",
+    "city": "Najran",
+    "area_m2": 5828,
+    "floors": 28,
+    "finishing_level": "Premium",
+    "confidence": 87,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Luxury_Villa Khobar على أرض مساحتها 11672 م²، مساحة البناء 7829 م²، 18 أدوار.",
+    "project_type": "Luxury_Villa",
+    "city": "Khobar",
+    "area_m2": 7859,
+    "floors": 18,
+    "finishing_level": "Raw",
+    "confidence": 68,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Luxury_Villa in Buraydah with a total area of 18332 square meters across 2 floors.",
+    "project_type": "Luxury_Villa",
+    "city": "Buraydah",
+    "area_m2": 17355,
+    "floors": 2,
+    "finishing_level": "Standard",
+    "confidence": 81,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a School in Taif with a total area of 16762 square meters across 17 floors.",
+    "project_type": "School",
+    "city": "Taif",
+    "area_m2": 16092,
+    "floors": 17,
+    "finishing_level": "Raw",
+    "confidence": 93,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Villa Madinah على أرض مساحتها 2612 م²، مساحة البناء 1747 م²، 27 أدوار.",
+    "project_type": "Villa",
+    "city": "Madinah",
+    "area_m2": 1749,
+    "floors": 27,
+    "finishing_level": "Standard",
+    "confidence": 91,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Residential_Compound في Riyadh بمساحة 11830 م² وعدد 22 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Residential_Compound",
+    "city": "Riyadh",
+    "area_m2": 12533,
+    "floors": 21,
+    "finishing_level": "Good",
+    "confidence": 98,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "DataCenter Dammam على أرض مساحتها 17614 م²، مساحة البناء 11996 م²، 2 أدوار.",
+    "project_type": "DataCenter",
+    "city": "Dammam",
+    "area_m2": 12307,
+    "floors": 2,
+    "finishing_level": "UltraLuxury",
+    "confidence": 76,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Office_Building in Najran with a total area of 2616 square meters across 5 floors.",
+    "project_type": "Office_Building",
+    "city": "Najran",
+    "area_m2": 2724,
+    "floors": 5,
+    "finishing_level": "Raw",
+    "confidence": 64,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Project: Parking in Riyadh, built-up area 8835 sqm, 21 floors. Quality finishing required.",
+    "project_type": "Parking",
+    "city": "Riyadh",
+    "area_m2": 9100,
+    "floors": 21,
+    "finishing_level": "Standard",
+    "confidence": 61,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Villa في مدينة Jeddah بمساحة إجمالية 18249 متر مربع مكون من 27 طوابق.",
+    "project_type": "Villa",
+    "city": "Jeddah",
+    "area_m2": 17230,
+    "floors": 28,
+    "finishing_level": "Good",
+    "confidence": 70,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Luxury_Villa in Riyadh with a total area of 13182 square meters across 26 floors.",
+    "project_type": "Luxury_Villa",
+    "city": "Riyadh",
+    "area_m2": 12418,
+    "floors": 26,
+    "finishing_level": "Premium",
+    "confidence": 91,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Office_Building في Khamis Mushait بمساحة 17753 م² وعدد 7 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Office_Building",
+    "city": "Khamis Mushait",
+    "area_m2": 18126,
+    "floors": 7,
+    "finishing_level": "Luxury",
+    "confidence": 98,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Government_Building في Najran بمساحة 19966 م² وعدد 1 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Government_Building",
+    "city": "Najran",
+    "area_m2": 19663,
+    "floors": 1,
+    "finishing_level": "Good",
+    "confidence": 91,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء DataCenter في مدينة Jeddah بمساحة إجمالية 5310 متر مربع مكون من 29 طوابق.",
+    "project_type": "DataCenter",
+    "city": "Jeddah",
+    "area_m2": 5358,
+    "floors": 28,
+    "finishing_level": "Raw",
+    "confidence": 79,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Villa in Dammam with a total area of 18655 square meters across 6 floors.",
+    "project_type": "Villa",
+    "city": "Dammam",
+    "area_m2": 18542,
+    "floors": 6,
+    "finishing_level": "Premium",
+    "confidence": 95,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a Mosque in Tabuk with a total area of 3407 square meters across 25 floors.",
+    "project_type": "Mosque",
+    "city": "Tabuk",
+    "area_m2": 3299,
+    "floors": 25,
+    "finishing_level": "Raw",
+    "confidence": 96,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Hotel Dammam على أرض مساحتها 40772 م²، مساحة البناء 18685 م²، 29 أدوار.",
+    "project_type": "Hotel",
+    "city": "Dammam",
+    "area_m2": 18925,
+    "floors": 30,
+    "finishing_level": "Raw",
+    "confidence": 68,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Road في مدينة Buraydah بمساحة إجمالية 11193 متر مربع مكون من 25 طوابق.",
+    "project_type": "Road",
+    "city": "Buraydah",
+    "area_m2": 11393,
+    "floors": 26,
+    "finishing_level": "Luxury",
+    "confidence": 85,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "إنشاء Mall في مدينة Tabuk بمساحة إجمالية 1774 متر مربع مكون من 3 طوابق.",
+    "project_type": "Mall",
+    "city": "Tabuk",
+    "area_m2": 1737,
+    "floors": 3,
+    "finishing_level": "UltraLuxury",
+    "confidence": 71,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Luxury_Villa في Dammam بمساحة 4233 م² وعدد 10 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Luxury_Villa",
+    "city": "Dammam",
+    "area_m2": 4358,
+    "floors": 10,
+    "finishing_level": "Raw",
+    "confidence": 60,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "مشروع Factory في Jeddah بمساحة 602 م² وعدد 3 أدوار. يشمل المبنى تشطيبات عالية الجودة.",
+    "project_type": "Factory",
+    "city": "Jeddah",
+    "area_m2": 643,
+    "floors": 3,
+    "finishing_level": "Raw",
+    "confidence": 70,
+    "source": "synthetic"
+  },
+  {
+    "raw_description": "Development of a CommercialComplex in Najran with a total area of 7769 square meters across 30 floors.",
+    "project_type": "CommercialComplex",
+    "city": "Najran",
+    "area_m2": 7399,
+    "floors": 29,
+    "finishing_level": "Premium",
+    "confidence": 88,
+    "source": "synthetic"
+  }
+]

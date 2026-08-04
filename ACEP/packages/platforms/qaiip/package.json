@@ -1,0 +1,14 @@
+{
+  "name": "@acep/qaiip",
+  "version": "1.0.0",
+  "description": "Quality Assurance & Intelligent Inspection Platform - ضمان الجودة والفحص الهندسي الذكي",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@acep/core": "^1.0.0"
+  }
+}
