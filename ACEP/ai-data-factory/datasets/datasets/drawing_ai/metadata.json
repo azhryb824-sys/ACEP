@@ -1,0 +1,17 @@
+{
+  "name": "drawing_ai",
+  "domain": "drawing",
+  "language": "both",
+  "generators": [
+    "drawing_description"
+  ],
+  "dataset_types": [
+    "engineering_report"
+  ],
+  "splits": {
+    "total": 2,
+    "train": 1,
+    "val": 0,
+    "test": 1
+  }
+}

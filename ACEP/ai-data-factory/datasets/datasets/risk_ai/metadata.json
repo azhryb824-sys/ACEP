@@ -1,0 +1,17 @@
+{
+  "name": "risk_ai",
+  "domain": "risk",
+  "language": "both",
+  "generators": [
+    "risk"
+  ],
+  "dataset_types": [
+    "reasoning"
+  ],
+  "splits": {
+    "total": 2,
+    "train": 1,
+    "val": 0,
+    "test": 1
+  }
+}

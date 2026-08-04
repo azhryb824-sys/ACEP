@@ -1,0 +1,174 @@
+{
+  "id": "PO-000001",
+  "instruction": "Generate a Purchase Order for Ready Mix Concrete C30.\nأنشئ أمر شراء لخرسانة جاهزة C30.",
+  "input": {
+    "project_id": "SA-R00001",
+    "project_name": "Villa",
+    "location": "Jeddah",
+    "supplier": "Saudi Readymix",
+    "material": "Ready Mix Concrete C30",
+    "quantity": 125.50,
+    "unit": "m³",
+    "unit_price": 285.00,
+    "currency": "SAR",
+    "vat_percent": 15
+  },
+  "output": {
+    "purchase_order_no": "PO-SA-R00001-001",
+    "subtotal": 35767.50,
+    "vat": 5365.13,
+    "total": 41132.63,
+    "delivery_period_days": 2,
+    "payment_terms": "30 Days",
+    "status": "Approved",
+    "incoterm": "Delivered to Site"
+  },
+  "metadata": {
+    "document_type": "purchase_order",
+    "discipline": "procurement",
+    "quality_checked": true
+  }
+}{"id": "MATERIAL-da647cb3781b", "instruction": "Specify PVC Pipe 110mm for Villa procurement in Jeddah.\nحدد مواصفات مواسير PVC 110 للمشتريات في مشروع Villa بمدينة جدة.", "input": "", "output": "Material: PVC Pipe 110mm\nUnit: m\nEstimated qty: 98.75 m\nUnit price: 22.52 SAR\nTotal: 2223.85 SAR\nالمادة: مواسير PVC 110\nالوحدة: m\nالكمية: 98.75 m\nسعر الوحدة: 22.52 ر.س\nالإجمالي: 2223.85 ر.س", "metadata": {}}
+{
+  "id": "PROCUREMENT-000001",
+  "instruction": "Compare supplier quotations and recommend the best supplier.\nقارن عروض الموردين واختر أفضل عرض.",
+  "input": {
+    "material": "Ready Mix Concrete C30",
+    "suppliers": [
+      {
+        "name": "Supplier A",
+        "price": 285,
+        "delivery_days": 2,
+        "rating": 4.8
+      },
+      {
+        "name": "Supplier B",
+        "price": 278,
+        "delivery_days": 5,
+        "rating": 4.1
+      },
+      {
+        "name": "Supplier C",
+        "price": 291,
+        "delivery_days": 1,
+        "rating": 4.9
+      }
+    ]
+  },
+  "output": {
+    "english": {
+      "recommended_supplier": "Supplier A",
+      "reason": "Balanced price, excellent rating and acceptable delivery time."
+    },
+    "arabic": {
+      "المورد_الموصى_به": "Supplier A",
+      "سبب_الاختيار": "يحقق توازناً بين السعر والجودة وسرعة التوريد."
+    }
+  },
+  "metadata": {
+    "discipline": "procurement",
+    "decision_type": "supplier_selection",
+    "quality_checked": true
+  }
+}
+{
+  "id": "CONTRACT-000001",
+  "instruction": "Review the payment clause in a construction contract.\nراجع بند الدفعات في عقد مقاولات.",
+  "input": {
+    "contract_type": "Lump Sum",
+    "payment_clause": "Payments shall be made within 30 calendar days after approval of the monthly invoice."
+  },
+  "output": {
+    "english": {
+      "summary": "Monthly certified invoices shall be paid within 30 calendar days after approval.",
+      "risk_level": "Low",
+      "recommendation": "Verify that approval procedures and supporting documents are clearly defined."
+    },
+    "arabic": {
+      "الملخص": "تسدد المستخلصات الشهرية خلال 30 يوماً تقويمياً بعد اعتمادها.",
+      "مستوى_المخاطرة": "منخفض",
+      "التوصية": "التأكد من وضوح إجراءات الاعتماد والمستندات المطلوبة."
+    }
+  },
+  "metadata": {
+    "discipline": "contract_management",
+    "document_type": "contract_review",
+    "quality_checked": true
+  }
+}
+{"id": "INVOICE-9773b08a3621", "instruction": "Create progress invoice #3 for project SA-R00002.\nأنشئ فاتورة مستخلص رقم 3 للمشروع SA-R00002.", "input": "", "output": "Invoice: INV-SA-R00002-003\nDate: 2026-04-17\nWork Done Value: 478281.58 SAR\nVAT 15%: 71742.24 SAR\nNet: 550023.82 SAR\nفاتورة: INV-SA-R00002-003\nالتاريخ: 2022-03-25\nقيمة الأعمال: 478281.58 ر.س\nضريبة 15%: 71742.24 ر.س\nالصافي: 550023.82 ر.س", "metadata": {}}
+{"id": "TENDER-be9e68c32982", "instruction": "Draft tender summary for Villa project SA-R00001.\nاكتب ملخص مناقصة لمشروع Villa رقم SA-R00001.", "input": "", "output": "Tender No: TND-SA-R00001\nProject: Villa - Jeddah\nEstimated Value: 1890252.23 SAR\nSubmission Deadline: 2026-02-11\nScope: Design, supply, construction, testing and commissioning.\nرقم المناقصة: TND-SA-R00001\nالمشروع: Villa - جدة\nالقيمة التقديرية: 1890252.23 ر.س\nآخر موعد للتقديم: 2020-12-22\nالنطاق: تصميم، توريد، تنفيذ، اختبار وتشغيل.", "metadata": {}}
+{
+  "id": "MAT-000001",
+  "instruction": "Prepare technical specification for PVC Pipe 110 mm.\nأعد المواصفات الفنية لمواسير PVC قطر 110 مم.",
+  "input": {
+    "project": "Villa",
+    "location": "Jeddah"
+  },
+  "output": {
+    "material": "PVC Pipe",
+    "diameter_mm": 110,
+    "standard": "SASO / ASTM D1785",
+    "pressure_class": "PN16",
+    "color": "Grey",
+    "manufacturer": "Approved Vendor",
+    "country_of_origin": "Saudi Arabia",
+    "unit": "m",
+    "estimated_quantity": 98.75
+  },
+  "metadata": {
+    "document_type": "material_specification",
+    "discipline": "procurement"
+  }
+}
+{"id": "INVOICE-d1be498ad768", "instruction": "Create progress invoice #3 for project SA-R00001.\nأنشئ فاتورة مستخلص رقم 3 للمشروع SA-R00001.", "input": "", "output": "Invoice: INV-SA-R00001-003\nDate: 2026-02-11\nWork Done Value: 151220.18 SAR\nVAT 15%: 22683.03 SAR\nNet: 173903.21 SAR\nفاتورة: INV-SA-R00001-003\nالتاريخ: 2020-12-22\nقيمة الأعمال: 151220.18 ر.س\nضريبة 15%: 22683.03 ر.س\nالصافي: 173903.21 ر.س", "metadata": {}}
+{
+  "id": "SUP-000001",
+  "instruction": "Evaluate supplier Saudi Ceramics.\nقيّم المورد Saudi Ceramics.",
+  "input": {
+    "supplier": "Saudi Ceramics",
+    "category": "Finishing Materials"
+  },
+  "output": {
+    "rating": 4.6,
+    "quality": "Excellent",
+    "delivery": "5 Days",
+    "price_level": "Competitive",
+    "recommendation": "Approved for ceramic, porcelain and sanitary ware.",
+    "approved": true
+  },
+  "metadata": {
+    "document_type": "supplier_evaluation",
+    "discipline": "procurement"
+  }
+}
+{"id": "PURCHASE_ORDER-b622a68ed5a3", "instruction": "Issue PO for Porcelain Tiles on project SA-R00001.\nأصدر أمر شراء لـ Porcelain Tiles في المشروع SA-R00001.", "input": "", "output": "PO: PO-SA-R00001-042\nItem: Porcelain Tiles\nQty: 25.2 m2\nDelivery: 2026-02-11\nProject: Jeddah\nأمر شراء: PO-SA-R00001-042\nالبند: Porcelain Tiles\nالكمية: 25.2 m2\nالتسليم: 2020-12-22\nالمشروع: جدة", "metadata": {}}
+{
+  "id": "CONTRACT-000002",
+  "instruction": "Analyze the delay damages clause in a construction contract.\nحلل بند غرامات التأخير في عقد مقاولات.",
+  "input": {
+    "contract_type": "FIDIC Red Book 2017",
+    "delay_damages": "0.1% of Contract Price per day",
+    "maximum_limit": "10%",
+    "contract_value_sar": 12500000
+  },
+  "output": {
+    "english": {
+      "summary": "The Contractor shall pay delay damages at 0.1% of the Contract Price for each day of delay, subject to a maximum of 10% of the Contract Price.",
+      "daily_delay_damage": 12500,
+      "maximum_delay_damage": 1250000,
+      "risk_level": "Medium"
+    },
+    "arabic": {
+      "الملخص": "يلتزم المقاول بسداد غرامة تأخير قدرها 0.1٪ من قيمة العقد عن كل يوم تأخير، وبحد أقصى 10٪ من قيمة العقد.",
+      "غرامة_اليوم": 12500,
+      "الحد_الأقصى": 1250000,
+      "مستوى_المخاطرة": "متوسط"
+    }
+  },
+  "metadata": {
+    "document_type": "contract_clause",
+    "discipline": "contract_management",
+    "contract_standard": "FIDIC 2017"
+  }
+}

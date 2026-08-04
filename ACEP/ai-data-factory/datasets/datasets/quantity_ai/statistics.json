@@ -1,0 +1,16 @@
+{
+  "total": 4,
+  "train": 3,
+  "val": 0,
+  "test": 1,
+  "by_generator": {
+    "quantity": 2,
+    "boq": 2
+  },
+  "by_domain": {
+    "Quantity Surveying": 4
+  },
+  "by_difficulty": {
+    "medium": 4
+  }
+}

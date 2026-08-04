@@ -1,0 +1,32 @@
+[
+  {
+    "id": "38bce8169a6a1ac07dc72549",
+    "project_id": "T1",
+    "project_type": "mosque",
+    "subtype": "Friday Mosque",
+    "area": 500,
+    "floors": 2,
+    "phase": "Completed",
+    "finishing": "Luxury",
+    "architectural_style": "Islamic",
+    "country": "Saudi Arabia",
+    "image_source": "generated",
+    "prompt": "Professional photography of Islamic Mosque exterior golden hour",
+    "camera_angle": "Front View",
+    "lighting_type": "Golden Hour",
+    "width": 1024,
+    "height": 768,
+    "format": "png",
+    "file_size": 500000,
+    "quality_score": 72,
+    "certification_status": "certified",
+    "duplicate_status": "pending",
+    "metadata_complete": 0,
+    "auto_classified": 0,
+    "_created_at": "2026-07-28T14:41:26.806Z",
+    "_updated_at": "2026-07-28T14:41:26.827Z",
+    "quality_details": "{\"resolution\":60,\"clarity\":90,\"noise\":85,\"perspective\":70,\"proportion\":70,\"materialQuality\":65,\"lightingQuality\":65,\"aiArtifact\":85,\"phaseMatch\":80,\"descriptionMatch\":50,\"textDetected\":0,\"logoDetected\":0,\"watermarkDetected\":0,\"peopleDetected\":0,\"animalsDetected\":0,\"vehiclesDetected\":0}",
+    "certification_date": "2026-07-28T14:41:26.818Z",
+    "split_type": "train"
+  }
+]

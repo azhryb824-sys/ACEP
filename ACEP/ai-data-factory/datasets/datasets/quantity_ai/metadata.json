@@ -1,0 +1,19 @@
+{
+  "name": "quantity_ai",
+  "domain": "quantity",
+  "language": "both",
+  "generators": [
+    "boq",
+    "quantity"
+  ],
+  "dataset_types": [
+    "calculation",
+    "specification"
+  ],
+  "splits": {
+    "total": 4,
+    "train": 3,
+    "val": 0,
+    "test": 1
+  }
+}

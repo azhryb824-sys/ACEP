@@ -1,0 +1,33 @@
+{
+  "runId": "lora_run_1784969660126",
+  "config": {
+    "base_model": "black-forest-labs/FLUX.1-dev",
+    "output_dir": "C:\\Users\\Abdulrahman\\Documents\\مقاولات إلكترونية 2\\ACEP\\packages\\vision-training\\training\\lora\\run_1784969660126",
+    "learning_rate": 0.0001,
+    "train_batch_size": 1,
+    "gradient_accumulation_steps": 4,
+    "max_train_steps": 5,
+    "resolution": 1024,
+    "mixed_precision": "fp16",
+    "checkpointing_steps": 200,
+    "validation_steps": 100,
+    "seed": 42,
+    "warmup_steps": 100,
+    "noise_offset": 0.01,
+    "snr_gamma": 5,
+    "lora": {
+      "rank": 64,
+      "alpha": 128,
+      "target_modules": [
+        "to_q",
+        "to_k",
+        "to_v",
+        "to_out.0"
+      ]
+    }
+  },
+  "status": "completed",
+  "startedAt": "2026-07-25T08:54:20.126Z",
+  "completedAt": "2026-07-25T08:54:49.286Z",
+  "outputLog": "\r\n============================================================\r\n  ACEP Vision Training - LoRA Fine-tuning\r\n  Base Model: black-forest-labs/FLUX.1-dev\r\n  Output:     C:\\Users\\Abdulrahman\\Documents\\������� ��������� 2\\ACEP\\packages\\vision-training\\training\\lora\\run_1784969660126\r\n============================================================\r\n\r\nAll required packages found\r\nLoaded 11 training entries\r\n\r\nRunning in simulation mode. Steps: 5\r\nDataset entries: 11\r\nPyTorch: 2.12.0+cpu | CUDA: False\r\n[transformers] `CLIPImageProcessor` requires torchvision (not installed); falling back to `CLIPImageProcessorPil` for backward compatibility. Install torchvision to use the default backend, or import `CLIPImageProcessorPil` directly to silence this warning.\r\n[transformers] `SiglipImageProcessor` requires torchvision (not installed); falling back to `SiglipImageProcessorPil` for backward compatibility. Install torchvision to use the default backend, or import `SiglipImageProcessorPil` directly to silence this warning.\r\ndiffusers: OK | FLUX Pipeline class available\r\nSeed set: 42\r\nStep 0/5 (0%) - loss: 0.098606\r\n\r\nSimulation completed in 24.7s\r\nWeights saved to: C:\\Users\\Abdulrahman\\Documents\\������� ��������� 2\\ACEP\\packages\\vision-training\\training\\lora\\run_1784969660126\\pytorch_lora_weights.safetensors\r\nBase model FLUX.1-dev was NOT loaded or modified\r\n\r\nDone.\r\n"
+}

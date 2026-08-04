@@ -1,0 +1,84 @@
+import { BaseEngine } from '@acep/core';
+import { Robot, Mission, CoordinationPlan, DroneMission, SafetyZone, HazardAlert, RoboticsPerformanceIndex, SwarmConfig, HumanRobotCollaboration, DigitalTwinRobotics, KnowledgeGraph, DecisionLog, RobotStatus, RobotType, AutonomousEquipment, GeoLocation, RobotSubtype } from './types';
+import { IRoboticsEngine, CollisionAvoidanceResult } from './interfaces';
+export declare class RoboticsEngine extends BaseEngine implements IRoboticsEngine {
+    private robots;
+    private equipment;
+    private missions;
+    private coordinationPlans;
+    private droneMissions;
+    private safetyZones;
+    private hazardAlerts;
+    private swarmConfigs;
+    private collaborations;
+    private digitalTwins;
+    private decisionLogs;
+    private knowledgeGraph;
+    private performanceHistory;
+    constructor(config?: Record<string, unknown>);
+    initialize(): Promise<void>;
+    validate(): Promise<boolean>;
+    registerRobot(robot: Robot): Promise<void>;
+    unregisterRobot(robotId: string): Promise<void>;
+    getRobot(robotId: string): Promise<Robot | null>;
+    getAllRobots(): Promise<Robot[]>;
+    getRobotsByType(type: RobotType): Promise<Robot[]>;
+    getRobotsByStatus(status: RobotStatus): Promise<Robot[]>;
+    updateRobotStatus(robotId: string, status: RobotStatus): Promise<void>;
+    registerEquipment(equipment: AutonomousEquipment, id: string, model: string): Promise<void>;
+    unregisterEquipment(equipmentId: string): Promise<void>;
+    getEquipmentStatus(equipmentId: string): Promise<RobotStatus>;
+    getAllEquipment(): Promise<{
+        id: string;
+        type: AutonomousEquipment;
+        model: string;
+        status: RobotStatus;
+    }[]>;
+    assignEquipmentToMission(equipmentId: string, missionId: string): Promise<void>;
+    getUtilizationRates(): Promise<Record<string, number>>;
+    scheduleMaintenance(equipmentId: string, date: string): Promise<void>;
+    getMaintenanceSchedule(): Promise<{
+        equipmentId: string;
+        nextMaintenance: string;
+        type: string;
+    }[]>;
+    dispatchMission(mission: Mission): Promise<void>;
+    cancelMission(missionId: string): Promise<void>;
+    getMission(missionId: string): Promise<Mission | null>;
+    getAllMissions(): Promise<Mission[]>;
+    getPerformanceIndex(): Promise<RoboticsPerformanceIndex>;
+    getKnowledgeGraph(): Promise<KnowledgeGraph>;
+    getDigitalTwin(robotId: string): Promise<DigitalTwinRobotics | null>;
+    createDigitalTwin(robotId: string): Promise<DigitalTwinRobotics>;
+    updateDigitalTwin(robotId: string, updates: Partial<DigitalTwinRobotics>): Promise<void>;
+    analyzeProductivity(): Promise<{
+        energy: number;
+        time: number;
+        quality: number;
+        failures: number;
+    }>;
+    createCoordinationPlan(projectId: string, robotIds: string[], equipmentIds: string[]): Promise<CoordinationPlan>;
+    deconflict(planId: string): Promise<{
+        conflicts: number;
+        resolved: number;
+        remaining: number;
+    }>;
+    preventCollisions(planId: string): Promise<CollisionAvoidanceResult>;
+    resolveConflicts(planId: string): Promise<void>;
+    manageDroneMission(mission: DroneMission): Promise<void>;
+    defineSafetyZone(zone: SafetyZone): Promise<void>;
+    checkProximity(robotId: string): Promise<HazardAlert[]>;
+    generateAlert(alert: HazardAlert): Promise<void>;
+    acknowledgeAlert(alertId: string): Promise<void>;
+    resolveAlert(alertId: string): Promise<void>;
+    getActiveAlerts(): Promise<HazardAlert[]>;
+    manageSwarm(config: SwarmConfig): Promise<void>;
+    manageCollaboration(collaboration: HumanRobotCollaboration): Promise<void>;
+    private calculateDistance;
+    private calculateDistanceToZone;
+    private recordDecision;
+    getDecisionLogs(projectId?: string): Promise<DecisionLog[]>;
+    createRobot(id: string, name: string, model: string, manufacturer: string, type: RobotType, location: GeoLocation, subtype?: RobotSubtype, equipmentType?: AutonomousEquipment): Promise<Robot>;
+    createMissionFromParams(name: string, robotId: string, type: RobotType, start: GeoLocation, end: GeoLocation, priority: number, waypoints?: GeoLocation[]): Promise<Mission>;
+}
+//# sourceMappingURL=engine.d.ts.map

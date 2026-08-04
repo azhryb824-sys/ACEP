@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Construction Simulation - محاكاة التنفيذ | ACEP</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #1a1a2e;
+  --bg-card: #16213e;
+  --bg-hover: #0f3460;
+  --bg-input: #1a1a2e;
+  --border: #0f3460;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --gold: #e94560;
+  --gold-dark: #d63851;
+  --gold-glow: rgba(233,69,96,0.15);
+  --blue: #3b82f6;
+  --emerald: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --violet: #8b5cf6;
+  --cyan: #06b6d4;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Cairo', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+.app { max-width: 1480px; margin: 0 auto; padding: 20px; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--bg-card), #1a2744);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(233,69,96,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+.header-left { display: flex; align-items: center; gap: 16px; }
+.header-logo {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--gold), var(--violet));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 20px; color: #fff;
+}
+.header-info { }
+.header-info h1 { font-size: 22px; font-weight: 700; }
+.header-info .sub { font-size: 13px; color: var(--text-secondary); }
+.header-info .sub span { color: var(--gold); }
+.header-right { direction: ltr; }
+.header-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px;
+  background: var(--gold-glow);
+  border: 1px solid rgba(233,69,96,0.2);
+  border-radius: 20px;
+  font-size: 12px; color: var(--gold);
+}
+
+.panels { display: flex; flex-direction: column; gap: 20px; }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: 15px; font-weight: 700;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-title .icon { width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
+.card-title .badge {
+  font-size: 11px; font-weight: 500;
+  padding: 2px 10px;
+  border-radius: 10px;
+  background: var(--gold-glow);
+  color: var(--gold);
+  margin-right: auto;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+.form-group select, .form-group input {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.form-group select:focus, .form-group input:focus { border-color: var(--gold); }
+.form-group select option { background: var(--bg-card); color: var(--text-primary); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 20px;
+  border: none; border-radius: var(--radius-sm);
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--gold); color: #fff; }
+.btn-primary:hover { background: var(--gold-dark); }
+.btn-success { background: var(--emerald); color: #fff; }
+.btn-success:hover { background: #059669; }
+.btn-danger { background: var(--red); color: #fff; }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.btn-outline:hover { border-color: var(--text-tertiary); color: var(--text-primary); }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.btn-full { width: 100%; }
+.btn-lg { padding: 14px 28px; font-size: 16px; }
+
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-12 { margin-top: 12px; }
+.mb-8 { margin-bottom: 8px; }
+.gap-8 { gap: 8px; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-1 { flex: 1; }
+
+.empty-state { padding: 40px 20px; text-align: center; color: var(--text-tertiary); }
+.empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.3; }
+.empty-state .empty-text { font-size: 14px; }
+
+/* Layout: Two columns */
+.main-grid { display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
+@media (max-width: 1100px) { .main-grid { grid-template-columns: 1fr; } }
+
+/* Session form */
+.session-form { display: flex; flex-direction: column; gap: 14px; }
+
+/* Control panel */
+.control-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; margin-bottom: 12px; }
+.control-section { margin-bottom: 16px; }
+.control-section-title { font-size: 13px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; }
+.mode-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.mode-card {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+.mode-card:hover { border-color: var(--gold); }
+.mode-card.active { border-color: var(--gold); background: var(--gold-glow); }
+.mode-card .mode-name { font-size: 13px; font-weight: 600; }
+.mode-card .mode-desc { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
+.duration-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.duration-btn {
+  padding: 6px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: 'Cairo', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.duration-btn:hover { border-color: var(--gold); }
+.duration-btn.active { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+/* Video preview */
+.video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.video-container .video-placeholder {
+  color: var(--text-tertiary);
+  font-size: 16px;
+  text-align: center;
+}
+.video-container .video-placeholder .play-icon { font-size: 64px; opacity: 0.3; display: block; margin-bottom: 12px; }
+
+/* Timeline */
+.timeline-container { margin-top: 12px; overflow-x: auto; padding: 8px 0; }
+.timeline-strip {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+  position: relative;
+}
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border-radius: var(--radius-sm);
+  position: relative;
+  min-width: 100px;
+}
+.timeline-step:hover { background: var(--bg-hover); }
+.timeline-step.active { background: var(--gold-glow); }
+.timeline-step .step-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 2px solid var(--text-tertiary);
+  transition: all 0.15s;
+}
+.timeline-step.active .step-dot { background: var(--gold); border-color: var(--gold); }
+.timeline-step.completed .step-dot { background: var(--emerald); border-color: var(--emerald); }
+.timeline-step .step-label { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
+.timeline-step.active .step-label { color: var(--gold); font-weight: 600; }
+.timeline-connector {
+  width: 24px;
+  height: 2px;
+  background: var(--border);
+  align-self: center;
+  flex-shrink: 0;
+}
+.timeline-connector.completed { background: var(--emerald); }
+
+/* Engineering Info Overlay */
+.engineering-overlay {
+  position: absolute;
+  top: 12px; left: 12px;
+  background: rgba(22,33,62,0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  min-width: 200px;
+  backdrop-filter: blur(8px);
+  display: none;
+}
+.engineering-overlay.visible { display: block; }
+.eng-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 12px; }
+.eng-item .eng-label { color: var(--text-tertiary); }
+.eng-item .eng-value { color: var(--text-primary); font-weight: 600; }
+.eng-item .eng-value.gold { color: var(--gold); }
+.eng-item .eng-value.green { color: var(--emerald); }
+.eng-divider { height: 1px; background: var(--border); margin: 6px 0; }
+
+/* Under video controls */
+.video-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+/* Scenarios */
+.scenarios-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.scenario-card {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.scenario-card:hover { border-color: var(--text-tertiary); }
+.scenario-card.active { border-color: var(--gold); background: var(--gold-glow); }
+.scenario-card .scenario-icon { font-size: 32px; margin-bottom: 8px; display: block; }
+.scenario-card .scenario-name { font-size: 13px; font-weight: 600; }
+.scenario-card .scenario-desc { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
+.compare-select { display: flex; gap: 8px; margin-top: 12px; }
+.compare-select select { flex: 1; }
+
+/* Validation */
+.validation-list { display: flex; flex-direction: column; gap: 6px; }
+.validation-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: var(--bg-input); border-radius: var(--radius-sm); font-size: 13px; }
+.validation-item .v-status { font-weight: 700; }
+.validation-item .v-status.pass { color: var(--emerald); }
+.validation-item .v-status.fail { color: var(--red); }
+.validation-item .v-status.warn { color: var(--amber); }
+
+/* Progress prediction */
+.prediction-input { display: flex; gap: 8px; align-items: flex-end; }
+.prediction-input .form-group { flex: 1; }
+.prediction-result { margin-top: 12px; padding: 12px; background: var(--bg-input); border-radius: var(--radius-sm); }
+.prediction-result .pred-item { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; }
+.prediction-result .pred-item .pred-label { color: var(--text-tertiary); }
+.prediction-result .pred-item .pred-value { font-weight: 600; }
+.prediction-result .pred-rec { margin-top: 8px; padding: 8px; background: var(--bg-hover); border-radius: var(--radius-sm); font-size: 12px; color: var(--amber); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .header { flex-direction: column; gap: 12px; text-align: center; }
+  .mode-grid { grid-template-columns: repeat(2, 1fr); }
+  .scenarios-grid { grid-template-columns: repeat(2, 1fr); }
+  .engineering-overlay { position: relative; top: auto; left: auto; margin-top: 8px; }
+}
+@media (max-width: 600px) {
+  .app { padding: 12px; }
+  .mode-grid { grid-template-columns: 1fr; }
+  .scenarios-grid { grid-template-columns: 1fr; }
+  .video-actions { flex-direction: column; }
+  .control-grid { grid-template-columns: 1fr; }
+  .prediction-input { flex-direction: column; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="header-logo">C</div>
+      <div class="header-info">
+        <h1>Construction Simulation</h1>
+        <div class="sub">محاكاة التنفيذ بالذكاء الاصطناعي <span>| ACEP</span></div>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="header-badge">&#9670; v1.0.0</span>
+    </div>
+  </header>
+
+  <div class="panels">
+
+    <!-- Main Grid -->
+    <div class="main-grid">
+
+      <!-- Left Column: Session Panel -->
+      <div>
+        <!-- Session Panel -->
+        <div class="card" id="sessionPanel">
+          <div class="card-title">
+            <span class="icon" style="background:var(--gold-glow);color:var(--gold);">&#43;</span>
+            جلسة جديدة
+            <span class="badge" id="sessionBadge">غير نشط</span>
+          </div>
+          <div class="session-form">
+            <div class="form-group">
+              <label>نوع المشروع</label>
+              <select id="projectType">
+                <option value="Villa">Villa</option>
+                <option value="Tower">Tower</option>
+                <option value="Mosque">Mosque</option>
+                <option value="School">School</option>
+                <option value="Hospital">Hospital</option>
+                <option value="Mall">Mall</option>
+                <option value="Office">Office</option>
+                <option value="Warehouse">Warehouse</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>المساحة (م²)</label>
+              <input type="number" id="projectArea" value="500" min="10">
+            </div>
+            <div class="form-group">
+              <label>عدد الطوابق</label>
+              <input type="number" id="projectFloors" value="2" min="1">
+            </div>
+            <div class="form-group">
+              <label>المدينة</label>
+              <input type="text" id="projectCity" value="الرياض">
+            </div>
+            <button class="btn btn-primary btn-full" onclick="handleNewSimulation()" style="margin-top:4px;">
+              &#9654; بدء محاكاة جديدة
+            </button>
+          </div>
+        </div>
+
+        <!-- Session Info (after creation) -->
+        <div class="card hidden" id="sessionInfoCard">
+          <div class="card-title">
+            <span class="icon" style="background:rgba(16,185,129,0.15);color:var(--emerald);">&#10003;</span>
+            معلومات الجلسة
+          </div>
+          <div id="sessionInfoContent" style="font-size:13px;color:var(--text-secondary);"></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Main Content -->
+      <div>
+
+        <!-- Control Panel -->
+        <div class="card hidden" id="controlPanel">
+          <div class="card-title">
+            <span class="icon" style="background:var(--gold-glow);color:var(--gold);">&#9881;</span>
+            لوحة التحكم
+            <span class="badge" id="sessionIdBadge">الجلسة: —</span>
+          </div>
+
+          <!-- Mode Selection -->
+          <div class="control-section">
+            <div class="control-section-title">وضع المحاكاة</div>
+            <div class="mode-grid" id="modeGrid">
+              <div class="mode-card active" data-mode="presentation" onclick="selectMode(this)">
+                <div class="mode-name">Presentation</div>
+                <div class="mode-desc">عرض تقديمي سينمائي</div>
+              </div>
+              <div class="mode-card" data-mode="clean_engineering" onclick="selectMode(this)">
+                <div class="mode-name">Clean Engineering</div>
+                <div class="mode-desc">تفاصيل هندسية واضحة</div>
+              </div>
+              <div class="mode-card" data-mode="bim_assembly" onclick="selectMode(this)">
+                <div class="mode-name">BIM Assembly</div>
+                <div class="mode-desc">تجميع نماذج BIM</div>
+              </div>
+              <div class="mode-card" data-mode="equipment" onclick="selectMode(this)">
+                <div class="mode-name">Equipment</div>
+                <div class="mode-desc">المعدات والآليات</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Duration, Camera, Resolution, Weather, Stages -->
+          <div class="control-grid">
+            <div class="form-group">
+              <label>المدة</label>
+              <div class="duration-group" id="durationGroup">
+                <button class="duration-btn active" data-duration="30" onclick="selectDuration(this)">30s</button>
+                <button class="duration-btn" data-duration="60" onclick="selectDuration(this)">60s</button>
+                <button class="duration-btn" data-duration="120" onclick="selectDuration(this)">120s</button>
+                <button class="duration-btn" data-duration="300" onclick="selectDuration(this)">5min</button>
+                <button class="duration-btn" data-duration="600" onclick="selectDuration(this)">10min</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>الكاميرا</label>
+              <select id="simCamera">
+                <option value="front">Front</option>
+                <option value="rear">Rear</option>
+                <option value="side">Side</option>
+                <option value="top">Top</option>
+                <option value="drone">Drone</option>
+                <option value="bird_eye">Bird Eye</option>
+                <option value="street">Street</option>
+                <option value="orbit_360">Orbit 360</option>
+                <option value="dynamic">Dynamic</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>الدقة</label>
+              <select id="simResolution">
+                <option value="1080p">1080p</option>
+                <option value="4k">4K</option>
+                <option value="8k">8K</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>الطقس</label>
+              <select id="simWeather">
+                <option value="sunny">Sunny</option>
+                <option value="cloudy">Cloudy</option>
+                <option value="night">Night</option>
+                <option value="sunset">Sunset</option>
+                <option value="morning">Morning</option>
+                <option value="rain">Rain</option>
+                <option value="fog">Fog</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>مرحلة البداية</label>
+              <select id="startStage">
+                <option value="Empty_Land">Empty Land</option>
+                <option value="Excavation">Excavation</option>
+                <option value="Foundations">Foundations</option>
+                <option value="Columns">Columns</option>
+                <option value="Slabs">Slabs</option>
+                <option value="Masonry">Masonry</option>
+                <option value="Plaster">Plaster</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="HVAC">HVAC</option>
+                <option value="Tiling">Tiling</option>
+                <option value="Painting">Painting</option>
+                <option value="Facade">Facade</option>
+                <option value="Finishing">Finishing</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>مرحلة النهاية</label>
+              <select id="endStage">
+                <option value="Empty_Land">Empty Land</option>
+                <option value="Excavation">Excavation</option>
+                <option value="Foundations">Foundations</option>
+                <option value="Columns">Columns</option>
+                <option value="Slabs">Slabs</option>
+                <option value="Masonry">Masonry</option>
+                <option value="Plaster">Plaster</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="HVAC">HVAC</option>
+                <option value="Tiling">Tiling</option>
+                <option value="Painting">Painting</option>
+                <option value="Facade">Facade</option>
+                <option value="Finishing">Finishing</option>
+                <option value="Completed" selected>Completed</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-full btn-lg" onclick="handleGenerateSimulation()">
+            &#9654; توليد المحاكاة
+          </button>
+        </div>
+
+        <!-- Video Preview Panel -->
+        <div class="card mt-12" id="videoPanel">
+          <div class="card-title">
+            <span class="icon" style="background:rgba(6,182,212,0.15);color:var(--cyan);">&#127909;</span>
+            معاينة الفيديو
+          </div>
+          <div class="video-container" id="videoContainer">
+            <div class="video-placeholder" id="videoPlaceholder">
+              <span class="play-icon">&#9654;</span>
+              <div>سيتم عرض الفيديو هنا</div>
+              <div style="font-size:12px;margin-top:4px;color:var(--text-tertiary);">قم بتوليد المحاكاة أولاً</div>
+            </div>
+            <div class="engineering-overlay" id="engOverlay">
+              <div class="eng-item"><span class="eng-label">نسبة الإنجاز</span><span class="eng-value gold" id="engProgress">0%</span></div>
+              <div class="eng-item"><span class="eng-label">الشهر الحالي</span><span class="eng-value" id="engMonth">—</span></div>
+              <div class="eng-item"><span class="eng-label">المرحلة الحالية</span><span class="eng-value" id="engStage">—</span></div>
+              <div class="eng-divider"></div>
+              <div class="eng-item"><span class="eng-label">التكلفة المنفذة</span><span class="eng-value green" id="engCostSpent">—</span></div>
+              <div class="eng-item"><span class="eng-label">التكلفة المتبقية</span><span class="eng-value" id="engCostRemain">—</span></div>
+              <div class="eng-divider"></div>
+              <div class="eng-item"><span class="eng-label">البنود المنجزة</span><span class="eng-value green" id="engItemsDone">—</span></div>
+              <div class="eng-item"><span class="eng-label">البنود المتبقية</span><span class="eng-value" id="engItemsRemain">—</span></div>
+              <div class="eng-divider"></div>
+              <div class="eng-item"><span class="eng-label">الثقة</span><span class="eng-value gold" id="engConfidence">—</span></div>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="timeline-container">
+            <div class="timeline-strip" id="timelineStrip">
+              <div class="timeline-step active" data-stage="Empty_Land" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Empty Land</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Excavation" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Excavation</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Foundations" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Foundations</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Columns" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Columns</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Slabs" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Slabs</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Masonry" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Masonry</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Plaster" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Plaster</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Electrical" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Electrical</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Plumbing" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Plumbing</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="HVAC" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">HVAC</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Tiling" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Tiling</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Painting" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Painting</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Facade" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Facade</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Finishing" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Finishing</div>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-step" data-stage="Completed" onclick="handleTimelineClick(this)">
+                <div class="step-dot"></div>
+                <div class="step-label">Completed</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Actions -->
+          <div class="video-actions">
+            <button class="btn btn-primary" onclick="handleDownloadMP4()">&#128190; Download MP4</button>
+            <button class="btn btn-success" onclick="handleDownloadGIF()">&#128190; Download GIF</button>
+            <button class="btn btn-outline" onclick="handleSaveVersion()">&#128190; Save Version</button>
+            <button class="btn btn-outline" onclick="handleShare()">&#128228; Share</button>
+            <button class="btn btn-outline" onclick="handleCompare()">&#128196; Compare</button>
+            <button class="btn btn-outline" onclick="handleFeedback('like')">&#128077;</button>
+            <button class="btn btn-outline" onclick="handleFeedback('dislike')">&#128078;</button>
+          </div>
+        </div>
+
+        <!-- Scenarios Panel -->
+        <div class="card mt-12" id="scenariosPanel">
+          <div class="card-title">
+            <span class="icon" style="background:rgba(245,158,11,0.15);color:var(--amber);">&#128161;</span>
+            السيناريوهات
+            <span class="badge">5</span>
+          </div>
+          <button class="btn btn-primary" onclick="handleGenerateScenarios()" style="margin-bottom:12px;">
+            &#9654; توليد 5 سيناريوهات
+          </button>
+          <div class="scenarios-grid" id="scenariosGrid">
+            <div class="empty-state" id="scenariosEmpty" style="grid-column:1/-1;padding:20px;">
+              <div class="empty-icon">&#128161;</div>
+              <div class="empty-text">اضغط على "توليد 5 سيناريوهات"</div>
+            </div>
+          </div>
+          <div class="compare-select">
+            <select id="compareScenario1">
+              <option value="">اختر السيناريو الأول</option>
+            </select>
+            <select id="compareScenario2">
+              <option value="">اختر السيناريو الثاني</option>
+            </select>
+            <button class="btn btn-sm btn-outline" onclick="handleCompareScenarios()">&#128196; مقارنة</button>
+          </div>
+        </div>
+
+        <!-- Validation Panel -->
+        <div class="card mt-12" id="validationPanel">
+          <div class="card-title">
+            <span class="icon" style="background:rgba(239,68,68,0.15);color:var(--red);">&#10003;</span>
+            التحقق الهندسي
+            <span class="badge" id="validationStatus">—</span>
+          </div>
+          <div class="validation-list" id="validationList">
+            <div class="validation-item">
+              <span class="v-status pass" id="valStructure">&#10003;</span>
+              <span>التحقق الإنشائي</span>
+            </div>
+            <div class="validation-item">
+              <span class="v-status pass" id="valMEP">&#10003;</span>
+              <span>التحقق من MEP</span>
+            </div>
+            <div class="validation-item">
+              <span class="v-status pass" id="valClash">&#10003;</span>
+              <span>فحص التصادمات</span>
+            </div>
+            <div class="validation-item">
+              <span class="v-status" id="valQuantity">—</span>
+              <span>مطابقة الكميات</span>
+            </div>
+          </div>
+          <div id="validationErrors" style="margin-top:8px;font-size:12px;color:var(--red);"></div>
+        </div>
+
+        <!-- Progress Prediction Panel -->
+        <div class="card mt-12" id="predictionPanel">
+          <div class="card-title">
+            <span class="icon" style="background:rgba(139,92,246,0.15);color:var(--violet);">&#128202;</span>
+            توقع التقدم
+          </div>
+          <div class="prediction-input">
+            <div class="form-group">
+              <label>النسبة الحالية (%)</label>
+              <input type="number" id="currentProgress" value="30" min="0" max="100">
+            </div>
+            <div class="form-group">
+              <label>المرحلة الحالية</label>
+              <select id="predictionStage">
+                <option value="Empty_Land">Empty Land</option>
+                <option value="Excavation">Excavation</option>
+                <option value="Foundations">Foundations</option>
+                <option value="Columns">Columns</option>
+                <option value="Slabs">Slabs</option>
+                <option value="Masonry">Masonry</option>
+                <option value="Plaster">Plaster</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="HVAC">HVAC</option>
+                <option value="Tiling">Tiling</option>
+                <option value="Painting">Painting</option>
+                <option value="Facade">Facade</option>
+                <option value="Finishing">Finishing</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" onclick="handlePredictProgress()" style="align-self:flex-end;">
+              &#9654; توقع الإكمال
+            </button>
+          </div>
+          <div class="prediction-result hidden" id="predictionResult">
+            <div class="pred-item"><span class="pred-label">الوقت المتبقي</span><span class="pred-value" id="predTime">—</span></div>
+            <div class="pred-item"><span class="pred-label">المراحل المتبقية</span><span class="pred-value" id="predStages">—</span></div>
+            <div class="pred-item"><span class="pred-label">نسبة الإنجاز المتوقعة</span><span class="pred-value" id="predCompletion">—</span></div>
+            <div class="pred-rec" id="predRecommendations"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="src/simulation-app.js"></script>
+<script>
+// State
+let currentSessionId = null;
+let currentMode = 'presentation';
+let currentDuration = 30;
+let scenarios = [];
+
+// Mode selection
+function selectMode(el) {
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  currentMode = el.dataset.mode;
+}
+
+// Duration selection
+function selectDuration(el) {
+  document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  currentDuration = parseInt(el.dataset.duration);
+}
+
+// Session
+function handleNewSimulation() {
+  const type = document.getElementById('projectType').value;
+  const area = parseInt(document.getElementById('projectArea').value);
+  const floors = parseInt(document.getElementById('projectFloors').value);
+  const city = document.getElementById('projectCity').value;
+
+  window.newSimulation(type, area, floors, city).then(data => {
+    if (data && data.sessionId) {
+      currentSessionId = data.sessionId;
+      document.getElementById('sessionIdBadge').textContent = 'الجلسة: ' + data.sessionId;
+      document.getElementById('sessionBadge').textContent = 'نشط';
+      document.getElementById('sessionBadge').style.background = 'rgba(16,185,129,0.15)';
+      document.getElementById('sessionBadge').style.color = 'var(--emerald)';
+      document.getElementById('controlPanel').classList.remove('hidden');
+      document.getElementById('sessionInfoCard').classList.remove('hidden');
+      document.getElementById('sessionInfoContent').innerHTML =
+        '<div>النوع: ' + type + '</div>' +
+        '<div>المساحة: ' + area + ' m²</div>' +
+        '<div>الطوابق: ' + floors + '</div>' +
+        '<div>المدينة: ' + city + '</div>';
+    }
+  });
+}
+
+// Generate simulation
+function handleGenerateSimulation() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  const camera = document.getElementById('simCamera').value;
+  const resolution = document.getElementById('simResolution').value;
+  const weather = document.getElementById('simWeather').value;
+  const startStage = document.getElementById('startStage').value;
+  const endStage = document.getElementById('endStage').value;
+
+  document.getElementById('videoPlaceholder').innerHTML = '<span style="font-size:16px;color:var(--gold);">جارٍ توليد المحاكاة...</span>';
+
+  window.generateSimulation(currentSessionId, currentMode, currentDuration, camera, resolution, weather, startStage, endStage).then(data => {
+    if (data) {
+      document.getElementById('videoPlaceholder').innerHTML =
+        '<span class="play-icon">&#9654;</span>' +
+        '<div>اكتمل التوليد</div>' +
+        '<div style="font-size:12px;margin-top:4px;color:var(--text-tertiary);">Video ID: ' + (data.videoId || '—') + '</div>';
+      document.getElementById('engOverlay').classList.add('visible');
+      if (data.progress) document.getElementById('engProgress').textContent = data.progress + '%';
+      if (data.month) document.getElementById('engMonth').textContent = data.month;
+      if (data.stage) document.getElementById('engStage').textContent = data.stage;
+      if (data.costSpent) document.getElementById('engCostSpent').textContent = data.costSpent;
+      if (data.costRemain) document.getElementById('engCostRemain').textContent = data.costRemain;
+      if (data.itemsDone) document.getElementById('engItemsDone').textContent = data.itemsDone;
+      if (data.itemsRemain) document.getElementById('engItemsRemain').textContent = data.itemsRemain;
+      if (data.confidence) document.getElementById('engConfidence').textContent = data.confidence + '%';
+    }
+  });
+}
+
+// Timeline click
+function handleTimelineClick(el) {
+  document.querySelectorAll('.timeline-step').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  const stage = el.dataset.stage;
+  // Update engineering overlay info based on stage
+  document.getElementById('engStage').textContent = stage;
+}
+
+// Download
+function handleDownloadMP4() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  alert('جاري تجهيز رابط تحميل MP4...');
+}
+
+function handleDownloadGIF() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  alert('جاري تجهيز رابط تحميل GIF...');
+}
+
+function handleSaveVersion() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  alert('تم حفظ النسخة');
+}
+
+function handleShare() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  alert('نسخ الرابط: ' + window.location.origin + '/simulation?session=' + currentSessionId);
+}
+
+function handleCompare() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  alert('اختر فيديوهين للمقارنة');
+}
+
+// Feedback
+function handleFeedback(action) {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  const details = action === 'like' ? 'إعجاب' : 'عدم إعجاب';
+  window.sendFeedback(currentSessionId, null, action, details).then(() => {
+    alert('شكراً على تقييمك');
+  });
+}
+
+// Scenarios
+function handleGenerateScenarios() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  window.generateScenarios(currentSessionId, currentMode, currentDuration).then(data => {
+    if (data && data.scenarios) {
+      scenarios = data.scenarios;
+      renderScenarios();
+    }
+  });
+}
+
+function renderScenarios() {
+  const grid = document.getElementById('scenariosGrid');
+  const empty = document.getElementById('scenariosEmpty');
+  if (empty) empty.style.display = 'none';
+  grid.innerHTML = '';
+
+  const defaultScenarios = scenarios.length ? scenarios :
+    ['Original', 'Luxury', 'Budget', 'Modern', 'Classical'];
+
+  defaultScenarios.forEach((s, i) => {
+    const name = typeof s === 'string' ? s : (s.name || 'Scenario ' + (i+1));
+    const desc = typeof s === 'string' ? '—' : (s.description || '—');
+    const card = document.createElement('div');
+    card.className = 'scenario-card' + (i === 0 ? ' active' : '');
+    card.dataset.name = name;
+    card.innerHTML =
+      '<span class="scenario-icon">&#127912;</span>' +
+      '<div class="scenario-name">' + name + '</div>' +
+      '<div class="scenario-desc">' + desc + '</div>';
+    card.onclick = function() {
+      document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+    };
+    grid.appendChild(card);
+
+    // Populate compare selects
+    const opt1 = document.createElement('option');
+    opt1.value = name; opt1.textContent = name;
+    document.getElementById('compareScenario1').appendChild(opt1);
+    const opt2 = document.createElement('option');
+    opt2.value = name; opt2.textContent = name;
+    document.getElementById('compareScenario2').appendChild(opt2);
+  });
+}
+
+function handleCompareScenarios() {
+  const s1 = document.getElementById('compareScenario1').value;
+  const s2 = document.getElementById('compareScenario2').value;
+  if (!s1 || !s2) return alert('الرجاء اختيار سيناريوهين');
+  if (s1 === s2) return alert('الرجاء اختيار سيناريوهين مختلفين');
+  alert('مقارنة بين: ' + s1 + ' و ' + s2);
+}
+
+// Predict progress
+function handlePredictProgress() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  const progress = parseInt(document.getElementById('currentProgress').value);
+  const stage = document.getElementById('predictionStage').value;
+
+  window.predictProgress(currentSessionId, progress, stage).then(data => {
+    if (data) {
+      document.getElementById('predictionResult').classList.remove('hidden');
+      document.getElementById('predTime').textContent = data.remainingTime || '—';
+      document.getElementById('predStages').textContent = data.remainingStages || '—';
+      document.getElementById('predCompletion').textContent = data.expectedCompletion || '—';
+      document.getElementById('predRecommendations').textContent = data.recommendations || '—';
+    }
+  });
+}
+
+// Validate stages
+function handleValidate() {
+  if (!currentSessionId) return;
+  const stages = ['Empty_Land', 'Excavation', 'Foundations', 'Columns'];
+  window.validateStages(currentSessionId, stages).then(data => {
+    if (data) {
+      if (data.structure) {
+        document.getElementById('valStructure').textContent = data.structure === 'pass' ? '\u2713' : '\u2717';
+        document.getElementById('valStructure').className = 'v-status ' + (data.structure === 'pass' ? 'pass' : 'fail');
+      }
+      if (data.mep) {
+        document.getElementById('valMEP').textContent = data.mep === 'pass' ? '\u2713' : '\u2717';
+        document.getElementById('valMEP').className = 'v-status ' + (data.mep === 'pass' ? 'pass' : 'fail');
+      }
+      if (data.clash) {
+        document.getElementById('valClash').textContent = data.clash === 'pass' ? '\u2713' : '\u2717';
+        document.getElementById('valClash').className = 'v-status ' + (data.clash === 'pass' ? 'pass' : 'fail');
+      }
+      if (data.quantity) {
+        document.getElementById('valQuantity').textContent = data.quantity === 'pass' ? '\u2713' : '\u2717';
+        document.getElementById('valQuantity').className = 'v-status ' + (data.quantity === 'pass' ? 'pass' : 'fail');
+      }
+      if (data.errors) document.getElementById('validationErrors').textContent = data.errors;
+      document.getElementById('validationStatus').textContent = data.overall || '—';
+    }
+  });
+}
+
+// Auto validate on session create by overriding the flow
+const origNewSimulation = handleNewSimulation;
+handleNewSimulation = function() {
+  origNewSimulation();
+  // Auto-validate after a short delay
+  setTimeout(handleValidate, 1500);
+};
+
+// Load config on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+  window.loadConfig().then(data => {
+    if (data) console.log('[Simulation] Config loaded:', data);
+  });
+});
+</script>
+
+</body>
+</html>

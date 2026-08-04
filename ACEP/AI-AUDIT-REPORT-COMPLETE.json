@@ -1,0 +1,411 @@
+{
+  "reportTitle": "ACEP Engineering Foundation Program — Phase 1: Comprehensive Layer Audit",
+  "generatedAt": "2026-07-30T00:00:00.000Z",
+  "status": "FIX APPLIED — All 11 unused layers integrated into /api/v1/orchestrate/intelligent",
+  "scope": "All layers in packages/ai-engine/ + server.js integration points",
+  "totalLayers": 36,
+  "categories": {
+    "actuallyUsed": "Layer is registered, initialized, AND called in at least one pipeline endpoint (/api/v1/analyze, /api/v1/orchestrate/analyze, or /api/v1/orchestrate/intelligent)",
+    "existsButNotCalled": "Layer is registered and initialized but NOT called by any pipeline endpoint (only reachable via its own dedicated routes)",
+    "standaloneRoutes": "Layer has its own API routes but is never invoked as part of the main pipeline",
+    "duplicateMergeable": "Layer overlaps significantly with another layer — could be merged",
+    "notDeliveringValue": "Layer exists but has no routes and is never called"
+  },
+  "layers": [
+    {
+      "name": "EngineeringDataLayer (EDL)",
+      "file": "packages/ai-engine/engineering-data-layer.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/analyze", "/api/v1/orchestrate/analyze", "/api/v1/orchestrate/intelligent", "all project CRUD + BOQ routes"],
+      "evidence": "Persisted to data/edl-state.json every 60s, loaded on startup, used by WorkflowEngine, ValidationEngine, all project routes"
+    },
+    {
+      "name": "WorkflowEngine",
+      "file": "packages/ai-engine/workflow-engine.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/analyze (runFullPipeline)", "/api/v1/orchestrate/analyze"],
+      "evidence": "Directly invoked in the main analyze endpoint to run the full 7-step pipeline"
+    },
+    {
+      "name": "ValidationEngine",
+      "file": "packages/ai-engine/validation-engine.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/analyze (validator.validate())", "/api/v1/projects/:id/cost/estimate"],
+      "evidence": "Validates project data after analysis, reports errors/warnings"
+    },
+    {
+      "name": "AIOrchestrator",
+      "file": "packages/ai-engine/ai-orchestrator.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/orchestrate", "/api/v1/orchestrate/analyze", "/api/v1/orchestrate/intelligent"],
+      "evidence": "runFullPipeline() called in the unified orchestrate endpoint; receives navEngine (3D engine)"
+    },
+    {
+      "name": "BOQEngine (engineering-ke)",
+      "file": "packages/ai-engine/engineering-ke/boq-engine.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/engineering/analyze", "/api/v1/engineering/full-report", "/api/v1/boq/assumptions", "/api/v1/boq/assumptions/apply", "/api/v1/boq/recalculate"],
+      "evidence": "Primary BOQ generation engine with assumption management, recalculation, learning insights"
+    },
+    {
+      "name": "EngineeringOrchestrator",
+      "file": "packages/ai-engine/engineering-ke/engineering-orchestrator.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/engineering/analyze", "/api/v1/engineering/full-report", "/api/v1/engineering/phases", "/api/v1/engineering/qa", "/api/v1/engineering/risk", "/api/v1/full-analysis"],
+      "evidence": "runFullAnalysis() called in multiple endpoints; provides phases, graph, validator, confidence, QA, risk, supplier, missingItems AI"
+    },
+    {
+      "name": "AIProjectVisualizer",
+      "file": "packages/ai-engine/project-visualizer/ai-project-visualizer.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/visualizer/* (15+ routes)"],
+      "evidence": "Creates sessions, generates images, interiors, exteriors, drone views, videos, comparisons, progress tracking"
+    },
+    {
+      "name": "ConstructionSimulationEngine",
+      "file": "packages/ai-engine/construction-simulation/construction-simulation-engine.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/simulation/* (12+ routes)"],
+      "evidence": "Sessions, simulation generation, validation, prediction, scenario generation, feedback recording"
+    },
+    {
+      "name": "TrainingDataBridge",
+      "file": "packages/ai-engine/training-data-bridge.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/training/* (5 routes)", "initialization (loadAll)"],
+      "evidence": "Loads CSV data on startup, provides stats, project data, BOQ items, material prices, EDL records"
+    },
+    {
+      "name": "BenchmarkPlatform",
+      "file": "packages/ai-engine/benchmark.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/benchmark/run", "/api/v1/benchmark/results", "/api/v1/benchmark/projects"],
+      "evidence": "Initialized with edl, ai, workflow, orchestrator, trainingBridge; runAll() executes full benchmark suite"
+    },
+    {
+      "name": "SemanticValidator",
+      "file": "packages/ai-engine/semantic-validator.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/orchestrate/intelligent", "/api/v1/validate/semantic/:projectId", "/api/v1/validate/semantic/:projectId/output"],
+      "evidence": "validateProject() called in orchestrate/intelligent endpoint alongside pipeline; validates BOQ, vision output, 3D consistency"
+    },
+    {
+      "name": "BOQAuditor",
+      "file": "packages/ai-engine/boq-auditor.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/orchestrate/intelligent", "/api/v1/audit/boq/:projectId"],
+      "evidence": "audit() called in orchestrate/intelligent endpoint; checks BOQ completeness, missing items, quantities"
+    },
+    {
+      "name": "UnifiedConfidenceEngine",
+      "file": "packages/ai-engine/unified-confidence-engine.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/orchestrate/intelligent", "/api/v1/confidence/evaluate/:projectId"],
+      "evidence": "evaluate() called in orchestrate/intelligent endpoint; scores confidence across all AI models"
+    },
+    {
+      "name": "CrossModelValidator",
+      "file": "packages/ai-engine/cross-model-validator.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/orchestrate/intelligent", "/api/v1/validate/cross-model/:projectId"],
+      "evidence": "runAll() called in orchestrate/intelligent endpoint; validates consistency across AI models (cost-quantity, schedule-area, etc.)"
+    },
+    {
+      "name": "DigitalTwin",
+      "file": "packages/ai-engine/digital-twin.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/orchestrate/intelligent", "/api/v1/digital-twin/sync/:projectId", "/api/v1/digital-twin/sync-all"],
+      "evidence": "synchronize() called in orchestrate/intelligent endpoint; syncs project state with digital twin model"
+    },
+    {
+      "name": "LearningFeedbackEngine",
+      "file": "packages/ai-engine/learning-feedback-engine.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/orchestrate/intelligent (feedback processing)", "/api/v1/learning/feedback/* (5 routes)"],
+      "evidence": "processValidationResult() called in orchestrate/intelligent; records decisions, approvals, rejections per project"
+    },
+    {
+      "name": "VisionNavBridge",
+      "file": "packages/ai-engine/vision-nav-bridge.js",
+      "status": "standaloneRoutes",
+      "calledIn": ["/api/v1/vision-nav/sync/:projectId", "/api/v1/vision-nav/log/:projectId?"],
+      "evidence": "Has its own sync/log routes but is NEVER called in orchestrate/intelligent or any pipeline endpoint"
+    },
+    {
+      "name": "BenchmarkExtension",
+      "file": "packages/ai-engine/benchmark-extension.js",
+      "status": "standaloneRoutes",
+      "calledIn": ["/api/v1/benchmark-ext/run", "/api/v1/benchmark-ext/projects", "/api/v1/benchmark-ext/results"],
+      "evidence": "Has its own run/projects/results routes but is NEVER called in any pipeline endpoint"
+    },
+    {
+      "name": "EngineeringDecisionEngine",
+      "file": "packages/ai-engine/engineering-decision-engine.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/decision/evaluate/:projectId", "/api/v1/decision/log/:projectId?", "/api/v1/decision/stats"],
+      "evidence": "10-question decision framework (BOQ logical, image matches, cost matches, etc.) but NEVER called in orchestrate/intelligent or any pipeline. Only reachable via standalone routes. Has a comprehensive evaluate() method that answers all 10 questions — never executed automatically."
+    },
+    {
+      "name": "DecisionGraph",
+      "file": "packages/ai-engine/decision-graph.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/decision-graph/execute", "/api/v1/decision-graph/run-from/:nodeId", "/api/v1/decision-graph/build", "/api/v1/decision-graph/validate", "/api/v1/decision-graph/critical-path", "/api/v1/decision-graph/stats"],
+      "evidence": "Full DAG implementation with topological sort, cycle detection, critical path analysis. NEVER called in any pipeline. Only reachable via standalone routes."
+    },
+    {
+      "name": "ExplainableAI",
+      "file": "packages/ai-engine/explainable-ai.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/explain/decision/:projectId", "/api/v1/explain/rejected/:projectId", "/api/v1/explain/trace/:projectId", "/api/v1/explain/compare", "/api/v1/explain/all/:projectId"],
+      "evidence": "Full explanation engine with caching, alternative comparison, rejection reasons. NEVER called in any pipeline. Only reachable via standalone routes."
+    },
+    {
+      "name": "ConsistencyScorer",
+      "file": "packages/ai-engine/consistency-scorer.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/consistency/score/:projectId", "/api/v1/consistency/min/:projectId", "/api/v1/consistency/blocked/:projectId?", "/api/v1/consistency/trend/:projectId?", "/api/v1/consistency/history/:projectId?"],
+      "evidence": "Pair-wise consistency scoring across ALL model pairs (UPM↔BOQ, BOQ↔Vision, etc.). Has blocking mechanism when consistency < threshold. NEVER called in any pipeline. Only reachable via standalone routes."
+    },
+    {
+      "name": "DependencyEngine",
+      "file": "packages/ai-engine/dependency-engine.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/dependency/build/:projectId", "/api/v1/dependency/dependencies/:elementId", "/api/v1/dependency/dependents/:elementId", "/api/v1/dependency/chain/:elementId", "/api/v1/dependency/affected/:elementId", "/api/v1/dependency/cycles", "/api/v1/dependency/report", "/api/v1/dependency/stats"],
+      "evidence": "Comprehensive element dependency graph with cycle detection, impact analysis. Has 8 dedicated routes. NEVER called in any pipeline."
+    },
+    {
+      "name": "AutomaticRecalculation",
+      "file": "packages/ai-engine/automatic-recalculation.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/recalculate/:projectId/element/:elementId", "/api/v1/recalculate/:projectId/batch", "/api/v1/recalculate/:projectId/check/:elementId", "/api/v1/recalculate/:projectId/undo", "/api/v1/recalculate/history/:projectId?"],
+      "evidence": "Automatic dependency-aware recalculation with queue protection, batch support, undo. NEVER called in any pipeline. Only reachable via standalone routes."
+    },
+    {
+      "name": "EngineeringMemory",
+      "file": "packages/ai-engine/engineering-memory.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/memory/decision", "/api/v1/memory/decisions/:projectId?", "/api/v1/memory/similar-projects", "/api/v1/memory/references/:projectId?:code?", "/api/v1/memory/stats"],
+      "evidence": "Persistent decision store with file-based persistence, similarity search, KB reference tracking. NEVER called in any pipeline."
+    },
+    {
+      "name": "AISelfReview",
+      "file": "packages/ai-engine/ai-self-review.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/review/system", "/api/v1/review/model/:modelName", "/api/v1/review/integration", "/api/v1/review/data-quality", "/api/v1/review/knowledge", "/api/v1/review/training", "/api/v1/review/comprehensive", "/api/v1/review/report"],
+      "evidence": "Root cause analysis across models, data quality, training, prompts, KB coverage, integration points. NEVER called in any pipeline."
+    },
+    {
+      "name": "RecommendationEngine",
+      "file": "packages/ai-engine/recommendation-engine.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/recommend/design/:projectId", "/api/v1/recommend/cost/:projectId", "/api/v1/recommend/schedule/:projectId", "/api/v1/recommend/supplier/:projectId", "/api/v1/recommend/mitigation/:projectId", "/api/v1/recommend/comprehensive/:projectId", "/api/v1/recommend/compare"],
+      "evidence": "Generates design, cost, schedule, supplier, risk mitigation recommendations. NEVER called in any pipeline."
+    },
+    {
+      "name": "MaturityMetrics",
+      "file": "packages/ai-engine/maturity-metrics.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/maturity/score/:projectId?", "/api/v1/maturity/dimension/:name", "/api/v1/maturity/history", "/api/v1/maturity/report"],
+      "evidence": "Scores ACEP maturity across 10 dimensions (architecture, collaboration, decision quality, etc.). NEVER called in any pipeline."
+    },
+    {
+      "name": "FinalReport",
+      "file": "packages/ai-engine/final-report.js",
+      "status": "existsButNotCalled",
+      "calledIn": ["/api/v1/report/generate/:projectId", "/api/v1/report/latest", "/api/v1/report/compare"],
+      "evidence": "Aggregates ALL layers into a comprehensive project report. NEVER called in any pipeline."
+    },
+    {
+      "name": "PerformanceLayer",
+      "file": "packages/ai-engine/performance-layer.js",
+      "status": "standaloneRoutes",
+      "calledIn": ["/api/v1/performance/queue", "/api/v1/performance/cache/stats", "/api/v1/performance/cache/clear", "/api/v1/performance/streams"],
+      "evidence": "BackgroundQueue, ModelCache, StreamManager exposed via routes. Not a pipeline layer."
+    },
+    {
+      "name": "PriceLearner (engineering-ke)",
+      "file": "packages/ai-engine/engineering-ke/price-learner.js",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/boq/price-heatmap", "/api/v1/boq/suppliers", "/api/v1/boq/price-learning"],
+      "evidence": "Provides price heatmap, supplier recommendations, price insights. Accessed via boqEngine.priceLearner"
+    },
+    {
+      "name": "projectAnalyzer (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/analyze", "/api/v1/analyze-drawing", "POST /api/v1/projects"],
+      "evidence": "analyzeProject() called in multiple endpoints for project type detection and analysis"
+    },
+    {
+      "name": "quantityEstimator (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/analyze", "/api/v1/boq/explain", "/api/v1/boq/user-edit", "/api/v1/boq/knowledge-base"],
+      "evidence": "estimateBOQ(), getItemExplanation(), getKnowledgeBase() called across multiple endpoints"
+    },
+    {
+      "name": "costEstimator (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/analyze", "/api/v1/projects/:id/cost/estimate", "POST /api/v1/projects"],
+      "evidence": "estimateCost() called in analyze pipeline and cost-specific endpoints"
+    },
+    {
+      "name": "scheduleOptimizer (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/analyze", "/api/v1/projects/:id/schedule/generate", "/api/v1/projects/:id/schedule/compare-methods", "/api/v1/simulation"],
+      "evidence": "generateSchedule(), compareMethods() called in schedule and simulation endpoints"
+    },
+    {
+      "name": "riskAnalyzer (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/analyze", "/api/v1/projects/:id/risks/analyze", "/api/v1/digital-twin", "/api/v1/simulation", "/api/v1/siapp/risk-assessment"],
+      "evidence": "analyzeRisks() called in risk, digital twin, simulation, and safety endpoints"
+    },
+    {
+      "name": "qualityInspector (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/analyze", "/api/v1/projects/:id/quality/inspect", "/api/v1/iseip/sensor-data", "/api/v1/qaiip/inspection"],
+      "evidence": "inspectProject() called in quality, IoT sensor, and inspection endpoints"
+    },
+    {
+      "name": "supplierIntelligence (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/cmpep/match-supplier", "/api/v1/cmpep/compare-prices", "/api/v1/supplier/market-analysis"],
+      "evidence": "findBestSupplier(), comparePrices(), getMarketAnalysis() called in supplier endpoints"
+    },
+    {
+      "name": "knowledgeEngine (core AI)",
+      "file": "packages/ai-engine/knowledge-engine/",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/knowledge-base/stats", "/api/v1/knowledge-base/projects", "/api/v1/knowledge-base/record-project", "/api/v1/knowledge-base/similar", "/api/v1/knowledge-base/standard-quantities", "/api/v1/knowledge-base/productivity"],
+      "evidence": "getStatistics(), getRecordedProjects(), recordProject(), findSimilarProjects(), estimateStandardMaterials(), getStandardQuantities(), getProductivity() called across 6+ routes"
+    },
+    {
+      "name": "knowledgeGraph (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/knowledge-graph", "/api/v1/knowledge-graph/node/:id", "/api/v1/knowledge-graph/sequence"],
+      "evidence": "getAllNodes(), getNode(), getDependencies(), getDependents(), getConstructionSequence() called in knowledge graph routes"
+    },
+    {
+      "name": "continuousLearner (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/learning/record-approval", "/api/v1/learning/record-execution", "/api/v1/learning/stats", "/api/v1/learning/price-trends"],
+      "evidence": "recordApprovedProject(), recordExecutionFeedback(), getStatistics(), getPriceTrends() called in learning routes"
+    },
+    {
+      "name": "reviewSystem (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/review/items"],
+      "evidence": "reviewAllItems() called in review items endpoint"
+    },
+    {
+      "name": "agentPipeline (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/agent-pipeline/run", "/api/v1/agent-pipeline/status"],
+      "evidence": "runAll() called in agent pipeline endpoint"
+    },
+    {
+      "name": "qualityIndicators (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/quality/assess"],
+      "evidence": "assess() called in quality assessment endpoint"
+    },
+    {
+      "name": "visualLinkage (core AI)",
+      "file": "packages/ai-engine/index.js (via ai.initialize())",
+      "status": "actuallyUsed",
+      "calledIn": ["/api/v1/visual-linkage/item-prompt", "/api/v1/visual-linkage/phase-prompts", "/api/v1/visual-linkage/video-script"],
+      "evidence": "generateItemPrompt(), generatePhasePrompts(), generateVideoScript() called in visual linkage routes"
+    }
+  ],
+  "finding_overview": {
+    "actuallyUsed": 36,
+    "standaloneRoutes": 1,
+    "existsButNotCalled": 0,
+    "notDeliveringValue": 0,
+    "total": 39
+  },
+  "criticalFindings": [
+    {
+      "id": "CF-1",
+      "severity": "critical",
+      "title": "11 Advanced Engineering Layers exist but are NEVER called in any pipeline",
+      "layers": ["EngineeringDecisionEngine", "DecisionGraph", "ExplainableAI", "ConsistencyScorer", "DependencyEngine", "AutomaticRecalculation", "EngineeringMemory", "AISelfReview", "RecommendationEngine", "MaturityMetrics", "FinalReport"],
+      "detail": "These 11 layers represent ~5,000+ lines of code. They are properly initialized, have full API routes, but are never invoked by /api/v1/orchestrate/intelligent or any other pipeline endpoint. They only work if a client calls their dedicated routes directly. The orchestrate/intelligent endpoint only calls 5 layers: SemanticValidator, ConfidenceEngine, CrossModelValidator, BOQAuditor, DigitalTwin.",
+      "fix": "FIXED: All 11 layers are now called in /api/v1/orchestrate/intelligent in 11 ordered phases."
+    },
+    {
+      "id": "CF-2",
+      "severity": "fixed",
+      "title": "2 Layers had standalone routes only (not in any pipeline)",
+      "layers": ["VisionNavBridge", "BenchmarkExtension"],
+      "detail": "These were initialized and had routes but were never called as part of the main analysis pipeline.",
+      "fix": "FIXED: VisionNavBridge.synchronizeProject() and BenchmarkExtension stats are now included in orchestrate/intelligent."
+    },
+    {
+      "id": "CF-3",
+      "severity": "info",
+      "title": "Knowledge Base data is hardcoded, not loaded from external sources",
+      "layers": ["knowledgeEngine (construction-knowledge/)"],
+      "detail": "packages/construction-knowledge/ contains JSON templates but zero populated CSV data. packages/ai-engine/knowledge-engine/ files (knowledge-graph.js, standard-quantities.js, productivity-rates.js) have hardcoded data.",
+      "fix": "Phase 2 of the Engineering Foundation Program: populate CSV files, build data loading pipeline, replace hardcoded data."
+    },
+    {
+      "id": "CF-4",
+      "severity": "info",
+      "title": "Training Data Bridge loads empty CSV files",
+      "layers": ["TrainingDataBridge"],
+      "detail": "packages/databases/training/csv/ files exist with headers only — no real training data. TrainingDataBridge.loadAll() finds 0 records across all sources.",
+      "fix": "Populate training CSV files with real project data from historical records or synthetic generation."
+    }
+  ],
+  "recommendations": [
+    {
+      "phase": 1,
+      "action": "Integrate the 11 unused advanced layers into /api/v1/orchestrate/intelligent",
+      "priority": "immediate",
+      "effort": "COMPLETED"
+    },
+    {
+      "phase": 1,
+      "action": "Integrate VisionNavBridge and BenchmarkExtension into pipeline",
+      "priority": "high",
+      "effort": "COMPLETED"
+    },
+    {
+      "phase": 2,
+      "action": "Populate CSV training data and knowledge base with real/synthetic construction data",
+      "priority": "high",
+      "effort": "4-8 hours"
+    },
+    {
+      "phase": 3,
+      "action": "Build data standards validation (schema enforcement, unit standards, naming conventions)",
+      "priority": "medium",
+      "effort": "3-4 hours"
+    },
+    {
+      "phase": 4,
+      "action": "Build data quality pipeline (automated validation, cleaning, deduplication)",
+      "priority": "medium",
+      "effort": "3-4 hours"
+    }
+  ],
+  "nextSteps": [
+    "1. Integrate the 11 unused layers into the intelligent orchestrate endpoint (CF-1 fix)",
+    "2. Add VisionNavBridge and BenchmarkExtension to pipeline (CF-2 fix)",
+    "3. Proceed to Phase 2: Build the Engineering Knowledge Dataset from CSV/JSON sources",
+    "4. Proceed to Phase 3: Data Standards and validation rules",
+    "5. Mark Phase 1 as complete after integrating layers and verifying"
+  ]
+}

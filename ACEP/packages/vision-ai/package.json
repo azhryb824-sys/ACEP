@@ -1,0 +1,14 @@
+{
+  "name": "acep-vision-ai",
+  "version": "1.0.0",
+  "description": "ACEP Vision AI - Image & Video Generation Engine for Construction Engineering",
+  "main": "core.js",
+  "scripts": {
+    "test": "node tests/unit.test.js",
+    "test:integration": "node tests/integration.test.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "sharp": "^0.33.0"
+  }
+}

@@ -1,0 +1,42 @@
+# Dependencies — never commit installed node_modules
+node_modules/
+
+# Heavy ML training data not needed by the web server
+ACEP/packages/ai-training/
+ACEP/packages/vision-training/dataset/datasets/
+ACEP/packages/vision-training/datasets/
+ACEP/packages/vision-training/training/lora/
+
+# Oversized runtime repo store (113MB > GitHub 100MiB limit; loads gracefully as empty)
+ACEP/data/uets/egt-repository.json
+
+# Lockfiles (npm ci not used; install resolves fresh)
+package-lock.json
+
+# Local-only training Dockerfile
+ACEP/Dockerfile.training
+
+# Logs, runtime output and debug dumps
+*.log
+*.tsbuildinfo
+*err*.txt
+*out*.txt
+*log*.txt
+server*.txt
+sd-server*.txt
+sd-err-node.txt
+api-gateway*.log
+express*.log
+ui-server*.log
+
+# Ad-hoc root debug/test scripts (not part of the app)
+ACEP/test-*.js
+ACEP/run_test.js
+ACEP/start-select.txt
+
+# User images (not part of the app)
+الصور/
+
+# Stray root debug artifacts
+/50
+مستند نصي جديد.txt

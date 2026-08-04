@@ -1,0 +1,17 @@
+{
+  "total": 200,
+  "train": 160,
+  "validation": 20,
+  "test": 20,
+  "avg_instruction_len": 50,
+  "avg_output_len": 285,
+  "unique_ids": 160,
+  "topics": {
+    "عقد": 121,
+    "contract": 39,
+    "سلامة": 4,
+    "مخاطر": 43,
+    "جودة": 10,
+    "جدول": 6
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "safety_ai",
+  "domain": "safety",
+  "language": "both",
+  "generators": [
+    "safety"
+  ],
+  "dataset_types": [
+    "instruction"
+  ],
+  "splits": {
+    "total": 2,
+    "train": 1,
+    "val": 0,
+    "test": 1
+  }
+}

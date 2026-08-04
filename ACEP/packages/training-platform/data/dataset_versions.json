@@ -1,0 +1,38 @@
+[
+  {
+    "id": "18dcbb490680feda519b2340",
+    "version": "v20260728-KIEC",
+    "description": "test",
+    "creator": "tester",
+    "notes": "",
+    "project_count": 1,
+    "image_count": 1,
+    "video_count": 0,
+    "prompt_count": 0,
+    "quality_avg": 72,
+    "acceptance_rate": 100,
+    "metadata_completeness": 0,
+    "balance_scores": "{}",
+    "status": "published",
+    "_created_at": "2026-07-28T14:41:26.820Z",
+    "_updated_at": "2026-07-28T14:41:26.823Z"
+  },
+  {
+    "id": "cfe870463158d3452af8a389",
+    "version": "v20260728-L5YJ",
+    "description": "test",
+    "creator": "tester",
+    "notes": "",
+    "project_count": 1,
+    "image_count": 2,
+    "video_count": 0,
+    "prompt_count": 0,
+    "quality_avg": 72,
+    "acceptance_rate": 100,
+    "metadata_completeness": 0,
+    "balance_scores": "{}",
+    "status": "published",
+    "_created_at": "2026-07-28T14:41:57.356Z",
+    "_updated_at": "2026-07-28T14:41:57.357Z"
+  }
+]

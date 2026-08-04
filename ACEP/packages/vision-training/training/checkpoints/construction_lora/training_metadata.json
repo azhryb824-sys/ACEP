@@ -1,0 +1,37 @@
+{
+  "runId": "lora_run_1785233605617",
+  "timestamp": "2026-07-28T10:15:27.266Z",
+  "config": {
+    "baseModel": "stabilityai/stable-diffusion-xl-base-1.0",
+    "outputDir": "C:\\Users\\Abdulrahman\\Documents\\مقاولات إلكترونية 2\\ACEP\\packages\\vision-training\\training\\checkpoints\\construction_lora",
+    "learningRate": 0.0001,
+    "trainBatchSize": 1,
+    "maxTrainSteps": 500,
+    "resolution": 1024,
+    "loraRank": 16,
+    "loraAlpha": 32,
+    "mixedPrecision": "fp16",
+    "seed": 42,
+    "simulate": true,
+    "checkpointingSteps": 100
+  },
+  "dataset": {
+    "totalImages": 64,
+    "categories": {
+      "gypsum board patterns and shapes": 4,
+      "central air conditioning systems": 5,
+      "bathroom wall ceramic tiles": 9,
+      "marble-like half-wall tiles": 3,
+      "apartment buildings": 14,
+      "multi-story buildings": 12,
+      "villas": 6,
+      "mosques": 5,
+      "hospitals": 6
+    }
+  },
+  "result": {
+    "status": "completed",
+    "outputDir": "C:\\Users\\Abdulrahman\\Documents\\مقاولات إلكترونية 2\\ACEP\\packages\\vision-training\\training\\checkpoints\\construction_lora",
+    "loraWeightsPath": "C:\\Users\\Abdulrahman\\Documents\\مقاولات إلكترونية 2\\ACEP\\packages\\vision-training\\training\\checkpoints\\construction_lora\\pytorch_lora_weights.safetensors"
+  }
+}

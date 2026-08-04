@@ -1,7 +1,7 @@
 {
   "name": "@acep/ai-speech",
   "version": "1.0.0",
-  "description": "Speech Service - Voice assistant for ACEP construction platform",
+  "description": "Speech Service - Voice command processing for construction site with Whisper/API integration",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -9,7 +9,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@acep/core": "^1.0.0",
-    "uuid": "^9.0.0"
+    "axios": "^1.6.0"
   }
 }

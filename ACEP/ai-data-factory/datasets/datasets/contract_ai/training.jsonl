@@ -1,0 +1,98 @@
+{
+  "id": "CONTRACT-000002",
+  "instruction": "Analyze the delay damages clause in a construction contract.\nحلل بند غرامات التأخير في عقد مقاولات.",
+  "input": {
+    "contract_type": "FIDIC Red Book 2017",
+    "delay_damages": "0.1% of Contract Price per day",
+    "maximum_limit": "10%",
+    "contract_value_sar": 12500000
+  },
+  "output": {
+    "english": {
+      "summary": "The Contractor shall pay delay damages at 0.1% of the Contract Price for each day of delay, subject to a maximum of 10% of the Contract Price.",
+      "daily_delay_damage": 12500,
+      "maximum_delay_damage": 1250000,
+      "risk_level": "Medium"
+    },
+    "arabic": {
+      "الملخص": "يلتزم المقاول بسداد غرامة تأخير قدرها 0.1٪ من قيمة العقد عن كل يوم تأخير، وبحد أقصى 10٪ من قيمة العقد.",
+      "غرامة_اليوم": 12500,
+      "الحد_الأقصى": 1250000,
+      "مستوى_المخاطرة": "متوسط"
+    }
+  },
+  "metadata": {
+    "document_type": "contract_clause",
+    "discipline": "contract_management",
+    "contract_standard": "FIDIC 2017"
+  }
+}
+{
+  "id": "VO-000001",
+  "instruction": "Prepare a Variation Order for additional reinforced concrete works.\nأعد أمر تغيير للأعمال الخرسانية الإضافية.",
+  "input": {
+    "project_id": "SA-R00001",
+    "original_contract_sar": 12500000,
+    "variation_value_sar": 385000,
+    "reason": "Additional foundation works"
+  },
+  "output": {
+    "variation_order_no": "VO-SA-R00001-001",
+    "contract_before_variation": 12500000,
+    "variation_value": 385000,
+    "contract_after_variation": 12885000,
+    "time_extension_days": 12,
+    "status": "Pending Consultant Approval"
+  },
+  "metadata": {
+    "document_type": "variation_order",
+    "discipline": "contract_management"
+  }
+}
+{
+  "id": "EOT-000001",
+  "instruction": "Evaluate Extension of Time request.\nقيّم طلب تمديد مدة المشروع.",
+  "input": {
+    "delay_reason": "Heavy Rain",
+    "delay_days": 8,
+    "critical_path": true,
+    "supporting_documents": true
+  },
+  "output": {
+    "english": {
+      "recommendation": "Eligible for Extension of Time.",
+      "approved_days": 8,
+      "reason": "Weather delay affecting the critical path."
+    },
+    "arabic": {
+      "التوصية": "يستحق تمديد مدة.",
+      "الأيام_المعتمدة": 8,
+      "السبب": "تأثير الأحوال الجوية على المسار الحرج."
+    }
+  },
+  "metadata": {
+    "document_type": "extension_of_time",
+    "discipline": "contract_management"
+  }
+}
+{
+  "id": "IPC-000001",
+  "instruction": "Prepare Interim Payment Certificate.\nأعد شهادة دفع مرحلية.",
+  "input": {
+    "project_id": "SA-R00001",
+    "work_done_sar": 845000,
+    "retention_percent": 5,
+    "vat_percent": 15
+  },
+  "output": {
+    "gross_amount": 845000,
+    "retention": 42250,
+    "vat": 120412.5,
+    "net_payment": 923162.5,
+    "certificate_no": "IPC-SA-R00001-001"
+  },
+  "metadata": {
+    "document_type": "payment_certificate",
+    "discipline": "contract_management"
+  }
+}

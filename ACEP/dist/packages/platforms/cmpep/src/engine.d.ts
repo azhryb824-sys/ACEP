@@ -1,0 +1,57 @@
+import { CompanyProfile, SmartRating, Tender, Bid, BidComparison, MarketplaceItem, SmartPricing, PaymentEngine, TrustedPartnerIndex, PartnerRelationship, PartnerType, MatchResult } from './types';
+import { IMarketplaceEngine, CompanySearchCriteria, MatchFilters, ItemSearchFilters } from './interfaces';
+export declare class MarketplaceEngine implements IMarketplaceEngine {
+    name: string;
+    version: string;
+    private companies;
+    private smartRatings;
+    private tenders;
+    private bids;
+    private marketplaceItems;
+    private smartPricings;
+    private paymentEngines;
+    private tpiIndex;
+    private relationships;
+    private equipmentCatalog;
+    constructor();
+    private initializeEquipmentCatalog;
+    initialize(): Promise<void>;
+    shutdown(): Promise<void>;
+    registerCompany(profile: CompanyProfile): Promise<CompanyProfile>;
+    updateCompany(profile: CompanyProfile): Promise<CompanyProfile>;
+    getCompany(companyId: string): Promise<CompanyProfile | null>;
+    searchCompanies(criteria: CompanySearchCriteria): Promise<CompanyProfile[]>;
+    private matchesPartnerType;
+    calculateSmartRating(companyId: string): Promise<SmartRating>;
+    private weightedScore;
+    getSmartRating(companyId: string): Promise<SmartRating | null>;
+    findBestPartner(query: string, filters?: MatchFilters): Promise<MatchResult[]>;
+    matchForProject(projectId: string, partnerType: PartnerType): Promise<MatchResult[]>;
+    createTender(tender: Tender): Promise<Tender>;
+    invitePartners(tenderId: string, partnerIds: string[]): Promise<void>;
+    submitBid(bid: Bid): Promise<Bid>;
+    analyzeBids(tenderId: string): Promise<BidComparison[]>;
+    private normalizePrice;
+    private normalizeDuration;
+    awardTender(tenderId: string, bidId: string): Promise<Tender>;
+    listItem(item: MarketplaceItem): Promise<MarketplaceItem>;
+    searchItems(filters: ItemSearchFilters): Promise<MarketplaceItem[]>;
+    purchaseItem(itemId: string, buyerId: string, quantity: number): Promise<void>;
+    getSmartPricing(itemId: string): Promise<SmartPricing>;
+    suggestPrice(itemId: string): Promise<{
+        min: number;
+        max: number;
+        recommended: number;
+    }>;
+    getPaymentEngine(companyId: string): Promise<PaymentEngine>;
+    processPayment(orderId: string): Promise<void>;
+    calculateTPI(companyId: string): Promise<TrustedPartnerIndex>;
+    getTPI(companyId: string): Promise<TrustedPartnerIndex | null>;
+    getNetwork(companyId: string): Promise<PartnerRelationship[]>;
+    addRelationship(rel: PartnerRelationship): Promise<void>;
+    syncWithCRM(companyId: string): Promise<void>;
+    syncWithERP(companyId: string): Promise<void>;
+    syncWithFinancialIntelligence(companyId: string): Promise<void>;
+    syncWithKnowledgeGraph(companyId: string): Promise<void>;
+}
+//# sourceMappingURL=engine.d.ts.map

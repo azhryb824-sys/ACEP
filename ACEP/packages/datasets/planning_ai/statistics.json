@@ -1,0 +1,12 @@
+{
+  "total": 200,
+  "train": 160,
+  "validation": 20,
+  "test": 20,
+  "avg_instruction_len": 49,
+  "avg_output_len": 548,
+  "unique_ids": 160,
+  "topics": {
+    "جدول": 39
+  }
+}

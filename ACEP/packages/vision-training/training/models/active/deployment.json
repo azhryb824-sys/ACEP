@@ -1,0 +1,7 @@
+{
+  "modelId": "acep-flux-v1_0_1",
+  "version": "1.0.1",
+  "baseModel": "black-forest-labs/FLUX.1-dev",
+  "deployedAt": "2026-07-25T09:12:04.624Z",
+  "loraPath": "C:\\Users\\Abdulrahman\\Documents\\مقاولات إلكترونية 2\\ACEP\\packages\\vision-training\\training\\lora\\run_1784969726827\\pytorch_lora_weights.safetensors"
+}

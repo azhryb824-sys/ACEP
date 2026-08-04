@@ -1,0 +1,39 @@
+{
+  "framework": "huggingface_trl",
+  "sft_config": {
+    "project": "acep-engineering-llm",
+    "base_model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dataset_dir": "C:\\Users\\Abdulrahman\\Documents\\مقاولات إلكترونية 2\\ACEP\\ai-data-factory\\datasets\\datasets\\planning_ai",
+    "train_file": "training.jsonl",
+    "validation_file": "validation.jsonl",
+    "test_file": "test.jsonl",
+    "max_seq_length": 4096,
+    "learning_rate": 0.0002,
+    "num_train_epochs": 3,
+    "per_device_train_batch_size": 2,
+    "gradient_accumulation_steps": 8,
+    "warmup_ratio": 0.03,
+    "logging_steps": 10,
+    "save_steps": 500,
+    "bf16": true,
+    "seed": 42
+  },
+  "peft_config": {
+    "peft_type": "LORA",
+    "r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "bias": "none",
+    "task_type": "CAUSAL_LM"
+  },
+  "dataset_format": "instruction"
+}

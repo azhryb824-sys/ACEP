@@ -1,0 +1,17 @@
+{
+  "name": "contract_ai",
+  "domain": "contract",
+  "language": "both",
+  "generators": [
+    "contract"
+  ],
+  "dataset_types": [
+    "contract"
+  ],
+  "splits": {
+    "total": 2,
+    "train": 1,
+    "val": 0,
+    "test": 1
+  }
+}

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACEP — لوحة المراحل العشر</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; padding: 20px; }
+  .container { max-width: 1400px; margin: 0 auto; }
+  h1 { font-size: 24px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  h1 small { font-size: 14px; color: #94a3b8; font-weight: normal; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: #1e293b; border-radius: 12px; padding: 16px; border: 1px solid #334155; }
+  .card h3 { font-size: 14px; color: #94a3b8; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .card .value { font-size: 28px; font-weight: 700; }
+  .card .sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+  .ok { color: #22c55e; } .warn { color: #eab308; } .err { color: #ef4444; }
+  .phase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+  .phase { background: #1e293b; border-radius: 10px; padding: 14px; border: 1px solid #334155; }
+  .phase .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .phase .tag { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+  .phase .details { font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .phase .details span { color: #e2e8f0; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+  .actions button { padding: 8px 16px; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; background: #334155; color: #e2e8f0; transition: .2s; }
+  .actions button:hover { background: #475569; }
+  .actions button.primary { background: #2563eb; } .actions button.primary:hover { background: #1d4ed8; }
+  .actions button.danger { background: #dc2626; } .actions button.danger:hover { background: #b91c1c; }
+  .actions button.success { background: #16a34a; } .actions button.success:hover { background: #15803d; }
+  pre { background: #0f172a; border-radius: 8px; padding: 12px; font-size: 11px; overflow: auto; max-height: 400px; border: 1px solid #334155; margin-top: 8px; color: #a5f3fc; }
+  .log-panel { margin-top: 24px; }
+  .log-panel h2 { font-size: 16px; margin-bottom: 8px; }
+  .tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+  .tabs button { padding: 6px 14px; border: 1px solid #334155; border-radius: 6px; background: transparent; color: #94a3b8; cursor: pointer; font-size: 12px; }
+  .tabs button.active { background: #334155; color: #e2e8f0; border-color: #475569; }
+  .timestamp { font-size: 11px; color: #64748b; margin-top: 4px; }
+  .inline-flex { display: flex; align-items: center; gap: 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🏗️ ACEP — برنامج المراحل العشر <small id="ts"></small></h1>
+
+  <div class="grid" id="summary"></div>
+
+  <div class="actions" id="actions-bar">
+    <button class="primary" onclick="runBenchmark()">🏃 تشغيل Benchmark</button>
+    <button class="success" onclick="runEvaluation()">📊 تشغيل تقييم</button>
+    <button class="primary" onclick="runRetraining()">🎯 تحليل إعادة التدريب</button>
+    <button class="success" onclick="runDecision()">🧠 تقييم قرار</button>
+    <button onclick="saveState()">💾 حفظ الحالة</button>
+    <button onclick="refreshAll()">🔄 تحديث</button>
+  </div>
+
+  <div id="results" style="margin-bottom:16px;font-size:13px;"></div>
+
+  <div class="phase-grid" id="phases"></div>
+
+  <div class="log-panel">
+    <div class="tabs" id="tabs">
+      <button class="active" data-tab="phases">📋 الحالة</button>
+      <button data-tab="benchmark">📈 Benchmark</button>
+      <button data-tab="evaluation">📊 التقييمات</button>
+      <button data-tab="decisions">🧠 القرارات</button>
+      <button data-tab="health">❤️ الصحة</button>
+    </div>
+    <pre id="log-content">جاري التحميل...</pre>
+  </div>
+</div>
+
+<script>
+const BASE = '';
+let state = {};
+
+async function api(method, url, body) {
+  const opts = { method, headers: { 'Accept': 'application/json' } };
+  if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+  const r = await fetch(BASE + url, opts);
+  return r.json();
+}
+
+async function refreshAll() {
+  state = await api('GET', '/api/v1/phases/status');
+  render();
+}
+
+function render() {
+  document.getElementById('ts').textContent = new Date(state.timestamp).toLocaleString('ar-SA');
+
+  const phases = [
+    { key: 'p1_auditReport', label: 'P1: تقرير التدقيق', ok: state.p1_auditReport?.ok, detail: 'AI-AUDIT-REPORT-COMPLETE.json' },
+    { key: 'p2_knowledgeDataset', label: 'P2: مجموعة البيانات', ok: state.p2_knowledgeDataset?.projectTypes > 0, detail: `${state.p2_knowledgeDataset?.projectTypes} نوع، ${state.p2_knowledgeDataset?.boqItems} بند` },
+    { key: 'p3_dataStandards', label: 'P3: معايير البيانات', ok: true, detail: `${state.p3_dataStandards?.schemas} schemas` },
+    { key: 'p4_dataQuality', label: 'P4: جودة البيانات', ok: state.p4_dataQuality?.ok, detail: `درجة ${state.p4_dataQuality?.grade} (${state.p4_dataQuality?.score}%)` },
+    { key: 'p5_knowledgeGrowth', label: 'P5: نمو المعرفة', ok: state.p5_knowledgeGrowth?.ok, detail: `${state.p5_knowledgeGrowth?.growthLogEntries || 0} إدخال` },
+    { key: 'p6_benchmarkLibrary', label: 'P6: مكتبة المقارنة', ok: state.p6_benchmarkLibrary?.ok, detail: `${state.p6_benchmarkLibrary?.totalRuns || 0} تشغيلة` },
+    { key: 'p7_unifiedKB', label: 'P7: قاعدة المعرفة الموحدة', ok: state.p7_unifiedKB?.ok, detail: 'CSV + KB + مسجلات' },
+    { key: 'p8_periodicEvaluation', label: 'P8: التقييم الدوري', ok: state.p8_periodicEvaluation?.ok, detail: `${state.p8_periodicEvaluation?.totalEvaluations || 0} تقييم` },
+    { key: 'p9_selectiveRetraining', label: 'P9: إعادة التدريب', ok: state.p9_selectiveRetraining?.ok, detail: `${state.p9_selectiveRetraining?.totalAnalyses || 0} تحليل` },
+    { key: 'p10_knowledgeDriven', label: 'P10: القرارات الواعية', ok: state.p10_knowledgeDriven?.ok, detail: `${state.p10_knowledgeDriven?.totalDecisions || 0} قرار` },
+  ];
+
+  document.getElementById('phases').innerHTML = phases.map(p => `
+    <div class="phase">
+      <div class="header">
+        <strong>${p.label}</strong>
+        <span class="tag ${p.ok ? 'ok' : 'err'}" style="background:${p.ok ? '#052e16' : '#450a0a'}">${p.ok ? '✓ نشط' : '✗ خطأ'}</span>
+      </div>
+      <div class="details">${p.detail}</div>
+    </div>
+  `).join('');
+
+  const sum = document.getElementById('summary');
+  const active = phases.filter(p => p.ok).length;
+  sum.innerHTML = `
+    <div class="card"><h3>📊 المراحل النشطة</h3><div class="value ok">${active}/10</div><div class="sub">من أصل 10 مراحل</div></div>
+    <div class="card"><h3>📁 أنواع المشاريع</h3><div class="value">${state.p2_knowledgeDataset?.projectTypes || 0}</div><div class="sub">في مجموعة البيانات</div></div>
+    <div class="card"><h3>📈 جودة البيانات</h3><div class="value ${state.p4_dataQuality?.grade === 'C' || state.p4_dataQuality?.grade === 'D' ? 'warn' : 'ok'}">${state.p4_dataQuality?.grade || 'N/A'}</div><div class="sub">${state.p4_dataQuality?.score || 0}%</div></div>
+    <div class="card"><h3>🧠 القرارات</h3><div class="value">${state.p10_knowledgeDriven?.totalDecisions || 0}</div><div class="sub">قرار واعٍ بالمعرفة</div></div>
+  `;
+
+  updateLog('phases', JSON.stringify(phases, null, 2));
+}
+
+async function runBenchmark() {
+  showResult('🏃 تشغيل Benchmark...');
+  const r = await api('POST', '/api/v1/benchmark-library/run');
+  showResult(`✅ Benchmark: ${r.projectTypesTested || 0} مشروع، دقة ${r.passed || 0}%`);
+  updateLog('benchmark', JSON.stringify(r, null, 2).slice(0, 2000));
+  refreshAll();
+}
+
+async function runEvaluation() {
+  showResult('📊 تشغيل تقييم...');
+  const r = await api('POST', '/api/v1/evaluation/run');
+  const acts = (r.actions || []).map(a => `${a.action}: ${a.ok ? '✓' : '✗'}`).join(', ');
+  showResult(`✅ تقييم: ${acts}`);
+  updateLog('evaluation', JSON.stringify(r, null, 2).slice(0, 2000));
+  refreshAll();
+}
+
+async function runRetraining() {
+  showResult('🎯 تحليل إعادة التدريب...');
+  const r = await api('POST', '/api/v1/retraining/analyze');
+  showResult(`✅ تحليل: ${r.totalWeakAreas || 0} نقاط ضعف، الأولوية: ${r.priority || 'none'}`);
+  updateLog('health', JSON.stringify(r, null, 2).slice(0, 2000));
+  refreshAll();
+}
+
+async function runDecision() {
+  showResult('🧠 تقييم قرار...');
+  const r = await api('POST', '/api/v1/decisions/evaluate', { type: 'Villa', area: 500, floors: 2, decisionType: 'system_health' });
+  showResult(`✅ قرار: ثقة ${r.confidence || 0}%، مطبق: ${r.applied}`);
+  updateLog('decisions', JSON.stringify(r, null, 2).slice(0, 2000));
+  refreshAll();
+}
+
+async function saveState() {
+  const r = await api('GET', '/api/v1/phases/persist');
+  showResult(`💾 حفظت الحالة في ${r.path || 'data/phases/'}`);
+}
+
+function showResult(msg) {
+  document.getElementById('results').textContent = msg;
+  setTimeout(() => document.getElementById('results').textContent = '', 5000);
+}
+
+function updateLog(tab, content) {
+  document.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.getElementById('log-content').textContent = content;
+}
+
+document.querySelectorAll('[data-tab]').forEach(b => {
+  b.addEventListener('click', async () => {
+    const tab = b.dataset.tab;
+    document.querySelectorAll('[data-tab]').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    if (tab === 'phases') refreshAll();
+    else if (tab === 'benchmark') {
+      const r = await api('GET', '/api/v1/benchmark-library/results');
+      document.getElementById('log-content').textContent = JSON.stringify(r, null, 2).slice(0, 2000);
+    } else if (tab === 'evaluation') {
+      const r = await api('GET', '/api/v1/evaluation/latest');
+      document.getElementById('log-content').textContent = JSON.stringify(r, null, 2).slice(0, 2000);
+    } else if (tab === 'decisions') {
+      const r = await api('GET', '/api/v1/decisions/history?limit=5');
+      document.getElementById('log-content').textContent = JSON.stringify(r, null, 2).slice(0, 2000);
+    } else if (tab === 'health') {
+      const r = await api('GET', '/health');
+      document.getElementById('log-content').textContent = JSON.stringify(r, null, 2).slice(0, 2000);
+    }
+  });
+});
+
+refreshAll();
+</script>
+</body>
+</html>

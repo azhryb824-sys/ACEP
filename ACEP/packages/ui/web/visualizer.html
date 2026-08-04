@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Project Visualizer - التوأم الرقمي البصري | ACEP</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --bg-hover: #334155;
+  --bg-input: #0f172a;
+  --border: #334155;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --blue: #3b82f6;
+  --blue-dark: #1d4ed8;
+  --blue-glow: rgba(59,130,246,0.15);
+  --emerald: #10b981;
+  --emerald-dark: #059669;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --violet: #8b5cf6;
+  --cyan: #06b6d4;
+  --pink: #ec4899;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+/* Layout */
+.app { max-width: 1440px; margin: 0 auto; padding: 20px; }
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--bg-card), #1a2744);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(59,130,246,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+.header-left { display: flex; align-items: center; gap: 16px; }
+.header-logo {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 20px; color: #fff;
+}
+.header-info { }
+.header-info h1 { font-size: 22px; font-weight: 700; }
+.header-info .sub { font-size: 13px; color: var(--text-secondary); }
+.header-info .sub span { color: var(--blue); }
+.header-right { direction: ltr; }
+.header-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px;
+  background: var(--blue-glow);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 20px;
+  font-size: 12px; color: var(--blue);
+}
+
+/* Panels Grid */
+.panels { display: flex; flex-direction: column; gap: 20px; }
+
+/* Card */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: 15px; font-weight: 700;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-title .icon { width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
+.card-title .badge {
+  font-size: 11px; font-weight: 500;
+  padding: 2px 10px;
+  border-radius: 10px;
+  background: var(--blue-glow);
+  color: var(--blue);
+  margin-right: auto;
+}
+
+/* Session Form */
+.session-form { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+.form-group select, .form-group input {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.form-group select:focus, .form-group input:focus { border-color: var(--blue); }
+.form-group select option { background: var(--bg-card); color: var(--text-primary); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 20px;
+  border: none; border-radius: var(--radius-sm);
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: var(--blue-dark); }
+.btn-success { background: var(--emerald); color: #fff; }
+.btn-success:hover { background: var(--emerald-dark); }
+.btn-danger { background: var(--red); color: #fff; }
+.btn-danger:hover { background: #dc2626; }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.btn-outline:hover { border-color: var(--text-tertiary); color: var(--text-primary); }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.btn-full { width: 100%; }
+.btn-icon { width: 32px; height: 32px; padding: 0; border-radius: 6px; }
+
+/* Control Panel */
+.control-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; margin-bottom: 12px; }
+.control-actions { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+/* Results Grid */
+.results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.image-card {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.image-card:hover { border-color: var(--text-tertiary); }
+.image-card .img-placeholder {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #1a2744, #0f172a);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-tertiary);
+  font-size: 13px;
+  position: relative;
+}
+.image-card .img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+.image-card .img-info { padding: 10px 12px; }
+.image-card .img-name { font-size: 13px; font-weight: 600; }
+.image-card .img-desc { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+.image-card .img-actions { display: flex; gap: 6px; padding: 8px 12px; border-top: 1px solid var(--border); }
+
+/* Concepts Strip */
+.concepts-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.concept-card {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  text-align: center;
+}
+.concept-card .concept-placeholder {
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #1a2744, #0f172a);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-tertiary);
+  font-size: 12px;
+}
+.concept-card .concept-label { padding: 8px; font-size: 12px; font-weight: 600; }
+.concept-card .concept-actions { display: flex; gap: 4px; padding: 0 8px 8px; justify-content: center; }
+
+/* Analysis Panel */
+.analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.analysis-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.metric { background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; }
+.metric .metric-label { font-size: 11px; color: var(--text-tertiary); }
+.metric .metric-value { font-size: 18px; font-weight: 700; margin-top: 2px; }
+.metric .metric-sub { font-size: 11px; color: var(--text-secondary); }
+
+/* Compare Slider */
+.compare-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--bg-input);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: ew-resize;
+  user-select: none;
+}
+.compare-container .compare-before,
+.compare-container .compare-after {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.compare-container .compare-after { clip-path: inset(0 50% 0 0); }
+.compare-container .compare-divider {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 3px; height: 100%;
+  background: #fff;
+  transform: translateX(-50%);
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+.compare-container .compare-label {
+  position: absolute;
+  bottom: 12px;
+  padding: 4px 12px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 3;
+}
+.compare-container .compare-label-before { left: 12px; }
+.compare-container .compare-label-after { right: 12px; }
+
+/* BOQ Impact */
+.boq-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.boq-table th { text-align: right; padding: 8px 10px; color: var(--text-tertiary); font-weight: 600; font-size: 11px; border-bottom: 1px solid var(--border); }
+.boq-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.boq-table tr:last-child td { border-bottom: none; }
+.boq-table .boq-positive { color: var(--emerald); }
+.boq-table .boq-negative { color: var(--red); }
+.boq-total { margin-top: 12px; text-align: left; font-size: 16px; font-weight: 700; }
+
+/* Utility */
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-12 { margin-top: 12px; }
+.mb-8 { margin-bottom: 8px; }
+.gap-8 { gap: 8px; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+
+/* Empty State */
+.empty-state { padding: 40px 20px; text-align: center; color: var(--text-tertiary); }
+.empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.3; }
+.empty-state .empty-text { font-size: 14px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .results-grid { grid-template-columns: repeat(2, 1fr); }
+  .concepts-strip { grid-template-columns: repeat(3, 1fr); }
+  .analysis-grid { grid-template-columns: 1fr; }
+  .header { flex-direction: column; gap: 12px; text-align: center; }
+  .session-form { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .app { padding: 12px; }
+  .results-grid { grid-template-columns: 1fr; }
+  .concepts-strip { grid-template-columns: 1fr; }
+  .session-form { grid-template-columns: 1fr; }
+  .control-grid { grid-template-columns: 1fr; }
+  .control-actions { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="header-logo">A</div>
+      <div class="header-info">
+        <h1>AI Project Visualizer</h1>
+        <div class="sub">التوأم الرقمي البصري <span>| ACEP</span></div>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="header-badge">&#9670; v1.0.0</span>
+    </div>
+  </header>
+
+  <div class="panels">
+
+    <!-- Session Panel -->
+    <div class="card" id="sessionPanel">
+      <div class="card-title">
+        <span class="icon" style="background:var(--blue-glow);color:var(--blue);">&#43;</span>
+        إنشاء تصور جديد — New Visualization
+        <span class="badge" id="sessionBadge">غير نشط</span>
+      </div>
+      <div class="session-form">
+        <div class="form-group">
+          <label>نوع المشروع / Project Type</label>
+          <select id="projectType">
+            <option value="Villa">Villa</option>
+            <option value="Building">Building</option>
+            <option value="Tower">Tower</option>
+            <option value="Mosque">Mosque</option>
+            <option value="Hospital">Hospital</option>
+            <option value="School">School</option>
+            <option value="Mall">Mall</option>
+            <option value="Office">Office</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Interior">Interior</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>المساحة (م²) / Area</label>
+          <input type="number" id="projectArea" value="400" min="10">
+        </div>
+        <div class="form-group">
+          <label>عدد الطوابق / Floors</label>
+          <input type="number" id="projectFloors" value="2" min="1">
+        </div>
+        <div class="form-group">
+          <label>المدينة / City</label>
+          <input type="text" id="projectCity" value="الرياض">
+        </div>
+        <div class="form-group">
+          <label>الطراز / Style</label>
+          <select id="projectStyle">
+            <option value="Modern">Modern</option>
+            <option value="Contemporary">Contemporary</option>
+            <option value="Islamic">Islamic</option>
+            <option value="Luxury">Luxury</option>
+            <option value="Minimal">Minimal</option>
+            <option value="Classical">Classical</option>
+          </select>
+        </div>
+        <div class="form-group" style="justify-content:flex-end;">
+          <button class="btn btn-primary btn-full" onclick="handleNewSession()" style="margin-top:auto;">
+            &#9654; إنشاء تصور جديد
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="card hidden" id="controlPanel">
+      <div class="card-title">
+        <span class="icon" style="background:rgba(16,185,129,0.15);color:var(--emerald);">&#9881;</span>
+        لوحة التحكم — Control Panel
+        <span class="badge" id="sessionIdBadge">الجلسة: —</span>
+      </div>
+      <div class="control-grid">
+        <div class="form-group">
+          <label>المرحلة / Phase</label>
+          <select id="genPhase">
+            <option value="Land">Land</option>
+            <option value="Site_Preparation">Site Preparation</option>
+            <option value="Excavation">Excavation</option>
+            <option value="Foundation">Foundation</option>
+            <option value="Columns">Columns</option>
+            <option value="Structure">Structure</option>
+            <option value="Masonry">Masonry</option>
+            <option value="Waterproofing">Waterproofing</option>
+            <option value="Plaster">Plaster</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Plumbing">Plumbing</option>
+            <option value="HVAC">HVAC</option>
+            <option value="Tiling">Tiling</option>
+            <option value="Painting">Painting</option>
+            <option value="Facade">Facade</option>
+            <option value="Finishing">Finishing</option>
+            <option value="Ceilings">Ceilings</option>
+            <option value="Landscape">Landscape</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>نوع الصورة / Image Type</label>
+          <select id="genImageType">
+            <option value="front">Front</option>
+            <option value="rear">Rear</option>
+            <option value="side">Side</option>
+            <option value="corner">Corner</option>
+            <option value="drone">Drone</option>
+            <option value="bird_eye">Bird Eye</option>
+            <option value="street">Street</option>
+            <option value="interior">Interior</option>
+            <option value="living_room">Living Room</option>
+            <option value="bedroom">Bedroom</option>
+            <option value="kitchen">Kitchen</option>
+            <option value="bathroom">Bathroom</option>
+            <option value="roof">Roof</option>
+            <option value="garden">Garden</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>النموذج / Model</label>
+          <select id="genModel">
+            <option value="mock">Mock</option>
+            <option value="gpt_image">GPT Image</option>
+            <option value="stable_diffusion">Stable Diffusion</option>
+            <option value="flux">Flux</option>
+            <option value="comfy_ui">Comfy UI</option>
+          </select>
+        </div>
+      </div>
+      <div class="control-actions">
+        <button class="btn btn-primary" onclick="handleGenerateImage()">&#127912; توليد صورة</button>
+        <button class="btn btn-success" onclick="handleGenerateInterior()">&#127968; توليد داخلي</button>
+        <button class="btn btn-primary" onclick="handleGenerateExterior()">&#127969; توليد خارجي</button>
+        <button class="btn btn-outline" onclick="handleGenerateDrone()">&#128246; توليد جوي</button>
+        <button class="btn btn-primary" onclick="handleGenerateConcepts()">&#128161; توليد 5 تصاميم</button>
+        <button class="btn btn-outline" onclick="handleGenerateVideo()">&#127909; فيديو تجول</button>
+        <button class="btn btn-violet" onclick="open3DView()" style="background:var(--violet);color:#fff;">&#127912; عرض 3D</button>
+      </div>
+    </div>
+
+    <!-- 3D View Panel -->
+    <div class="card hidden" id="view3dPanel">
+      <div class="card-title">
+        <span class="icon" style="background:rgba(139,92,246,0.15);color:var(--violet);">&#127912;</span>
+        العرض ثلاثي الأبعاد — 3D View
+        <span class="badge" style="margin-right:auto;">
+          <select id="navMode" onchange="changeNavMode(this.value)" style="background:transparent;border:none;color:var(--text-primary);font-family:'Cairo',sans-serif;font-size:12px;">
+            <option value="orbit">Orbit</option>
+            <option value="walk">Walk</option>
+            <option value="fly">Fly</option>
+            <option value="firstperson">First Person</option>
+            <option value="bird">Bird View</option>
+            <option value="section">Section</option>
+          </select>
+        </span>
+        <button class="btn btn-sm btn-outline" onclick="close3DView()" style="font-size:11px;">&#10005; إغلاق</button>
+      </div>
+      <div id="acep-3d-container" style="width:100%;height:500px;border-radius:8px;overflow:hidden;background:#0a0a1a;position:relative;"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center;">
+        <div class="form-group" style="flex-direction:row;align-items:center;gap:6px;">
+          <label style="font-size:11px;white-space:nowrap;">الزمن:</label>
+          <input type="range" id="timeSlider" min="0" max="100" value="100" oninput="update3DTime(this.value)" style="width:120px;">
+          <span id="timeLabel" style="font-size:11px;color:var(--text-secondary);min-width:30px;">100%</span>
+        </div>
+        <div class="form-group" style="flex-direction:row;align-items:center;gap:6px;">
+          <label style="font-size:11px;white-space:nowrap;">الدور:</label>
+          <select id="floorSelect" onchange="goToFloor(this.value)" style="background:var(--bg-input);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text-primary);font-family:'Cairo',sans-serif;font-size:12px;">
+            <option value="0">Ground</option>
+            <option value="1">F1</option>
+            <option value="2">F2</option>
+            <option value="3">F3</option>
+            <option value="4">F4</option>
+            <option value="5">F5</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+          <button class="btn btn-sm btn-outline" onclick="toggleLayer('structure')">الهيكل</button>
+          <button class="btn btn-sm btn-outline" onclick="toggleLayer('architecture')">المعمار</button>
+          <button class="btn btn-sm btn-outline" onclick="toggleLayer('finishing')">التشطيبات</button>
+          <button class="btn btn-sm btn-outline" onclick="toggleLayer('furniture')">الأثاث</button>
+          <button class="btn btn-sm btn-outline" onclick="toggleLayer('plumbing')">السباكة</button>
+          <button class="btn btn-sm btn-outline" onclick="toggleLayer('electrical')">الكهرباء</button>
+        </div>
+        <div style="margin-right:auto;display:flex;gap:4px;">
+          <input type="text" id="search3d" placeholder="بحث..." oninput="search3DElements(this.value)" style="background:var(--bg-input);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text-primary);font-family:'Cairo',sans-serif;font-size:12px;width:120px;">
+        </div>
+      </div>
+      <div id="elementInfo" style="margin-top:10px;padding:10px;background:var(--bg-input);border-radius:8px;border:1px solid var(--border);display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span id="elemName" style="font-weight:700;font-size:14px;"></span>
+          <span id="elemType" style="font-size:11px;color:var(--text-secondary);"></span>
+        </div>
+        <div id="elemDetails" style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:12px;"></div>
+      </div>
+    </div>
+
+    <!-- Results Panel -->
+    <div class="card" id="resultsPanel">
+      <div class="card-title">
+        <span class="icon" style="background:rgba(139,92,246,0.15);color:var(--violet);">&#128247;</span>
+        النتائج — Results
+        <span class="badge" id="resultsCount">0</span>
+      </div>
+      <div class="results-grid" id="resultsGrid">
+        <div class="empty-state" id="resultsEmpty">
+          <div class="empty-icon">&#128247;</div>
+          <div class="empty-text">لم يتم توليد أي صور بعد<br>No images generated yet</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concepts Panel -->
+    <div class="card hidden" id="conceptsPanel">
+      <div class="card-title">
+        <span class="icon" style="background:rgba(245,158,11,0.15);color:var(--amber);">&#128161;</span>
+        التصاميم المقترحة — Design Concepts
+        <span class="badge">5</span>
+      </div>
+      <div class="concepts-strip" id="conceptsStrip"></div>
+    </div>
+
+    <!-- Analysis Panel -->
+    <div class="card" id="analysisPanel">
+      <div class="card-title">
+        <span class="icon" style="background:rgba(6,182,212,0.15);color:var(--cyan);">&#128202;</span>
+        التحليل — Analysis
+      </div>
+      <div class="analysis-grid">
+        <div>
+          <div class="card-title" style="font-size:13px;margin-bottom:8px;">
+            تحليل الصورة بالذكاء الاصطناعي / Computer Vision
+          </div>
+          <div class="analysis-metrics" id="analysisMetrics">
+            <div class="metric"><div class="metric-label">الدقة / Accuracy</div><div class="metric-value">—</div><div class="metric-sub">matching score</div></div>
+            <div class="metric"><div class="metric-label">الجودة / Quality</div><div class="metric-value">—</div><div class="metric-sub">visual score</div></div>
+            <div class="metric"><div class="metric-label">الإضاءة / Lighting</div><div class="metric-value">—</div><div class="metric-sub">luminance</div></div>
+            <div class="metric"><div class="metric-label">التركيب / Composition</div><div class="metric-value">—</div><div class="metric-sub">framing</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="card-title" style="font-size:13px;margin-bottom:8px;">
+            المقارنة البصرية / Before vs After
+          </div>
+          <div class="compare-container" id="compareContainer">
+            <div class="compare-label compare-label-before">Before</div>
+            <div class="compare-label compare-label-after">After</div>
+            <div class="compare-divider"></div>
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--text-tertiary);font-size:13px;z-index:1;">
+              اختر صورتين للمقارنة<br>Select two images to compare
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOQ Impact Panel -->
+    <div class="card" id="boqPanel">
+      <div class="card-title">
+        <span class="icon" style="background:rgba(239,68,68,0.15);color:var(--red);">&#128176;</span>
+        تأثير BOQ — Bill of Quantities Impact
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="boq-table" id="boqTable">
+          <thead>
+            <tr>
+              <th>البند / Item</th>
+              <th>الكمية الأصلية / Original</th>
+              <th>الكمية الجديدة / New</th>
+              <th>سعر الوحدة / Unit Price</th>
+              <th>التأثير / Impact</th>
+            </tr>
+          </thead>
+          <tbody id="boqBody">
+            <tr><td colspan="5" class="text-center" style="color:var(--text-tertiary);padding:20px;">لم يتم تحميل بيانات BOQ بعد</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="boq-total" id="boqTotal">التكلفة الإجمالية: — ر.س</div>
+    </div>
+
+  </div>
+</div>
+
+<script src="src/visualizer-app.js"></script>
+<script src="/vision-ai/vision-ai-bridge.js"></script>
+<script src="/vision-ai/3d-view-bridge.js"></script>
+<script>
+// State
+let currentSessionId = null;
+let results = [];
+let concepts = [];
+
+// Session + Auto Generate
+function handleNewSession() {
+  const type = document.getElementById('projectType').value;
+  const area = parseInt(document.getElementById('projectArea').value);
+  const floors = parseInt(document.getElementById('projectFloors').value);
+  const city = document.getElementById('projectCity').value;
+  const style = document.getElementById('projectStyle').value;
+
+  const btn = document.querySelector('.session-form .btn');
+  if (btn) { btn.disabled = true; btn.innerHTML = '🔄 جاري إنشاء التصور...'; }
+
+  window.newSession(type, area, floors, city, style).then(async data => {
+    if (data && data.sessionId) {
+      currentSessionId = data.sessionId;
+      document.getElementById('sessionIdBadge').textContent = 'الجلسة: ' + data.sessionId;
+      document.getElementById('sessionBadge').textContent = 'نشط';
+      document.getElementById('sessionBadge').style.background = 'rgba(16,185,129,0.15)';
+      document.getElementById('sessionBadge').style.color = 'var(--emerald)';
+      document.getElementById('controlPanel').classList.remove('hidden');
+      document.getElementById('conceptsPanel').classList.remove('hidden');
+      if (btn) btn.innerHTML = '🔄 توليد الصورة...';
+
+      // Auto-generate exterior view
+      try {
+        const result = await window.generateExterior(currentSessionId, 'front');
+        if (result) addResult(result);
+      } catch(e) {
+        console.warn('Auto-generate failed, manual generation available:', e);
+      }
+    }
+    if (btn) { btn.disabled = false; btn.innerHTML = '&#9654; إنشاء تصور جديد'; }
+  }).catch(() => {
+    if (btn) { btn.disabled = false; btn.innerHTML = '&#9654; إنشاء تصور جديد'; }
+  });
+}
+
+// Generate Image
+function handleGenerateImage() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  const phase = document.getElementById('genPhase').value;
+  const imageType = document.getElementById('genImageType').value;
+  const model = document.getElementById('genModel').value;
+  // Show loading state
+  const btn = event?.target || document.querySelector('.control-actions .btn-primary');
+  if (btn) { btn.disabled = true; btn.textContent = '🔄 جاري التوليد...'; }
+  window.generateImage(currentSessionId, phase, imageType, model).then(data => {
+    if (data) addResult(data);
+    if (btn) { btn.disabled = false; btn.innerHTML = '&#127912; توليد صورة'; }
+  }).catch(() => { if (btn) { btn.disabled = false; btn.innerHTML = '&#127912; توليد صورة'; } });
+}
+
+// Generate Interior
+function handleGenerateInterior() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  const roomType = document.getElementById('genImageType').value;
+  const style = document.getElementById('projectStyle').value;
+  window.generateInterior(currentSessionId, roomType, style).then(data => {
+    if (data) addResult(data);
+  });
+}
+
+// Generate Exterior
+function handleGenerateExterior() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  const view = document.getElementById('genImageType').value;
+  window.generateExterior(currentSessionId, view).then(data => {
+    if (data) addResult(data);
+  });
+}
+
+// Generate Drone
+function handleGenerateDrone() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  window.generateDrone(currentSessionId, 50).then(data => {
+    if (data) addResult(data);
+  });
+}
+
+// Generate Concepts (5 designs)
+function handleGenerateConcepts() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  window.generateConcepts(currentSessionId, 5).then(data => {
+    if (data && data.conceptIds) {
+      concepts = data.conceptIds.map((id, i) => ({ id, name: 'Concept ' + (i+1), imageUrl: data.concepts?.[i]?.imageUrl }));
+      renderConcepts();
+    }
+  });
+}
+
+// Generate Video
+function handleGenerateVideo() {
+  if (!currentSessionId) return alert('الرجاء إنشاء جلسة أولاً');
+  window.generateVideo(currentSessionId, 'walkthrough').then(data => {
+    if (data) alert('فيديو التجول قيد التوليد: ' + (data.videoId || ''));
+  });
+}
+
+// Add result to grid - polls for actual image
+function addResult(data) {
+  const container = document.getElementById('resultsGrid');
+  const empty = document.getElementById('resultsEmpty');
+  if (empty) empty.style.display = 'none';
+
+  const imageId = data.imageId || data.image?.id || data.generationId || Date.now();
+  const description = data.description || data.image?.phase + ' - ' + data.image?.imageType || 'جاري التوليد...';
+
+  const card = document.createElement('div');
+  card.className = 'image-card';
+  card.dataset.id = imageId;
+  card.innerHTML = `
+    <div class="img-placeholder" id="ph-${imageId}">
+      <span style="font-size:13px;color:var(--text-tertiary);">🔄 جاري التوليد...</span>
+    </div>
+    <div class="img-info">
+      <div class="img-name">${description}</div>
+      <div class="img-desc" id="desc-${imageId}">${imageId}</div>
+    </div>
+    <div class="img-actions">
+      <button class="btn btn-sm btn-success" onclick="approveImage('${currentSessionId}','${imageId}')">&#10003; اعتماد</button>
+      <button class="btn btn-sm btn-danger" onclick="rejectImage('${currentSessionId}','${imageId}')">&#10007; رفض</button>
+    </div>`;
+  container.appendChild(card);
+  document.getElementById('resultsCount').textContent = container.querySelectorAll('.image-card').length;
+
+  // Poll for the generated image via status API
+  let attempts = 0;
+  const maxAttempts = 60;
+  const poll = setInterval(async () => {
+    attempts++;
+    try {
+      const res = await fetch('/api/v1/vision-ai/status/' + imageId);
+      const status = await res.json();
+      if (status.status === 'completed' && status.imageUrl) {
+        clearInterval(poll);
+        const placeholder = document.getElementById('ph-' + imageId);
+        if (placeholder) {
+          placeholder.innerHTML = '<img src="' + status.imageUrl + '" alt="تم التوليد" loading="lazy" style="max-width:100%;max-height:100%;object-fit:contain;">';
+          document.getElementById('desc-' + imageId).textContent = 'اكتمل  - ' + new Date().toLocaleTimeString();
+        }
+      } else if (status.status === 'completed') {
+        clearInterval(poll);
+        const placeholder = document.getElementById('ph-' + imageId);
+        if (placeholder) {
+          placeholder.innerHTML = '<span style="font-size:12px;color:var(--emerald);">✅ تم التوليد</span>';
+          document.getElementById('desc-' + imageId).textContent = 'اكتمل  - ' + new Date().toLocaleTimeString();
+        }
+      }
+    } catch(e) {}
+    if (attempts >= maxAttempts) clearInterval(poll);
+  }, 3000);
+}
+
+// Approve
+function handleApprove(imageId) {
+  if (!currentSessionId) return;
+  window.approveImage(currentSessionId, imageId);
+}
+
+// Reject
+function handleReject(imageId) {
+  if (!currentSessionId) return;
+  const reason = prompt('سبب الرفض / Rejection reason:');
+  if (reason !== null) {
+    window.rejectImage(currentSessionId, imageId, reason);
+  }
+}
+
+// Render Concepts
+function renderConcepts() {
+  const strip = document.getElementById('conceptsStrip');
+  strip.innerHTML = '';
+  concepts.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'concept-card';
+    card.innerHTML = `
+      <div class="concept-placeholder">${c.imageUrl ? '<img src="' + c.imageUrl + '" alt="' + c.name + '" style="width:100%;height:100%;object-fit:cover;">' : c.name}</div>
+      <div class="concept-label">${c.name}</div>
+      <div class="concept-actions">
+        <button class="btn btn-sm btn-success" onclick="alert('تم اعتماد: ${c.name}')">&#10003;</button>
+        <button class="btn btn-sm btn-danger" onclick="alert('تم رفض: ${c.name}')">&#10007;</button>
+      </div>
+    `;
+    strip.appendChild(card);
+  });
+}
+
+// ---- 3D View Functions ----
+let _3dProjectId = null;
+let _3dProjectParams = null;
+let _3dScene = null;
+
+async function open3DView() {
+  const panel = document.getElementById('view3dPanel');
+  panel.classList.remove('hidden');
+  const type = document.getElementById('projectType').value;
+  const area = parseInt(document.getElementById('projectArea').value);
+  const floors = parseInt(document.getElementById('projectFloors').value);
+  const city = document.getElementById('projectCity').value;
+  const style = document.getElementById('projectStyle').value;
+  _3dProjectParams = { type, area, floors, city, style };
+
+  const floorSelect = document.getElementById('floorSelect');
+  floorSelect.innerHTML = '';
+  for (let f = 0; f <= floors; f++) {
+    const opt = document.createElement('option');
+    opt.value = f;
+    opt.textContent = f === 0 ? 'Ground' : 'F' + f;
+    floorSelect.appendChild(opt);
+  }
+
+  const container = document.getElementById('acep-3d-container');
+  container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-tertiary);">🔄 جاري بناء النموذج ثلاثي الأبعاد...</div>';
+
+  try {
+    const project = currentSessionId ? await window.newSession(type, area, floors, city, style) : { _visionProjectId: 'demo' };
+    _3dProjectId = project._visionProjectId || window._visionProjectId || 'demo-' + Date.now();
+
+    const data = await window.ACEP3D.buildView('acep-3d-container', _3dProjectId, _3dProjectParams);
+    _3dScene = window.ACEP3D._currentScene;
+    if (_3dScene) {
+      document.getElementById('elementInfo').style.display = 'none';
+    }
+  } catch (e) {
+    container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--red);">❌ فشل تحميل النموذج: ' + e.message + '</div>';
+  }
+}
+
+function close3DView() {
+  document.getElementById('view3dPanel').classList.add('hidden');
+  window.ACEP3D.dispose();
+  _3dScene = null;
+}
+
+function changeNavMode(mode) {
+  // navigator mode changed - in full ThreeDEngine this would call engine.setNavigationMode
+  console.log('[3D] Nav mode:', mode);
+}
+
+function update3DTime(val) {
+  document.getElementById('timeLabel').textContent = val + '%';
+  // In full engine: ACEP3D.engine?.setTimeProgress(parseInt(val))
+}
+
+function goToFloor(val) {
+  // In full engine: ACEP3D.engine?.goToFloor(parseInt(val))
+  if (_3dScene?.camera) {
+    _3dScene.camera.position.y = parseInt(val) * 3.5 + 2;
+    _3dScene.camera.lookAt(0, parseInt(val) * 3.5, 0);
+  }
+}
+
+function toggleLayer(layer) {
+  const btn = event.target;
+  if (btn) {
+    btn.classList.toggle('btn-outline');
+    btn.classList.toggle('btn-sm');
+    btn.style.background = btn.style.background ? '' : 'rgba(139,92,246,0.3)';
+  }
+}
+
+function search3DElements(query) {
+  if (!query || query.length < 2) return;
+  if (_3dScene?.elements) {
+    const results = _3dScene.elements.filter(e =>
+      e.elem.name.toLowerCase().includes(query.toLowerCase())
+    );
+    if (results.length > 0 && _3dScene.camera) {
+      const pos = results[0].elem.position;
+      _3dScene.camera.position.set(pos.x + 5, pos.y + 3, pos.z + 5);
+      _3dScene.camera.lookAt(pos.x, pos.y, pos.z);
+    }
+  }
+}
+// ---- End 3D View Functions ----
+
+// Compare slider drag
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('compareContainer');
+  if (!container) return;
+  container.addEventListener('mousemove', function(e) {
+    const rect = this.getBoundingClientRect();
+    const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const after = this.querySelector('.compare-after');
+    const divider = this.querySelector('.compare-divider');
+    if (after) after.style.clipPath = 'inset(0 ' + ((1 - x) * 100) + '% 0 0)';
+    if (divider) divider.style.left = (x * 100) + '%';
+  });
+});
+</script>
+</body>
+</html>

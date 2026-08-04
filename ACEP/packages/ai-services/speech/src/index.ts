@@ -1,63 +1,213 @@
+import axios from 'axios';
+
 export interface SpeechRecognitionResult {
   transcript: string;
   confidence: number;
   language: string;
-  duration: number;
-  words: Array<{ word: string; startTime: number; endTime: number; confidence: number }>;
+  durationMs: number;
 }
 
 export interface VoiceCommand {
   intent: string;
-  entities: Record<string, unknown>;
+  entities: Record<string, string>;
+  raw: string;
   confidence: number;
-  rawText: string;
 }
 
+export interface SpeechConfig {
+  provider: 'openai-whisper' | 'express-api' | 'mock';
+  baseUrl: string;
+  apiKey?: string;
+  language: string;
+}
+
+// ─── Arabic + English construction command patterns ───
+const COMMAND_PATTERNS: Array<{ intent: string; patterns: RegExp[]; extract: (m: RegExpMatchArray) => Record<string, string> }> = [
+  {
+    intent: 'calculate_cost',
+    patterns: [
+      /(\d+)\s*(متر|m2|m²|sqm|square\s*meter)\s*(تشطيب|finish|بناء|build)/i,
+      /كم\s+تكلفة\s+(\d+)\s*(متر|m2)/i,
+      /cost\s+(estimate|of)\s+(\d+)\s*(sq\s*m|m2|square\s*meter)/i,
+    ],
+    extract: (m) => ({ area: m[1], unit: m[2] || m[3] || 'm²', type: m[4] || 'building' }),
+  },
+  {
+    intent: 'check_progress',
+    patterns: [
+      /(نسبة|تقدم)\s*(الإنجاز|العمل)/i,
+      /(progress|status)\s+(of|report|update)/i,
+      /كم\s+وصل\s*(العمل|الشغل)/i,
+    ],
+    extract: () => ({}),
+  },
+  {
+    intent: 'material_inquiry',
+    patterns: [
+      /(كمية|كم)\s*(خرسانة|حديد|اسمنت|بلوك|بلاط|دهان)/i,
+      /(quantity|amount|volume)\s+(of\s+)?(concrete|steel|cement|block|tile|paint)/i,
+    ],
+    extract: (m) => ({ material: (m[2] || m[3] || '').toLowerCase() }),
+  },
+  {
+    intent: 'schedule_inquiry',
+    patterns: [
+      /(الجدول|المدة|متى)\s*(التسليم|الانتهاء|البداية)/i,
+      /(schedule|timeline|deadline|when)\s+(delivery|finish|start)/i,
+    ],
+    extract: () => ({}),
+  },
+  {
+    intent: 'quality_report',
+    patterns: [
+      /(جودة|فحص|تفتيش)\s*(خرسانة|حديد|بناء|تشطيب)/i,
+      /(quality|inspection|check)\s+(report|of|for)/i,
+    ],
+    extract: (m) => ({ area: (m[2] || '').toLowerCase() }),
+  },
+  {
+    intent: 'risk_assessment',
+    patterns: [
+      /(مخاطر|تقييم)\s*(السلامة|الأمان|المشروع)/i,
+      /(risk|safety)\s+(assessment|report|check)/i,
+    ],
+    extract: () => ({}),
+  },
+];
+
 export class SpeechService {
+  private config: SpeechConfig = { provider: 'mock', baseUrl: 'http://localhost:3000', language: 'ar' };
   private initialized = false;
 
-  async initialize(): Promise<void> {
+  async initialize(config?: Partial<SpeechConfig>): Promise<void> {
+    if (config) this.config = { ...this.config, ...config };
+    if (!this.config.baseUrl) {
+      this.config.baseUrl = process.env.ACEP_ANALYSIS_URL || 'http://localhost:3000';
+    }
+    if (!this.config.apiKey && this.config.provider === 'openai-whisper') {
+      this.config.apiKey = process.env.OPENAI_API_KEY || '';
+    }
     this.initialized = true;
   }
 
-  async speechToText(audio: Buffer | string): Promise<SpeechRecognitionResult> {
-    return {
-      transcript: typeof audio === 'string' ? audio : '[Transcribed audio]',
-      confidence: 0.88,
-      language: 'ar',
-      duration: 5.2,
-      words: []
-    };
+  async speechToText(audioBuffer: Buffer): Promise<SpeechRecognitionResult> {
+    this.ensureInitialized();
+    const t0 = Date.now();
+
+    if (this.config.provider === 'openai-whisper') return this._whisperStt(audioBuffer);
+    if (this.config.provider === 'express-api') return this._apiStt(audioBuffer);
+    return this._mockStt(audioBuffer, t0);
   }
 
   async textToSpeech(text: string): Promise<Buffer> {
-    return Buffer.from(`[Audio synthesis of: ${text.substring(0, 50)}]`);
+    this.ensureInitialized();
+    if (this.config.provider === 'openai-whisper') {
+      try {
+        const r = await axios.post('https://api.openai.com/v1/audio/speech', {
+          model: 'tts-1',
+          input: text,
+          voice: 'alloy',
+        }, {
+          headers: { Authorization: `Bearer ${this.config.apiKey}`, 'Content-Type': 'application/json' },
+          responseType: 'arraybuffer',
+          timeout: 30000,
+        });
+        return Buffer.from(r.data);
+      } catch (e: unknown) {
+        const msg = e instanceof Error ? e.message : String(e);
+        console.warn(`[Speech] TTS API failed (${msg}), returning mock audio`);
+      }
+    }
+    return Buffer.from(`[TTS] ${text}`);
   }
 
-  async processVoiceCommand(command: string): Promise<VoiceCommand> {
-    const lower = command.toLowerCase();
-    let intent = 'unknown';
-    const entities: Record<string, unknown> = {};
+  async processVoiceCommand(audioBuffer: Buffer): Promise<VoiceCommand> {
+    const recognition = await this.speechToText(audioBuffer);
+    return this._parseCommand(recognition.transcript);
+  }
 
-    if (lower.includes('calculate') || lower.includes('quantity')) {
-      intent = 'calculate_quantity';
-      entities.action = 'calculate';
-    } else if (lower.includes('price') || lower.includes('cost')) {
-      intent = 'get_price';
-      entities.action = 'price_query';
-    } else if (lower.includes('schedule') || lower.includes('timeline')) {
-      intent = 'check_schedule';
-      entities.action = 'schedule_query';
-    } else if (lower.includes('risk') || lower.includes('problem')) {
-      intent = 'assess_risk';
-      entities.action = 'risk_assessment';
-    } else if (lower.includes('material') || lower.includes('spec')) {
-      intent = 'material_info';
-      entities.action = 'material_lookup';
-    }
-
-    return { intent, entities, confidence: 0.8, rawText: command };
+  async processTextCommand(text: string): Promise<VoiceCommand> {
+    return this._parseCommand(text);
   }
 
   isInitialized(): boolean { return this.initialized; }
+
+  private async _whisperStt(audio: Buffer): Promise<SpeechRecognitionResult> {
+    try {
+      const FormData = require('form-data');
+      const form = new FormData();
+      form.append('model', 'whisper-1');
+      form.append('file', audio, { filename: 'audio.wav', contentType: 'audio/wav' });
+      form.append('language', this.config.language);
+
+      const r = await axios.post('https://api.openai.com/v1/audio/transcriptions', form, {
+        headers: { ...form.getHeaders(), Authorization: `Bearer ${this.config.apiKey}` },
+        timeout: 30000,
+      });
+
+      return {
+        transcript: r.data.text || '',
+        confidence: 0.9,
+        language: this.config.language,
+        durationMs: 0,
+      };
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      console.warn(`[Speech] Whisper API failed (${msg}), using mock`);
+      return this._mockStt(audio, Date.now());
+    }
+  }
+
+  private async _apiStt(audio: Buffer): Promise<SpeechRecognitionResult> {
+    try {
+      const r = await axios.post(`${this.config.baseUrl}/api/v1/analyze`, {
+        description: 'Transcribe this audio from a construction site',
+      }, { timeout: 30000 });
+      return {
+        transcript: r.data?.summary || r.data?.description || '[Transcription from API]',
+        confidence: 0.7,
+        language: this.config.language,
+        durationMs: 0,
+      };
+    } catch {
+      return this._mockStt(audio, Date.now());
+    }
+  }
+
+  private _mockStt(_audio: Buffer, t0: number): SpeechRecognitionResult {
+    const mockTranscripts = [
+      'احسب تكلفة 500 متر تشطيب',
+      'كم تكلفة بناء 300 متر مربع',
+      'أظهر تقدم العمل في المشروع',
+      'كم كمية الخرسانة المطلوبة',
+      'متى موعد التسليم',
+      'Calculate cost for 500 sqm finishing',
+      'Show project progress report',
+      'What is the concrete quantity needed',
+    ];
+    return {
+      transcript: mockTranscripts[Math.floor(Math.random() * mockTranscripts.length)],
+      confidence: 0.6,
+      language: this.config.language,
+      durationMs: Date.now() - t0,
+    };
+  }
+
+  private _parseCommand(text: string): VoiceCommand {
+    for (const { intent, patterns, extract } of COMMAND_PATTERNS) {
+      for (const rx of patterns) {
+        const m = text.match(rx);
+        if (m) {
+          return { intent, entities: extract(m), raw: text, confidence: 0.8 };
+        }
+      }
+    }
+    return { intent: 'unknown', entities: {}, raw: text, confidence: 0.3 };
+  }
+
+  private ensureInitialized(): void {
+    if (!this.initialized) throw new Error('SpeechService not initialized. Call initialize() first.');
+  }
 }
+
+export const speechService = new SpeechService();

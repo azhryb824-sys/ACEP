@@ -1,0 +1,8 @@
+{
+  "framework": "unsloth",
+  "model_name": "unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit",
+  "max_seq_length": 4096,
+  "lora_r": 16,
+  "lora_alpha": 16,
+  "use_gradient_checkpointing": "unsloth"
+}

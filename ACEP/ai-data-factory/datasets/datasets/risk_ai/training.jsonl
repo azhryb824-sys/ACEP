@@ -1,0 +1,115 @@
+{
+  "id": "RISK-000001",
+  "instruction": "Identify construction risks for excavation works.\nحدد مخاطر أعمال الحفر.",
+  "input": {
+    "activity": "Excavation",
+    "project_type": "Villa",
+    "depth_m": 3.5
+  },
+  "output": {
+    "risks": [
+      {
+        "risk": "Excavation Collapse",
+        "probability": "Medium",
+        "impact": "High"
+      },
+      {
+        "risk": "Underground Utilities",
+        "probability": "Medium",
+        "impact": "High"
+      },
+      {
+        "risk": "Groundwater",
+        "probability": "Low",
+        "impact": "Medium"
+      }
+    ]
+  },
+  "metadata": {
+    "document_type": "risk_identification",
+    "discipline": "risk_management"
+  }
+}
+{
+  "id": "RISK-000002",
+  "instruction": "Assess construction risk severity.\nقيّم مستوى المخاطر الإنشائية.",
+  "input": {
+    "probability": "High",
+    "impact": "High"
+  },
+  "output": {
+    "risk_score": 25,
+    "risk_level": "Extreme",
+    "recommended_action": "Immediate mitigation required."
+  },
+  "metadata": {
+    "document_type": "risk_assessment",
+    "discipline": "risk_management"
+  }
+}
+{
+  "id": "RISK-000003",
+  "instruction": "Recommend mitigation measures for working at height.\nاقترح إجراءات الحد من مخاطر العمل على الارتفاعات.",
+  "input": {
+    "activity": "Working at Height"
+  },
+  "output": {
+    "controls": [
+      "Certified scaffolding",
+      "Full body harness",
+      "Daily inspection",
+      "Permit to Work",
+      "Safety supervision"
+    ]
+  },
+  "metadata": {
+    "document_type": "risk_mitigation",
+    "discipline": "risk_management"
+  }
+}
+{
+  "id": "RISK-000004",
+  "instruction": "Generate a project risk register.\nأنشئ سجل مخاطر للمشروع.",
+  "input": {
+    "project": "Villa"
+  },
+  "output": {
+    "risk_register": [
+      {
+        "id": "R001",
+        "risk": "Late Material Delivery",
+        "owner": "Procurement Engineer",
+        "status": "Open"
+      },
+      {
+        "id": "R002",
+        "risk": "Heavy Rain",
+        "owner": "Project Manager",
+        "status": "Monitoring"
+      }
+    ]
+  },
+  "metadata": {
+    "document_type": "risk_register",
+    "discipline": "risk_management"
+  }
+}
+{
+  "id": "RISK-000005",
+  "instruction": "Recommend the appropriate risk response strategy.\nحدد استراتيجية الاستجابة المناسبة للمخاطر.",
+  "input": {
+    "risk": "Supplier Bankruptcy"
+  },
+  "output": {
+    "strategy": "Transfer and Mitigation",
+    "actions": [
+      "Approve alternative suppliers",
+      "Maintain safety stock",
+      "Review supplier financial status quarterly"
+    ]
+  },
+  "metadata": {
+    "document_type": "risk_response",
+    "discipline": "risk_management"
+  }
+}

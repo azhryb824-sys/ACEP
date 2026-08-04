@@ -1,0 +1,14 @@
+{
+  "total": 300,
+  "train": 240,
+  "validation": 30,
+  "test": 30,
+  "avg_instruction_len": 62,
+  "avg_output_len": 212,
+  "unique_ids": 240,
+  "topics": {
+    "cost": 28,
+    "تكلفة": 58,
+    "كمية": 31
+  }
+}

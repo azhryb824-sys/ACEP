@@ -1,0 +1,17 @@
+{
+  "dataset": "contract_ai",
+  "version": "1.0",
+  "generator": "ACEP-Data-Factory",
+  "total_samples": 200,
+  "train": 160,
+  "validation": 20,
+  "test": 20,
+  "languages": [
+    "Arabic",
+    "English"
+  ],
+  "domains": [
+    "contract_ai"
+  ],
+  "generated": "2026-07-22T16:45:24.278548"
+}

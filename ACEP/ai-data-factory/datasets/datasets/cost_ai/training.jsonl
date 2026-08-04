@@ -1,0 +1,28 @@
+{"id": "COST-6487819d436d", "instruction": "Estimate total project cost for Apartment_Building in Tabuk (5338.2 m2, Raw finishing).\nقدّر التكلفة الإجمالية لمشروع Apartment_Building في تبوك (5338.2 م²، تشطيب Raw).", "input": "", "output": "Structure: 6016508.64 SAR (35%)\nMEP: 4297506.17 SAR (25%)\nFinishing: 5157007.4 SAR (30%)\nPreliminaries: 1719002.47 SAR (10%)\nTotal: 17190024.68 SAR\nDuration: 20.61 months\nإنشاءات: 6016508.64 ر.س (35%)\nميكانيك وكهرباء: 4297506.17 ر.س (25%)\nتشطيبات: 5157007.4 ر.س (30%)\nتجهيزات: 1719002.47 ر.س (10%)\nالإجمالي: 17190024.68 ر.س\nالمدة: 20.61 شهر", "metadata": {}}
+{
+  "id": "COST-000001",
+  "instruction": "Estimate the total concrete cost for a reinforced concrete footing.\nاحسب التكلفة الإجمالية لخرسانة قاعدة خرسانية مسلحة.",
+  "input": {
+    "concrete_volume_m3": 2.40,
+    "unit_price_per_m3": 285.00,
+    "currency": "SAR"
+  },
+  "output": {
+    "english": {
+      "formula": "Total Cost = Quantity × Unit Price",
+      "calculation": "2.40 × 285 = 684.00 SAR",
+      "result": "684.00 SAR"
+    },
+    "arabic": {
+      "القانون": "التكلفة = الكمية × سعر الوحدة",
+      "الحساب": "2.40 × 285 = 684.00 ريال",
+      "النتيجة": "684.00 ريال سعودي"
+    }
+  },
+  "metadata": {
+    "discipline": "cost_estimation",
+    "currency": "SAR",
+    "hallucinated_answer": false,
+    "quality_checked": true
+  }
+}

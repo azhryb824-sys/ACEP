@@ -1,0 +1,5 @@
+# ACEP AI Data Factory — minimal runtime dependencies
+# Optional extras for Excel/Parquet: pip install -r requirements-full.txt
+
+pyyaml>=6.0
+python-dateutil>=2.8.2

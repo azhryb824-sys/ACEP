@@ -1,0 +1,13 @@
+{
+  "total": 200,
+  "train": 160,
+  "validation": 20,
+  "test": 20,
+  "avg_instruction_len": 55,
+  "avg_output_len": 243,
+  "unique_ids": 160,
+  "topics": {
+    "كمية": 40,
+    "quantity": 44
+  }
+}

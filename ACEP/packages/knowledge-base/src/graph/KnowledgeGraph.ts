@@ -702,3 +702,4 @@ export class KnowledgeGraph {
     
     this.graphVersion = snapshot.version;
   }
+}

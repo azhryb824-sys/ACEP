@@ -1,0 +1,45 @@
+import { EventEmitter } from "events";
+import { ComputerVisionDetection, EnterpriseSafetyIndex, RiskAssessment, SafetyMetrics, SafetyKnowledgeEntry } from "./types";
+import { ISafetyEngine, IRiskAnalyzer, IPermitManager, IIncidentManager, IInvestigationSupport, IEmergencyManager, RiskMatrixEntry, PredictedIncident } from "./interfaces";
+export declare class SafetyEngine extends EventEmitter implements ISafetyEngine {
+    name: string;
+    version: string;
+    private riskAnalyzer;
+    private permitManager;
+    private incidentManager;
+    private investigationSupport;
+    private emergencyManager;
+    private knowledgeBase;
+    private workerBehaviors;
+    private trainingRecords;
+    private safetyObservations;
+    private safetyAlerts;
+    private riskAssessments;
+    private incidentRecords;
+    private permits;
+    private emergencyPlans;
+    private cameraStreams;
+    constructor();
+    initialize(): Promise<void>;
+    shutdown(): Promise<void>;
+    healthCheck(): Promise<boolean>;
+    assessRisk(projectId: string, zoneId: string): Promise<RiskAssessment[]>;
+    getRiskMatrix(projectId: string): Promise<RiskMatrixEntry[]>;
+    predictIncidents(projectId: string): Promise<PredictedIncident[]>;
+    getSafetyMetrics(projectId: string): Promise<SafetyMetrics>;
+    getEnterpriseSafetyIndex(projectId: string): Promise<EnterpriseSafetyIndex>;
+    generateReport(projectId: string, start: Date, end: Date): Promise<any>;
+    getSafetyKnowledgeBase(): Promise<SafetyKnowledgeEntry[]>;
+    addKnowledgeEntry(entry: SafetyKnowledgeEntry): void;
+    addDetection(projectId: string, detection: ComputerVisionDetection): void;
+    private calculatePPECompliance;
+    private calculateSafetyScore;
+    private calculateTrainingScore;
+    private generateRecommendations;
+    getRiskAnalyzer(): IRiskAnalyzer;
+    getPermitManager(): IPermitManager;
+    getIncidentManager(): IIncidentManager;
+    getInvestigationSupport(): IInvestigationSupport;
+    getEmergencyManager(): IEmergencyManager;
+}
+//# sourceMappingURL=engine.d.ts.map

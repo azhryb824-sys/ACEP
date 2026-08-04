@@ -1,0 +1,19 @@
+{
+  "name": "planning_ai",
+  "domain": "planning",
+  "language": "both",
+  "generators": [
+    "maintenance",
+    "schedule"
+  ],
+  "dataset_types": [
+    "calculation",
+    "instruction"
+  ],
+  "splits": {
+    "total": 4,
+    "train": 3,
+    "val": 0,
+    "test": 1
+  }
+}

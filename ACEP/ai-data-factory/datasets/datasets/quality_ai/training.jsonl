@@ -1,0 +1,106 @@
+{
+  "id": "QA-000001",
+  "instruction": "Prepare an Inspection Request (IR) for reinforced concrete footing.",
+  "input": {
+    "project_id": "SA-R00001",
+    "activity": "Reinforced Concrete Footing",
+    "drawing_reference": "S-101",
+    "inspection_type": "Pre-Pour Inspection"
+  },
+  "output": {
+    "inspection_request_no": "IR-SA-R00001-001",
+    "inspection_stage": "Before Concrete Pour",
+    "required_documents": [
+      "Approved Shop Drawings",
+      "Material Approval",
+      "Rebar Inspection Checklist",
+      "Survey Report"
+    ],
+    "status": "Submitted"
+  },
+  "metadata": {
+    "document_type": "inspection_request",
+    "discipline": "quality_control"
+  }
+}
+{
+  "id": "QA-000002",
+  "instruction": "Inspect concrete quality before pouring.",
+  "input": {
+    "concrete_grade": "C30",
+    "slump_mm": 100,
+    "temperature_c": 29,
+    "cube_samples": 6
+  },
+  "output": {
+    "inspection_result": "Accepted",
+    "remarks": [
+      "Concrete temperature within specification.",
+      "Slump acceptable.",
+      "Cube samples collected."
+    ]
+  },
+  "metadata": {
+    "document_type": "quality_inspection",
+    "discipline": "quality_control"
+  }
+}
+{
+  "id": "QA-000003",
+  "instruction": "Generate a Non-Conformance Report.",
+  "input": {
+    "activity": "Column Reinforcement",
+    "issue": "Incorrect bar spacing"
+  },
+  "output": {
+    "ncr_no": "NCR-SA-R00001-001",
+    "severity": "Major",
+    "required_action": "Correct reinforcement spacing before casting.",
+    "status": "Open"
+  },
+  "metadata": {
+    "document_type": "NCR",
+    "discipline": "quality_control"
+  }
+}
+{
+  "id": "QA-000004",
+  "instruction": "Recommend corrective action for concrete honeycombing.",
+  "input": {
+    "defect": "Honeycombing"
+  },
+  "output": {
+    "actions": [
+      "Inspect affected area.",
+      "Remove loose concrete.",
+      "Repair using approved repair mortar.",
+      "Engineer approval before closing NCR."
+    ]
+  },
+  "metadata": {
+    "document_type": "corrective_action",
+    "discipline": "quality_control"
+  }
+}
+{
+  "id": "QA-000005",
+  "instruction": "Prepare Material Inspection Request for reinforcement steel.",
+  "input": {
+    "material": "Reinforcement Steel Grade 60",
+    "supplier": "Saudi Steel"
+  },
+  "output": {
+    "mir_no": "MIR-SA-R00001-001",
+    "inspection_items": [
+      "Mill Certificate",
+      "Material Approval",
+      "Diameter Verification",
+      "Visual Inspection"
+    ],
+    "status": "Pending Consultant Approval"
+  },
+  "metadata": {
+    "document_type": "MIR",
+    "discipline": "quality_control"
+  }
+}

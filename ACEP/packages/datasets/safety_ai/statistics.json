@@ -1,0 +1,14 @@
+{
+  "total": 200,
+  "train": 160,
+  "validation": 20,
+  "test": 20,
+  "avg_instruction_len": 55,
+  "avg_output_len": 309,
+  "unique_ids": 160,
+  "topics": {
+    "مخاطر": 49,
+    "risk": 42,
+    "سلامة": 39
+  }
+}

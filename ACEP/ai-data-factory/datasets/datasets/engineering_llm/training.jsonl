@@ -1,0 +1,346 @@
+{
+  "id":"ENG-000001",
+  "instruction":"Analyze a new construction project and determine the engineering workflow.\nحلل مشروع إنشاء جديد وحدد سير العمل الهندسي.",
+  "input":{
+    "project_type":"Residential Building",
+    "floors":5,
+    "area_m2":4200,
+    "location":"Riyadh"
+  },
+  "output":{
+    "project_classification":"Residential",
+    "required_disciplines":[
+      "Architecture",
+      "Structure",
+      "MEP",
+      "Planning",
+      "Quantity Surveying",
+      "Procurement",
+      "Quality",
+      "Safety"
+    ],
+    "recommended_workflow":[
+      "Review Drawings",
+      "Review Specifications",
+      "Prepare BOQ",
+      "Estimate Cost",
+      "Prepare Schedule",
+      "Procurement",
+      "Execution",
+      "Inspection",
+      "Handover"
+    ]
+  },
+  "metadata":{
+    "discipline":"engineering_llm",
+    "reasoning":"workflow"
+  }
+}
+{
+  "id":"ENG-000002",
+  "instruction":"Recommend the suitable structural system.\nاقترح النظام الإنشائي المناسب.",
+  "input":{
+    "building_type":"Hospital",
+    "floors":8,
+    "soil":"Medium"
+  },
+  "output":{
+    "recommended_system":"Reinforced Concrete Frame",
+    "reason":"Suitable for hospitals, flexible spaces, high durability and local availability."
+  },
+  "metadata":{
+    "discipline":"engineering_llm"
+  }
+}
+{
+  "id":"ENG-000003",
+  "instruction":"Analyze the engineering problem and recommend corrective actions.\nحلل المشكلة الهندسية واقترح الحل.",
+  "input":{
+    "problem":"Concrete honeycombing detected in beam."
+  },
+  "output":{
+    "possible_causes":[
+      "Poor vibration",
+      "Low workability",
+      "Congested reinforcement"
+    ],
+    "recommended_actions":[
+      "Engineer inspection",
+      "Repair according to approved method",
+      "Quality verification"
+    ]
+  },
+  "metadata":{
+    "discipline":"engineering_llm"
+  }
+} 
+{
+  "id":"ENG-000004",
+  "instruction":"Select the AI model required for the engineering request.\nحدد نموذج الذكاء المناسب للطلب.",
+  "input":{
+    "request":"Calculate reinforcement quantities."
+  },
+  "output":{
+    "selected_model":"quantity_ai",
+    "confidence":0.99
+  },
+  "metadata":{
+    "discipline":"engineering_llm"
+  }
+}
+{
+  "id":"ENG-000005",
+  "instruction":"Route engineering requests to the correct specialist AI.\nوجّه الطلب الهندسي إلى النموذج المختص.",
+  "input":{
+    "request":"Prepare procurement documents for reinforcement steel."
+  },
+  "output":{
+    "primary_model":"procurement_ai",
+    "secondary_model":"cost_ai",
+    "required_documents":[
+      "Material Request",
+      "RFQ",
+      "Supplier Comparison",
+      "Purchase Order"
+    ]
+  },
+  "metadata":{
+    "discipline":"engineering_llm"
+  }
+}
+{
+  "id": "ENG-000006",
+  "instruction": "Select the appropriate foundation type based on project conditions.\nاختر نوع الأساسات المناسب حسب ظروف المشروع.",
+  "input": {
+    "building_type": "Residential Building",
+    "floors": 10,
+    "soil_bearing_capacity_kpa": 120,
+    "groundwater_level": "High"
+  },
+  "output": {
+    "recommended_foundation": "Raft Foundation",
+    "reason": [
+      "Low soil bearing capacity.",
+      "High groundwater level.",
+      "Uniform load distribution.",
+      "Reduced differential settlement."
+    ]
+  },
+  "metadata": {
+    "discipline": "engineering_llm",
+    "reasoning_type": "engineering_decision"
+  }
+}
+{
+  "id": "ENG-000007",
+  "instruction": "Recommend the applicable engineering codes for the project.\nحدد الأكواد الهندسية المناسبة للمشروع.",
+  "input": {
+    "country": "Saudi Arabia",
+    "project_type": "Hospital"
+  },
+  "output": {
+    "codes": [
+      "Saudi Building Code (SBC)",
+      "ACI 318",
+      "ACI 301",
+      "ASCE 7",
+      "NFPA 101",
+      "Saudi Fire Code"
+    ],
+    "reason": "Applicable to reinforced concrete hospital projects in Saudi Arabia."
+  },
+  "metadata": {
+    "discipline": "engineering_llm"
+  }
+}
+{
+  "id": "ENG-000008",
+  "instruction": "Identify engineering risks before construction starts.\nحدد المخاطر الهندسية قبل بدء التنفيذ.",
+  "input": {
+    "project": "Bridge",
+    "location": "Mountain Area"
+  },
+  "output": {
+    "risks": [
+      "Rock instability",
+      "Difficult access",
+      "Weather conditions",
+      "Heavy lifting operations",
+      "Material transportation"
+    ]
+  },
+  "metadata": {
+    "discipline": "engineering_llm"
+  }
+}
+{
+  "id": "ENG-000009",
+  "instruction": "Generate the engineering workflow after receiving IFC drawings.\nأنشئ سير العمل الهندسي بعد استلام مخططات IFC.",
+  "input": {
+    "drawing_status": "IFC Approved"
+  },
+  "output": {
+    "workflow": [
+      "Drawing Review",
+      "Quantity Takeoff",
+      "BOQ Verification",
+      "Cost Estimation",
+      "Planning",
+      "Procurement",
+      "Site Execution",
+      "Quality Inspection",
+      "Project Handover"
+    ]
+  },
+  "metadata": {
+    "discipline": "engineering_llm"
+  }
+}
+{
+  "id": "ENG-000010",
+  "instruction": "Coordinate multiple AI models to complete an engineering request.\nنسّق بين نماذج الذكاء الاصطناعي لإنجاز طلب هندسي.",
+  "input": {
+    "request": "Prepare complete construction tender."
+  },
+  "output": {
+    "execution_order": [
+      "drawing_ai",
+      "quantity_ai",
+      "cost_ai",
+      "planning_ai",
+      "procurement_ai",
+      "contract_ai",
+      "quality_ai",
+      "risk_ai",
+      "safety_ai"
+    ],
+    "final_model": "engineering_llm"
+  },
+  "metadata": {
+    "discipline": "engineering_llm",
+    "reasoning_type": "multi_agent"
+  }
+}
+{
+  "id": "ENG-000011",
+  "instruction": "Analyze the engineering project and identify all engineering disciplines involved.\nحلل المشروع وحدد جميع التخصصات الهندسية المطلوبة.",
+  "input": {
+    "project_type": "Hospital",
+    "floors": 12,
+    "basements": 2,
+    "area_m2": 38500
+  },
+  "output": {
+    "disciplines": [
+      "Architecture",
+      "Structural Engineering",
+      "Mechanical Engineering",
+      "Electrical Engineering",
+      "Plumbing",
+      "Fire Protection",
+      "Medical Gas",
+      "ICT",
+      "Landscape",
+      "Roads",
+      "Traffic",
+      "Quantity Surveying",
+      "Planning",
+      "Procurement",
+      "Contracts",
+      "Quality",
+      "Safety"
+    ],
+    "complexity": "Very High"
+  },
+  "metadata": {
+    "reasoning_type": "project_analysis"
+  }
+}
+{
+  "id": "ENG-000012",
+  "instruction": "Determine engineering priorities before starting construction.\nحدد الأولويات الهندسية قبل بدء التنفيذ.",
+  "input": {
+    "project": "Shopping Mall"
+  },
+  "output": {
+    "priority_order": [
+      "Site Investigation",
+      "Approved IFC Drawings",
+      "Design Review",
+      "BOQ Verification",
+      "Construction Schedule",
+      "Risk Assessment",
+      "Material Approval",
+      "Temporary Works",
+      "Site Mobilization"
+    ]
+  },
+  "metadata": {
+    "reasoning_type": "priority_analysis"
+  }
+}
+{
+  "id": "ENG-000013",
+  "instruction": "Resolve engineering conflicts between disciplines.\nحل التعارضات بين التخصصات الهندسية.",
+  "input": {
+    "conflict": "HVAC Duct passes through structural beam."
+  },
+  "output": {
+    "recommended_steps": [
+      "Review structural drawings.",
+      "Coordinate with MEP engineer.",
+      "Evaluate beam modification feasibility.",
+      "Issue revised coordinated drawing.",
+      "Consultant approval before execution."
+    ]
+  },
+  "metadata": {
+    "reasoning_type": "coordination"
+  }
+}
+{
+  "id": "ENG-000014",
+  "instruction": "Determine the correct construction sequence.\nحدد تسلسل التنفيذ الصحيح.",
+  "input": {
+    "project_type": "Residential Tower"
+  },
+  "output": {
+    "sequence": [
+      "Survey",
+      "Excavation",
+      "Foundation",
+      "Columns",
+      "Slabs",
+      "Block Work",
+      "MEP First Fix",
+      "Plaster",
+      "Finishing",
+      "Testing",
+      "Commissioning",
+      "Handover"
+    ]
+  },
+  "metadata": {
+    "reasoning_type": "construction_sequence"
+  }
+}
+{
+  "id": "ENG-000015",
+  "instruction": "Recommend engineering improvements to reduce project cost without reducing quality.\nاقترح تحسينات هندسية لتقليل التكلفة دون التأثير على الجودة.",
+  "input": {
+    "project": "Office Building",
+    "estimated_cost_sar": 42000000
+  },
+  "output": {
+    "recommendations": [
+      "Optimize structural member sizes after verification.",
+      "Standardize repeated architectural elements.",
+      "Use locally approved materials where appropriate.",
+      "Improve procurement planning to reduce waste.",
+      "Coordinate drawings before construction to minimize rework."
+    ]
+  },
+  "metadata": {
+    "reasoning_type": "value_engineering"
+  }
+}

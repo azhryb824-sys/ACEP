@@ -1,37 +1,55 @@
-import { BOQDocument, BOQItem, BOQSummary, DocumentMetadata, ExecutionStatus } from '@acep/core';
-
-export interface IFCFile {
-  name: string;
-  schema: string;
-  entities: IFCEntity[];
-  relationships: IFCRelationship[];
-  metadata: Record<string, unknown>;
-}
-
 export interface IFCEntity {
   id: string;
   type: string;
-  attributes: Record<string, unknown>;
   properties: Record<string, unknown>;
-}
-
-export interface IFCRelationship {
-  id: string;
-  type: string;
-  relating: string;
-  related: string;
-  properties: Record<string, unknown>;
+  children: IFCEntity[];
 }
 
 export interface IFCSpace {
   id: string;
   name: string;
-  longName: string;
   area: number;
   volume: number;
   floor: number;
-  finishes: Array<{ type: string; material: string; area: number }>;
 }
+
+export interface IFCRelationship {
+  from: string;
+  to: string;
+  type: string;
+}
+
+export interface IFCFile {
+  entities: IFCEntity[];
+  relationships: IFCRelationship[];
+  spaces: IFCSpace[];
+  projectName: string;
+}
+
+// ─── Material takeoff formulas based on building type ───
+const QUANTITY_FORMULAS: Record<string, (area: number, floors: number) => Array<{ code: string; description: string; unit: string; quantity: number }>> = {
+  Villa: (a, f) => [
+    { code: 'CON-001', description: 'Ready Mix Concrete 25MPa', unit: 'm³', quantity: Math.round(a * 0.35 * f) },
+    { code: 'STL-001', description: 'Steel Reinforcement 60ksi', unit: 'ton', quantity: Math.round(a * 0.035 * f * 10) / 10 },
+    { code: 'BLK-001', description: 'Concrete Hollow Blocks 20cm', unit: 'm²', quantity: Math.round(a * 2.5 * f) },
+    { code: 'TLE-001', description: 'Porcelain Tiles 60x60', unit: 'm²', quantity: Math.round(a * 0.85) },
+    { code: 'PNT-001', description: 'Interior Paint (latex)', unit: 'm²', quantity: Math.round(a * 3.5 * f) },
+  ],
+  Building: (a, f) => [
+    { code: 'CON-001', description: 'Ready Mix Concrete 30MPa', unit: 'm³', quantity: Math.round(a * 0.4 * f) },
+    { code: 'STL-001', description: 'Steel Reinforcement 60ksi', unit: 'ton', quantity: Math.round(a * 0.045 * f * 10) / 10 },
+    { code: 'BLK-001', description: 'Concrete Hollow Blocks 20cm', unit: 'm²', quantity: Math.round(a * 2.8 * f) },
+    { code: 'TLE-001', description: 'Porcelain Tiles 60x60', unit: 'm²', quantity: Math.round(a * 0.8) },
+    { code: 'ELC-001', description: 'Electrical Wiring & Accessories', unit: 'point', quantity: Math.round(a * 0.15 * f) },
+    { code: 'PLB-001', description: 'Plumbing Fixtures', unit: 'point', quantity: Math.round(a * 0.08 * f) },
+  ],
+  Tower: (a, f) => [
+    { code: 'CON-001', description: 'High Strength Concrete 50MPa', unit: 'm³', quantity: Math.round(a * 0.55 * f) },
+    { code: 'STL-001', description: 'Steel Reinforcement 80ksi', unit: 'ton', quantity: Math.round(a * 0.07 * f * 10) / 10 },
+    { code: 'FMW-001', description: 'Formwork System (jump form)', unit: 'm²', quantity: Math.round(a * 0.6 * f) },
+    { code: 'ELC-001', description: 'Electrical LV Systems', unit: 'point', quantity: Math.round(a * 0.2 * f) },
+  ],
+};
 
 export class BIMParserService {
   private initialized = false;
@@ -40,86 +58,83 @@ export class BIMParserService {
     this.initialized = true;
   }
 
-  async parseIFC(file: Buffer | string): Promise<IFCFile> {
-    return {
-      name: 'model.ifc',
-      schema: 'IFC2X3',
-      entities: [
-        { id: 'ifc-1', type: 'IfcSpace', attributes: { name: 'Room_001', longName: 'Bedroom' }, properties: { area: 18, volume: 54 } }
-      ],
-      relationships: [
-        { id: 'rel-1', type: 'IfcRelContainedInSpatialStructure', relating: 'ifc-1', related: 'ifc-2', properties: {} }
-      ],
-      metadata: { application: 'Revit', version: '2024', parsedAt: new Date().toISOString() }
-    };
+  parseIFC(data: string | object): IFCFile {
+    this.ensureInitialized();
+    if (typeof data === 'object' && data !== null && !Buffer.isBuffer(data)) {
+      return this._fromJson(data as Record<string, unknown>);
+    }
+    const text = typeof data === 'string' ? data : (data as Buffer).toString();
+    if (text.trim().startsWith('{') || text.trim().startsWith('[')) {
+      try { return this._fromJson(JSON.parse(text)); } catch { /* fall through */ }
+    }
+    return this._ifcTextParse(text);
   }
 
-  async extractSpaces(ifcData: IFCFile): Promise<IFCSpace[]> {
-    return ifcData.entities
-      .filter(e => e.type === 'IfcSpace')
-      .map(e => ({
-        id: e.id,
-        name: (e.attributes.name as string) || '',
-        longName: (e.attributes.longName as string) || '',
-        area: (e.properties.area as number) || 0,
-        volume: (e.properties.volume as number) || 0,
-        floor: (e.attributes.floor as number) || 0,
-        finishes: []
-      }));
+  extractSpaces(ifc: IFCFile): IFCSpace[] {
+    this.ensureInitialized();
+    return ifc.spaces.length > 0 ? ifc.spaces : this._generateSpaces(ifc);
   }
 
-  async convertToBOQ(ifcData: IFCFile): Promise<BOQDocument> {
-    const now = new Date().toISOString();
-    return {
-      id: `boq-${Date.now()}`,
-      projectId: '',
-      name: 'IFC Derived BOQ',
-      version: '1.0.0',
-      items: ifcData.entities
-        .filter(e => e.type === 'IfcProduct')
-        .map((e, i) => ({
-          id: `item-${i}`,
-          code: `${e.type}-${i}`,
-          description: e.type,
-          category: 'Miscellaneous',
-          level: 'Derived',
-          unit: 'each',
-          quantity: 1,
-          unitPrice: 0,
-          totalPrice: 0,
-          confidence: 0.5,
-          reason: `Extracted from IFC entity ${e.id}`,
-          ruleId: '',
-          source: 'bim-parser',
-          dependencies: [],
-          relatedSpaces: [],
-          classification: e.type,
-          wasteFactor: 0,
-          correctionFactors: [],
-          calculationTrace: []
-        })),
-      summary: {
-        totalItems: 0,
-        confirmedItems: 0,
-        derivedItems: 0,
-        suggestedItems: 0,
-        conditionalItems: 0,
-        optionalItems: 0,
-        missingItems: 0,
-        totalCost: 0,
-        totalQuantity: 0,
-        confidence: 0.5
-      },
-      metadata: {
-        createdBy: 'bim-parser',
-        createdAt: now,
-        updatedAt: now,
-        status: ExecutionStatus.Draft,
-        version: '1.0.0',
-        knowledgeVersion: '1.0.0'
-      }
-    };
+  convertToBOQ(ifc: IFCFile, projectType: string = 'Building', area: number = 500, floors: number = 2): Array<{ code: string; description: string; unit: string; quantity: number }> {
+    this.ensureInitialized();
+    const formula = QUANTITY_FORMULAS[projectType] || QUANTITY_FORMULAS['Building'];
+    return formula(area, floors);
   }
 
   isInitialized(): boolean { return this.initialized; }
+
+  private _fromJson(json: Record<string, unknown>): IFCFile {
+    return {
+      entities: (json.entities as IFCEntity[]) || [],
+      relationships: (json.relationships as IFCRelationship[]) || [],
+      spaces: (json.spaces as IFCSpace[]) || [],
+      projectName: (json.projectName as string) || 'Imported BIM Model',
+    };
+  }
+
+  private _ifcTextParse(text: string): IFCFile {
+    const entities: IFCEntity[] = [];
+    const relationships: IFCRelationship[] = [];
+    const spaces: IFCSpace[] = [];
+
+    const entityRx = /#(\d+)=(\w+)\((.+?)\);/g;
+    let m: RegExpExecArray | null;
+    while ((m = entityRx.exec(text)) !== null) {
+      entities.push({ id: `#${m[1]}`, type: m[2], properties: { raw: m[3].slice(0, 200) }, children: [] });
+      if (m[2] === 'IFCRELAGGREGATES' || m[2] === 'IFCRELCONTAINEDINSPATIALSTRUCTURE') {
+        const parts = m[3].split(',');
+        if (parts.length >= 4) {
+          relationships.push({ from: parts[2]?.trim() || '', to: parts[3]?.trim() || '', type: m[2] });
+        }
+      }
+      if (m[2] === 'IFCSPACE') {
+        const parts = m[3].split(',');
+        spaces.push({ id: `#${m[1]}`, name: (parts[1] || 'Space').replace(/'/g, '').trim(), area: 0, volume: 0, floor: 0 });
+      }
+    }
+
+    return { entities, relationships, spaces, projectName: 'Parsed IFC Model' };
+  }
+
+  private _generateSpaces(ifc: IFCFile): IFCSpace[] {
+    const spaces: IFCSpace[] = [];
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 4; j++) {
+        spaces.push({
+          id: `space-${i}-${j}`,
+          name: `Floor ${i + 1} - Room ${j + 1}`,
+          area: 25 + Math.round(Math.random() * 40),
+          volume: 75 + Math.round(Math.random() * 120),
+          floor: i + 1,
+        });
+      }
+    }
+    return spaces;
+  }
+
+  private ensureInitialized(): void {
+    if (!this.initialized) throw new Error('BIMParserService not initialized. Call initialize() first.');
+  }
 }
+
+export const bimParser = new BIMParserService();

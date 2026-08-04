@@ -1,37 +1,133 @@
-export interface LLMProvider {
-  generate(prompt: string, options?: Record<string, unknown>): Promise<string>;
-  analyze(text: string, task: string): Promise<Record<string, unknown>>;
+import axios from 'axios';
+
+export type LLMProviderType = 'openai' | 'together' | 'express-bridge' | 'mock';
+
+export interface LLMConfig {
+  provider: LLMProviderType;
+  apiKey?: string;
+  baseUrl?: string;
+  model?: string;
+  maxTokens?: number;
+  temperature?: number;
+}
+
+export interface LLMResponse {
+  text: string;
+  tokens: number;
+  model: string;
+  latencyMs: number;
 }
 
 export class LLMService {
-  private provider: LLMProvider | null = null;
+  private config: LLMConfig = {
+    provider: 'mock',
+    model: 'gpt-4o-mini',
+    maxTokens: 1024,
+    temperature: 0.3,
+  };
   private initialized = false;
 
-  async initialize(provider?: LLMProvider): Promise<void> {
-    this.provider = provider || null;
+  async initialize(config?: Partial<LLMConfig>): Promise<void> {
+    if (config) this.config = { ...this.config, ...config };
+    if (!this.config.baseUrl) {
+      if (this.config.provider === 'express-bridge') {
+        this.config.baseUrl = process.env.ACEP_ANALYSIS_URL || 'http://localhost:3000';
+      } else if (this.config.provider === 'together') {
+        this.config.baseUrl = 'https://api.together.xyz/v1';
+      } else if (this.config.provider === 'openai') {
+        this.config.baseUrl = 'https://api.openai.com/v1';
+      }
+    }
+    if (!this.config.apiKey && (this.config.provider === 'openai' || this.config.provider === 'together')) {
+      this.config.apiKey = process.env.OPENAI_API_KEY || process.env.TOGETHER_API_KEY || '';
+    }
     this.initialized = true;
   }
 
-  async generateResponse(prompt: string): Promise<string> {
-    if (!this.provider) return `[LLM Mock] Response for: ${prompt.substring(0, 50)}...`;
-    return this.provider.generate(prompt);
+  async generate(prompt: string, system?: string): Promise<LLMResponse> {
+    this.ensureInitialized();
+    const t0 = Date.now();
+    try {
+      const result = await this._call(prompt, system);
+      return { ...result, latencyMs: Date.now() - t0 };
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      if (this.config.provider !== 'mock') {
+        console.warn(`[LLM] ${this.config.provider} failed (${msg}), falling back to mock`);
+      }
+      return { text: `[Mock] ${prompt.slice(0, 100)}`, tokens: 0, model: 'mock', latencyMs: Date.now() - t0 };
+    }
   }
 
-  async analyzeText(text: string): Promise<Record<string, unknown>> {
-    if (!this.provider) return { source: 'mock', textLength: text.length, entities: [] };
-    return this.provider.analyze(text, 'analysis');
+  async analyze(instruction: string, context?: string): Promise<Record<string, unknown>> {
+    this.ensureInitialized();
+    if (this.config.provider === 'express-bridge') {
+      try {
+        const r = await axios.post(`${this.config.baseUrl}/api/v1/analyze`, {
+          description: context ? `${context}: ${instruction}` : instruction,
+        }, { timeout: 30000 });
+        return { source: 'express-bridge', data: r.data, success: true };
+      } catch {
+        return { source: 'express-bridge', success: false, error: 'Express server unavailable' };
+      }
+    }
+    const resp = await this.generate(
+      `Analyze the following construction engineering text and return key findings:\n\n${instruction}`,
+      'You are an expert construction engineering analyst.'
+    );
+    return { source: this.config.provider, analysis: resp.text, tokens: resp.tokens };
   }
 
   async generateQuestions(context: string): Promise<string[]> {
-    if (!this.provider) return [`What is the scope of work for: ${context.substring(0, 50)}?`];
-    const response = await this.provider.generate(`Generate clarifying questions about: ${context}`);
-    return response.split('\n').filter(q => q.trim().endsWith('?'));
+    const resp = await this.generate(`Generate clarifying questions about this project:\n\n${context}`);
+    return resp.text.split('\n').map(l => l.trim()).filter(l => l.endsWith('?'));
   }
 
   async explain(decision: string): Promise<string> {
-    if (!this.provider) return `Explanation: ${decision} was selected based on engineering best practices.`;
-    return this.provider.generate(`Explain the reasoning behind this engineering decision: ${decision}`);
+    const resp = await this.generate(
+      `Explain the reasoning behind this engineering decision:\n\n${decision}`,
+      'You are a senior construction engineer providing clear explanations.'
+    );
+    return resp.text;
   }
 
   isInitialized(): boolean { return this.initialized; }
+  getConfig(): LLMConfig { return { ...this.config }; }
+
+  private ensureInitialized(): void {
+    if (!this.initialized) throw new Error('LLMService not initialized. Call initialize() first.');
+  }
+
+  private async _call(prompt: string, system?: string): Promise<{ text: string; tokens: number; model: string }> {
+    if (this.config.provider === 'mock') {
+      return { text: `[Mock] ${prompt.slice(0, 100)}`, tokens: 0, model: 'mock' };
+    }
+    if (this.config.provider === 'express-bridge') {
+      const r = await axios.post(`${this.config.baseUrl}/api/v1/chat`, {
+        message: prompt,
+      }, { timeout: 60000 });
+      const data = r.data;
+      return { text: data.response || data.reply || JSON.stringify(data), tokens: data.tokens || 0, model: 'acep-express' };
+    }
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (this.config.apiKey) headers['Authorization'] = `Bearer ${this.config.apiKey}`;
+    const body: Record<string, unknown> = {
+      model: this.config.model || 'gpt-4o-mini',
+      messages: [
+        ...(system ? [{ role: 'system', content: system }] : []),
+        { role: 'user', content: prompt },
+      ],
+      max_tokens: this.config.maxTokens,
+      temperature: this.config.temperature,
+    };
+    const r = await axios.post(`${this.config.baseUrl}/chat/completions`, body, { headers, timeout: 60000 });
+    const choice = r.data.choices?.[0];
+    return {
+      text: choice?.message?.content || '',
+      tokens: r.data.usage?.total_tokens || 0,
+      model: r.data.model || this.config.model || 'unknown',
+    };
+  }
 }
+
+export const llmService = new LLMService();

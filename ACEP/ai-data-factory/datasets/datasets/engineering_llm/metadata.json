@@ -1,0 +1,23 @@
+{
+  "name": "engineering_llm",
+  "domain": "engineering_llm",
+  "language": "both",
+  "generators": [
+    "engineering_report",
+    "method_statement",
+    "prompt",
+    "rfi"
+  ],
+  "dataset_types": [
+    "conversation",
+    "engineering_report",
+    "instruction",
+    "reasoning"
+  ],
+  "splits": {
+    "total": 8,
+    "train": 6,
+    "val": 0,
+    "test": 2
+  }
+}

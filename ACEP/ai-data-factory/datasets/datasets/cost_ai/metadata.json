@@ -1,0 +1,17 @@
+{
+  "name": "cost_ai",
+  "domain": "cost",
+  "language": "both",
+  "generators": [
+    "cost"
+  ],
+  "dataset_types": [
+    "calculation"
+  ],
+  "splits": {
+    "total": 2,
+    "train": 1,
+    "val": 0,
+    "test": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "seed": 42,
+  "per_category": 50,
+  "stats": {
+    "evaluation": 50,
+    "benchmark": 100,
+    "edge_cases": 50,
+    "failure_cases": 50,
+    "adversarial_cases": 50
+  }
+}

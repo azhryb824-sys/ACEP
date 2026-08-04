@@ -1,0 +1,117 @@
+{
+  "id": "SAF-000001",
+  "instruction": "Prepare a Permit To Work (PTW) for hot work.\nأعد تصريح عمل للأعمال الساخنة.",
+  "input": {
+    "project_id": "SA-R00001",
+    "activity": "Welding",
+    "location": "Basement"
+  },
+  "output": {
+    "permit_no": "PTW-SA-R00001-001",
+    "work_type": "Hot Work",
+    "required_precautions": [
+      "Fire Extinguisher",
+      "Fire Watch",
+      "Approved PPE",
+      "Gas Cylinder Inspection",
+      "Work Area Isolation"
+    ],
+    "permit_status": "Approved"
+  },
+  "metadata": {
+    "document_type": "permit_to_work",
+    "discipline": "safety_management"
+  }
+}
+{
+  "id": "SAF-000002",
+  "instruction": "Prepare Job Safety Analysis (JSA) for excavation works.\nأعد تحليل سلامة العمل (JSA) لأعمال الحفر.",
+  "input": {
+    "activity": "Excavation",
+    "depth_m": 3.5
+  },
+  "output": {
+    "hazards": [
+      "Excavation Collapse",
+      "Underground Utilities",
+      "Equipment Collision"
+    ],
+    "control_measures": [
+      "Install Shoring",
+      "Utility Detection Before Excavation",
+      "Daily Excavation Inspection",
+      "Barricade Work Area",
+      "Competent Supervisor"
+    ]
+  },
+  "metadata": {
+    "document_type": "JSA",
+    "discipline": "safety_management"
+  }
+}
+{
+  "id": "SAF-000003",
+  "instruction": "Prepare an incident report.\nأعد تقرير حادث.",
+  "input": {
+    "incident_type": "Slip",
+    "location": "Ground Floor",
+    "injury": "Minor"
+  },
+  "output": {
+    "incident_no": "INC-SA-R00001-001",
+    "severity": "Low",
+    "root_cause": "Wet Surface",
+    "corrective_action": [
+      "Clean the area",
+      "Install warning signs",
+      "Improve housekeeping"
+    ]
+  },
+  "metadata": {
+    "document_type": "incident_report",
+    "discipline": "safety_management"
+  }
+}
+{
+  "id": "SAF-000004",
+  "instruction": "Select the required PPE for cutting and grinding works.\nحدد معدات الوقاية الشخصية المطلوبة لأعمال القطع والجلخ.",
+  "input": {
+    "activity": "Cutting and Grinding"
+  },
+  "output": {
+    "required_ppe": [
+      "Safety Helmet",
+      "Safety Glasses",
+      "Face Shield",
+      "Cut Resistant Gloves",
+      "Safety Shoes",
+      "Hearing Protection",
+      "Reflective Vest"
+    ]
+  },
+  "metadata": {
+    "document_type": "ppe_selection",
+    "discipline": "safety_management"
+  }
+}
+{
+  "id": "SAF-000005",
+  "instruction": "Prepare an emergency response plan for fire.\nأعد خطة استجابة للطوارئ في حالة الحريق.",
+  "input": {
+    "emergency": "Fire"
+  },
+  "output": {
+    "actions": [
+      "Raise the alarm",
+      "Call emergency services",
+      "Evacuate personnel",
+      "Use fire extinguisher if safe",
+      "Assemble at designated assembly point",
+      "Account for all personnel"
+    ]
+  },
+  "metadata": {
+    "document_type": "emergency_response",
+    "discipline": "safety_management"
+  }
+}

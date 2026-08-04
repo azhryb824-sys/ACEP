@@ -1,0 +1,15 @@
+{
+  "name": "acep-vision-training",
+  "version": "1.0.0",
+  "description": "ACEP Vision Training - Fine-tuning pipeline for FLUX.1 Dev using LoRA for architectural image generation",
+  "main": "index.js",
+  "scripts": {
+    "train": "node -e \"require('./index').TrainingPipeline.run({dataset: process.argv[1]})\"",
+    "list-models": "node -e \"console.log(require('./index').ModelRegistry.listVersions())\"",
+    "evaluate": "node -e \"require('./index').Evaluator.evaluate(process.argv[1])\""
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "id": "DRW-000001",
+  "instruction": "Review the structural drawing and identify missing information.\nراجع المخطط الإنشائي وحدد المعلومات الناقصة.",
+  "input": {
+    "drawing_type": "Structural Foundation Plan",
+    "drawing_no": "S-101",
+    "project": "Villa"
+  },
+  "output": {
+    "missing_items": [
+      "North Arrow",
+      "Revision Number",
+      "General Notes",
+      "Foundation Levels"
+    ],
+    "recommendation": "Issue revised drawing before construction."
+  },
+  "metadata": {
+    "document_type": "drawing_review",
+    "discipline": "drawing_ai"
+  }
+}
+{
+  "id": "CLASH-000001",
+  "instruction": "Detect clashes between structural and MEP drawings.\nاكتشف التعارضات بين المخططات الإنشائية والميكانيكية والكهربائية.",
+  "input": {
+    "structural_drawing": "S-201",
+    "mep_drawing": "M-105"
+  },
+  "output": {
+    "clashes": [
+      {
+        "location": "Grid B-4",
+        "type": "Duct passing through beam",
+        "severity": "High"
+      },
+      {
+        "location": "Grid C-7",
+        "type": "Pipe intersects footing",
+        "severity": "Medium"
+      }
+    ]
+  },
+  "metadata": {
+    "document_type": "clash_detection",
+    "discipline": "drawing_ai"
+  }
+}
+{
+  "id": "REV-000001",
+  "instruction": "Compare drawing revisions.\nقارن بين إصدارين من المخطط.",
+  "input": {
+    "revision_old": "Rev-01",
+    "revision_new": "Rev-02"
+  },
+  "output": {
+    "changes": [
+      "Column C5 dimensions updated.",
+      "Foundation F12 enlarged.",
+      "Beam B7 reinforcement revised."
+    ]
+  },
+  "metadata": {
+    "document_type": "drawing_revision",
+    "discipline": "drawing_ai"
+  }
+}
+{
+  "id": "DIM-000001",
+  "instruction": "Detect missing dimensions in the drawing.\nاكتشف الأبعاد المفقودة في المخطط.",
+  "input": {
+    "drawing_type": "Architectural Floor Plan"
+  },
+  "output": {
+    "missing_dimensions": [
+      "Stair Width",
+      "Corridor Width",
+      "Door D12 Width"
+    ],
+    "status": "Revision Required"
+  },
+  "metadata": {
+    "document_type": "dimension_check",
+    "discipline": "drawing_ai"
+  }
+}
+{
+  "id": "VERIFY-000001",
+  "instruction": "Verify BOQ quantities against structural drawings.\nتحقق من كميات جدول الكميات مقارنة بالمخططات.",
+  "input": {
+    "drawing": "S-301",
+    "boq_item": "Concrete Footings"
+  },
+  "output": {
+    "drawing_quantity": 112.40,
+    "boq_quantity": 110.00,
+    "difference": 2.40,
+    "recommendation": "Update BOQ before tender."
+  },
+  "metadata": {
+    "document_type": "boq_verification",
+    "discipline": "drawing_ai"
+  }
+}

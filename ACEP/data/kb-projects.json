@@ -1,0 +1,4490 @@
+[
+  {
+    "id": "proj-001",
+    "type": "Villa",
+    "name": "برج المملكة السكني",
+    "recordedAt": "2026-07-26T12:32:04.819Z",
+    "physical": {
+      "area": 42000,
+      "floors": 30,
+      "city": ""
+    },
+    "boq": {
+      "totalItems": 0,
+      "totalCost": 0,
+      "items": [],
+      "suggestedItems": []
+    },
+    "cost": {
+      "totalCost": 0,
+      "directCost": 0,
+      "costPerM2": 0
+    },
+    "schedule": {
+      "totalDuration": 0,
+      "totalMonths": 0
+    },
+    "profile": null
+  },
+  {
+    "id": "proj-1785250696923",
+    "type": "Villa",
+    "name": "مشروع التكامل",
+    "recordedAt": "2026-07-28T14:58:17.080Z",
+    "physical": {
+      "area": 800,
+      "floors": 2,
+      "city": ""
+    },
+    "boq": {
+      "totalItems": 41,
+      "totalCost": 1156816.02,
+      "items": [
+        {
+          "code": "EXC-001",
+          "description": "حفر أساسات",
+          "unit": "م³",
+          "quantity": 600,
+          "unitPrice": 35,
+          "totalPrice": 21000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-002",
+          "description": "نقل ناتج الحفر",
+          "unit": "م³",
+          "quantity": 840,
+          "unitPrice": 35,
+          "totalPrice": 29400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-003",
+          "description": "إحلال تربة",
+          "unit": "م³",
+          "quantity": 400,
+          "unitPrice": 35,
+          "totalPrice": 14000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-004",
+          "description": "ردم حول الأساسات",
+          "unit": "م³",
+          "quantity": 640,
+          "unitPrice": 35,
+          "totalPrice": 22400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-001",
+          "description": "خرسانة نظافة",
+          "unit": "م³",
+          "quantity": 80,
+          "unitPrice": 430,
+          "totalPrice": 34400,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-002",
+          "description": "قواعد خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-003",
+          "description": "ميدات أرضية",
+          "unit": "م³",
+          "quantity": 120,
+          "unitPrice": 430,
+          "totalPrice": 51600,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-004",
+          "description": "بلاطة أرضية (لبشة)",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-001",
+          "description": "أعمدة خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 96,
+          "unitPrice": 500,
+          "totalPrice": 48000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-002",
+          "description": "كمرات خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 64,
+          "unitPrice": 500,
+          "totalPrice": 32000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-003",
+          "description": "بلاطات أسقف خرسانية",
+          "unit": "م³",
+          "quantity": 288,
+          "unitPrice": 480,
+          "totalPrice": 138240,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-005",
+          "description": "حديد تسليح",
+          "unit": "طن",
+          "quantity": 70.08,
+          "unitPrice": 3500,
+          "totalPrice": 245280,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-006",
+          "description": "سلم خرساني",
+          "unit": "م³",
+          "quantity": 3.5,
+          "unitPrice": 480,
+          "totalPrice": 1680,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-001",
+          "description": "بلوك أسمنتي للجدران",
+          "unit": "م²",
+          "quantity": 692.82,
+          "unitPrice": 40,
+          "totalPrice": 27712.8,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-002",
+          "description": "عزل حراري للجدران",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 40,
+          "totalPrice": 9699.6,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-003",
+          "description": "عزل مائي للأسطح والحمامات",
+          "unit": "م²",
+          "quantity": 240,
+          "unitPrice": 100,
+          "totalPrice": 24000,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 623.54,
+          "unitPrice": 25,
+          "totalPrice": 15588.5,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-002",
+          "description": "لياسة جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-003",
+          "description": "طرطشة أسمنتية للواجهات",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 588.9,
+          "unitPrice": 18,
+          "totalPrice": 10600.2,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-002",
+          "description": "دهانات جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 18,
+          "totalPrice": 4364.82,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 1600,
+          "unitPrice": 18,
+          "totalPrice": 28800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 1226,
+          "unitPrice": 65,
+          "totalPrice": 79690,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-002",
+          "description": "بلاط أرضيات خارجي",
+          "unit": "م²",
+          "quantity": 120,
+          "unitPrice": 65,
+          "totalPrice": 7800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "unitPrice": 55,
+          "totalPrice": 3300,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-004",
+          "description": "سيراميك مطابخ",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "GPS-001",
+          "description": "أسقف جبس معلقة",
+          "unit": "م²",
+          "quantity": 800,
+          "unitPrice": 60,
+          "totalPrice": 48000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "unitPrice": 800,
+          "totalPrice": 8000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-002",
+          "description": "باب حماية خارجي (رئيسي)",
+          "unit": "باب",
+          "quantity": 1,
+          "unitPrice": 800,
+          "totalPrice": 800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "unitPrice": 350,
+          "totalPrice": 2800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 120,
+          "totalPrice": 8640,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 2,
+          "unitPrice": 120,
+          "totalPrice": 240,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 128,
+          "unitPrice": 120,
+          "totalPrice": 15360,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 96,
+          "unitPrice": 120,
+          "totalPrice": 11520,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "unitPrice": 150,
+          "totalPrice": 2700,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "unitPrice": 150,
+          "totalPrice": 1650,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "unitPrice": 150,
+          "totalPrice": 150,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "unitPrice": 150,
+          "totalPrice": 450,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "APT-005",
+          "description": "خزانات مياه علوية وسفلية",
+          "unit": "خزان",
+          "quantity": 2,
+          "unitPrice": 150,
+          "totalPrice": 300,
+          "phase": "PLUMBING",
+          "trade": "MECH"
+        },
+        {
+          "code": "HVAC-001",
+          "description": "مكيفات سبليت",
+          "unit": "وحدة",
+          "quantity": 4,
+          "unitPrice": 4500,
+          "totalPrice": 18000,
+          "phase": "HVAC",
+          "trade": "MECH"
+        },
+        {
+          "code": "EXT-001",
+          "description": "سور المبنى الخارجي",
+          "unit": "م طولي",
+          "quantity": 113.14,
+          "unitPrice": 40,
+          "totalPrice": 4525.6,
+          "phase": "EXTERNAL",
+          "trade": "CIVIL"
+        }
+      ],
+      "suggestedItems": [
+        {
+          "code": "FCD-002",
+          "description": "واجهات حجر طبيعي"
+        },
+        {
+          "code": "EXT-002",
+          "description": "مواقف سيارات"
+        },
+        {
+          "code": "EXT-003",
+          "description": "زراعة وتنسيق موقع"
+        },
+        {
+          "code": "VIL-001",
+          "description": "مظلة مدخل السيارة (Carport)"
+        },
+        {
+          "code": "VIL-005",
+          "description": "نظام ري للحديقة"
+        }
+      ]
+    },
+    "cost": {
+      "totalCost": 2258643,
+      "directCost": 1552599,
+      "costPerM2": 1412
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "profile": null
+  },
+  {
+    "id": "proj-1785250696923",
+    "type": "Villa",
+    "name": "مشروع التكامل",
+    "recordedAt": "2026-07-28T14:58:17.089Z",
+    "physical": {
+      "area": 800,
+      "floors": 2,
+      "city": ""
+    },
+    "boq": {
+      "totalItems": 41,
+      "totalCost": 1156816.02,
+      "items": [
+        {
+          "code": "EXC-001",
+          "description": "حفر أساسات",
+          "unit": "م³",
+          "quantity": 600,
+          "unitPrice": 35,
+          "totalPrice": 21000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-002",
+          "description": "نقل ناتج الحفر",
+          "unit": "م³",
+          "quantity": 840,
+          "unitPrice": 35,
+          "totalPrice": 29400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-003",
+          "description": "إحلال تربة",
+          "unit": "م³",
+          "quantity": 400,
+          "unitPrice": 35,
+          "totalPrice": 14000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-004",
+          "description": "ردم حول الأساسات",
+          "unit": "م³",
+          "quantity": 640,
+          "unitPrice": 35,
+          "totalPrice": 22400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-001",
+          "description": "خرسانة نظافة",
+          "unit": "م³",
+          "quantity": 80,
+          "unitPrice": 430,
+          "totalPrice": 34400,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-002",
+          "description": "قواعد خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-003",
+          "description": "ميدات أرضية",
+          "unit": "م³",
+          "quantity": 120,
+          "unitPrice": 430,
+          "totalPrice": 51600,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-004",
+          "description": "بلاطة أرضية (لبشة)",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-001",
+          "description": "أعمدة خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 96,
+          "unitPrice": 500,
+          "totalPrice": 48000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-002",
+          "description": "كمرات خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 64,
+          "unitPrice": 500,
+          "totalPrice": 32000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-003",
+          "description": "بلاطات أسقف خرسانية",
+          "unit": "م³",
+          "quantity": 288,
+          "unitPrice": 480,
+          "totalPrice": 138240,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-005",
+          "description": "حديد تسليح",
+          "unit": "طن",
+          "quantity": 70.08,
+          "unitPrice": 3500,
+          "totalPrice": 245280,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-006",
+          "description": "سلم خرساني",
+          "unit": "م³",
+          "quantity": 3.5,
+          "unitPrice": 480,
+          "totalPrice": 1680,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-001",
+          "description": "بلوك أسمنتي للجدران",
+          "unit": "م²",
+          "quantity": 692.82,
+          "unitPrice": 40,
+          "totalPrice": 27712.8,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-002",
+          "description": "عزل حراري للجدران",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 40,
+          "totalPrice": 9699.6,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-003",
+          "description": "عزل مائي للأسطح والحمامات",
+          "unit": "م²",
+          "quantity": 240,
+          "unitPrice": 100,
+          "totalPrice": 24000,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 623.54,
+          "unitPrice": 25,
+          "totalPrice": 15588.5,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-002",
+          "description": "لياسة جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-003",
+          "description": "طرطشة أسمنتية للواجهات",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 588.9,
+          "unitPrice": 18,
+          "totalPrice": 10600.2,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-002",
+          "description": "دهانات جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 18,
+          "totalPrice": 4364.82,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 1600,
+          "unitPrice": 18,
+          "totalPrice": 28800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 1226,
+          "unitPrice": 65,
+          "totalPrice": 79690,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-002",
+          "description": "بلاط أرضيات خارجي",
+          "unit": "م²",
+          "quantity": 120,
+          "unitPrice": 65,
+          "totalPrice": 7800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "unitPrice": 55,
+          "totalPrice": 3300,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-004",
+          "description": "سيراميك مطابخ",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "GPS-001",
+          "description": "أسقف جبس معلقة",
+          "unit": "م²",
+          "quantity": 800,
+          "unitPrice": 60,
+          "totalPrice": 48000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "unitPrice": 800,
+          "totalPrice": 8000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-002",
+          "description": "باب حماية خارجي (رئيسي)",
+          "unit": "باب",
+          "quantity": 1,
+          "unitPrice": 800,
+          "totalPrice": 800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "unitPrice": 350,
+          "totalPrice": 2800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 120,
+          "totalPrice": 8640,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 2,
+          "unitPrice": 120,
+          "totalPrice": 240,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 128,
+          "unitPrice": 120,
+          "totalPrice": 15360,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 96,
+          "unitPrice": 120,
+          "totalPrice": 11520,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "unitPrice": 150,
+          "totalPrice": 2700,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "unitPrice": 150,
+          "totalPrice": 1650,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "unitPrice": 150,
+          "totalPrice": 150,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "unitPrice": 150,
+          "totalPrice": 450,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "APT-005",
+          "description": "خزانات مياه علوية وسفلية",
+          "unit": "خزان",
+          "quantity": 2,
+          "unitPrice": 150,
+          "totalPrice": 300,
+          "phase": "PLUMBING",
+          "trade": "MECH"
+        },
+        {
+          "code": "HVAC-001",
+          "description": "مكيفات سبليت",
+          "unit": "وحدة",
+          "quantity": 4,
+          "unitPrice": 4500,
+          "totalPrice": 18000,
+          "phase": "HVAC",
+          "trade": "MECH"
+        },
+        {
+          "code": "EXT-001",
+          "description": "سور المبنى الخارجي",
+          "unit": "م طولي",
+          "quantity": 113.14,
+          "unitPrice": 40,
+          "totalPrice": 4525.6,
+          "phase": "EXTERNAL",
+          "trade": "CIVIL"
+        }
+      ],
+      "suggestedItems": [
+        {
+          "code": "FCD-002",
+          "description": "واجهات حجر طبيعي"
+        },
+        {
+          "code": "EXT-002",
+          "description": "مواقف سيارات"
+        },
+        {
+          "code": "EXT-003",
+          "description": "زراعة وتنسيق موقع"
+        },
+        {
+          "code": "VIL-001",
+          "description": "مظلة مدخل السيارة (Carport)"
+        },
+        {
+          "code": "VIL-005",
+          "description": "نظام ري للحديقة"
+        }
+      ]
+    },
+    "cost": {
+      "totalCost": 2258643,
+      "directCost": 1552599,
+      "costPerM2": 1412
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "profile": null
+  },
+  {
+    "id": "proj-1785250696923",
+    "type": "Villa",
+    "name": "مشروع التكامل",
+    "recordedAt": "2026-07-28T15:03:43.154Z",
+    "physical": {
+      "area": 800,
+      "floors": 2,
+      "city": ""
+    },
+    "boq": {
+      "totalItems": 41,
+      "totalCost": 1156816.02,
+      "items": [
+        {
+          "code": "EXC-001",
+          "description": "حفر أساسات",
+          "unit": "م³",
+          "quantity": 600,
+          "unitPrice": 35,
+          "totalPrice": 21000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-002",
+          "description": "نقل ناتج الحفر",
+          "unit": "م³",
+          "quantity": 840,
+          "unitPrice": 35,
+          "totalPrice": 29400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-003",
+          "description": "إحلال تربة",
+          "unit": "م³",
+          "quantity": 400,
+          "unitPrice": 35,
+          "totalPrice": 14000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-004",
+          "description": "ردم حول الأساسات",
+          "unit": "م³",
+          "quantity": 640,
+          "unitPrice": 35,
+          "totalPrice": 22400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-001",
+          "description": "خرسانة نظافة",
+          "unit": "م³",
+          "quantity": 80,
+          "unitPrice": 430,
+          "totalPrice": 34400,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-002",
+          "description": "قواعد خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-003",
+          "description": "ميدات أرضية",
+          "unit": "م³",
+          "quantity": 120,
+          "unitPrice": 430,
+          "totalPrice": 51600,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-004",
+          "description": "بلاطة أرضية (لبشة)",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-001",
+          "description": "أعمدة خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 96,
+          "unitPrice": 500,
+          "totalPrice": 48000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-002",
+          "description": "كمرات خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 64,
+          "unitPrice": 500,
+          "totalPrice": 32000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-003",
+          "description": "بلاطات أسقف خرسانية",
+          "unit": "م³",
+          "quantity": 288,
+          "unitPrice": 480,
+          "totalPrice": 138240,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-005",
+          "description": "حديد تسليح",
+          "unit": "طن",
+          "quantity": 70.08,
+          "unitPrice": 3500,
+          "totalPrice": 245280,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-006",
+          "description": "سلم خرساني",
+          "unit": "م³",
+          "quantity": 3.5,
+          "unitPrice": 480,
+          "totalPrice": 1680,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-001",
+          "description": "بلوك أسمنتي للجدران",
+          "unit": "م²",
+          "quantity": 692.82,
+          "unitPrice": 40,
+          "totalPrice": 27712.8,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-002",
+          "description": "عزل حراري للجدران",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 40,
+          "totalPrice": 9699.6,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-003",
+          "description": "عزل مائي للأسطح والحمامات",
+          "unit": "م²",
+          "quantity": 240,
+          "unitPrice": 100,
+          "totalPrice": 24000,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 623.54,
+          "unitPrice": 25,
+          "totalPrice": 15588.5,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-002",
+          "description": "لياسة جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-003",
+          "description": "طرطشة أسمنتية للواجهات",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 588.9,
+          "unitPrice": 18,
+          "totalPrice": 10600.2,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-002",
+          "description": "دهانات جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 18,
+          "totalPrice": 4364.82,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 1600,
+          "unitPrice": 18,
+          "totalPrice": 28800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 1226,
+          "unitPrice": 65,
+          "totalPrice": 79690,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-002",
+          "description": "بلاط أرضيات خارجي",
+          "unit": "م²",
+          "quantity": 120,
+          "unitPrice": 65,
+          "totalPrice": 7800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "unitPrice": 55,
+          "totalPrice": 3300,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-004",
+          "description": "سيراميك مطابخ",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "GPS-001",
+          "description": "أسقف جبس معلقة",
+          "unit": "م²",
+          "quantity": 800,
+          "unitPrice": 60,
+          "totalPrice": 48000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "unitPrice": 800,
+          "totalPrice": 8000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-002",
+          "description": "باب حماية خارجي (رئيسي)",
+          "unit": "باب",
+          "quantity": 1,
+          "unitPrice": 800,
+          "totalPrice": 800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "unitPrice": 350,
+          "totalPrice": 2800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 120,
+          "totalPrice": 8640,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 2,
+          "unitPrice": 120,
+          "totalPrice": 240,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 128,
+          "unitPrice": 120,
+          "totalPrice": 15360,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 96,
+          "unitPrice": 120,
+          "totalPrice": 11520,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "unitPrice": 150,
+          "totalPrice": 2700,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "unitPrice": 150,
+          "totalPrice": 1650,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "unitPrice": 150,
+          "totalPrice": 150,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "unitPrice": 150,
+          "totalPrice": 450,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "APT-005",
+          "description": "خزانات مياه علوية وسفلية",
+          "unit": "خزان",
+          "quantity": 2,
+          "unitPrice": 150,
+          "totalPrice": 300,
+          "phase": "PLUMBING",
+          "trade": "MECH"
+        },
+        {
+          "code": "HVAC-001",
+          "description": "مكيفات سبليت",
+          "unit": "وحدة",
+          "quantity": 4,
+          "unitPrice": 4500,
+          "totalPrice": 18000,
+          "phase": "HVAC",
+          "trade": "MECH"
+        },
+        {
+          "code": "EXT-001",
+          "description": "سور المبنى الخارجي",
+          "unit": "م طولي",
+          "quantity": 113.14,
+          "unitPrice": 40,
+          "totalPrice": 4525.6,
+          "phase": "EXTERNAL",
+          "trade": "CIVIL"
+        }
+      ],
+      "suggestedItems": [
+        {
+          "code": "FCD-002",
+          "description": "واجهات حجر طبيعي"
+        },
+        {
+          "code": "EXT-002",
+          "description": "مواقف سيارات"
+        },
+        {
+          "code": "EXT-003",
+          "description": "زراعة وتنسيق موقع"
+        },
+        {
+          "code": "VIL-001",
+          "description": "مظلة مدخل السيارة (Carport)"
+        },
+        {
+          "code": "VIL-005",
+          "description": "نظام ري للحديقة"
+        }
+      ]
+    },
+    "cost": {
+      "totalCost": 2258643,
+      "directCost": 1552599,
+      "costPerM2": 1412
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "profile": {
+      "structural": {
+        "value": "Reinforced Concrete Frame",
+        "confidence": 70,
+        "source": "knowledgeBase",
+        "reason": "نظام إنشائي نموذجي لـ Villa"
+      },
+      "hvac": "Split Units / Ducted Split",
+      "scope": {
+        "value": [
+          "Structure",
+          "Architecture",
+          "MEP",
+          "Finishing",
+          "Landscape"
+        ],
+        "source": "projectType",
+        "reason": "حسب نوع المشروع: Villa"
+      }
+    }
+  },
+  {
+    "id": "proj-1785250696923",
+    "type": "Villa",
+    "name": "مشروع التكامل",
+    "recordedAt": "2026-07-28T15:03:52.115Z",
+    "physical": {
+      "area": 800,
+      "floors": 2,
+      "city": ""
+    },
+    "boq": {
+      "totalItems": 41,
+      "totalCost": 1156816.02,
+      "items": [
+        {
+          "code": "EXC-001",
+          "description": "حفر أساسات",
+          "unit": "م³",
+          "quantity": 600,
+          "unitPrice": 35,
+          "totalPrice": 21000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-002",
+          "description": "نقل ناتج الحفر",
+          "unit": "م³",
+          "quantity": 840,
+          "unitPrice": 35,
+          "totalPrice": 29400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-003",
+          "description": "إحلال تربة",
+          "unit": "م³",
+          "quantity": 400,
+          "unitPrice": 35,
+          "totalPrice": 14000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-004",
+          "description": "ردم حول الأساسات",
+          "unit": "م³",
+          "quantity": 640,
+          "unitPrice": 35,
+          "totalPrice": 22400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-001",
+          "description": "خرسانة نظافة",
+          "unit": "م³",
+          "quantity": 80,
+          "unitPrice": 430,
+          "totalPrice": 34400,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-002",
+          "description": "قواعد خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-003",
+          "description": "ميدات أرضية",
+          "unit": "م³",
+          "quantity": 120,
+          "unitPrice": 430,
+          "totalPrice": 51600,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-004",
+          "description": "بلاطة أرضية (لبشة)",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-001",
+          "description": "أعمدة خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 96,
+          "unitPrice": 500,
+          "totalPrice": 48000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-002",
+          "description": "كمرات خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 64,
+          "unitPrice": 500,
+          "totalPrice": 32000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-003",
+          "description": "بلاطات أسقف خرسانية",
+          "unit": "م³",
+          "quantity": 288,
+          "unitPrice": 480,
+          "totalPrice": 138240,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-005",
+          "description": "حديد تسليح",
+          "unit": "طن",
+          "quantity": 70.08,
+          "unitPrice": 3500,
+          "totalPrice": 245280,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-006",
+          "description": "سلم خرساني",
+          "unit": "م³",
+          "quantity": 3.5,
+          "unitPrice": 480,
+          "totalPrice": 1680,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-001",
+          "description": "بلوك أسمنتي للجدران",
+          "unit": "م²",
+          "quantity": 692.82,
+          "unitPrice": 40,
+          "totalPrice": 27712.8,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-002",
+          "description": "عزل حراري للجدران",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 40,
+          "totalPrice": 9699.6,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-003",
+          "description": "عزل مائي للأسطح والحمامات",
+          "unit": "م²",
+          "quantity": 240,
+          "unitPrice": 100,
+          "totalPrice": 24000,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 623.54,
+          "unitPrice": 25,
+          "totalPrice": 15588.5,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-002",
+          "description": "لياسة جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-003",
+          "description": "طرطشة أسمنتية للواجهات",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 588.9,
+          "unitPrice": 18,
+          "totalPrice": 10600.2,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-002",
+          "description": "دهانات جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 18,
+          "totalPrice": 4364.82,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 1600,
+          "unitPrice": 18,
+          "totalPrice": 28800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 1226,
+          "unitPrice": 65,
+          "totalPrice": 79690,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-002",
+          "description": "بلاط أرضيات خارجي",
+          "unit": "م²",
+          "quantity": 120,
+          "unitPrice": 65,
+          "totalPrice": 7800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "unitPrice": 55,
+          "totalPrice": 3300,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-004",
+          "description": "سيراميك مطابخ",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "GPS-001",
+          "description": "أسقف جبس معلقة",
+          "unit": "م²",
+          "quantity": 800,
+          "unitPrice": 60,
+          "totalPrice": 48000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "unitPrice": 800,
+          "totalPrice": 8000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-002",
+          "description": "باب حماية خارجي (رئيسي)",
+          "unit": "باب",
+          "quantity": 1,
+          "unitPrice": 800,
+          "totalPrice": 800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "unitPrice": 350,
+          "totalPrice": 2800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 120,
+          "totalPrice": 8640,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 2,
+          "unitPrice": 120,
+          "totalPrice": 240,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 128,
+          "unitPrice": 120,
+          "totalPrice": 15360,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 96,
+          "unitPrice": 120,
+          "totalPrice": 11520,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "unitPrice": 150,
+          "totalPrice": 2700,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "unitPrice": 150,
+          "totalPrice": 1650,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "unitPrice": 150,
+          "totalPrice": 150,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "unitPrice": 150,
+          "totalPrice": 450,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "APT-005",
+          "description": "خزانات مياه علوية وسفلية",
+          "unit": "خزان",
+          "quantity": 2,
+          "unitPrice": 150,
+          "totalPrice": 300,
+          "phase": "PLUMBING",
+          "trade": "MECH"
+        },
+        {
+          "code": "HVAC-001",
+          "description": "مكيفات سبليت",
+          "unit": "وحدة",
+          "quantity": 4,
+          "unitPrice": 4500,
+          "totalPrice": 18000,
+          "phase": "HVAC",
+          "trade": "MECH"
+        },
+        {
+          "code": "EXT-001",
+          "description": "سور المبنى الخارجي",
+          "unit": "م طولي",
+          "quantity": 113.14,
+          "unitPrice": 40,
+          "totalPrice": 4525.6,
+          "phase": "EXTERNAL",
+          "trade": "CIVIL"
+        }
+      ],
+      "suggestedItems": [
+        {
+          "code": "FCD-002",
+          "description": "واجهات حجر طبيعي"
+        },
+        {
+          "code": "EXT-002",
+          "description": "مواقف سيارات"
+        },
+        {
+          "code": "EXT-003",
+          "description": "زراعة وتنسيق موقع"
+        },
+        {
+          "code": "VIL-001",
+          "description": "مظلة مدخل السيارة (Carport)"
+        },
+        {
+          "code": "VIL-005",
+          "description": "نظام ري للحديقة"
+        }
+      ]
+    },
+    "cost": {
+      "totalCost": 2258643,
+      "directCost": 1552599,
+      "costPerM2": 1412
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "profile": {
+      "structural": {
+        "value": "Reinforced Concrete Frame",
+        "confidence": 70,
+        "source": "knowledgeBase",
+        "reason": "نظام إنشائي نموذجي لـ Villa"
+      },
+      "hvac": "Split Units / Ducted Split",
+      "scope": {
+        "value": [
+          "Structure",
+          "Architecture",
+          "MEP",
+          "Finishing",
+          "Landscape"
+        ],
+        "source": "projectType",
+        "reason": "حسب نوع المشروع: Villa"
+      }
+    }
+  },
+  {
+    "id": "proj-1785234259687",
+    "type": "Villa",
+    "name": "Test Villa Project",
+    "recordedAt": "2026-07-28T15:07:14.601Z",
+    "physical": {
+      "area": 600,
+      "floors": 2,
+      "city": "الرياض"
+    },
+    "boq": {
+      "totalItems": 41,
+      "totalCost": 933595.16,
+      "items": [
+        {
+          "code": "EXC-001",
+          "description": "حفر أساسات",
+          "unit": "م³",
+          "quantity": 450,
+          "unitPrice": 37,
+          "totalPrice": 16650,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-002",
+          "description": "نقل ناتج الحفر",
+          "unit": "م³",
+          "quantity": 630,
+          "unitPrice": 37,
+          "totalPrice": 23310,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-003",
+          "description": "إحلال تربة",
+          "unit": "م³",
+          "quantity": 300,
+          "unitPrice": 37,
+          "totalPrice": 11100,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-004",
+          "description": "ردم حول الأساسات",
+          "unit": "م³",
+          "quantity": 480,
+          "unitPrice": 37,
+          "totalPrice": 17760,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-001",
+          "description": "خرسانة نظافة",
+          "unit": "م³",
+          "quantity": 60,
+          "unitPrice": 452,
+          "totalPrice": 27120,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-002",
+          "description": "قواعد خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 150,
+          "unitPrice": 452,
+          "totalPrice": 67800,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-003",
+          "description": "ميدات أرضية",
+          "unit": "م³",
+          "quantity": 90,
+          "unitPrice": 452,
+          "totalPrice": 40680,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-004",
+          "description": "بلاطة أرضية (لبشة)",
+          "unit": "م³",
+          "quantity": 150,
+          "unitPrice": 452,
+          "totalPrice": 67800,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-001",
+          "description": "أعمدة خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 72,
+          "unitPrice": 525,
+          "totalPrice": 37800,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-002",
+          "description": "كمرات خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 48,
+          "unitPrice": 525,
+          "totalPrice": 25200,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-003",
+          "description": "بلاطات أسقف خرسانية",
+          "unit": "م³",
+          "quantity": 216,
+          "unitPrice": 504,
+          "totalPrice": 108864,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-005",
+          "description": "حديد تسليح",
+          "unit": "طن",
+          "quantity": 52.56,
+          "unitPrice": 3675,
+          "totalPrice": 193158,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-006",
+          "description": "سلم خرساني",
+          "unit": "م³",
+          "quantity": 3.5,
+          "unitPrice": 504,
+          "totalPrice": 1764,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-001",
+          "description": "بلوك أسمنتي للجدران",
+          "unit": "م²",
+          "quantity": 600,
+          "unitPrice": 42,
+          "totalPrice": 25200,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-002",
+          "description": "عزل حراري للجدران",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 42,
+          "totalPrice": 8820,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-003",
+          "description": "عزل مائي للأسطح والحمامات",
+          "unit": "م²",
+          "quantity": 180,
+          "unitPrice": 105,
+          "totalPrice": 18900,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 540,
+          "unitPrice": 26,
+          "totalPrice": 14040,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-002",
+          "description": "لياسة جدران خارجية",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 26,
+          "totalPrice": 5460,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-003",
+          "description": "طرطشة أسمنتية للواجهات",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 26,
+          "totalPrice": 5460,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 510,
+          "unitPrice": 19,
+          "totalPrice": 9690,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-002",
+          "description": "دهانات جدران خارجية",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 19,
+          "totalPrice": 3990,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 1200,
+          "unitPrice": 19,
+          "totalPrice": 22800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 906,
+          "unitPrice": 68,
+          "totalPrice": 61608,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-002",
+          "description": "بلاط أرضيات خارجي",
+          "unit": "م²",
+          "quantity": 90,
+          "unitPrice": 68,
+          "totalPrice": 6120,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "unitPrice": 58,
+          "totalPrice": 3480,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-004",
+          "description": "سيراميك مطابخ",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 189,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "GPS-001",
+          "description": "أسقف جبس معلقة",
+          "unit": "م²",
+          "quantity": 600,
+          "unitPrice": 63,
+          "totalPrice": 37800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "unitPrice": 840,
+          "totalPrice": 8400,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-002",
+          "description": "باب حماية خارجي (رئيسي)",
+          "unit": "باب",
+          "quantity": 1,
+          "unitPrice": 840,
+          "totalPrice": 840,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "unitPrice": 368,
+          "totalPrice": 2944,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 126,
+          "totalPrice": 9072,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 2,
+          "unitPrice": 126,
+          "totalPrice": 252,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 96,
+          "unitPrice": 126,
+          "totalPrice": 12096,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 126,
+          "totalPrice": 9072,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "unitPrice": 158,
+          "totalPrice": 2844,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "unitPrice": 158,
+          "totalPrice": 1738,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "unitPrice": 158,
+          "totalPrice": 158,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "unitPrice": 158,
+          "totalPrice": 474,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "APT-005",
+          "description": "خزانات مياه علوية وسفلية",
+          "unit": "خزان",
+          "quantity": 2,
+          "unitPrice": 158,
+          "totalPrice": 316,
+          "phase": "PLUMBING",
+          "trade": "MECH"
+        },
+        {
+          "code": "HVAC-001",
+          "description": "مكيفات سبليت",
+          "unit": "وحدة",
+          "quantity": 4,
+          "unitPrice": 4725,
+          "totalPrice": 18900,
+          "phase": "HVAC",
+          "trade": "MECH"
+        },
+        {
+          "code": "EXT-001",
+          "description": "سور المبنى الخارجي",
+          "unit": "م طولي",
+          "quantity": 97.98,
+          "unitPrice": 42,
+          "totalPrice": 4115.16,
+          "phase": "EXTERNAL",
+          "trade": "CIVIL"
+        }
+      ],
+      "suggestedItems": [
+        {
+          "code": "FCD-002",
+          "description": "واجهات حجر طبيعي"
+        },
+        {
+          "code": "EXT-002",
+          "description": "مواقف سيارات"
+        },
+        {
+          "code": "EXT-003",
+          "description": "زراعة وتنسيق موقع"
+        },
+        {
+          "code": "VIL-001",
+          "description": "مظلة مدخل السيارة (Carport)"
+        },
+        {
+          "code": "VIL-005",
+          "description": "نظام ري للحديقة"
+        }
+      ]
+    },
+    "cost": {
+      "totalCost": 1933913,
+      "directCost": 1329378,
+      "costPerM2": 1612
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "profile": {
+      "structural": {
+        "value": "Reinforced Concrete Frame",
+        "confidence": 70,
+        "source": "knowledgeBase",
+        "reason": "نظام إنشائي نموذجي لـ Villa"
+      },
+      "hvac": "Split Units / Ducted Split",
+      "scope": {
+        "value": [
+          "Structure",
+          "Architecture",
+          "MEP",
+          "Finishing",
+          "Landscape"
+        ],
+        "source": "projectType",
+        "reason": "حسب نوع المشروع: Villa"
+      }
+    }
+  },
+  {
+    "id": "proj-1785234259687",
+    "type": "Villa",
+    "name": "Test Villa Project",
+    "recordedAt": "2026-07-28T15:07:17.474Z",
+    "physical": {
+      "area": 600,
+      "floors": 2,
+      "city": "الرياض"
+    },
+    "boq": {
+      "totalItems": 41,
+      "totalCost": 933595.16,
+      "items": [
+        {
+          "code": "EXC-001",
+          "description": "حفر أساسات",
+          "unit": "م³",
+          "quantity": 450,
+          "unitPrice": 37,
+          "totalPrice": 16650,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-002",
+          "description": "نقل ناتج الحفر",
+          "unit": "م³",
+          "quantity": 630,
+          "unitPrice": 37,
+          "totalPrice": 23310,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-003",
+          "description": "إحلال تربة",
+          "unit": "م³",
+          "quantity": 300,
+          "unitPrice": 37,
+          "totalPrice": 11100,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-004",
+          "description": "ردم حول الأساسات",
+          "unit": "م³",
+          "quantity": 480,
+          "unitPrice": 37,
+          "totalPrice": 17760,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-001",
+          "description": "خرسانة نظافة",
+          "unit": "م³",
+          "quantity": 60,
+          "unitPrice": 452,
+          "totalPrice": 27120,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-002",
+          "description": "قواعد خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 150,
+          "unitPrice": 452,
+          "totalPrice": 67800,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-003",
+          "description": "ميدات أرضية",
+          "unit": "م³",
+          "quantity": 90,
+          "unitPrice": 452,
+          "totalPrice": 40680,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-004",
+          "description": "بلاطة أرضية (لبشة)",
+          "unit": "م³",
+          "quantity": 150,
+          "unitPrice": 452,
+          "totalPrice": 67800,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-001",
+          "description": "أعمدة خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 72,
+          "unitPrice": 525,
+          "totalPrice": 37800,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-002",
+          "description": "كمرات خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 48,
+          "unitPrice": 525,
+          "totalPrice": 25200,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-003",
+          "description": "بلاطات أسقف خرسانية",
+          "unit": "م³",
+          "quantity": 216,
+          "unitPrice": 504,
+          "totalPrice": 108864,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-005",
+          "description": "حديد تسليح",
+          "unit": "طن",
+          "quantity": 52.56,
+          "unitPrice": 3675,
+          "totalPrice": 193158,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-006",
+          "description": "سلم خرساني",
+          "unit": "م³",
+          "quantity": 3.5,
+          "unitPrice": 504,
+          "totalPrice": 1764,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-001",
+          "description": "بلوك أسمنتي للجدران",
+          "unit": "م²",
+          "quantity": 600,
+          "unitPrice": 42,
+          "totalPrice": 25200,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-002",
+          "description": "عزل حراري للجدران",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 42,
+          "totalPrice": 8820,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-003",
+          "description": "عزل مائي للأسطح والحمامات",
+          "unit": "م²",
+          "quantity": 180,
+          "unitPrice": 105,
+          "totalPrice": 18900,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 540,
+          "unitPrice": 26,
+          "totalPrice": 14040,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-002",
+          "description": "لياسة جدران خارجية",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 26,
+          "totalPrice": 5460,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-003",
+          "description": "طرطشة أسمنتية للواجهات",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 26,
+          "totalPrice": 5460,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 510,
+          "unitPrice": 19,
+          "totalPrice": 9690,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-002",
+          "description": "دهانات جدران خارجية",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 19,
+          "totalPrice": 3990,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 1200,
+          "unitPrice": 19,
+          "totalPrice": 22800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 906,
+          "unitPrice": 68,
+          "totalPrice": 61608,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-002",
+          "description": "بلاط أرضيات خارجي",
+          "unit": "م²",
+          "quantity": 90,
+          "unitPrice": 68,
+          "totalPrice": 6120,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "unitPrice": 58,
+          "totalPrice": 3480,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-004",
+          "description": "سيراميك مطابخ",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 189,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "GPS-001",
+          "description": "أسقف جبس معلقة",
+          "unit": "م²",
+          "quantity": 600,
+          "unitPrice": 63,
+          "totalPrice": 37800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "unitPrice": 840,
+          "totalPrice": 8400,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-002",
+          "description": "باب حماية خارجي (رئيسي)",
+          "unit": "باب",
+          "quantity": 1,
+          "unitPrice": 840,
+          "totalPrice": 840,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "unitPrice": 368,
+          "totalPrice": 2944,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 126,
+          "totalPrice": 9072,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 2,
+          "unitPrice": 126,
+          "totalPrice": 252,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 96,
+          "unitPrice": 126,
+          "totalPrice": 12096,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 126,
+          "totalPrice": 9072,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "unitPrice": 158,
+          "totalPrice": 2844,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "unitPrice": 158,
+          "totalPrice": 1738,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "unitPrice": 158,
+          "totalPrice": 158,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "unitPrice": 158,
+          "totalPrice": 474,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "APT-005",
+          "description": "خزانات مياه علوية وسفلية",
+          "unit": "خزان",
+          "quantity": 2,
+          "unitPrice": 158,
+          "totalPrice": 316,
+          "phase": "PLUMBING",
+          "trade": "MECH"
+        },
+        {
+          "code": "HVAC-001",
+          "description": "مكيفات سبليت",
+          "unit": "وحدة",
+          "quantity": 4,
+          "unitPrice": 4725,
+          "totalPrice": 18900,
+          "phase": "HVAC",
+          "trade": "MECH"
+        },
+        {
+          "code": "EXT-001",
+          "description": "سور المبنى الخارجي",
+          "unit": "م طولي",
+          "quantity": 97.98,
+          "unitPrice": 42,
+          "totalPrice": 4115.16,
+          "phase": "EXTERNAL",
+          "trade": "CIVIL"
+        }
+      ],
+      "suggestedItems": [
+        {
+          "code": "FCD-002",
+          "description": "واجهات حجر طبيعي"
+        },
+        {
+          "code": "EXT-002",
+          "description": "مواقف سيارات"
+        },
+        {
+          "code": "EXT-003",
+          "description": "زراعة وتنسيق موقع"
+        },
+        {
+          "code": "VIL-001",
+          "description": "مظلة مدخل السيارة (Carport)"
+        },
+        {
+          "code": "VIL-005",
+          "description": "نظام ري للحديقة"
+        }
+      ]
+    },
+    "cost": {
+      "totalCost": 1933913,
+      "directCost": 1329378,
+      "costPerM2": 1612
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "profile": {
+      "structural": {
+        "value": "Reinforced Concrete Frame",
+        "confidence": 70,
+        "source": "knowledgeBase",
+        "reason": "نظام إنشائي نموذجي لـ Villa"
+      },
+      "hvac": "Split Units / Ducted Split",
+      "scope": {
+        "value": [
+          "Structure",
+          "Architecture",
+          "MEP",
+          "Finishing",
+          "Landscape"
+        ],
+        "source": "projectType",
+        "reason": "حسب نوع المشروع: Villa"
+      }
+    }
+  },
+  {
+    "id": "proj-1785234259687",
+    "type": "Villa",
+    "name": "Test Villa Project",
+    "recordedAt": "2026-07-28T15:09:07.848Z",
+    "physical": {
+      "area": 600,
+      "floors": 2,
+      "city": "الرياض"
+    },
+    "boq": {
+      "totalItems": 41,
+      "totalCost": 933595.16,
+      "items": [
+        {
+          "code": "EXC-001",
+          "description": "حفر أساسات",
+          "unit": "م³",
+          "quantity": 450,
+          "unitPrice": 37,
+          "totalPrice": 16650,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-002",
+          "description": "نقل ناتج الحفر",
+          "unit": "م³",
+          "quantity": 630,
+          "unitPrice": 37,
+          "totalPrice": 23310,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-003",
+          "description": "إحلال تربة",
+          "unit": "م³",
+          "quantity": 300,
+          "unitPrice": 37,
+          "totalPrice": 11100,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-004",
+          "description": "ردم حول الأساسات",
+          "unit": "م³",
+          "quantity": 480,
+          "unitPrice": 37,
+          "totalPrice": 17760,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-001",
+          "description": "خرسانة نظافة",
+          "unit": "م³",
+          "quantity": 60,
+          "unitPrice": 452,
+          "totalPrice": 27120,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-002",
+          "description": "قواعد خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 150,
+          "unitPrice": 452,
+          "totalPrice": 67800,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-003",
+          "description": "ميدات أرضية",
+          "unit": "م³",
+          "quantity": 90,
+          "unitPrice": 452,
+          "totalPrice": 40680,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-004",
+          "description": "بلاطة أرضية (لبشة)",
+          "unit": "م³",
+          "quantity": 150,
+          "unitPrice": 452,
+          "totalPrice": 67800,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-001",
+          "description": "أعمدة خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 72,
+          "unitPrice": 525,
+          "totalPrice": 37800,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-002",
+          "description": "كمرات خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 48,
+          "unitPrice": 525,
+          "totalPrice": 25200,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-003",
+          "description": "بلاطات أسقف خرسانية",
+          "unit": "م³",
+          "quantity": 216,
+          "unitPrice": 504,
+          "totalPrice": 108864,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-005",
+          "description": "حديد تسليح",
+          "unit": "طن",
+          "quantity": 52.56,
+          "unitPrice": 3675,
+          "totalPrice": 193158,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-006",
+          "description": "سلم خرساني",
+          "unit": "م³",
+          "quantity": 3.5,
+          "unitPrice": 504,
+          "totalPrice": 1764,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-001",
+          "description": "بلوك أسمنتي للجدران",
+          "unit": "م²",
+          "quantity": 600,
+          "unitPrice": 42,
+          "totalPrice": 25200,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-002",
+          "description": "عزل حراري للجدران",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 42,
+          "totalPrice": 8820,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-003",
+          "description": "عزل مائي للأسطح والحمامات",
+          "unit": "م²",
+          "quantity": 180,
+          "unitPrice": 105,
+          "totalPrice": 18900,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 540,
+          "unitPrice": 26,
+          "totalPrice": 14040,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-002",
+          "description": "لياسة جدران خارجية",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 26,
+          "totalPrice": 5460,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-003",
+          "description": "طرطشة أسمنتية للواجهات",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 26,
+          "totalPrice": 5460,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 510,
+          "unitPrice": 19,
+          "totalPrice": 9690,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-002",
+          "description": "دهانات جدران خارجية",
+          "unit": "م²",
+          "quantity": 210,
+          "unitPrice": 19,
+          "totalPrice": 3990,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 1200,
+          "unitPrice": 19,
+          "totalPrice": 22800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 906,
+          "unitPrice": 68,
+          "totalPrice": 61608,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-002",
+          "description": "بلاط أرضيات خارجي",
+          "unit": "م²",
+          "quantity": 90,
+          "unitPrice": 68,
+          "totalPrice": 6120,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "unitPrice": 58,
+          "totalPrice": 3480,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-004",
+          "description": "سيراميك مطابخ",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 189,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "GPS-001",
+          "description": "أسقف جبس معلقة",
+          "unit": "م²",
+          "quantity": 600,
+          "unitPrice": 63,
+          "totalPrice": 37800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "unitPrice": 840,
+          "totalPrice": 8400,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-002",
+          "description": "باب حماية خارجي (رئيسي)",
+          "unit": "باب",
+          "quantity": 1,
+          "unitPrice": 840,
+          "totalPrice": 840,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "unitPrice": 368,
+          "totalPrice": 2944,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 126,
+          "totalPrice": 9072,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 2,
+          "unitPrice": 126,
+          "totalPrice": 252,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 96,
+          "unitPrice": 126,
+          "totalPrice": 12096,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 126,
+          "totalPrice": 9072,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "unitPrice": 158,
+          "totalPrice": 2844,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "unitPrice": 158,
+          "totalPrice": 1738,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "unitPrice": 158,
+          "totalPrice": 158,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "unitPrice": 158,
+          "totalPrice": 474,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "APT-005",
+          "description": "خزانات مياه علوية وسفلية",
+          "unit": "خزان",
+          "quantity": 2,
+          "unitPrice": 158,
+          "totalPrice": 316,
+          "phase": "PLUMBING",
+          "trade": "MECH"
+        },
+        {
+          "code": "HVAC-001",
+          "description": "مكيفات سبليت",
+          "unit": "وحدة",
+          "quantity": 4,
+          "unitPrice": 4725,
+          "totalPrice": 18900,
+          "phase": "HVAC",
+          "trade": "MECH"
+        },
+        {
+          "code": "EXT-001",
+          "description": "سور المبنى الخارجي",
+          "unit": "م طولي",
+          "quantity": 97.98,
+          "unitPrice": 42,
+          "totalPrice": 4115.16,
+          "phase": "EXTERNAL",
+          "trade": "CIVIL"
+        }
+      ],
+      "suggestedItems": [
+        {
+          "code": "FCD-002",
+          "description": "واجهات حجر طبيعي"
+        },
+        {
+          "code": "EXT-002",
+          "description": "مواقف سيارات"
+        },
+        {
+          "code": "EXT-003",
+          "description": "زراعة وتنسيق موقع"
+        },
+        {
+          "code": "VIL-001",
+          "description": "مظلة مدخل السيارة (Carport)"
+        },
+        {
+          "code": "VIL-005",
+          "description": "نظام ري للحديقة"
+        }
+      ]
+    },
+    "cost": {
+      "totalCost": 1933913,
+      "directCost": 1329378,
+      "costPerM2": 1612
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "profile": {
+      "structural": {
+        "value": "Reinforced Concrete Frame",
+        "confidence": 70,
+        "source": "knowledgeBase",
+        "reason": "نظام إنشائي نموذجي لـ Villa"
+      },
+      "hvac": "Split Units / Ducted Split",
+      "scope": {
+        "value": [
+          "Structure",
+          "Architecture",
+          "MEP",
+          "Finishing",
+          "Landscape"
+        ],
+        "source": "projectType",
+        "reason": "حسب نوع المشروع: Villa"
+      }
+    }
+  },
+  {
+    "id": "proj-1785250696923",
+    "type": "Villa",
+    "name": "مشروع التكامل",
+    "recordedAt": "2026-07-28T21:38:52.549Z",
+    "physical": {
+      "area": 800,
+      "floors": 2,
+      "city": "Riyadh"
+    },
+    "boq": {
+      "totalItems": 41,
+      "totalCost": 1156816.02,
+      "items": [
+        {
+          "code": "EXC-001",
+          "description": "حفر أساسات",
+          "unit": "م³",
+          "quantity": 600,
+          "unitPrice": 35,
+          "totalPrice": 21000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-002",
+          "description": "نقل ناتج الحفر",
+          "unit": "م³",
+          "quantity": 840,
+          "unitPrice": 35,
+          "totalPrice": 29400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-003",
+          "description": "إحلال تربة",
+          "unit": "م³",
+          "quantity": 400,
+          "unitPrice": 35,
+          "totalPrice": 14000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-004",
+          "description": "ردم حول الأساسات",
+          "unit": "م³",
+          "quantity": 640,
+          "unitPrice": 35,
+          "totalPrice": 22400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-001",
+          "description": "خرسانة نظافة",
+          "unit": "م³",
+          "quantity": 80,
+          "unitPrice": 430,
+          "totalPrice": 34400,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-002",
+          "description": "قواعد خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-003",
+          "description": "ميدات أرضية",
+          "unit": "م³",
+          "quantity": 120,
+          "unitPrice": 430,
+          "totalPrice": 51600,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-004",
+          "description": "بلاطة أرضية (لبشة)",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-001",
+          "description": "أعمدة خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 96,
+          "unitPrice": 500,
+          "totalPrice": 48000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-002",
+          "description": "كمرات خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 64,
+          "unitPrice": 500,
+          "totalPrice": 32000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-003",
+          "description": "بلاطات أسقف خرسانية",
+          "unit": "م³",
+          "quantity": 288,
+          "unitPrice": 480,
+          "totalPrice": 138240,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-005",
+          "description": "حديد تسليح",
+          "unit": "طن",
+          "quantity": 70.08,
+          "unitPrice": 3500,
+          "totalPrice": 245280,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-006",
+          "description": "سلم خرساني",
+          "unit": "م³",
+          "quantity": 3.5,
+          "unitPrice": 480,
+          "totalPrice": 1680,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-001",
+          "description": "بلوك أسمنتي للجدران",
+          "unit": "م²",
+          "quantity": 692.82,
+          "unitPrice": 40,
+          "totalPrice": 27712.8,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-002",
+          "description": "عزل حراري للجدران",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 40,
+          "totalPrice": 9699.6,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-003",
+          "description": "عزل مائي للأسطح والحمامات",
+          "unit": "م²",
+          "quantity": 240,
+          "unitPrice": 100,
+          "totalPrice": 24000,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 623.54,
+          "unitPrice": 25,
+          "totalPrice": 15588.5,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-002",
+          "description": "لياسة جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-003",
+          "description": "طرطشة أسمنتية للواجهات",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 588.9,
+          "unitPrice": 18,
+          "totalPrice": 10600.2,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-002",
+          "description": "دهانات جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 18,
+          "totalPrice": 4364.82,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 1600,
+          "unitPrice": 18,
+          "totalPrice": 28800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 1226,
+          "unitPrice": 65,
+          "totalPrice": 79690,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-002",
+          "description": "بلاط أرضيات خارجي",
+          "unit": "م²",
+          "quantity": 120,
+          "unitPrice": 65,
+          "totalPrice": 7800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "unitPrice": 55,
+          "totalPrice": 3300,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-004",
+          "description": "سيراميك مطابخ",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "GPS-001",
+          "description": "أسقف جبس معلقة",
+          "unit": "م²",
+          "quantity": 800,
+          "unitPrice": 60,
+          "totalPrice": 48000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "unitPrice": 800,
+          "totalPrice": 8000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-002",
+          "description": "باب حماية خارجي (رئيسي)",
+          "unit": "باب",
+          "quantity": 1,
+          "unitPrice": 800,
+          "totalPrice": 800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "unitPrice": 350,
+          "totalPrice": 2800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 120,
+          "totalPrice": 8640,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 2,
+          "unitPrice": 120,
+          "totalPrice": 240,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 128,
+          "unitPrice": 120,
+          "totalPrice": 15360,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 96,
+          "unitPrice": 120,
+          "totalPrice": 11520,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "unitPrice": 150,
+          "totalPrice": 2700,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "unitPrice": 150,
+          "totalPrice": 1650,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "unitPrice": 150,
+          "totalPrice": 150,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "unitPrice": 150,
+          "totalPrice": 450,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "APT-005",
+          "description": "خزانات مياه علوية وسفلية",
+          "unit": "خزان",
+          "quantity": 2,
+          "unitPrice": 150,
+          "totalPrice": 300,
+          "phase": "PLUMBING",
+          "trade": "MECH"
+        },
+        {
+          "code": "HVAC-001",
+          "description": "مكيفات سبليت",
+          "unit": "وحدة",
+          "quantity": 4,
+          "unitPrice": 4500,
+          "totalPrice": 18000,
+          "phase": "HVAC",
+          "trade": "MECH"
+        },
+        {
+          "code": "EXT-001",
+          "description": "سور المبنى الخارجي",
+          "unit": "م طولي",
+          "quantity": 113.14,
+          "unitPrice": 40,
+          "totalPrice": 4525.6,
+          "phase": "EXTERNAL",
+          "trade": "CIVIL"
+        }
+      ],
+      "suggestedItems": [
+        {
+          "code": "FCD-002",
+          "description": "واجهات حجر طبيعي"
+        },
+        {
+          "code": "EXT-002",
+          "description": "مواقف سيارات"
+        },
+        {
+          "code": "EXT-003",
+          "description": "زراعة وتنسيق موقع"
+        },
+        {
+          "code": "VIL-001",
+          "description": "مظلة مدخل السيارة (Carport)"
+        },
+        {
+          "code": "VIL-005",
+          "description": "نظام ري للحديقة"
+        }
+      ]
+    },
+    "cost": {
+      "totalCost": 2258643,
+      "directCost": 1552599,
+      "costPerM2": 1412
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "profile": {
+      "structural": {
+        "value": "Reinforced Concrete Frame",
+        "confidence": 70,
+        "source": "knowledgeBase",
+        "reason": "نظام إنشائي نموذجي لـ Villa"
+      },
+      "hvac": "Split Units / Ducted Split",
+      "scope": {
+        "value": [
+          "Structure",
+          "Architecture",
+          "MEP",
+          "Finishing",
+          "Landscape"
+        ],
+        "source": "projectType",
+        "reason": "حسب نوع المشروع: Villa"
+      }
+    }
+  },
+  {
+    "id": "proj-1785250696923",
+    "type": "Villa",
+    "name": "مشروع التكامل",
+    "recordedAt": "2026-07-29T11:35:21.380Z",
+    "physical": {
+      "area": 800,
+      "floors": 2,
+      "city": "Riyadh"
+    },
+    "boq": {
+      "totalItems": 41,
+      "totalCost": 1156816.02,
+      "items": [
+        {
+          "code": "EXC-001",
+          "description": "حفر أساسات",
+          "unit": "م³",
+          "quantity": 600,
+          "unitPrice": 35,
+          "totalPrice": 21000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-002",
+          "description": "نقل ناتج الحفر",
+          "unit": "م³",
+          "quantity": 840,
+          "unitPrice": 35,
+          "totalPrice": 29400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-003",
+          "description": "إحلال تربة",
+          "unit": "م³",
+          "quantity": 400,
+          "unitPrice": 35,
+          "totalPrice": 14000,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "EXC-004",
+          "description": "ردم حول الأساسات",
+          "unit": "م³",
+          "quantity": 640,
+          "unitPrice": 35,
+          "totalPrice": 22400,
+          "phase": "EXCAVATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-001",
+          "description": "خرسانة نظافة",
+          "unit": "م³",
+          "quantity": 80,
+          "unitPrice": 430,
+          "totalPrice": 34400,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-002",
+          "description": "قواعد خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-003",
+          "description": "ميدات أرضية",
+          "unit": "م³",
+          "quantity": 120,
+          "unitPrice": 430,
+          "totalPrice": 51600,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "FND-004",
+          "description": "بلاطة أرضية (لبشة)",
+          "unit": "م³",
+          "quantity": 200,
+          "unitPrice": 430,
+          "totalPrice": 86000,
+          "phase": "FOUNDATION",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-001",
+          "description": "أعمدة خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 96,
+          "unitPrice": 500,
+          "totalPrice": 48000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-002",
+          "description": "كمرات خرسانية مسلحة",
+          "unit": "م³",
+          "quantity": 64,
+          "unitPrice": 500,
+          "totalPrice": 32000,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-003",
+          "description": "بلاطات أسقف خرسانية",
+          "unit": "م³",
+          "quantity": 288,
+          "unitPrice": 480,
+          "totalPrice": 138240,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-005",
+          "description": "حديد تسليح",
+          "unit": "طن",
+          "quantity": 70.08,
+          "unitPrice": 3500,
+          "totalPrice": 245280,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "STR-006",
+          "description": "سلم خرساني",
+          "unit": "م³",
+          "quantity": 3.5,
+          "unitPrice": 480,
+          "totalPrice": 1680,
+          "phase": "STRUCTURE",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-001",
+          "description": "بلوك أسمنتي للجدران",
+          "unit": "م²",
+          "quantity": 692.82,
+          "unitPrice": 40,
+          "totalPrice": 27712.8,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-002",
+          "description": "عزل حراري للجدران",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 40,
+          "totalPrice": 9699.6,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "MSN-003",
+          "description": "عزل مائي للأسطح والحمامات",
+          "unit": "م²",
+          "quantity": 240,
+          "unitPrice": 100,
+          "totalPrice": 24000,
+          "phase": "MASONRY",
+          "trade": "CIVIL"
+        },
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 623.54,
+          "unitPrice": 25,
+          "totalPrice": 15588.5,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-002",
+          "description": "لياسة جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PLS-003",
+          "description": "طرطشة أسمنتية للواجهات",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 25,
+          "totalPrice": 6062.25,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 588.9,
+          "unitPrice": 18,
+          "totalPrice": 10600.2,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-002",
+          "description": "دهانات جدران خارجية",
+          "unit": "م²",
+          "quantity": 242.49,
+          "unitPrice": 18,
+          "totalPrice": 4364.82,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 1600,
+          "unitPrice": 18,
+          "totalPrice": 28800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 1226,
+          "unitPrice": 65,
+          "totalPrice": 79690,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-002",
+          "description": "بلاط أرضيات خارجي",
+          "unit": "م²",
+          "quantity": 120,
+          "unitPrice": 65,
+          "totalPrice": 7800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "unitPrice": 55,
+          "totalPrice": 3300,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-004",
+          "description": "سيراميك مطابخ",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "GPS-001",
+          "description": "أسقف جبس معلقة",
+          "unit": "م²",
+          "quantity": 800,
+          "unitPrice": 60,
+          "totalPrice": 48000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "unitPrice": 800,
+          "totalPrice": 8000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-002",
+          "description": "باب حماية خارجي (رئيسي)",
+          "unit": "باب",
+          "quantity": 1,
+          "unitPrice": 800,
+          "totalPrice": 800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "unitPrice": 350,
+          "totalPrice": 2800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 120,
+          "totalPrice": 8640,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 2,
+          "unitPrice": 120,
+          "totalPrice": 240,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 128,
+          "unitPrice": 120,
+          "totalPrice": 15360,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 96,
+          "unitPrice": 120,
+          "totalPrice": 11520,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "unitPrice": 150,
+          "totalPrice": 2700,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "unitPrice": 150,
+          "totalPrice": 1650,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "unitPrice": 150,
+          "totalPrice": 150,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "unitPrice": 150,
+          "totalPrice": 450,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "APT-005",
+          "description": "خزانات مياه علوية وسفلية",
+          "unit": "خزان",
+          "quantity": 2,
+          "unitPrice": 150,
+          "totalPrice": 300,
+          "phase": "PLUMBING",
+          "trade": "MECH"
+        },
+        {
+          "code": "HVAC-001",
+          "description": "مكيفات سبليت",
+          "unit": "وحدة",
+          "quantity": 4,
+          "unitPrice": 4500,
+          "totalPrice": 18000,
+          "phase": "HVAC",
+          "trade": "MECH"
+        },
+        {
+          "code": "EXT-001",
+          "description": "سور المبنى الخارجي",
+          "unit": "م طولي",
+          "quantity": 113.14,
+          "unitPrice": 40,
+          "totalPrice": 4525.6,
+          "phase": "EXTERNAL",
+          "trade": "CIVIL"
+        }
+      ],
+      "suggestedItems": [
+        {
+          "code": "FCD-002",
+          "description": "واجهات حجر طبيعي"
+        },
+        {
+          "code": "EXT-002",
+          "description": "مواقف سيارات"
+        },
+        {
+          "code": "EXT-003",
+          "description": "زراعة وتنسيق موقع"
+        },
+        {
+          "code": "VIL-001",
+          "description": "مظلة مدخل السيارة (Carport)"
+        },
+        {
+          "code": "VIL-005",
+          "description": "نظام ري للحديقة"
+        }
+      ]
+    },
+    "cost": {
+      "totalCost": 2258643,
+      "directCost": 1552599,
+      "costPerM2": 1412
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "profile": {
+      "structural": {
+        "value": "Reinforced Concrete Frame",
+        "confidence": 70,
+        "source": "knowledgeBase",
+        "reason": "نظام إنشائي نموذجي لـ Villa"
+      },
+      "hvac": "Split Units / Ducted Split",
+      "scope": {
+        "value": [
+          "Structure",
+          "Architecture",
+          "MEP",
+          "Finishing",
+          "Landscape"
+        ],
+        "source": "projectType",
+        "reason": "حسب نوع المشروع: Villa"
+      }
+    }
+  },
+  {
+    "id": "proj-1785324632561",
+    "type": "Unknown",
+    "name": "برج ناطحة سحاب",
+    "recordedAt": "2026-07-30T09:03:31.037Z",
+    "physical": {
+      "area": 0,
+      "floors": 1,
+      "city": "Riyadh"
+    },
+    "boq": {
+      "totalItems": 15,
+      "totalCost": 27810,
+      "items": [
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "PLASTERING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "unitPrice": 55,
+          "totalPrice": 3300,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "unitPrice": 800,
+          "totalPrice": 8000,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "unitPrice": 350,
+          "totalPrice": 2800,
+          "phase": "FINISHING",
+          "trade": "ARCH"
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "unitPrice": 120,
+          "totalPrice": 8640,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 1,
+          "unitPrice": 120,
+          "totalPrice": 120,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 0,
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "phase": "ELECTRICAL",
+          "trade": "ELECTRO"
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "unitPrice": 150,
+          "totalPrice": 2700,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "unitPrice": 150,
+          "totalPrice": 1650,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "unitPrice": 150,
+          "totalPrice": 150,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "unitPrice": 150,
+          "totalPrice": 450,
+          "phase": "PLUMBING",
+          "trade": "SANITARY"
+        }
+      ],
+      "suggestedItems": []
+    },
+    "cost": {
+      "totalCost": 269136,
+      "directCost": 185005,
+      "costPerM2": null
+    },
+    "schedule": {
+      "totalDuration": 162,
+      "totalMonths": 7.4
+    },
+    "profile": {
+      "structural": {
+        "value": null,
+        "confidence": 0,
+        "source": "none",
+        "reason": "لا توجد بيانات عن الهيكل الإنشائي"
+      },
+      "scope": {
+        "value": [
+          "Structure",
+          "Architecture",
+          "MEP",
+          "Finishing",
+          "Elevator",
+          "BMS"
+        ],
+        "source": "projectType",
+        "reason": "حسب نوع المشروع: Residential_Tower"
+      }
+    }
+  }
+]

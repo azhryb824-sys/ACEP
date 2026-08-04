@@ -1,0 +1,64 @@
+{
+  "timestamp": "2026-07-21T12:29:53.147Z",
+  "summary": {
+    "total": 13,
+    "passed": 13,
+    "failed": 0,
+    "passRate": "100.0"
+  },
+  "tests": [
+    {
+      "name": "Data - CSV Files Exist",
+      "status": "PASS"
+    },
+    {
+      "name": "Data - Project Integrity",
+      "status": "PASS"
+    },
+    {
+      "name": "Data - BOQ Integrity",
+      "status": "PASS"
+    },
+    {
+      "name": "Data - Material Prices",
+      "status": "PASS"
+    },
+    {
+      "name": "Data - Risk Integrity",
+      "status": "PASS"
+    },
+    {
+      "name": "Engineering - Concrete Ratios",
+      "status": "PASS"
+    },
+    {
+      "name": "Engineering - Steel Ratios",
+      "status": "PASS"
+    },
+    {
+      "name": "Engineering - Cost/m² Range",
+      "status": "PASS"
+    },
+    {
+      "name": "Iteration 1 - Data Quality",
+      "status": "PASS"
+    },
+    {
+      "name": "Iteration 2 - Data Quality",
+      "status": "PASS"
+    },
+    {
+      "name": "Iteration 3 - Data Quality",
+      "status": "PASS"
+    },
+    {
+      "name": "Iteration 4 - Data Quality",
+      "status": "PASS"
+    },
+    {
+      "name": "Iteration 5 - Data Quality",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

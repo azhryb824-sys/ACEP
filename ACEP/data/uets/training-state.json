@@ -1,0 +1,273 @@
+{
+  "trainingQueue": [
+    {
+      "id": "train-1785415347089-zzsni",
+      "type": "training",
+      "models": [
+        "projectAnalyzer",
+        "costEstimator"
+      ],
+      "options": {
+        "force": true
+      },
+      "status": "queued",
+      "createdAt": "2026-07-30T12:42:27.089Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "train-1785568163200-mtct4",
+      "type": "training",
+      "models": [
+        "costEstimator"
+      ],
+      "options": {
+        "force": true
+      },
+      "status": "queued",
+      "createdAt": "2026-08-01T07:09:23.200Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "train-1785568172806-y8374",
+      "type": "training",
+      "models": [
+        "costEstimator"
+      ],
+      "options": {
+        "force": true
+      },
+      "status": "queued",
+      "createdAt": "2026-08-01T07:09:32.806Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "train-1785568305307-r5a7x",
+      "type": "training",
+      "models": [
+        "costEstimator"
+      ],
+      "options": {
+        "useUETS": true,
+        "models": [
+          "costEstimator"
+        ]
+      },
+      "status": "queued",
+      "createdAt": "2026-08-01T07:11:45.307Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "train-1785569043298-chfe7",
+      "type": "training",
+      "models": [
+        "projectAnalyzer"
+      ],
+      "options": {
+        "useUETS": true,
+        "models": [
+          "projectAnalyzer"
+        ]
+      },
+      "status": "queued",
+      "createdAt": "2026-08-01T07:24:03.298Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "train-1785569804620-j1bil",
+      "type": "training",
+      "models": [
+        "quantityEstimator"
+      ],
+      "options": {
+        "useUETS": true,
+        "models": [
+          "quantityEstimator"
+        ]
+      },
+      "status": "queued",
+      "createdAt": "2026-08-01T07:36:44.620Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    }
+  ],
+  "retrainingQueue": [
+    {
+      "id": "retrain-1785415347092-6ur8q",
+      "type": "retraining",
+      "reason": "test",
+      "options": {},
+      "status": "queued",
+      "createdAt": "2026-07-30T12:42:27.092Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    }
+  ],
+  "evaluationQueue": [
+    {
+      "id": "eval-1785415347104-4tp62",
+      "type": "evaluation",
+      "evalType": "full",
+      "options": {},
+      "status": "queued",
+      "createdAt": "2026-07-30T12:42:27.104Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "eval-1785568307060-61toj",
+      "type": "evaluation",
+      "evalType": "benchmark",
+      "options": {
+        "results": {
+          "models": {
+            "costEstimator": {
+              "ok": true,
+              "result": {}
+            }
+          },
+          "errors": [],
+          "duration": 1751,
+          "timestamp": "2026-08-01T07:11:45.309Z",
+          "uets": true,
+          "benchmarkAfter": {
+            "passRate": 100,
+            "projectTypes": 19
+          }
+        }
+      },
+      "status": "queued",
+      "createdAt": "2026-08-01T07:11:47.060Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "eval-1785569043532-sjy7n",
+      "type": "evaluation",
+      "evalType": "benchmark",
+      "options": {
+        "results": {
+          "models": {
+            "projectAnalyzer": {
+              "ok": true,
+              "result": {}
+            }
+          },
+          "errors": [],
+          "duration": 233,
+          "timestamp": "2026-08-01T07:24:03.299Z",
+          "uets": true,
+          "benchmarkAfter": {
+            "passRate": 100,
+            "projectTypes": 19
+          }
+        }
+      },
+      "status": "queued",
+      "createdAt": "2026-08-01T07:24:03.532Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "eval-1785569805043-2hkgc",
+      "type": "evaluation",
+      "evalType": "benchmark",
+      "options": {
+        "results": {
+          "models": {
+            "quantityEstimator": {
+              "ok": true,
+              "result": {}
+            }
+          },
+          "errors": [],
+          "duration": 422,
+          "timestamp": "2026-08-01T07:36:44.621Z",
+          "uets": true,
+          "benchmarkAfter": {
+            "passRate": 100,
+            "projectTypes": 19
+          }
+        }
+      },
+      "status": "queued",
+      "createdAt": "2026-08-01T07:36:45.043Z",
+      "startedAt": null,
+      "completedAt": null,
+      "result": null,
+      "error": null
+    }
+  ],
+  "feedbackQueue": [
+    {
+      "id": "fb-1785415347106-bcqax",
+      "type": "user",
+      "message": "Good prediction",
+      "projectId": "test-001",
+      "status": "queued",
+      "createdAt": "2026-07-30T12:42:27.106Z",
+      "processedAt": null
+    },
+    {
+      "id": "fb-1785568307063-lnyck",
+      "type": "retraining",
+      "models": [
+        "costEstimator"
+      ],
+      "timestamp": "2026-08-01T07:11:45.309Z",
+      "passRate": 100,
+      "status": "queued",
+      "createdAt": "2026-08-01T07:11:47.063Z",
+      "processedAt": null
+    },
+    {
+      "id": "fb-1785569043534-1uq2g",
+      "type": "retraining",
+      "models": [
+        "projectAnalyzer"
+      ],
+      "timestamp": "2026-08-01T07:24:03.299Z",
+      "passRate": 100,
+      "status": "queued",
+      "createdAt": "2026-08-01T07:24:03.534Z",
+      "processedAt": null
+    },
+    {
+      "id": "fb-1785569805044-hu5y9",
+      "type": "retraining",
+      "models": [
+        "quantityEstimator"
+      ],
+      "timestamp": "2026-08-01T07:36:44.621Z",
+      "passRate": 100,
+      "status": "queued",
+      "createdAt": "2026-08-01T07:36:45.044Z",
+      "processedAt": null
+    }
+  ],
+  "history": []
+}

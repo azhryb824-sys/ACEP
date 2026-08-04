@@ -1,74 +1,115 @@
 export interface SimulationModel {
-  id: string;
-  name: string;
-  type: string;
-  parameters: Record<string, unknown>;
-  constraints: string[];
-  createdAt: string;
+  projectType: string;
+  area: number;
+  floors: number;
+  finishingLevel: string;
+  location: string;
 }
 
 export interface ScenarioResult {
-  scenarioId: string;
+  id: string;
   name: string;
-  metrics: Record<string, number>;
-  duration: number;
-  resources: Record<string, number>;
-  cost: number;
-  risks: string[];
+  durationMonths: number;
+  costPerM2: number;
+  totalCost: number;
+  resourceEfficiency: number;
+  riskScore: number;
 }
 
 export interface SimulationReport {
-  id: string;
-  simulationId: string;
   scenarios: ScenarioResult[];
-  recommendations: string[];
-  generatedAt: string;
+  recommended: string;
+  comparison: Record<string, string>;
 }
+
+const BASE_RATES: Record<string, { costPerM2: number; months: number }> = {
+  Villa: { costPerM2: 3500, months: 2 },
+  Building: { costPerM2: 4200, months: 2.5 },
+  Tower: { costPerM2: 5500, months: 3.5 },
+  Hotel: { costPerM2: 6000, months: 4 },
+  Mosque: { costPerM2: 4500, months: 3 },
+  Hospital: { costPerM2: 7000, months: 5 },
+  School: { costPerM2: 3800, months: 3 },
+  Mall: { costPerM2: 5200, months: 4 },
+  Warehouse: { costPerM2: 2800, months: 2 },
+  Bridge: { costPerM2: 8000, months: 6 },
+  Road: { costPerM2: 1500, months: 1.5 },
+  Factory: { costPerM2: 4500, months: 4 },
+  Farm: { costPerM2: 1200, months: 1.5 },
+  Infrastructure: { costPerM2: 3000, months: 3 },
+  'Water Treatment': { costPerM2: 6500, months: 5 },
+  Sports: { costPerM2: 5000, months: 3.5 },
+  Office: { costPerM2: 4800, months: 3 },
+  Residential: { costPerM2: 3800, months: 2.5 },
+  Commercial: { costPerM2: 4500, months: 3 },
+};
+
+const FINISHING_FACTOR: Record<string, number> = {
+  'Standard': 1.0,
+  'Good': 1.15,
+  'Premium': 1.35,
+  'Luxury': 1.6,
+};
 
 export class SimulationService {
   private initialized = false;
-  private simulations: Map<string, SimulationModel> = new Map();
-  private results: Map<string, ScenarioResult[]> = new Map();
 
   async initialize(): Promise<void> {
     this.initialized = true;
   }
 
-  async runSimulation(model: SimulationModel, scenarios: Array<{ name: string; params: Record<string, unknown> }>): Promise<ScenarioResult[]> {
-    const results: ScenarioResult[] = scenarios.map((s, i) => ({
-      scenarioId: `${model.id}-scenario-${i}`,
-      name: s.name,
-      metrics: { duration: Math.random() * 365, costEfficiency: Math.random(), quality: Math.random() },
-      duration: Math.random() * 365,
-      resources: { labor: Math.floor(Math.random() * 100), equipment: Math.floor(Math.random() * 20) },
-      cost: Math.random() * 10000000,
-      risks: ['Material delay', 'Labor shortage']
-    }));
+  runSimulation(model: SimulationModel, name: string = 'Baseline'): ScenarioResult {
+    this.ensureInitialized();
+    const base = BASE_RATES[model.projectType] || BASE_RATES['Building'];
+    const finishFactor = FINISHING_FACTOR[model.finishingLevel] || 1.0;
+    const floorFactor = 1 + (model.floors - 1) * 0.08;
+    const areaEff = model.area > 0 ? Math.pow(model.area / 500, -0.1) : 1;
 
-    this.results.set(model.id, results);
-    return results;
-  }
+    const costPerM2 = base.costPerM2 * finishFactor * floorFactor;
+    const durationMonths = base.months * Math.pow(model.area / 300, 0.3) * floorFactor * 0.8;
+    const totalCost = costPerM2 * model.area;
+    const riskScore = Math.min(1, 0.2 + (model.floors > 10 ? 0.3 : model.floors > 5 ? 0.15 : 0) + (finishFactor > 1.3 ? 0.1 : 0));
+    const resourceEfficiency = Math.max(0, 1 - riskScore * areaEff);
 
-  async compareScenarios(results: ScenarioResult[]): Promise<Array<{ scenario: string; rank: number; score: number; pros: string[]; cons: string[] }>> {
-    return results.map((r, i) => ({
-      scenario: r.name,
-      rank: i + 1,
-      score: r.metrics.costEfficiency || 0.5,
-      pros: ['Lower cost', 'Faster execution'],
-      cons: ['Higher risk', 'Resource intensive']
-    }));
-  }
-
-  async generateReport(simulationId: string): Promise<SimulationReport> {
-    const scenarios = this.results.get(simulationId) || [];
     return {
-      id: `report-${Date.now()}`,
-      simulationId,
+      id: `sim-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      name,
+      durationMonths: Math.round(durationMonths * 10) / 10,
+      costPerM2: Math.round(costPerM2),
+      totalCost: Math.round(totalCost),
+      resourceEfficiency: Math.round(resourceEfficiency * 100) / 100,
+      riskScore: Math.round(riskScore * 100) / 100,
+    };
+  }
+
+  compareScenarios(scenarios: ScenarioResult[]): ScenarioResult[] {
+    return [...scenarios].sort((a, b) => {
+      const scoreA = a.resourceEfficiency - a.riskScore;
+      const scoreB = b.resourceEfficiency - b.riskScore;
+      return scoreB - scoreA;
+    });
+  }
+
+  generateReport(model: SimulationModel, scenarios: ScenarioResult[]): SimulationReport {
+    const sorted = this.compareScenarios(scenarios);
+    const best = sorted[0];
+
+    return {
       scenarios,
-      recommendations: ['Use precast concrete for faster construction', 'Consider steel frame for longer spans'],
-      generatedAt: new Date().toISOString()
+      recommended: best?.name || 'None',
+      comparison: {
+        costRange: `${Math.min(...scenarios.map(s => s.totalCost)).toLocaleString()} – ${Math.max(...scenarios.map(s => s.totalCost)).toLocaleString()} SAR`,
+        durationRange: `${Math.min(...scenarios.map(s => s.durationMonths))} – ${Math.max(...scenarios.map(s => s.durationMonths))} months`,
+        bestEfficiency: `${Math.round((best?.resourceEfficiency || 0) * 100)}%`,
+      },
     };
   }
 
   isInitialized(): boolean { return this.initialized; }
+
+  private ensureInitialized(): void {
+    if (!this.initialized) throw new Error('SimulationService not initialized. Call initialize() first.');
+  }
 }
+
+export const simulationService = new SimulationService();

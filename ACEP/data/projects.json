@@ -1,0 +1,2647 @@
+[
+  {
+    "id": "proj-001",
+    "name": "برج المملكة السكني",
+    "type": "Villa",
+    "status": "Active",
+    "created": "2026-01-15",
+    "area": 42000,
+    "floors": 30,
+    "cost": 450000000,
+    "progress": 72
+  },
+  {
+    "id": "proj-002",
+    "name": "مستشفى المدينة الطبي",
+    "type": "Hospital",
+    "status": "Delayed",
+    "created": "2026-03-20",
+    "area": 85000,
+    "floors": 12,
+    "cost": 1200000000,
+    "progress": 45
+  },
+  {
+    "id": "proj-003",
+    "name": "مشروع جدة السكني",
+    "type": "Residential_Compound",
+    "status": "Planning",
+    "created": "2026-04-10",
+    "area": 500000,
+    "floors": 2,
+    "cost": 280000000,
+    "progress": 15
+  },
+  {
+    "id": "proj-1784638548741",
+    "name": "تشطيب شقة",
+    "type": "Apartment_Building",
+    "status": "Planning",
+    "created": "2026-07-21",
+    "area": 38000,
+    "floors": 8,
+    "cost": 374844491,
+    "progress": 0,
+    "description": "تشطيب شقة مكونة من خمس غرف و ثلاث حمامات واصالتين ومطبخ",
+    "aiAnalysis": {
+      "projectType": "Apartment_Building",
+      "totalArea": 38000,
+      "areaPerFloor": 4750,
+      "floors": 8,
+      "finishing": "Standard",
+      "region": "Riyadh",
+      "estimatedCost": 174937266,
+      "concreteM3": 9152,
+      "steelTon": 1054.42,
+      "durationMonths": 32,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 23,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 22,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 37,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 21,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 9,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 11,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 11,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-1",
+          "type": "Corridor",
+          "area": 17,
+          "finishingLevel": "Standard"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 466
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": 170791274.33,
+      "averageConfidence": 0.93
+    }
+  },
+  {
+    "id": "proj-1784638931436",
+    "name": "???? ??????",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-21",
+    "area": 1000,
+    "floors": 2,
+    "cost": 11745133,
+    "progress": 0,
+    "description": "",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 1000,
+      "areaPerFloor": 500,
+      "floors": 2,
+      "finishing": "Standard",
+      "region": "Riyadh",
+      "estimatedCost": 4275393,
+      "concreteM3": 198,
+      "steelTon": 21.76,
+      "durationMonths": 9,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 23,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 18,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 26,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 44,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 40,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 16,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 6,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 7,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 6,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 36,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 29,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 16,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 13,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 63,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": 7611598.72,
+      "averageConfidence": 0.52,
+      "trainingDataUsed": 85062
+    }
+  },
+  {
+    "id": "proj-1784639177316",
+    "name": "????",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-21",
+    "area": 800,
+    "floors": 2,
+    "cost": 16432637,
+    "progress": 0,
+    "description": "",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 800,
+      "areaPerFloor": 400,
+      "floors": 2,
+      "finishing": "Standard",
+      "region": "Riyadh",
+      "estimatedCost": 3420315,
+      "concreteM3": 159,
+      "steelTon": 17.41,
+      "durationMonths": 8,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 26,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 22,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 27,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 39,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 37,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 21,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 10,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 13,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 10,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 32,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 20,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 14,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 18,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 68,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": 10893463.46,
+      "averageConfidence": 0.52,
+      "trainingDataUsed": 85062
+    }
+  },
+  {
+    "id": "proj-1784639177370",
+    "name": "???",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-21",
+    "area": 450000,
+    "floors": 30,
+    "cost": 167303716479,
+    "progress": 0,
+    "description": "",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 450000,
+      "areaPerFloor": 15000,
+      "floors": 30,
+      "finishing": "Standard",
+      "region": "Riyadh",
+      "estimatedCost": 1923926986,
+      "concreteM3": 89189,
+      "steelTon": 9791.41,
+      "durationMonths": 2806,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 25,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 23,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 22,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 42,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 44,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 23,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 13,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 15,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 11,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 32,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 29,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 13,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 18,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 65,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": 65422878386.44,
+      "averageConfidence": 0.52,
+      "trainingDataUsed": 85062
+    }
+  },
+  {
+    "id": "proj-1784639203474",
+    "name": "Test",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-21",
+    "area": 1000,
+    "floors": 2,
+    "cost": 21916269,
+    "progress": 0,
+    "description": "",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 1000,
+      "areaPerFloor": 500,
+      "floors": 2,
+      "finishing": "Standard",
+      "region": "Riyadh",
+      "estimatedCost": 4275393,
+      "concreteM3": 198,
+      "steelTon": 21.76,
+      "durationMonths": 9,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 18,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 18,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 38,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 40,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 24,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 13,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 10,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 6,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 32,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 21,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 15,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 17,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 69,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": 14601633.45,
+      "averageConfidence": 0.52,
+      "trainingDataUsed": 85062
+    }
+  },
+  {
+    "id": "proj-1784639317367",
+    "name": "P1",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-21",
+    "area": 1000,
+    "floors": 2,
+    "cost": 11873119,
+    "progress": 0,
+    "description": "",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 1000,
+      "areaPerFloor": 500,
+      "floors": 2,
+      "finishing": "Standard",
+      "region": "Riyadh",
+      "estimatedCost": 4275393,
+      "concreteM3": 198,
+      "steelTon": 21.76,
+      "durationMonths": 9,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 20,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 27,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 22,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 41,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 40,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 22,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 15,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 11,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 11,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 39,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 28,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 18,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 12,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 61,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": 7700007.25,
+      "averageConfidence": 0.52,
+      "trainingDataUsed": 85062
+    }
+  },
+  {
+    "id": "proj-1784639317428",
+    "name": "P2",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-21",
+    "area": 450000,
+    "floors": 30,
+    "cost": 171376157440,
+    "progress": 0,
+    "description": "",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 450000,
+      "areaPerFloor": 15000,
+      "floors": 30,
+      "finishing": "Standard",
+      "region": "Riyadh",
+      "estimatedCost": 1923926986,
+      "concreteM3": 89189,
+      "steelTon": 9791.41,
+      "durationMonths": 2806,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 18,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 22,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 43,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 39,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 22,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 8,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 11,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 8,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 38,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 28,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 17,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 17,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 67,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": 68126542789.75,
+      "averageConfidence": 0.52,
+      "trainingDataUsed": 85062
+    }
+  },
+  {
+    "id": "proj-1784639317465",
+    "name": "P3",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-21",
+    "area": 50000,
+    "floors": 5,
+    "cost": 2893285860,
+    "progress": 0,
+    "description": "",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 50000,
+      "areaPerFloor": 10000,
+      "floors": 5,
+      "finishing": "Standard",
+      "region": "Riyadh",
+      "estimatedCost": 213769665,
+      "concreteM3": 9910,
+      "steelTon": 1087.93,
+      "durationMonths": 156,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 22,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 26,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 23,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 37,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 36,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 24,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 10,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 11,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 10,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 37,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 24,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 11,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 12,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 68,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": 1812782224.58,
+      "averageConfidence": 0.52,
+      "trainingDataUsed": 85062
+    }
+  },
+  {
+    "id": "proj-1784639837101",
+    "name": "اختبار",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-21",
+    "area": 1000,
+    "floors": 2,
+    "cost": 13668985,
+    "progress": 0,
+    "description": "",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 1000,
+      "areaPerFloor": 500,
+      "floors": 2,
+      "finishing": "Standard",
+      "region": "Riyadh",
+      "estimatedCost": 4275393,
+      "concreteM3": 198,
+      "steelTon": 21.76,
+      "durationMonths": 9,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 27,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 23,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 38,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 42,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 20,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 6,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 9,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 9,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 31,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 26,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 13,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 13,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 67,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": 8930129.68,
+      "averageConfidence": 0.52,
+      "trainingDataUsed": 85062
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "risks": {
+      "level": "Medium",
+      "score": 0.4
+    },
+    "quality": {
+      "score": 0,
+      "grade": "ضعيف"
+    }
+  },
+  {
+    "id": "proj-1784639851091",
+    "name": "اختبار",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-21",
+    "area": 1000,
+    "floors": 2,
+    "cost": 21571514,
+    "progress": 0,
+    "description": "",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 1000,
+      "areaPerFloor": 500,
+      "floors": 2,
+      "finishing": "Standard",
+      "region": "Riyadh",
+      "estimatedCost": 4275393,
+      "concreteM3": 198,
+      "steelTon": 21.76,
+      "durationMonths": 9,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 18,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 24,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 39,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 38,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 24,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 12,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 9,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 14,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 34,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 20,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 16,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 12,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 63,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": 14364007.49,
+      "averageConfidence": 0.52,
+      "trainingDataUsed": 85062
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "risks": {
+      "level": "Medium",
+      "score": 0.4
+    },
+    "quality": {
+      "score": 0,
+      "grade": "ضعيف"
+    }
+  },
+  {
+    "id": "proj-1784734385238",
+    "name": "تشطيب شقة",
+    "type": "Unknown",
+    "status": "Planning",
+    "created": "2026-07-22",
+    "cost": null,
+    "progress": 0,
+    "description": "ثلاث غرف وحمامين ومطبخ وصالة بمساحة إجمالية 200م مربع",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "insufficientData": true,
+      "message": "لا يمكن استنتاج عدد الأدوار من الوصف الحالي",
+      "missing": [
+        "floors"
+      ],
+      "description": "ثلاث غرف وحمامين ومطبخ وصالة بمساحة إجمالية 200م مربع",
+      "projectType": "Unknown",
+      "typeConfidence": 0.5
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": null,
+      "averageConfidence": 0.95,
+      "trainingDataUsed": 85062
+    },
+    "schedule": {
+      "totalDuration": null,
+      "totalMonths": null
+    },
+    "risks": {
+      "level": "Low",
+      "score": null
+    },
+    "quality": {
+      "score": 100,
+      "grade": "ممتاز"
+    }
+  },
+  {
+    "id": "proj-1784734474175",
+    "name": "شقة",
+    "type": "Apartment_Finishing",
+    "status": "Planning",
+    "created": "2026-07-22",
+    "cost": null,
+    "progress": 0,
+    "description": "تشطيب شقة مكونة من غرفتين وحمام بمساحة 100 متر مربع دور 1",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "insufficientData": true,
+      "message": "لا يمكن استنتاج عدد الأدوار من الوصف الحالي",
+      "missing": [
+        "floors"
+      ],
+      "description": "تشطيب شقة مكونة من غرفتين وحمام بمساحة 100 متر مربع دور 1",
+      "projectType": "Apartment_Finishing",
+      "typeConfidence": 0.4
+    },
+    "boq": {
+      "totalItems": 16,
+      "totalCost": null,
+      "averageConfidence": 0.95,
+      "trainingDataUsed": 85062
+    },
+    "schedule": {
+      "totalDuration": null,
+      "totalMonths": null
+    },
+    "risks": {
+      "level": "Low",
+      "score": null
+    },
+    "quality": {
+      "score": 100,
+      "grade": "ممتاز"
+    }
+  },
+  {
+    "id": "proj-1784738539602",
+    "name": "تأسيس فيلا سكنية",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-22",
+    "area": 300,
+    "floors": 1,
+    "cost": 583794,
+    "progress": 0,
+    "description": "تأسيس فيلا سكنية تحتوي على دور واحد وكراج سيارات والمساحة الاجمالية للفيلا 300  م وثلاث غرف وحمامين ومطبخ وصالة",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 300,
+      "areaPerFloor": 300,
+      "floors": 1,
+      "finishing": null,
+      "region": null,
+      "estimatedCost": 1282618,
+      "concreteM3": 59,
+      "steelTon": 6.53,
+      "durationMonths": 2,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 22,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 26,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 27,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 35,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 38,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 18,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 12,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 12,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 13,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 34,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 22,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 16,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 15,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 66,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467,
+      "insufficientData": false
+    },
+    "boq": {
+      "totalItems": 10,
+      "suggestedCount": 0,
+      "totalCost": 203409.99,
+      "averageConfidence": 0.81,
+      "ruleEngineVersion": "2.0",
+      "generatedAt": "2026-07-22T16:42:19.596Z",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": 209,
+      "totalMonths": 9.5
+    },
+    "risks": {
+      "level": "Medium",
+      "score": 0.38
+    },
+    "quality": {
+      "score": 0,
+      "grade": "ضعيف"
+    }
+  },
+  {
+    "id": "proj-1784807514189",
+    "name": "تشطيب مسجد",
+    "type": "Mosque",
+    "status": "Planning",
+    "created": "2026-07-23",
+    "cost": null,
+    "progress": 0,
+    "description": "تشطيب مسجد مساحته 400م مربع وعدد الأدوار 2",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "insufficientData": true,
+      "message": "لا يمكن استنتاج عدد الأدوار من الوصف الحالي",
+      "missing": [
+        "floors"
+      ],
+      "description": "تشطيب مسجد مساحته 400م مربع وعدد الأدوار 2",
+      "projectType": "Mosque",
+      "typeConfidence": 0.7
+    },
+    "boq": {
+      "totalItems": 47,
+      "insufficientCount": 1,
+      "suggestedCount": 6,
+      "totalCost": 1794706.61,
+      "totalSuggestedCost": 83694,
+      "averageConfidence": 0.77,
+      "phasesUsed": 11,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-23T11:51:54.182Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": null,
+      "totalMonths": null
+    },
+    "risks": {
+      "level": "Low",
+      "score": null
+    },
+    "quality": {
+      "score": 100,
+      "grade": "ممتاز"
+    }
+  },
+  {
+    "id": "proj-1784975911282",
+    "name": "شقة",
+    "type": "Apartment_Finishing",
+    "status": "Planning",
+    "created": "2026-07-25",
+    "area": 150,
+    "floors": 1,
+    "cost": 306964,
+    "progress": 0,
+    "description": "تأسيس وتشطيب شقة بمساحة 150م مربع  وعدد الغرف 3 وحمامين",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "projectType": "Apartment_Building",
+      "totalArea": 150,
+      "areaPerFloor": 150,
+      "floors": 1,
+      "finishing": null,
+      "region": null,
+      "estimatedCost": 690542,
+      "concreteM3": 36,
+      "steelTon": 4.16,
+      "durationMonths": 0,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 25,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 36,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 16,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 8,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 10,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 15,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-1",
+          "type": "Corridor",
+          "area": 16,
+          "finishingLevel": "Standard"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 466,
+      "insufficientData": false
+    },
+    "boq": {
+      "totalItems": 21,
+      "insufficientCount": 2,
+      "suggestedCount": 0,
+      "totalCost": 53812.5,
+      "totalSuggestedCost": 0,
+      "averageConfidence": 0.73,
+      "phasesUsed": 4,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-25T10:38:31.272Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": 162,
+      "totalMonths": 7.4
+    },
+    "risks": {
+      "level": "Medium",
+      "score": 0.37
+    },
+    "quality": {
+      "score": 0,
+      "grade": "ضعيف"
+    }
+  },
+  {
+    "id": "proj-1784975989134",
+    "name": "مشروع جديد",
+    "type": "Unknown",
+    "status": "Planning",
+    "created": "2026-07-25",
+    "cost": null,
+    "progress": 0,
+    "description": "مشروع بناء في السعودية",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "insufficientData": true,
+      "message": "لا يمكن استنتاج مساحة المشروع، عدد الأدوار من الوصف الحالي",
+      "missing": [
+        "area",
+        "floors"
+      ],
+      "description": "مشروع بناء في السعودية",
+      "projectType": "Unknown",
+      "typeConfidence": 0.5
+    },
+    "boq": {
+      "totalItems": 15,
+      "insufficientCount": 0,
+      "suggestedCount": 0,
+      "totalCost": 68279.03,
+      "totalSuggestedCost": 0,
+      "averageConfidence": 0.81,
+      "phasesUsed": 10,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-25T10:39:49.129Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": null,
+      "totalMonths": null
+    },
+    "risks": {
+      "level": "Low",
+      "score": null
+    },
+    "quality": {
+      "score": 100,
+      "grade": "ممتاز"
+    }
+  },
+  {
+    "id": "proj-1784976600640",
+    "name": "مول",
+    "type": "Mall",
+    "status": "Planning",
+    "created": "2026-07-25",
+    "area": 3000,
+    "floors": 3,
+    "cost": 62361488,
+    "progress": 0,
+    "description": "تأسيس مول تجاري مكون من 3 أدوار بمساحة 1000 متر  ويحتوي على 6 مكاتب في كل دور وحمامين في كل دور ومساحة كل مكتب 25 متر مربع",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "projectType": "Mall",
+      "totalArea": 3000,
+      "areaPerFloor": 1000,
+      "floors": 3,
+      "finishing": null,
+      "region": null,
+      "estimatedCost": 12518409,
+      "concreteM3": 669,
+      "steelTon": 80.44,
+      "durationMonths": 9,
+      "spaces": [
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 15,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 14,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 9,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-4",
+          "type": "Bathroom",
+          "area": 15,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-5",
+          "type": "Bathroom",
+          "area": 11,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-6",
+          "type": "Bathroom",
+          "area": 15,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-7",
+          "type": "Bathroom",
+          "area": 7,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-8",
+          "type": "Bathroom",
+          "area": 8,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "storage-1",
+          "type": "Storage",
+          "area": 6,
+          "finishingLevel": "Basic"
+        },
+        {
+          "id": "storage-2",
+          "type": "Storage",
+          "area": 9,
+          "finishingLevel": "Basic"
+        },
+        {
+          "id": "storage-3",
+          "type": "Storage",
+          "area": 7,
+          "finishingLevel": "Basic"
+        },
+        {
+          "id": "storage-4",
+          "type": "Storage",
+          "area": 7,
+          "finishingLevel": "Basic"
+        },
+        {
+          "id": "corridor-1",
+          "type": "Corridor",
+          "area": 18,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-2",
+          "type": "Corridor",
+          "area": 15,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-3",
+          "type": "Corridor",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-4",
+          "type": "Corridor",
+          "area": 12,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-5",
+          "type": "Corridor",
+          "area": 20,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-6",
+          "type": "Corridor",
+          "area": 19,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-7",
+          "type": "Corridor",
+          "area": 16,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-8",
+          "type": "Corridor",
+          "area": 20,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-9",
+          "type": "Corridor",
+          "area": 13,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-10",
+          "type": "Corridor",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-11",
+          "type": "Corridor",
+          "area": 16,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-12",
+          "type": "Corridor",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-13",
+          "type": "Corridor",
+          "area": 15,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-14",
+          "type": "Corridor",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-15",
+          "type": "Corridor",
+          "area": 13,
+          "finishingLevel": "Standard"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 502,
+      "insufficientData": false
+    },
+    "boq": {
+      "totalItems": 51,
+      "insufficientCount": 1,
+      "suggestedCount": 7,
+      "totalCost": 13416985,
+      "totalSuggestedCost": 824705.8,
+      "averageConfidence": 0.76,
+      "phasesUsed": 11,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-25T10:50:00.635Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": 2369,
+      "totalMonths": 107.7
+    },
+    "risks": {
+      "level": "Medium",
+      "score": 0.44
+    },
+    "quality": {
+      "score": 49,
+      "grade": "ضعيف"
+    }
+  },
+  {
+    "id": "proj-1785070128759",
+    "name": "طريق",
+    "type": "Road",
+    "status": "Planning",
+    "created": "2026-07-26",
+    "cost": null,
+    "progress": 0,
+    "description": "إنشاء طريق سريع بعرض 4 متر وطول 20 كيلو متر",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "insufficientData": true,
+      "message": "لا يمكن استنتاج عدد الأدوار من الوصف الحالي",
+      "missing": [
+        "floors"
+      ],
+      "description": "إنشاء طريق سريع بعرض 4 متر وطول 20 كيلو متر",
+      "projectType": "Road",
+      "typeConfidence": 0.7
+    },
+    "boq": {
+      "totalItems": 15,
+      "insufficientCount": 0,
+      "suggestedCount": 0,
+      "totalCost": 68279.03,
+      "totalSuggestedCost": 0,
+      "averageConfidence": 0.81,
+      "phasesUsed": 10,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-26T12:48:48.748Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": null,
+      "totalMonths": null
+    },
+    "risks": {
+      "level": "Low",
+      "score": null
+    },
+    "quality": {
+      "score": 100,
+      "grade": "ممتاز"
+    }
+  },
+  {
+    "id": "proj-1785070336489",
+    "name": "إنشاء شقة",
+    "type": "Apartment_Finishing",
+    "status": "Planning",
+    "created": "2026-07-26",
+    "area": 400,
+    "floors": 1,
+    "cost": 357829,
+    "progress": 0,
+    "description": "إنشاء شقة بمساحة 400 متر مربع مكونة من 10 غرف و 5 حمامات وصالة ",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "projectType": "Apartment_Building",
+      "totalArea": 400,
+      "areaPerFloor": 400,
+      "floors": 1,
+      "finishing": null,
+      "region": null,
+      "estimatedCost": 1841445,
+      "concreteM3": 96,
+      "steelTon": 11.1,
+      "durationMonths": 0,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 23,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 27,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 43,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 20,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 9,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 11,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 12,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-1",
+          "type": "Corridor",
+          "area": 21,
+          "finishingLevel": "Standard"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 466,
+      "insufficientData": false
+    },
+    "boq": {
+      "totalItems": 21,
+      "insufficientCount": 2,
+      "suggestedCount": 0,
+      "totalCost": 88777.78,
+      "totalSuggestedCost": 0,
+      "averageConfidence": 0.73,
+      "phasesUsed": 4,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-26T12:52:16.483Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": 162,
+      "totalMonths": 7.4
+    },
+    "risks": {
+      "level": "Medium",
+      "score": 0.38
+    },
+    "quality": {
+      "score": 0,
+      "grade": "ضعيف"
+    }
+  },
+  {
+    "id": "proj-1785071372298",
+    "name": "تأسيس شقة",
+    "type": "Apartment_Finishing",
+    "status": "Planning",
+    "created": "2026-07-26",
+    "area": 200,
+    "floors": 1,
+    "cost": 317230,
+    "progress": 0,
+    "description": "تأسيس شقة من خمس غرف ومطبخ وثلاث حمامات بمساحة 200 متر مربع",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "projectType": "Apartment_Building",
+      "totalArea": 200,
+      "areaPerFloor": 200,
+      "floors": 1,
+      "finishing": null,
+      "region": null,
+      "estimatedCost": 920722,
+      "concreteM3": 48,
+      "steelTon": 5.55,
+      "durationMonths": 0,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 20,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 24,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 36,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 19,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 15,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 6,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 10,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "corridor-1",
+          "type": "Corridor",
+          "area": 14,
+          "finishingLevel": "Standard"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 466,
+      "insufficientData": false
+    },
+    "boq": {
+      "totalItems": 21,
+      "insufficientCount": 2,
+      "suggestedCount": 0,
+      "totalCost": 60869.96,
+      "totalSuggestedCost": 0,
+      "averageConfidence": 0.73,
+      "phasesUsed": 4,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-26T13:09:32.295Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": 162,
+      "totalMonths": 7.4
+    },
+    "risks": {
+      "level": "Medium",
+      "score": 0.37
+    },
+    "quality": {
+      "score": 0,
+      "grade": "ضعيف"
+    }
+  },
+  {
+    "id": "proj-1785139988965",
+    "name": "بناء مستشفى",
+    "type": "Hospital",
+    "status": "Planning",
+    "created": "2026-07-27",
+    "cost": null,
+    "progress": 0,
+    "description": "مستشفى بمساحة 400 متر مربع ",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "insufficientData": true,
+      "message": "لا يمكن استنتاج عدد الأدوار من الوصف الحالي",
+      "missing": [
+        "floors"
+      ],
+      "description": "مستشفى بمساحة 400 متر مربع ",
+      "projectType": "Hospital",
+      "typeConfidence": 0.7
+    },
+    "boq": {
+      "totalItems": 47,
+      "insufficientCount": 0,
+      "suggestedCount": 6,
+      "totalCost": 8707150.96,
+      "totalSuggestedCost": 433346,
+      "averageConfidence": 0.78,
+      "phasesUsed": 11,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-27T08:13:08.937Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": null,
+      "totalMonths": null
+    },
+    "risks": {
+      "level": "Low",
+      "score": null
+    },
+    "quality": {
+      "score": 100,
+      "grade": "ممتاز"
+    }
+  },
+  {
+    "id": "proj-1785234170064",
+    "name": "Test Villa Project",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-28",
+    "area": 600,
+    "floors": 2,
+    "cost": 1868644,
+    "progress": 0,
+    "description": "فيلا سكنية بمساحة 300 متر مربع، دورين، خمس غرف وحمامين، تشمل تأسيس وتشطيب في الرياض",
+    "region": "الرياض",
+    "finishing": "Foundation_Finishing",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 600,
+      "areaPerFloor": 300,
+      "floors": 2,
+      "finishing": null,
+      "region": null,
+      "estimatedCost": 2565236,
+      "concreteM3": 119,
+      "steelTon": 13.06,
+      "durationMonths": 7,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 25,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 18,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 43,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 36,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 22,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 14,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 7,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 6,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 39,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 24,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 11,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 19,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 66,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467,
+      "insufficientData": false
+    },
+    "boq": {
+      "totalItems": 40,
+      "insufficientCount": 1,
+      "suggestedCount": 5,
+      "totalCost": 888729.2,
+      "totalSuggestedCost": 55034.75,
+      "averageConfidence": 0.76,
+      "phasesUsed": 10,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-28T10:22:50.060Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "risks": {
+      "level": "Medium",
+      "score": 0.39
+    },
+    "quality": {
+      "score": 0,
+      "grade": "ضعيف"
+    }
+  },
+  {
+    "id": "proj-1785234259687",
+    "name": "Test Villa Project",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-28",
+    "area": 600,
+    "floors": 2,
+    "cost": 1868644,
+    "progress": 0,
+    "description": "فيلا سكنية بمساحة 300 متر مربع، دورين، خمس غرف وحمامين، تشمل تأسيس وتشطيب في الرياض",
+    "region": "الرياض",
+    "finishing": "Foundation_Finishing",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 600,
+      "areaPerFloor": 300,
+      "floors": 2,
+      "finishing": null,
+      "region": null,
+      "estimatedCost": 2565236,
+      "concreteM3": 119,
+      "steelTon": 13.06,
+      "durationMonths": 7,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 19,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 24,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 22,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 37,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 44,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 15,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 12,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 15,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 11,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 39,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 25,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 15,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 10,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 68,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467,
+      "insufficientData": false
+    },
+    "boq": {
+      "totalItems": 40,
+      "insufficientCount": 1,
+      "suggestedCount": 5,
+      "totalCost": 888729.2,
+      "totalSuggestedCost": 55034.75,
+      "averageConfidence": 0.76,
+      "phasesUsed": 10,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-28T10:24:19.679Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "risks": {
+      "level": "Medium",
+      "score": 0.39
+    },
+    "quality": {
+      "score": 0,
+      "grade": "ضعيف"
+    }
+  },
+  {
+    "id": "proj-1785250696923",
+    "name": "مشروع التكامل",
+    "type": "Villa",
+    "status": "Planning",
+    "created": "2026-07-28",
+    "area": 800,
+    "floors": 2,
+    "cost": 2258643,
+    "progress": 0,
+    "description": "فيلا سكنية دورين مساحة 400 متر مربع في الرياض",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "projectType": "Villa",
+      "totalArea": 800,
+      "areaPerFloor": 400,
+      "floors": 2,
+      "finishing": null,
+      "region": null,
+      "estimatedCost": 3420315,
+      "concreteM3": 159,
+      "steelTon": 17.41,
+      "durationMonths": 8,
+      "spaces": [
+        {
+          "id": "bedroom-1",
+          "type": "Bedroom",
+          "area": 23,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-2",
+          "type": "Bedroom",
+          "area": 21,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "bedroom-3",
+          "type": "Bedroom",
+          "area": 25,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "livingroom-1",
+          "type": "LivingRoom",
+          "area": 39,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "livingroom-2",
+          "type": "LivingRoom",
+          "area": 38,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "kitchen-1",
+          "type": "Kitchen",
+          "area": 19,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-1",
+          "type": "Bathroom",
+          "area": 10,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-2",
+          "type": "Bathroom",
+          "area": 12,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "bathroom-3",
+          "type": "Bathroom",
+          "area": 13,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "masterbedroom-1",
+          "type": "MasterBedroom",
+          "area": 35,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "diningroom-1",
+          "type": "DiningRoom",
+          "area": 27,
+          "finishingLevel": "Premium"
+        },
+        {
+          "id": "hallway-1",
+          "type": "Hallway",
+          "area": 17,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "hallway-2",
+          "type": "Hallway",
+          "area": 14,
+          "finishingLevel": "Standard"
+        },
+        {
+          "id": "roof-1",
+          "type": "Roof",
+          "area": 60,
+          "finishingLevel": "Basic"
+        }
+      ],
+      "confidence": 0.95,
+      "trainingDataPoints": 467,
+      "insufficientData": false
+    },
+    "boq": {
+      "totalItems": 40,
+      "insufficientCount": 1,
+      "suggestedCount": 5,
+      "totalCost": 1156816.02,
+      "totalSuggestedCost": 69449.45,
+      "averageConfidence": 0.76,
+      "phasesUsed": 10,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-28T14:58:16.921Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": 227,
+      "totalMonths": 10.3
+    },
+    "risks": {
+      "level": "Medium",
+      "score": 0.39
+    },
+    "quality": {
+      "score": 0,
+      "grade": "ضعيف"
+    }
+  },
+  {
+    "id": "proj-1785324632561",
+    "name": "برج ناطحة سحاب",
+    "type": "Unknown",
+    "status": "Planning",
+    "created": "2026-07-29",
+    "cost": null,
+    "progress": 0,
+    "description": "برج بمساحة 250 متر وارتفاع 150 طابق",
+    "region": "Riyadh",
+    "finishing": "Standard",
+    "aiAnalysis": {
+      "insufficientData": true,
+      "message": "لا توجد بيانات تدريب كافية لنوع المشروع \"Unknown\". يرجى توفير تفاصيل إضافية.",
+      "missing": [
+        "training_data"
+      ],
+      "description": "برج بمساحة 250 متر وارتفاع 150 طابق",
+      "projectType": "Unknown",
+      "typeConfidence": 0.5
+    },
+    "boq": {
+      "totalItems": 9,
+      "insufficientCount": 6,
+      "suggestedCount": 0,
+      "totalCost": 27810,
+      "totalSuggestedCost": 0,
+      "averageConfidence": 0.48,
+      "phasesUsed": 10,
+      "engineVersion": "3.0-ke",
+      "generatedAt": "2026-07-29T11:30:32.545Z",
+      "dataSource": "engineering_knowledge_base",
+      "trainingDataAvailable": 85062,
+      "priceDataPoints": 168,
+      "region": "Riyadh",
+      "finishing": "Standard"
+    },
+    "schedule": {
+      "totalDuration": null,
+      "totalMonths": null
+    },
+    "risks": {
+      "level": "Low",
+      "score": null
+    },
+    "quality": {
+      "score": 100,
+      "grade": "ممتاز"
+    }
+  }
+]

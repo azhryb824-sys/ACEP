@@ -1,0 +1,28 @@
+[
+  {
+    "id": "842a766fcc0554fa4102f2d6",
+    "dataset_version_id": "18dcbb490680feda519b2340",
+    "project_type_distribution": "{\"mosque\":{\"count\":1,\"percentage\":100}}",
+    "phase_distribution": "{\"Completed\":{\"count\":1,\"percentage\":100}}",
+    "finishing_distribution": "{\"Luxury\":{\"count\":1,\"percentage\":100}}",
+    "style_distribution": "{\"Islamic\":{\"count\":1,\"percentage\":100}}",
+    "quality_distribution": "{\"0-20\":{\"count\":0,\"percentage\":0},\"21-40\":{\"count\":0,\"percentage\":0},\"41-60\":{\"count\":0,\"percentage\":0},\"61-80\":{\"count\":1,\"percentage\":100},\"81-100\":{\"count\":0,\"percentage\":0}}",
+    "gaps": "[{\"category\":\"BALANCE_SUMMARY\",\"maxCategory\":\"mosque\",\"maxCount\":1,\"minCount\":1,\"avgCount\":1,\"ratio\":1}]",
+    "recommendations": "[\"Dataset appears well-balanced across categories\"]",
+    "_created_at": "2026-07-28T14:41:26.831Z",
+    "_updated_at": "2026-07-28T14:41:26.831Z"
+  },
+  {
+    "id": "0d6b7e43aec4b7005a70cd63",
+    "dataset_version_id": "cfe870463158d3452af8a389",
+    "project_type_distribution": "{\"mosque\":{\"count\":2,\"percentage\":100}}",
+    "phase_distribution": "{\"Completed\":{\"count\":2,\"percentage\":100}}",
+    "finishing_distribution": "{\"Luxury\":{\"count\":2,\"percentage\":100}}",
+    "style_distribution": "{\"Islamic\":{\"count\":2,\"percentage\":100}}",
+    "quality_distribution": "{\"0-20\":{\"count\":0,\"percentage\":0},\"21-40\":{\"count\":0,\"percentage\":0},\"41-60\":{\"count\":0,\"percentage\":0},\"61-80\":{\"count\":2,\"percentage\":100},\"81-100\":{\"count\":0,\"percentage\":0}}",
+    "gaps": "[{\"category\":\"BALANCE_SUMMARY\",\"maxCategory\":\"mosque\",\"maxCount\":2,\"minCount\":2,\"avgCount\":2,\"ratio\":1}]",
+    "recommendations": "[\"Dataset appears well-balanced across categories\"]",
+    "_created_at": "2026-07-28T14:41:57.366Z",
+    "_updated_at": "2026-07-28T14:41:57.366Z"
+  }
+]

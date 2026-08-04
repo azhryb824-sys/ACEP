@@ -1,0 +1,17 @@
+[
+  {
+    "id": "acep-flux-v1_0_1",
+    "name": "ACEP FLUX LoRA v1.0.1",
+    "version": "1.0.1",
+    "baseModel": "black-forest-labs/FLUX.1-dev",
+    "type": "lora",
+    "loraPath": "C:\\Users\\Abdulrahman\\Documents\\مقاولات إلكترونية 2\\ACEP\\packages\\vision-training\\training\\lora\\run_1784969726827\\pytorch_lora_weights.safetensors",
+    "datasetVersion": "1.0.1784969726",
+    "metrics": {},
+    "trainingRunId": "lora_run_1784969726827",
+    "trainedAt": "2026-07-25T08:55:52.374Z",
+    "status": "registered",
+    "deployments": 1,
+    "isActive": true
+  }
+]

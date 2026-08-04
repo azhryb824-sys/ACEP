@@ -1,0 +1,21 @@
+{
+  "total": 8,
+  "train": 6,
+  "val": 0,
+  "test": 2,
+  "by_generator": {
+    "prompt": 2,
+    "engineering_report": 2,
+    "method_statement": 2,
+    "rfi": 2
+  },
+  "by_domain": {
+    "Civil Engineering": 2,
+    "Structural Engineering": 2,
+    "Construction Management": 4
+  },
+  "by_difficulty": {
+    "medium": 7,
+    "easy": 1
+  }
+}

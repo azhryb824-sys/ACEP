@@ -1,0 +1,17 @@
+{
+  "base_model": "meta-llama/Llama-3.1-8B-Instruct",
+  "datasets": [
+    {
+      "path": "C:\\Users\\Abdulrahman\\Documents\\مقاولات إلكترونية 2\\ACEP\\ai-data-factory\\datasets\\datasets\\safety_ai",
+      "type": "alpaca.instruction"
+    }
+  ],
+  "adapter": "lora",
+  "lora_r": 16,
+  "lora_alpha": 32,
+  "sequence_len": 4096,
+  "micro_batch_size": 2,
+  "gradient_accumulation_steps": 8,
+  "learning_rate": 0.0002,
+  "num_epochs": 3
+}

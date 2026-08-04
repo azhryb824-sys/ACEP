@@ -1,0 +1,33 @@
+{
+  "runId": "lora_run_1785233605617",
+  "config": {
+    "base_model": "stabilityai/stable-diffusion-xl-base-1.0",
+    "output_dir": "C:\\Users\\Abdulrahman\\Documents\\مقاولات إلكترونية 2\\ACEP\\packages\\vision-training\\training\\checkpoints\\construction_lora",
+    "learning_rate": 0.0001,
+    "train_batch_size": 1,
+    "gradient_accumulation_steps": 4,
+    "max_train_steps": 500,
+    "resolution": 1024,
+    "mixed_precision": "fp16",
+    "checkpointing_steps": 100,
+    "validation_steps": 100,
+    "seed": 42,
+    "warmup_steps": 100,
+    "noise_offset": 0.01,
+    "snr_gamma": 5,
+    "lora": {
+      "rank": 16,
+      "alpha": 32,
+      "target_modules": [
+        "to_q",
+        "to_k",
+        "to_v",
+        "to_out.0"
+      ]
+    }
+  },
+  "status": "completed",
+  "startedAt": "2026-07-28T10:13:25.617Z",
+  "completedAt": "2026-07-28T10:15:27.250Z",
+  "outputLog": "All required packages found\r\nLoaded 0 training entries\r\n\r\nRunning in no-data simulation mode. Steps: 500\r\nDataset entries: 0\r\nPyTorch: 2.13.0+cpu | CUDA: False\r\ndiffusers: OK | SDXL Pipeline class available\r\nStep 0/500 (0%) - loss: 0.100613\r\nStep 200/500 (40%) - loss: 0.083377\r\nStep 400/500 (80%) - loss: 0.080423\r\n\r\nSimulation completed in 108.9s\r\nWeights saved to: C:\\Users\\Abdulrahman\\Documents\\������� ��������� 2\\ACEP\\packages\\vision-training\\training\\checkpoints\\construction_lora\\pytorch_lora_weights.safetensors\r\nBase model SDXL was NOT loaded or modified\r\n\r\nDone.\r\n"
+}

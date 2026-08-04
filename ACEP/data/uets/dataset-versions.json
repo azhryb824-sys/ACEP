@@ -1,0 +1,1183 @@
+[
+  {
+    "id": "v1.0.0",
+    "label": "Test v1",
+    "description": "Test version",
+    "createdAt": "2026-07-30T12:42:27.084Z",
+    "totalRecords": 2,
+    "byProjectType": {
+      "Villa": 1,
+      "Tower": 1
+    },
+    "bySource": {
+      "csv": 1,
+      "edl": 1
+    },
+    "coverage": {
+      "Villa": {
+        "count": 1,
+        "status": "low"
+      },
+      "Building": {
+        "count": 0,
+        "status": "none"
+      },
+      "Tower": {
+        "count": 1,
+        "status": "low"
+      },
+      "Hotel": {
+        "count": 0,
+        "status": "none"
+      },
+      "Mosque": {
+        "count": 0,
+        "status": "none"
+      },
+      "Hospital": {
+        "count": 0,
+        "status": "none"
+      },
+      "School": {
+        "count": 0,
+        "status": "none"
+      },
+      "Mall": {
+        "count": 0,
+        "status": "none"
+      },
+      "Warehouse": {
+        "count": 0,
+        "status": "none"
+      },
+      "Bridge": {
+        "count": 0,
+        "status": "none"
+      },
+      "Road": {
+        "count": 0,
+        "status": "none"
+      },
+      "Factory": {
+        "count": 0,
+        "status": "none"
+      },
+      "Farm": {
+        "count": 0,
+        "status": "none"
+      },
+      "Infrastructure": {
+        "count": 0,
+        "status": "none"
+      },
+      "WaterTreatment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Sports": {
+        "count": 0,
+        "status": "none"
+      },
+      "Office": {
+        "count": 0,
+        "status": "none"
+      },
+      "Residential": {
+        "count": 0,
+        "status": "none"
+      },
+      "Commercial": {
+        "count": 0,
+        "status": "none"
+      },
+      "Apartment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Compound": {
+        "count": 0,
+        "status": "none"
+      },
+      "Palace": {
+        "count": 0,
+        "status": "none"
+      },
+      "MixedUse": {
+        "count": 0,
+        "status": "none"
+      }
+    },
+    "hash": "6c3ae23f"
+  },
+  {
+    "id": "v2.0.0",
+    "label": "Initial CSV Migration",
+    "description": "Migrated all CSV training data to EGT format",
+    "createdAt": "2026-07-30T14:29:29.554Z",
+    "totalRecords": 10000,
+    "byProjectType": {
+      "Building": 5262,
+      "Villa": 467,
+      "Hospital": 447,
+      "Factory": 465,
+      "School": 476,
+      "Bridge": 442,
+      "Road": 495,
+      "Mall": 502,
+      "Mosque": 500,
+      "Hotel": 475,
+      "Warehouse": 469
+    },
+    "bySource": {
+      "csv": 10000
+    },
+    "coverage": {
+      "Villa": {
+        "count": 467,
+        "status": "excellent"
+      },
+      "Building": {
+        "count": 5262,
+        "status": "excellent"
+      },
+      "Tower": {
+        "count": 0,
+        "status": "none"
+      },
+      "Hotel": {
+        "count": 475,
+        "status": "excellent"
+      },
+      "Mosque": {
+        "count": 500,
+        "status": "excellent"
+      },
+      "Hospital": {
+        "count": 447,
+        "status": "excellent"
+      },
+      "School": {
+        "count": 476,
+        "status": "excellent"
+      },
+      "Mall": {
+        "count": 502,
+        "status": "excellent"
+      },
+      "Warehouse": {
+        "count": 469,
+        "status": "excellent"
+      },
+      "Bridge": {
+        "count": 442,
+        "status": "excellent"
+      },
+      "Road": {
+        "count": 495,
+        "status": "excellent"
+      },
+      "Factory": {
+        "count": 465,
+        "status": "excellent"
+      },
+      "Farm": {
+        "count": 0,
+        "status": "none"
+      },
+      "Infrastructure": {
+        "count": 0,
+        "status": "none"
+      },
+      "WaterTreatment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Sports": {
+        "count": 0,
+        "status": "none"
+      },
+      "Office": {
+        "count": 0,
+        "status": "none"
+      },
+      "Residential": {
+        "count": 0,
+        "status": "none"
+      },
+      "Commercial": {
+        "count": 0,
+        "status": "none"
+      },
+      "Apartment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Compound": {
+        "count": 0,
+        "status": "none"
+      },
+      "Palace": {
+        "count": 0,
+        "status": "none"
+      },
+      "MixedUse": {
+        "count": 0,
+        "status": "none"
+      }
+    },
+    "hash": "8812019"
+  },
+  {
+    "id": "v3.0.0",
+    "label": "Smoke Test",
+    "description": "test",
+    "createdAt": "2026-08-01T07:09:23.206Z",
+    "totalRecords": 10000,
+    "byProjectType": {
+      "Building": 5262,
+      "Villa": 467,
+      "Hospital": 447,
+      "Factory": 465,
+      "School": 476,
+      "Bridge": 442,
+      "Road": 495,
+      "Mall": 502,
+      "Mosque": 500,
+      "Hotel": 475,
+      "Warehouse": 469
+    },
+    "bySource": {
+      "csv": 10000
+    },
+    "coverage": {
+      "Villa": {
+        "count": 467,
+        "status": "excellent"
+      },
+      "Building": {
+        "count": 5262,
+        "status": "excellent"
+      },
+      "Tower": {
+        "count": 0,
+        "status": "none"
+      },
+      "Hotel": {
+        "count": 475,
+        "status": "excellent"
+      },
+      "Mosque": {
+        "count": 500,
+        "status": "excellent"
+      },
+      "Hospital": {
+        "count": 447,
+        "status": "excellent"
+      },
+      "School": {
+        "count": 476,
+        "status": "excellent"
+      },
+      "Mall": {
+        "count": 502,
+        "status": "excellent"
+      },
+      "Warehouse": {
+        "count": 469,
+        "status": "excellent"
+      },
+      "Bridge": {
+        "count": 442,
+        "status": "excellent"
+      },
+      "Road": {
+        "count": 495,
+        "status": "excellent"
+      },
+      "Factory": {
+        "count": 465,
+        "status": "excellent"
+      },
+      "Farm": {
+        "count": 0,
+        "status": "none"
+      },
+      "Infrastructure": {
+        "count": 0,
+        "status": "none"
+      },
+      "WaterTreatment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Sports": {
+        "count": 0,
+        "status": "none"
+      },
+      "Office": {
+        "count": 0,
+        "status": "none"
+      },
+      "Residential": {
+        "count": 0,
+        "status": "none"
+      },
+      "Commercial": {
+        "count": 0,
+        "status": "none"
+      },
+      "Apartment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Compound": {
+        "count": 0,
+        "status": "none"
+      },
+      "Palace": {
+        "count": 0,
+        "status": "none"
+      },
+      "MixedUse": {
+        "count": 0,
+        "status": "none"
+      }
+    },
+    "hash": "8812019"
+  },
+  {
+    "id": "v4.0.0",
+    "label": "Smoke Test",
+    "description": "test",
+    "createdAt": "2026-08-01T07:09:32.811Z",
+    "totalRecords": 10000,
+    "byProjectType": {
+      "Building": 5262,
+      "Villa": 467,
+      "Hospital": 447,
+      "Factory": 465,
+      "School": 476,
+      "Bridge": 442,
+      "Road": 495,
+      "Mall": 502,
+      "Mosque": 500,
+      "Hotel": 475,
+      "Warehouse": 469
+    },
+    "bySource": {
+      "csv": 10000
+    },
+    "coverage": {
+      "Villa": {
+        "count": 467,
+        "status": "excellent"
+      },
+      "Building": {
+        "count": 5262,
+        "status": "excellent"
+      },
+      "Tower": {
+        "count": 0,
+        "status": "none"
+      },
+      "Hotel": {
+        "count": 475,
+        "status": "excellent"
+      },
+      "Mosque": {
+        "count": 500,
+        "status": "excellent"
+      },
+      "Hospital": {
+        "count": 447,
+        "status": "excellent"
+      },
+      "School": {
+        "count": 476,
+        "status": "excellent"
+      },
+      "Mall": {
+        "count": 502,
+        "status": "excellent"
+      },
+      "Warehouse": {
+        "count": 469,
+        "status": "excellent"
+      },
+      "Bridge": {
+        "count": 442,
+        "status": "excellent"
+      },
+      "Road": {
+        "count": 495,
+        "status": "excellent"
+      },
+      "Factory": {
+        "count": 465,
+        "status": "excellent"
+      },
+      "Farm": {
+        "count": 0,
+        "status": "none"
+      },
+      "Infrastructure": {
+        "count": 0,
+        "status": "none"
+      },
+      "WaterTreatment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Sports": {
+        "count": 0,
+        "status": "none"
+      },
+      "Office": {
+        "count": 0,
+        "status": "none"
+      },
+      "Residential": {
+        "count": 0,
+        "status": "none"
+      },
+      "Commercial": {
+        "count": 0,
+        "status": "none"
+      },
+      "Apartment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Compound": {
+        "count": 0,
+        "status": "none"
+      },
+      "Palace": {
+        "count": 0,
+        "status": "none"
+      },
+      "MixedUse": {
+        "count": 0,
+        "status": "none"
+      }
+    },
+    "hash": "8812019"
+  },
+  {
+    "id": "v5.0.0",
+    "label": "Initial CSV Migration",
+    "description": "Migrated all CSV training data to EGT format",
+    "createdAt": "2026-08-01T07:11:30.051Z",
+    "totalRecords": 20000,
+    "byProjectType": {
+      "Building": 10524,
+      "Villa": 934,
+      "Hospital": 894,
+      "Factory": 930,
+      "School": 952,
+      "Bridge": 884,
+      "Road": 990,
+      "Mall": 1004,
+      "Mosque": 1000,
+      "Hotel": 950,
+      "Warehouse": 938
+    },
+    "bySource": {
+      "csv": 20000
+    },
+    "coverage": {
+      "Villa": {
+        "count": 934,
+        "status": "excellent"
+      },
+      "Building": {
+        "count": 10524,
+        "status": "excellent"
+      },
+      "Tower": {
+        "count": 0,
+        "status": "none"
+      },
+      "Hotel": {
+        "count": 950,
+        "status": "excellent"
+      },
+      "Mosque": {
+        "count": 1000,
+        "status": "excellent"
+      },
+      "Hospital": {
+        "count": 894,
+        "status": "excellent"
+      },
+      "School": {
+        "count": 952,
+        "status": "excellent"
+      },
+      "Mall": {
+        "count": 1004,
+        "status": "excellent"
+      },
+      "Warehouse": {
+        "count": 938,
+        "status": "excellent"
+      },
+      "Bridge": {
+        "count": 884,
+        "status": "excellent"
+      },
+      "Road": {
+        "count": 990,
+        "status": "excellent"
+      },
+      "Factory": {
+        "count": 930,
+        "status": "excellent"
+      },
+      "Farm": {
+        "count": 0,
+        "status": "none"
+      },
+      "Infrastructure": {
+        "count": 0,
+        "status": "none"
+      },
+      "WaterTreatment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Sports": {
+        "count": 0,
+        "status": "none"
+      },
+      "Office": {
+        "count": 0,
+        "status": "none"
+      },
+      "Residential": {
+        "count": 0,
+        "status": "none"
+      },
+      "Commercial": {
+        "count": 0,
+        "status": "none"
+      },
+      "Apartment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Compound": {
+        "count": 0,
+        "status": "none"
+      },
+      "Palace": {
+        "count": 0,
+        "status": "none"
+      },
+      "MixedUse": {
+        "count": 0,
+        "status": "none"
+      }
+    },
+    "hash": "8812019"
+  },
+  {
+    "id": "v6.0.0",
+    "label": "Initial CSV Migration",
+    "description": "Migrated all CSV training data to EGT format",
+    "createdAt": "2026-08-01T07:23:55.325Z",
+    "totalRecords": 30001,
+    "byProjectType": {
+      "Building": 15787,
+      "Villa": 1401,
+      "Hospital": 1341,
+      "Factory": 1395,
+      "School": 1428,
+      "Bridge": 1326,
+      "Road": 1485,
+      "Mall": 1506,
+      "Mosque": 1500,
+      "Hotel": 1425,
+      "Warehouse": 1407
+    },
+    "bySource": {
+      "csv": 30000,
+      "edl": 1
+    },
+    "coverage": {
+      "Villa": {
+        "count": 1401,
+        "status": "excellent"
+      },
+      "Building": {
+        "count": 15787,
+        "status": "excellent"
+      },
+      "Tower": {
+        "count": 0,
+        "status": "none"
+      },
+      "Hotel": {
+        "count": 1425,
+        "status": "excellent"
+      },
+      "Mosque": {
+        "count": 1500,
+        "status": "excellent"
+      },
+      "Hospital": {
+        "count": 1341,
+        "status": "excellent"
+      },
+      "School": {
+        "count": 1428,
+        "status": "excellent"
+      },
+      "Mall": {
+        "count": 1506,
+        "status": "excellent"
+      },
+      "Warehouse": {
+        "count": 1407,
+        "status": "excellent"
+      },
+      "Bridge": {
+        "count": 1326,
+        "status": "excellent"
+      },
+      "Road": {
+        "count": 1485,
+        "status": "excellent"
+      },
+      "Factory": {
+        "count": 1395,
+        "status": "excellent"
+      },
+      "Farm": {
+        "count": 0,
+        "status": "none"
+      },
+      "Infrastructure": {
+        "count": 0,
+        "status": "none"
+      },
+      "WaterTreatment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Sports": {
+        "count": 0,
+        "status": "none"
+      },
+      "Office": {
+        "count": 0,
+        "status": "none"
+      },
+      "Residential": {
+        "count": 0,
+        "status": "none"
+      },
+      "Commercial": {
+        "count": 0,
+        "status": "none"
+      },
+      "Apartment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Compound": {
+        "count": 0,
+        "status": "none"
+      },
+      "Palace": {
+        "count": 0,
+        "status": "none"
+      },
+      "MixedUse": {
+        "count": 0,
+        "status": "none"
+      }
+    },
+    "hash": "8812019"
+  },
+  {
+    "id": "v7.0.0",
+    "label": "Initial CSV Migration",
+    "description": "Migrated all CSV training data to EGT format",
+    "createdAt": "2026-08-01T07:33:58.080Z",
+    "totalRecords": 10032,
+    "byProjectType": {
+      "Building": 5291,
+      "Villa": 470,
+      "Hospital": 447,
+      "Factory": 465,
+      "School": 476,
+      "Bridge": 442,
+      "Road": 495,
+      "Mall": 502,
+      "Mosque": 500,
+      "Hotel": 475,
+      "Warehouse": 469
+    },
+    "bySource": {
+      "edl": 28,
+      "knowledge-base": 4,
+      "csv": 10000
+    },
+    "coverage": {
+      "Villa": {
+        "count": 470,
+        "status": "excellent"
+      },
+      "Building": {
+        "count": 5291,
+        "status": "excellent"
+      },
+      "Tower": {
+        "count": 0,
+        "status": "none"
+      },
+      "Hotel": {
+        "count": 475,
+        "status": "excellent"
+      },
+      "Mosque": {
+        "count": 500,
+        "status": "excellent"
+      },
+      "Hospital": {
+        "count": 447,
+        "status": "excellent"
+      },
+      "School": {
+        "count": 476,
+        "status": "excellent"
+      },
+      "Mall": {
+        "count": 502,
+        "status": "excellent"
+      },
+      "Warehouse": {
+        "count": 469,
+        "status": "excellent"
+      },
+      "Bridge": {
+        "count": 442,
+        "status": "excellent"
+      },
+      "Road": {
+        "count": 495,
+        "status": "excellent"
+      },
+      "Factory": {
+        "count": 465,
+        "status": "excellent"
+      },
+      "Farm": {
+        "count": 0,
+        "status": "none"
+      },
+      "Infrastructure": {
+        "count": 0,
+        "status": "none"
+      },
+      "WaterTreatment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Sports": {
+        "count": 0,
+        "status": "none"
+      },
+      "Office": {
+        "count": 0,
+        "status": "none"
+      },
+      "Residential": {
+        "count": 0,
+        "status": "none"
+      },
+      "Commercial": {
+        "count": 0,
+        "status": "none"
+      },
+      "Apartment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Compound": {
+        "count": 0,
+        "status": "none"
+      },
+      "Palace": {
+        "count": 0,
+        "status": "none"
+      },
+      "MixedUse": {
+        "count": 0,
+        "status": "none"
+      }
+    },
+    "hash": "2cfe242c"
+  },
+  {
+    "id": "v8.0.0",
+    "label": "Initial CSV Migration",
+    "description": "Migrated all CSV training data to EGT format",
+    "createdAt": "2026-08-01T07:36:41.476Z",
+    "totalRecords": 10032,
+    "byProjectType": {
+      "Building": 5291,
+      "Villa": 470,
+      "Hospital": 447,
+      "Factory": 465,
+      "School": 476,
+      "Bridge": 442,
+      "Road": 495,
+      "Mall": 502,
+      "Mosque": 500,
+      "Hotel": 475,
+      "Warehouse": 469
+    },
+    "bySource": {
+      "edl": 28,
+      "knowledge-base": 4,
+      "csv": 10000
+    },
+    "coverage": {
+      "Villa": {
+        "count": 470,
+        "status": "excellent"
+      },
+      "Building": {
+        "count": 5291,
+        "status": "excellent"
+      },
+      "Tower": {
+        "count": 0,
+        "status": "none"
+      },
+      "Hotel": {
+        "count": 475,
+        "status": "excellent"
+      },
+      "Mosque": {
+        "count": 500,
+        "status": "excellent"
+      },
+      "Hospital": {
+        "count": 447,
+        "status": "excellent"
+      },
+      "School": {
+        "count": 476,
+        "status": "excellent"
+      },
+      "Mall": {
+        "count": 502,
+        "status": "excellent"
+      },
+      "Warehouse": {
+        "count": 469,
+        "status": "excellent"
+      },
+      "Bridge": {
+        "count": 442,
+        "status": "excellent"
+      },
+      "Road": {
+        "count": 495,
+        "status": "excellent"
+      },
+      "Factory": {
+        "count": 465,
+        "status": "excellent"
+      },
+      "Farm": {
+        "count": 0,
+        "status": "none"
+      },
+      "Infrastructure": {
+        "count": 0,
+        "status": "none"
+      },
+      "WaterTreatment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Sports": {
+        "count": 0,
+        "status": "none"
+      },
+      "Office": {
+        "count": 0,
+        "status": "none"
+      },
+      "Residential": {
+        "count": 0,
+        "status": "none"
+      },
+      "Commercial": {
+        "count": 0,
+        "status": "none"
+      },
+      "Apartment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Compound": {
+        "count": 0,
+        "status": "none"
+      },
+      "Palace": {
+        "count": 0,
+        "status": "none"
+      },
+      "MixedUse": {
+        "count": 0,
+        "status": "none"
+      }
+    },
+    "hash": "2cfe242c"
+  },
+  {
+    "id": "v9.0.0",
+    "label": "Initial CSV Migration",
+    "description": "Migrated all CSV training data to EGT format",
+    "createdAt": "2026-08-01T07:46:11.853Z",
+    "totalRecords": 10032,
+    "byProjectType": {
+      "Building": 5291,
+      "Villa": 470,
+      "Hospital": 447,
+      "Factory": 465,
+      "School": 476,
+      "Bridge": 442,
+      "Road": 495,
+      "Mall": 502,
+      "Mosque": 500,
+      "Hotel": 475,
+      "Warehouse": 469
+    },
+    "bySource": {
+      "edl": 28,
+      "knowledge-base": 4,
+      "csv": 10000
+    },
+    "coverage": {
+      "Villa": {
+        "count": 470,
+        "status": "excellent"
+      },
+      "Building": {
+        "count": 5291,
+        "status": "excellent"
+      },
+      "Tower": {
+        "count": 0,
+        "status": "none"
+      },
+      "Hotel": {
+        "count": 475,
+        "status": "excellent"
+      },
+      "Mosque": {
+        "count": 500,
+        "status": "excellent"
+      },
+      "Hospital": {
+        "count": 447,
+        "status": "excellent"
+      },
+      "School": {
+        "count": 476,
+        "status": "excellent"
+      },
+      "Mall": {
+        "count": 502,
+        "status": "excellent"
+      },
+      "Warehouse": {
+        "count": 469,
+        "status": "excellent"
+      },
+      "Bridge": {
+        "count": 442,
+        "status": "excellent"
+      },
+      "Road": {
+        "count": 495,
+        "status": "excellent"
+      },
+      "Factory": {
+        "count": 465,
+        "status": "excellent"
+      },
+      "Farm": {
+        "count": 0,
+        "status": "none"
+      },
+      "Infrastructure": {
+        "count": 0,
+        "status": "none"
+      },
+      "WaterTreatment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Sports": {
+        "count": 0,
+        "status": "none"
+      },
+      "Office": {
+        "count": 0,
+        "status": "none"
+      },
+      "Residential": {
+        "count": 0,
+        "status": "none"
+      },
+      "Commercial": {
+        "count": 0,
+        "status": "none"
+      },
+      "Apartment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Compound": {
+        "count": 0,
+        "status": "none"
+      },
+      "Palace": {
+        "count": 0,
+        "status": "none"
+      },
+      "MixedUse": {
+        "count": 0,
+        "status": "none"
+      }
+    },
+    "hash": "2cfe242c"
+  },
+  {
+    "id": "v10.0.0",
+    "label": "Initial CSV Migration",
+    "description": "Migrated all CSV training data to EGT format",
+    "createdAt": "2026-08-04T08:53:16.028Z",
+    "totalRecords": 10032,
+    "byProjectType": {
+      "Building": 5291,
+      "Villa": 470,
+      "Hospital": 447,
+      "Factory": 465,
+      "School": 476,
+      "Bridge": 442,
+      "Road": 495,
+      "Mall": 502,
+      "Mosque": 500,
+      "Hotel": 475,
+      "Warehouse": 469
+    },
+    "bySource": {
+      "edl": 28,
+      "knowledge-base": 4,
+      "csv": 10000
+    },
+    "coverage": {
+      "Villa": {
+        "count": 470,
+        "status": "excellent"
+      },
+      "Building": {
+        "count": 5291,
+        "status": "excellent"
+      },
+      "Tower": {
+        "count": 0,
+        "status": "none"
+      },
+      "Hotel": {
+        "count": 475,
+        "status": "excellent"
+      },
+      "Mosque": {
+        "count": 500,
+        "status": "excellent"
+      },
+      "Hospital": {
+        "count": 447,
+        "status": "excellent"
+      },
+      "School": {
+        "count": 476,
+        "status": "excellent"
+      },
+      "Mall": {
+        "count": 502,
+        "status": "excellent"
+      },
+      "Warehouse": {
+        "count": 469,
+        "status": "excellent"
+      },
+      "Bridge": {
+        "count": 442,
+        "status": "excellent"
+      },
+      "Road": {
+        "count": 495,
+        "status": "excellent"
+      },
+      "Factory": {
+        "count": 465,
+        "status": "excellent"
+      },
+      "Farm": {
+        "count": 0,
+        "status": "none"
+      },
+      "Infrastructure": {
+        "count": 0,
+        "status": "none"
+      },
+      "WaterTreatment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Sports": {
+        "count": 0,
+        "status": "none"
+      },
+      "Office": {
+        "count": 0,
+        "status": "none"
+      },
+      "Residential": {
+        "count": 0,
+        "status": "none"
+      },
+      "Commercial": {
+        "count": 0,
+        "status": "none"
+      },
+      "Apartment": {
+        "count": 0,
+        "status": "none"
+      },
+      "Compound": {
+        "count": 0,
+        "status": "none"
+      },
+      "Palace": {
+        "count": 0,
+        "status": "none"
+      },
+      "MixedUse": {
+        "count": 0,
+        "status": "none"
+      }
+    },
+    "hash": "2cfe242c"
+  }
+]

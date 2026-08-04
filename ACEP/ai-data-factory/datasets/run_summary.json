@@ -1,0 +1,75 @@
+{
+  "folders": {
+    "quantity_ai": {
+      "total": 4,
+      "train": 3,
+      "val": 0,
+      "test": 1
+    },
+    "contract_ai": {
+      "total": 2,
+      "train": 1,
+      "val": 0,
+      "test": 1
+    },
+    "cost_ai": {
+      "total": 2,
+      "train": 1,
+      "val": 0,
+      "test": 1
+    },
+    "drawing_ai": {
+      "total": 2,
+      "train": 1,
+      "val": 0,
+      "test": 1
+    },
+    "engineering_llm": {
+      "total": 8,
+      "train": 6,
+      "val": 0,
+      "test": 2
+    },
+    "quality_ai": {
+      "total": 4,
+      "train": 3,
+      "val": 0,
+      "test": 1
+    },
+    "procurement_ai": {
+      "total": 10,
+      "train": 8,
+      "val": 1,
+      "test": 1
+    },
+    "planning_ai": {
+      "total": 4,
+      "train": 3,
+      "val": 0,
+      "test": 1
+    },
+    "risk_ai": {
+      "total": 2,
+      "train": 1,
+      "val": 0,
+      "test": 1
+    },
+    "safety_ai": {
+      "total": 2,
+      "train": 1,
+      "val": 0,
+      "test": 1
+    }
+  },
+  "total_accepted": 40,
+  "benchmark": {
+    "evaluation": 50,
+    "benchmark": 100,
+    "edge_cases": 50,
+    "failure_cases": 50,
+    "adversarial_cases": 50
+  },
+  "quality_report": "C:\\Users\\Abdulrahman\\Documents\\\u0645\u0642\u0627\u0648\u0644\u0627\u062a \u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a\u0629 2\\ACEP\\ai-data-factory\\datasets\\logs\\quality_report.json",
+  "generated": 42,
+  "rejected": 2
+}

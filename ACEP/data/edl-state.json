@@ -1,0 +1,5931 @@
+{
+  "proj-001": {
+    "id": "proj-001",
+    "metadata": {
+      "name": "برج المملكة السكني",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Active",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 42000,
+      "areaExtracted": false,
+      "floors": 30,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-002": {
+    "id": "proj-002",
+    "metadata": {
+      "name": "مستشفى المدينة الطبي",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Delayed",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Hospital",
+      "typeConfidence": 0,
+      "area": 85000,
+      "areaExtracted": false,
+      "floors": 12,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-003": {
+    "id": "proj-003",
+    "metadata": {
+      "name": "مشروع جدة السكني",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Residential_Compound",
+      "typeConfidence": 0,
+      "area": 500000,
+      "areaExtracted": false,
+      "floors": 2,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784638548741": {
+    "id": "proj-1784638548741",
+    "metadata": {
+      "name": "تشطيب شقة",
+      "description": "تشطيب شقة مكونة من خمس غرف و ثلاث حمامات واصالتين ومطبخ",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Apartment_Building",
+      "typeConfidence": 0,
+      "area": 38000,
+      "areaExtracted": false,
+      "floors": 8,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784638931436": {
+    "id": "proj-1784638931436",
+    "metadata": {
+      "name": "???? ??????",
+      "description": "",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 1000,
+      "areaExtracted": false,
+      "floors": 2,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784639177316": {
+    "id": "proj-1784639177316",
+    "metadata": {
+      "name": "????",
+      "description": "",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 800,
+      "areaExtracted": false,
+      "floors": 2,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784639177370": {
+    "id": "proj-1784639177370",
+    "metadata": {
+      "name": "???",
+      "description": "",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 450000,
+      "areaExtracted": false,
+      "floors": 30,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784639203474": {
+    "id": "proj-1784639203474",
+    "metadata": {
+      "name": "Test",
+      "description": "",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 1000,
+      "areaExtracted": false,
+      "floors": 2,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784639317367": {
+    "id": "proj-1784639317367",
+    "metadata": {
+      "name": "P1",
+      "description": "",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 1000,
+      "areaExtracted": false,
+      "floors": 2,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784639317428": {
+    "id": "proj-1784639317428",
+    "metadata": {
+      "name": "P2",
+      "description": "",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 450000,
+      "areaExtracted": false,
+      "floors": 30,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784639317465": {
+    "id": "proj-1784639317465",
+    "metadata": {
+      "name": "P3",
+      "description": "",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 50000,
+      "areaExtracted": false,
+      "floors": 5,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": null,
+      "phase": null,
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784639837101": {
+    "id": "proj-1784639837101",
+    "metadata": {
+      "name": "اختبار",
+      "description": "",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 1000,
+      "areaExtracted": false,
+      "floors": 2,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784639851091": {
+    "id": "proj-1784639851091",
+    "metadata": {
+      "name": "اختبار",
+      "description": "",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 1000,
+      "areaExtracted": false,
+      "floors": 2,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784734385238": {
+    "id": "proj-1784734385238",
+    "metadata": {
+      "name": "تشطيب شقة",
+      "description": "ثلاث غرف وحمامين ومطبخ وصالة بمساحة إجمالية 200م مربع",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Unknown",
+      "typeConfidence": 0,
+      "area": null,
+      "areaExtracted": false,
+      "floors": null,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784734474175": {
+    "id": "proj-1784734474175",
+    "metadata": {
+      "name": "شقة",
+      "description": "تشطيب شقة مكونة من غرفتين وحمام بمساحة 100 متر مربع دور 1",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Apartment_Finishing",
+      "typeConfidence": 0,
+      "area": null,
+      "areaExtracted": false,
+      "floors": null,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784738539602": {
+    "id": "proj-1784738539602",
+    "metadata": {
+      "name": "تأسيس فيلا سكنية",
+      "description": "تأسيس فيلا سكنية تحتوي على دور واحد وكراج سيارات والمساحة الاجمالية للفيلا 300  م وثلاث غرف وحمامين ومطبخ وصالة",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 300,
+      "areaExtracted": false,
+      "floors": 1,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784807514189": {
+    "id": "proj-1784807514189",
+    "metadata": {
+      "name": "تشطيب مسجد",
+      "description": "تشطيب مسجد مساحته 400م مربع وعدد الأدوار 2",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Mosque",
+      "typeConfidence": 0,
+      "area": null,
+      "areaExtracted": false,
+      "floors": null,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784975911282": {
+    "id": "proj-1784975911282",
+    "metadata": {
+      "name": "شقة",
+      "description": "تأسيس وتشطيب شقة بمساحة 150م مربع  وعدد الغرف 3 وحمامين",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Apartment_Finishing",
+      "typeConfidence": 0,
+      "area": 150,
+      "areaExtracted": false,
+      "floors": 1,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784975989134": {
+    "id": "proj-1784975989134",
+    "metadata": {
+      "name": "مشروع جديد",
+      "description": "مشروع بناء في السعودية",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Unknown",
+      "typeConfidence": 0,
+      "area": null,
+      "areaExtracted": false,
+      "floors": null,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1784976600640": {
+    "id": "proj-1784976600640",
+    "metadata": {
+      "name": "مول",
+      "description": "تأسيس مول تجاري مكون من 3 أدوار بمساحة 1000 متر  ويحتوي على 6 مكاتب في كل دور وحمامين في كل دور ومساحة كل مكتب 25 متر مربع",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Mall",
+      "typeConfidence": 0,
+      "area": 3000,
+      "areaExtracted": false,
+      "floors": 3,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1785070128759": {
+    "id": "proj-1785070128759",
+    "metadata": {
+      "name": "طريق",
+      "description": "إنشاء طريق سريع بعرض 4 متر وطول 20 كيلو متر",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Road",
+      "typeConfidence": 0,
+      "area": null,
+      "areaExtracted": false,
+      "floors": null,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1785070336489": {
+    "id": "proj-1785070336489",
+    "metadata": {
+      "name": "إنشاء شقة",
+      "description": "إنشاء شقة بمساحة 400 متر مربع مكونة من 10 غرف و 5 حمامات وصالة ",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Apartment_Finishing",
+      "typeConfidence": 0,
+      "area": 400,
+      "areaExtracted": false,
+      "floors": 1,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1785071372298": {
+    "id": "proj-1785071372298",
+    "metadata": {
+      "name": "تأسيس شقة",
+      "description": "تأسيس شقة من خمس غرف ومطبخ وثلاث حمامات بمساحة 200 متر مربع",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Apartment_Finishing",
+      "typeConfidence": 0,
+      "area": 200,
+      "areaExtracted": false,
+      "floors": 1,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1785139988965": {
+    "id": "proj-1785139988965",
+    "metadata": {
+      "name": "بناء مستشفى",
+      "description": "مستشفى بمساحة 400 متر مربع ",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Hospital",
+      "typeConfidence": 0,
+      "area": null,
+      "areaExtracted": false,
+      "floors": null,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1785234170064": {
+    "id": "proj-1785234170064",
+    "metadata": {
+      "name": "Test Villa Project",
+      "description": "فيلا سكنية بمساحة 300 متر مربع، دورين، خمس غرف وحمامين، تشمل تأسيس وتشطيب في الرياض",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 600,
+      "areaExtracted": false,
+      "floors": 2,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "الرياض",
+      "phase": "Foundation_Finishing",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1785234259687": {
+    "id": "proj-1785234259687",
+    "metadata": {
+      "name": "Test Villa Project",
+      "description": "فيلا سكنية بمساحة 300 متر مربع، دورين، خمس غرف وحمامين، تشمل تأسيس وتشطيب في الرياض",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 600,
+      "areaExtracted": false,
+      "floors": 2,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "الرياض",
+      "phase": "Foundation_Finishing",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1785250696923": {
+    "id": "proj-1785250696923",
+    "metadata": {
+      "name": "مشروع التكامل",
+      "description": "فيلا سكنية دورين مساحة 400 متر مربع في الرياض",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T08:34:03.421Z",
+      "status": "Planning",
+      "workflowStep": "extraction"
+    },
+    "extracted": {
+      "type": "Villa",
+      "typeConfidence": 0,
+      "area": 800,
+      "areaExtracted": false,
+      "floors": 2,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [],
+      "suggestedItems": [],
+      "phase": null,
+      "summary": {
+        "totalItems": 0,
+        "suggestedCount": 0,
+        "totalCost": 0,
+        "averageConfidence": 0
+      }
+    },
+    "cost": {
+      "directCost": 0,
+      "indirectCost": 0,
+      "contingency": 0,
+      "profit": 0,
+      "taxes": 0,
+      "totalCost": 0,
+      "costPerM2": 0,
+      "confidence": 0,
+      "breakdown": {},
+      "dataPoints": 0
+    },
+    "schedule": {
+      "activities": [],
+      "totalDuration": 0,
+      "totalMonths": 0,
+      "criticalPath": [],
+      "optimization": null
+    },
+    "risks": {
+      "risks": [],
+      "overallRiskScore": 0,
+      "riskLevel": "Low",
+      "riskCount": 0
+    },
+    "quality": {
+      "qualityScore": 0,
+      "qualityGrade": "",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": null
+    },
+    "digitalProfile": null,
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": []
+  },
+  "proj-1785324632561": {
+    "id": "proj-1785324632561",
+    "metadata": {
+      "name": "برج ناطحة سحاب",
+      "description": "برج بمساحة 250 متر وارتفاع 150 طابق",
+      "created": "2026-07-30T08:34:03.421Z",
+      "updated": "2026-07-30T09:08:40.448Z",
+      "status": "Planning",
+      "workflowStep": "boq_generated"
+    },
+    "extracted": {
+      "type": "Unknown",
+      "typeConfidence": 0,
+      "area": null,
+      "areaExtracted": false,
+      "floors": null,
+      "floorsExtracted": false,
+      "rooms": null,
+      "roomsExtracted": false,
+      "bathrooms": null,
+      "bathroomsExtracted": false,
+      "hasKitchen": false,
+      "halls": null,
+      "city": "Riyadh",
+      "phase": "Standard",
+      "extractionLog": null
+    },
+    "approved": {
+      "type": null,
+      "typeConfirmed": false,
+      "area": null,
+      "areaConfirmed": false,
+      "floors": null,
+      "floorsConfirmed": false,
+      "rooms": null,
+      "roomsConfirmed": false,
+      "bathrooms": null,
+      "bathroomsConfirmed": false,
+      "hasKitchen": false,
+      "kitchenConfirmed": false,
+      "halls": null,
+      "hallsConfirmed": false,
+      "city": null,
+      "cityConfirmed": false,
+      "phase": null,
+      "phaseConfirmed": false
+    },
+    "predicted": {
+      "type": null,
+      "typeConfidence": 0,
+      "area": null,
+      "floors": null,
+      "spaces": [],
+      "totalArea": null,
+      "confidence": 0
+    },
+    "building": {
+      "spaces": [],
+      "systems": [],
+      "materials": [],
+      "structuralElements": [],
+      "totalHeight": null,
+      "hasBasement": null,
+      "numUnits": null
+    },
+    "boq": {
+      "items": [
+        {
+          "code": "PLS-001",
+          "description": "لياسة جدران داخلية",
+          "unit": "م²",
+          "quantity": 0,
+          "quantityReason": "بيانات ناقصة - يتطلب تحليل إضافي",
+          "quantityFormula": "",
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "calculationMethod": "قيد الانتظار — تتطلب بيانات إضافية",
+          "formula": null,
+          "phase": "PLASTERING",
+          "phaseName": "مرحلة اللياسة",
+          "trade": "ARCH",
+          "tradeName": "أعمال معمارية",
+          "element": "جدران",
+          "material": "لياسة إسمنتية",
+          "additionReason": "بيانات ناقصة",
+          "confidence": 0,
+          "dataSource": "مساحة الجدران الداخلية",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [],
+          "needsReview": true,
+          "params": {
+            "type": "Unknown",
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3,
+            "hasKitchen": false,
+            "halls": null,
+            "city": "Riyadh",
+            "description": "برج بمساحة 250 متر وارتفاع 150 طابق",
+            "phase": null
+          },
+          "editable": true,
+          "insufficient": true,
+          "insufficientReason": "المساحة والأدوار مطلوبة."
+        },
+        {
+          "code": "PNT-001",
+          "description": "دهانات جدران داخلية",
+          "unit": "م²",
+          "quantity": 0,
+          "quantityReason": "بيانات ناقصة - يتطلب تحليل إضافي",
+          "quantityFormula": "",
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "calculationMethod": "قيد الانتظار — تتطلب بيانات إضافية",
+          "formula": null,
+          "phase": "FINISHING",
+          "phaseName": "مرحلة التشطيبات",
+          "trade": "ARCH",
+          "tradeName": "أعمال معمارية",
+          "element": "جدران",
+          "material": "دهان أكريليك",
+          "additionReason": "بيانات ناقصة",
+          "confidence": 0,
+          "dataSource": "مساحة اللياسة الداخلية",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [],
+          "needsReview": true,
+          "params": {
+            "type": "Unknown",
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3,
+            "hasKitchen": false,
+            "halls": null,
+            "city": "Riyadh",
+            "description": "برج بمساحة 250 متر وارتفاع 150 طابق",
+            "phase": null
+          },
+          "editable": true,
+          "insufficient": true,
+          "insufficientReason": "المساحة والأدوار مطلوبة."
+        },
+        {
+          "code": "PNT-003",
+          "description": "دهانات أسقف",
+          "unit": "م²",
+          "quantity": 0,
+          "quantityReason": "بيانات ناقصة - يتطلب تحليل إضافي",
+          "quantityFormula": "",
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "calculationMethod": "قيد الانتظار — تتطلب بيانات إضافية",
+          "formula": null,
+          "phase": "FINISHING",
+          "phaseName": "مرحلة التشطيبات",
+          "trade": "ARCH",
+          "tradeName": "أعمال معمارية",
+          "element": "أسقف",
+          "material": "دهان أسقف",
+          "additionReason": "بيانات ناقصة",
+          "confidence": 0,
+          "dataSource": "مساحة الأسقف",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [],
+          "needsReview": true,
+          "params": {
+            "type": "Unknown",
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3,
+            "hasKitchen": false,
+            "halls": null,
+            "city": "Riyadh",
+            "description": "برج بمساحة 250 متر وارتفاع 150 طابق",
+            "phase": null
+          },
+          "editable": true,
+          "insufficient": true,
+          "insufficientReason": "المساحة والأدوار مطلوبة."
+        },
+        {
+          "code": "TLF-001",
+          "description": "بلاط أرضيات داخلي",
+          "unit": "م²",
+          "quantity": 0,
+          "quantityReason": "بيانات ناقصة - يتطلب تحليل إضافي",
+          "quantityFormula": "",
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "calculationMethod": "قيد الانتظار — تتطلب بيانات إضافية",
+          "formula": null,
+          "phase": "FINISHING",
+          "phaseName": "مرحلة التشطيبات",
+          "trade": "ARCH",
+          "tradeName": "أعمال معمارية",
+          "element": "أرضيات",
+          "material": "بلاط سيراميك",
+          "additionReason": "بيانات ناقصة",
+          "confidence": 0,
+          "dataSource": "مساحة الأرضيات بعد خصم الحمامات",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [],
+          "needsReview": true,
+          "params": {
+            "type": "Unknown",
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3,
+            "hasKitchen": false,
+            "halls": null,
+            "city": "Riyadh",
+            "description": "برج بمساحة 250 متر وارتفاع 150 طابق",
+            "phase": null
+          },
+          "editable": true,
+          "insufficient": true,
+          "insufficientReason": "المساحة والأدوار مطلوبة."
+        },
+        {
+          "code": "TLF-003",
+          "description": "سيراميك حمامات",
+          "unit": "م²",
+          "quantity": 60,
+          "quantityReason": "سيراميك الحمامات = 3 حمام × 20م² لكل حمام",
+          "quantityFormula": "سيراميك الحمامات = 3 حمام × 20م² لكل حمام",
+          "unitPrice": 55,
+          "totalPrice": 3300,
+          "calculationMethod": "سيراميك الحمامات = 3 حمام × 20م² لكل حمام",
+          "formula": "سيراميك الحمامات = 3 حمام × 20م² لكل حمام",
+          "phase": "FINISHING",
+          "phaseName": "مرحلة التشطيبات",
+          "phaseOrder": 6,
+          "trade": "ARCH",
+          "tradeName": "أعمال معمارية",
+          "element": "حمامات",
+          "material": "سيراميك",
+          "priceCat": "CRM",
+          "additionReason": "متوسط مساحة الحمامات",
+          "confidence": 0.8,
+          "confidenceExplanation": "سيراميك أرضيات وجدران الحمامات.\nكل حمام يحتاج 20-25م² سيراميك.",
+          "dataSource": "متوسط مساحة الحمامات",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [
+            "CostValidation",
+            "QuantityCalculation"
+          ],
+          "needsReview": false,
+          "params": {
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3
+          },
+          "parameterSensitivity": {
+            "area": "low",
+            "floors": "low",
+            "rooms": "low"
+          },
+          "editable": true,
+          "insufficient": false,
+          "dependents": []
+        },
+        {
+          "code": "DR-001",
+          "description": "أبواب خشبية داخلية",
+          "unit": "باب",
+          "quantity": 10,
+          "quantityReason": "أبواب = 5 غرف + 3 حمامات + 1 صالة + 1 مدخل",
+          "quantityFormula": "أبواب = 5 غرف + 3 حمامات + 1 صالة + 1 مدخل",
+          "unitPrice": 800,
+          "totalPrice": 8000,
+          "calculationMethod": "أبواب = 5 غرف + 3 حمامات + 1 صالة + 1 مدخل",
+          "formula": "أبواب = 5 غرف + 3 حمامات + 1 صالة + 1 مدخل",
+          "phase": "FINISHING",
+          "phaseName": "مرحلة التشطيبات",
+          "phaseOrder": 6,
+          "trade": "ARCH",
+          "tradeName": "أعمال معمارية",
+          "element": "أبواب",
+          "material": "خشب",
+          "priceCat": "DR",
+          "additionReason": "عدد الفراغات في المبنى",
+          "confidence": 0.8,
+          "confidenceExplanation": "أبواب خشبية داخلية = عدد الغرف + عدد الحمامات + عدد الصالات + باب مدخل.",
+          "dataSource": "عدد الفراغات في المبنى",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [
+            "CostValidation",
+            "QuantityCalculation"
+          ],
+          "needsReview": false,
+          "params": {
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3
+          },
+          "parameterSensitivity": {
+            "area": "low",
+            "floors": "low",
+            "rooms": "low"
+          },
+          "editable": true,
+          "insufficient": false,
+          "dependents": []
+        },
+        {
+          "code": "WN-001",
+          "description": "شبابيك ألمنيوم",
+          "unit": "شباك",
+          "quantity": 8,
+          "quantityReason": "شبابيك = 5 غرف × 1.5 + شباك صالة",
+          "quantityFormula": "شبابيك = 5 غرف × 1.5 + شباك صالة",
+          "unitPrice": 350,
+          "totalPrice": 2800,
+          "calculationMethod": "شبابيك = 5 غرف × 1.5 + شباك صالة",
+          "formula": "شبابيك = 5 غرف × 1.5 + شباك صالة",
+          "phase": "FINISHING",
+          "phaseName": "مرحلة التشطيبات",
+          "phaseOrder": 6,
+          "trade": "ARCH",
+          "tradeName": "أعمال معمارية",
+          "element": "شبابيك",
+          "material": "ألمنيوم",
+          "priceCat": "WN",
+          "additionReason": "تقدير حسب عدد الغرف",
+          "confidence": 0.7,
+          "confidenceExplanation": "شبابيك ألمنيوم زجاجية.\nغرفة نوم = شباك واحد، صالة = شباكين.",
+          "dataSource": "تقدير حسب عدد الغرف",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [
+            "CostValidation",
+            "QuantityCalculation"
+          ],
+          "needsReview": false,
+          "params": {
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3
+          },
+          "parameterSensitivity": {
+            "area": "low",
+            "floors": "low",
+            "rooms": "low"
+          },
+          "editable": true,
+          "insufficient": false,
+          "dependents": []
+        },
+        {
+          "code": "ELC-001",
+          "description": "تمديدات أسلاك كهربائية",
+          "unit": "نقطة",
+          "quantity": 72,
+          "quantityReason": "تمديدات كهرباء = (5 غرف × 10) + (3 حمامات × 4) + 10 نقاط أساسية",
+          "quantityFormula": "تمديدات كهرباء = (5 غرف × 10) + (3 حمامات × 4) + 10 نقاط أساسية",
+          "unitPrice": 120,
+          "totalPrice": 8640,
+          "calculationMethod": "تمديدات كهرباء = (5 غرف × 10) + (3 حمامات × 4) + 10 نقاط أساسية",
+          "formula": "تمديدات كهرباء = (5 غرف × 10) + (3 حمامات × 4) + 10 نقاط أساسية",
+          "phase": "ELECTRICAL",
+          "phaseName": "مرحلة الكهرباء",
+          "phaseOrder": 7,
+          "trade": "ELECTRO",
+          "tradeName": "أعمال كهربائية",
+          "element": "أسلاك",
+          "material": "نحاس",
+          "priceCat": "ELC",
+          "additionReason": "تقدير حسب عدد الفراغات",
+          "confidence": 0.8,
+          "confidenceExplanation": "تمديدات الأسلاك والمواسير في الجدران والأسقف.\nكل غرفة تحتاج 8-10 نقاط حسب نوع المبنى.",
+          "dataSource": "تقدير حسب عدد الفراغات",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [
+            "CostValidation",
+            "QuantityCalculation"
+          ],
+          "needsReview": false,
+          "params": {
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3
+          },
+          "parameterSensitivity": {
+            "area": "low",
+            "floors": "low",
+            "rooms": "low"
+          },
+          "editable": true,
+          "insufficient": false,
+          "dependents": []
+        },
+        {
+          "code": "ELC-002",
+          "description": "لوحة توزيع كهربائية رئيسية",
+          "unit": "لوحة",
+          "quantity": 1,
+          "quantityReason": "لوحة رئيسية + 0 لوحة فرعية",
+          "quantityFormula": "لوحة رئيسية + 0 لوحة فرعية",
+          "unitPrice": 120,
+          "totalPrice": 120,
+          "calculationMethod": "لوحة رئيسية + 0 لوحة فرعية",
+          "formula": "لوحة رئيسية + 0 لوحة فرعية",
+          "phase": "ELECTRICAL",
+          "phaseName": "مرحلة الكهرباء",
+          "phaseOrder": 7,
+          "trade": "ELECTRO",
+          "tradeName": "أعمال كهربائية",
+          "element": "لوحات",
+          "material": "كهرباء",
+          "priceCat": "ELC",
+          "additionReason": "لوحة رئيسية + لوحة لكل دور",
+          "confidence": 0.85,
+          "confidenceExplanation": "لوحة توزيع رئيسية + لوحات فرعية لكل دور إضافي.",
+          "dataSource": "لوحة رئيسية + لوحة لكل دور",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [
+            "CostValidation",
+            "QuantityCalculation"
+          ],
+          "needsReview": false,
+          "params": {
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3
+          },
+          "parameterSensitivity": {
+            "area": "low",
+            "floors": "low",
+            "rooms": "low"
+          },
+          "editable": true,
+          "insufficient": false,
+          "dependents": []
+        },
+        {
+          "code": "ELC-003",
+          "description": "نقاط إنارة",
+          "unit": "نقطة",
+          "quantity": 0,
+          "quantityReason": "بيانات ناقصة - يتطلب تحليل إضافي",
+          "quantityFormula": "",
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "calculationMethod": "قيد الانتظار — تتطلب بيانات إضافية",
+          "formula": null,
+          "phase": "ELECTRICAL",
+          "phaseName": "مرحلة الكهرباء",
+          "trade": "ELECTRO",
+          "tradeName": "أعمال كهربائية",
+          "element": "إنارة",
+          "material": "لمبات LED",
+          "additionReason": "بيانات ناقصة",
+          "confidence": 0,
+          "dataSource": "كثافة الإنارة حسب نوع المبنى",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [],
+          "needsReview": true,
+          "params": {
+            "type": "Unknown",
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3,
+            "hasKitchen": false,
+            "halls": null,
+            "city": "Riyadh",
+            "description": "برج بمساحة 250 متر وارتفاع 150 طابق",
+            "phase": null
+          },
+          "editable": true,
+          "insufficient": true,
+          "insufficientReason": "المساحة والأدوار مطلوبان."
+        },
+        {
+          "code": "ELC-004",
+          "description": "نقاط بريزة (مقابس)",
+          "unit": "نقطة",
+          "quantity": 0,
+          "quantityReason": "بيانات ناقصة - يتطلب تحليل إضافي",
+          "quantityFormula": "",
+          "unitPrice": 180,
+          "totalPrice": 0,
+          "calculationMethod": "قيد الانتظار — تتطلب بيانات إضافية",
+          "formula": null,
+          "phase": "ELECTRICAL",
+          "phaseName": "مرحلة الكهرباء",
+          "trade": "ELECTRO",
+          "tradeName": "أعمال كهربائية",
+          "element": "مقابس",
+          "material": "كهرباء",
+          "additionReason": "بيانات ناقصة",
+          "confidence": 0,
+          "dataSource": "متوسط كثافة المقابس",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [],
+          "needsReview": true,
+          "params": {
+            "type": "Unknown",
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3,
+            "hasKitchen": false,
+            "halls": null,
+            "city": "Riyadh",
+            "description": "برج بمساحة 250 متر وارتفاع 150 طابق",
+            "phase": null
+          },
+          "editable": true,
+          "insufficient": true,
+          "insufficientReason": "المساحة والأدوار مطلوبان."
+        },
+        {
+          "code": "PLB-001",
+          "description": "تمديدات مواسير مياه",
+          "unit": "نقطة",
+          "quantity": 18,
+          "quantityReason": "تمديدات مياه = (3 حمامات × 6) + 0 نقاط مطبخ",
+          "quantityFormula": "تمديدات مياه = (3 حمامات × 6) + 0 نقاط مطبخ",
+          "unitPrice": 150,
+          "totalPrice": 2700,
+          "calculationMethod": "تمديدات مياه = (3 حمامات × 6) + 0 نقاط مطبخ",
+          "formula": "تمديدات مياه = (3 حمامات × 6) + 0 نقاط مطبخ",
+          "phase": "PLUMBING",
+          "phaseName": "مرحلة السباكة",
+          "phaseOrder": 8,
+          "trade": "SANITARY",
+          "tradeName": "أعمال صحية",
+          "element": "مواسير",
+          "material": "بلاستيك/نحاس",
+          "priceCat": "PLB",
+          "additionReason": "تقدير حسب عدد الحمامات",
+          "confidence": 0.8,
+          "confidenceExplanation": "تمديدات مواسير المياه الباردة والساخنة.\nكل حمام يحتاج 6 نقاط (مغسلة + مرحاض + دش + ماء حار/بارد).",
+          "dataSource": "تقدير حسب عدد الحمامات",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [
+            "CostValidation",
+            "QuantityCalculation"
+          ],
+          "needsReview": false,
+          "params": {
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3
+          },
+          "parameterSensitivity": {
+            "area": "low",
+            "floors": "low",
+            "rooms": "low"
+          },
+          "editable": true,
+          "insufficient": false,
+          "dependents": []
+        },
+        {
+          "code": "PLB-002",
+          "description": "تمديدات مواسير صرف صحي",
+          "unit": "نقطة",
+          "quantity": 11,
+          "quantityReason": "صرف = 3 حمامات × 3 + 2 نقاط أساسية",
+          "quantityFormula": "صرف = 3 حمامات × 3 + 2 نقاط أساسية",
+          "unitPrice": 150,
+          "totalPrice": 1650,
+          "calculationMethod": "صرف = 3 حمامات × 3 + 2 نقاط أساسية",
+          "formula": "صرف = 3 حمامات × 3 + 2 نقاط أساسية",
+          "phase": "PLUMBING",
+          "phaseName": "مرحلة السباكة",
+          "phaseOrder": 8,
+          "trade": "SANITARY",
+          "tradeName": "أعمال صحية",
+          "element": "صرف",
+          "material": "بلاستيك",
+          "priceCat": "PLB",
+          "additionReason": "تقدير حسب عدد الحمامات",
+          "confidence": 0.8,
+          "confidenceExplanation": "نقاط الصرف الصحي.\nكل حمام 3 نقاط (مغسلة + مرحاض + دش).",
+          "dataSource": "تقدير حسب عدد الحمامات",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [
+            "CostValidation",
+            "QuantityCalculation"
+          ],
+          "needsReview": false,
+          "params": {
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3
+          },
+          "parameterSensitivity": {
+            "area": "low",
+            "floors": "low",
+            "rooms": "low"
+          },
+          "editable": true,
+          "insufficient": false,
+          "dependents": []
+        },
+        {
+          "code": "PLB-003",
+          "description": "خزان مياه علوي",
+          "unit": "خزان",
+          "quantity": 1,
+          "quantityReason": "1 خزان مياه علوي",
+          "quantityFormula": "1 خزان مياه علوي",
+          "unitPrice": 150,
+          "totalPrice": 150,
+          "calculationMethod": "1 خزان مياه علوي",
+          "formula": "1 خزان مياه علوي",
+          "phase": "PLUMBING",
+          "phaseName": "مرحلة السباكة",
+          "phaseOrder": 8,
+          "trade": "SANITARY",
+          "tradeName": "أعمال صحية",
+          "element": "خزانات",
+          "material": "بلاستيك/خرسانة",
+          "priceCat": "PLB",
+          "additionReason": "خزان لكل مبنى",
+          "confidence": 0.85,
+          "confidenceExplanation": "خزان مياه علوي لتغذية المبنى.\nخزان إضافي للمباني التي تزيد عن 3 أدوار.",
+          "dataSource": "خزان لكل مبنى",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [
+            "CostValidation",
+            "QuantityCalculation"
+          ],
+          "needsReview": false,
+          "params": {
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3
+          },
+          "parameterSensitivity": {
+            "area": "low",
+            "floors": "low",
+            "rooms": "low"
+          },
+          "editable": true,
+          "insufficient": false,
+          "dependents": []
+        },
+        {
+          "code": "PLB-004",
+          "description": "أدوات صحية",
+          "unit": "طقم",
+          "quantity": 3,
+          "quantityReason": "أدوات صحية: 3 طقم (مرحاض + مغسلة + دش لكل حمام)",
+          "quantityFormula": "أدوات صحية: 3 طقم (مرحاض + مغسلة + دش لكل حمام)",
+          "unitPrice": 150,
+          "totalPrice": 450,
+          "calculationMethod": "أدوات صحية: 3 طقم (مرحاض + مغسلة + دش لكل حمام)",
+          "formula": "أدوات صحية: 3 طقم (مرحاض + مغسلة + دش لكل حمام)",
+          "phase": "PLUMBING",
+          "phaseName": "مرحلة السباكة",
+          "phaseOrder": 8,
+          "trade": "SANITARY",
+          "tradeName": "أعمال صحية",
+          "element": "أدوات صحية",
+          "material": "سيراميك",
+          "priceCat": "PLB",
+          "additionReason": "عدد الحمامات",
+          "confidence": 0.85,
+          "confidenceExplanation": "طقم أدوات صحية لكل حمام (مرحاض + مغسلة + دش).",
+          "dataSource": "عدد الحمامات",
+          "modelsThatCreated": [
+            "BOQEngine"
+          ],
+          "modelsThatReviewed": [
+            "CostValidation",
+            "QuantityCalculation"
+          ],
+          "needsReview": false,
+          "params": {
+            "area": null,
+            "floors": 1,
+            "rooms": 5,
+            "bathrooms": 3
+          },
+          "parameterSensitivity": {
+            "area": "low",
+            "floors": "low",
+            "rooms": "low"
+          },
+          "editable": true,
+          "insufficient": false,
+          "dependents": []
+        }
+      ],
+      "suggestedItems": [],
+      "phase": "Full_Construction",
+      "lifecyclePhases": [
+        {
+          "id": "EXCAVATION",
+          "name": "مرحلة الحفر",
+          "order": 1
+        },
+        {
+          "id": "FOUNDATION",
+          "name": "مرحلة الأساسات",
+          "order": 2
+        },
+        {
+          "id": "STRUCTURE",
+          "name": "مرحلة الهيكل",
+          "order": 3
+        },
+        {
+          "id": "MASONRY",
+          "name": "مرحلة المباني",
+          "order": 4
+        },
+        {
+          "id": "PLASTERING",
+          "name": "مرحلة اللياسة",
+          "order": 5
+        },
+        {
+          "id": "FINISHING",
+          "name": "مرحلة التشطيبات",
+          "order": 6
+        },
+        {
+          "id": "ELECTRICAL",
+          "name": "مرحلة الكهرباء",
+          "order": 7
+        },
+        {
+          "id": "PLUMBING",
+          "name": "مرحلة السباكة",
+          "order": 8
+        },
+        {
+          "id": "HVAC",
+          "name": "مرحلة التكييف",
+          "order": 9
+        },
+        {
+          "id": "NETWORKS",
+          "name": "مرحلة الشبكات",
+          "order": 10
+        }
+      ],
+      "summary": {
+        "totalItems": 9,
+        "insufficientCount": 6,
+        "suggestedCount": 0,
+        "totalCost": 27810,
+        "totalSuggestedCost": 0,
+        "averageConfidence": 0.48,
+        "phasesUsed": 10,
+        "engineVersion": "3.0-ke",
+        "generatedAt": "2026-07-30T09:08:40.448Z",
+        "dataSource": "engineering_knowledge_base",
+        "trainingDataAvailable": 85062,
+        "priceDataPoints": 168,
+        "region": "Riyadh",
+        "finishing": "Standard"
+      }
+    },
+    "cost": {
+      "directCost": 185005,
+      "indirectCost": 22201,
+      "contingency": 5550,
+      "profit": 21276,
+      "taxes": 35105,
+      "totalCost": 269136,
+      "costPerM2": null,
+      "confidence": 0.88,
+      "breakdown": {
+        "materials": {
+          "cost": 27810,
+          "percentage": 15
+        },
+        "labor": {
+          "cost": 109149,
+          "percentage": 59
+        },
+        "equipment": {
+          "cost": 48047,
+          "percentage": 26
+        },
+        "indirect": {
+          "cost": 22201,
+          "percentage": 8
+        },
+        "contingency": {
+          "cost": 5550,
+          "percentage": 2
+        },
+        "profit": {
+          "cost": 21276,
+          "percentage": 8
+        },
+        "taxes": {
+          "cost": 35105,
+          "percentage": 13
+        }
+      },
+      "dataPoints": {
+        "materials": 380,
+        "labor": 234,
+        "equipment": 156,
+        "suppliers": 124
+      }
+    },
+    "schedule": {
+      "activities": [
+        {
+          "id": "A1",
+          "name": "Site Preparation",
+          "duration": 12,
+          "predecessors": []
+        },
+        {
+          "id": "A2",
+          "name": "Foundation",
+          "duration": 23,
+          "predecessors": [
+            "A1"
+          ]
+        },
+        {
+          "id": "A3",
+          "name": "Structural Frame",
+          "duration": 39,
+          "predecessors": [
+            "A2"
+          ]
+        },
+        {
+          "id": "A4",
+          "name": "MEP Rough-in",
+          "duration": 18,
+          "predecessors": [
+            "A3"
+          ]
+        },
+        {
+          "id": "A5",
+          "name": "Masonry & Block",
+          "duration": 12,
+          "predecessors": [
+            "A4"
+          ]
+        },
+        {
+          "id": "A6",
+          "name": "Plaster & Finishing",
+          "duration": 15,
+          "predecessors": [
+            "A5"
+          ]
+        },
+        {
+          "id": "A7",
+          "name": "Flooring & Tiles",
+          "duration": 10,
+          "predecessors": [
+            "A6"
+          ]
+        },
+        {
+          "id": "A8",
+          "name": "Ceiling & Partitions",
+          "duration": 8,
+          "predecessors": [
+            "A7"
+          ]
+        },
+        {
+          "id": "A9",
+          "name": "Doors & Windows",
+          "duration": 5,
+          "predecessors": [
+            "A8"
+          ]
+        },
+        {
+          "id": "A10",
+          "name": "Painting & Decoration",
+          "duration": 6,
+          "predecessors": [
+            "A9"
+          ]
+        },
+        {
+          "id": "A11",
+          "name": "Exterior & Landscape",
+          "duration": 10,
+          "predecessors": [
+            "A10"
+          ]
+        },
+        {
+          "id": "A12",
+          "name": "Commissioning & Handover",
+          "duration": 5,
+          "predecessors": [
+            "A11"
+          ]
+        }
+      ],
+      "totalDuration": 162,
+      "totalMonths": 7.4,
+      "criticalPath": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "A9",
+        "A10",
+        "A11",
+        "A12"
+      ],
+      "optimization": {
+        "parallelExecution": 33,
+        "compressionPotential": "Minimal"
+      }
+    },
+    "risks": {
+      "risks": [
+        {
+          "category": "Schedule",
+          "risk": "Weather delay potential",
+          "probability": 0.6,
+          "impact": 0.61,
+          "score": 0.37,
+          "mitigation": "Accelerated procurement plan",
+          "trainingSamples": 6646
+        },
+        {
+          "category": "Safety",
+          "risk": "Working at height risk",
+          "probability": 0.61,
+          "impact": 0.61,
+          "score": 0.37,
+          "mitigation": "Enhanced safety training",
+          "trainingSamples": 6168
+        },
+        {
+          "category": "Financial",
+          "risk": "Cement price increase",
+          "probability": 0.61,
+          "impact": 0.61,
+          "score": 0.37,
+          "mitigation": "Fixed price contracts",
+          "trainingSamples": 6912
+        },
+        {
+          "category": "Quality",
+          "risk": "Testing failure rate high",
+          "probability": 0.62,
+          "impact": 0.6,
+          "score": 0.37,
+          "mitigation": "Additional testing regime",
+          "trainingSamples": 6210
+        },
+        {
+          "category": "Material",
+          "risk": "Block moisture absorption high",
+          "probability": 0.61,
+          "impact": 0.61,
+          "score": 0.37,
+          "mitigation": "Alternative supplier sourcing",
+          "trainingSamples": 7325
+        },
+        {
+          "category": "Structural",
+          "risk": "Column failure potential",
+          "probability": 0.61,
+          "impact": 0.61,
+          "score": 0.37,
+          "mitigation": "Design review and structural analysis",
+          "trainingSamples": 6879
+        }
+      ],
+      "overallRiskScore": 0.37,
+      "riskLevel": "Medium",
+      "riskCount": 6
+    },
+    "quality": {
+      "qualityScore": 100,
+      "qualityGrade": "ممتاز",
+      "estimatedDefects": 0,
+      "defects": []
+    },
+    "procurement": {
+      "suppliers": [],
+      "materialPrices": [],
+      "comparisons": []
+    },
+    "validation": {
+      "issues": [],
+      "warnings": [],
+      "passed": true,
+      "lastChecked": "2026-07-30T09:03:30.909Z"
+    },
+    "digitalProfile": {
+      "profileVersion": "2.0-evidence",
+      "generatedAt": "2026-07-30T09:03:30.835Z",
+      "generationTime": 5,
+      "model": "ProjectProfiler v2.0 (Evidence-Based)",
+      "projectType": {
+        "value": "Residential_Tower",
+        "confidence": 85,
+        "source": "projectName",
+        "reason": "تم الكشف عن \"ناطحة\" في عنوان المشروع",
+        "evidence": "ناطحة",
+        "alternatives": []
+      },
+      "usage": {
+        "value": "Residential",
+        "confidence": 85,
+        "source": "projectType",
+        "reason": "مُصنف حسب نوع المشروع: Residential_Tower"
+      },
+      "physical": {
+        "floors": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لم يذكر عدد الأدوار في البيانات"
+        },
+        "area": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لم تذكر المساحة في البيانات"
+        },
+        "totalArea": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "المساحة أو الأدوار غير معروفة"
+        },
+        "height": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "عدد الأدوار غير معروف"
+        },
+        "basement": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "units": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا يمكن تقدير الوحدات بدون مساحة وأدوار"
+        }
+      },
+      "structural": {
+        "structuralSystem": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات عن الهيكل الإنشائي"
+        },
+        "foundation": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات عن الأساسات"
+        },
+        "roof": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات عن الأسقف"
+        },
+        "slabs": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات عن البلاطات"
+        },
+        "walls": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات عن الجدران"
+        },
+        "columns": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات عن الأعمدة"
+        },
+        "height": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "عدد الأدوار غير معروف"
+        },
+        "basement": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "seismic": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "constructionMethod": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        }
+      },
+      "finishing": {
+        "value": null,
+        "confidence": 0,
+        "source": "none",
+        "reason": "لم يذكر مستوى التشطيب"
+      },
+      "mep": {
+        "electrical": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "hvac": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "plumbing": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "fireSafety": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "networks": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "security": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "bms": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "verticalTransport": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "emergency": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        },
+        "specialSystems": {
+          "value": null,
+          "confidence": 0,
+          "source": "none",
+          "reason": "لا توجد بيانات"
+        }
+      },
+      "scope": {
+        "value": [
+          "Structure",
+          "Architecture",
+          "MEP",
+          "Finishing",
+          "Elevator",
+          "BMS"
+        ],
+        "source": "projectType",
+        "reason": "حسب نوع المشروع: Residential_Tower"
+      },
+      "codeCompliance": {
+        "value": [
+          {
+            "code": "SBC 301",
+            "name": "Saudi Building Code - Structural"
+          },
+          {
+            "code": "SBC 306",
+            "name": "Saudi Energy Code"
+          },
+          {
+            "code": "SBC 303",
+            "name": "Saudi Building Code - Electrical"
+          },
+          {
+            "code": "SBC 304",
+            "name": "Saudi Building Code - Mechanical"
+          },
+          {
+            "code": "SBC 305",
+            "name": "Saudi Building Code - Sanitary"
+          }
+        ],
+        "source": "projectType",
+        "reason": "حسب نوع المشروع: Residential_Tower"
+      },
+      "dataQuality": {
+        "completenessScore": 40,
+        "hasEnoughForBOQ": false,
+        "hasEnoughForVisual": false,
+        "present": [
+          "city",
+          "name"
+        ],
+        "missing": [
+          {
+            "field": "description",
+            "severity": "high",
+            "message": "لا يوجد وصف للمشروع"
+          },
+          {
+            "field": "area",
+            "severity": "high",
+            "message": "المساحة غير محددة"
+          },
+          {
+            "field": "floors",
+            "severity": "high",
+            "message": "عدد الأدوار غير محدد"
+          }
+        ]
+      },
+      "recommendations": [
+        {
+          "priority": "high",
+          "message": "البيانات غير كافية لإنشاء BOQ. يرجى إدخال المساحة وعدد الأدوار على الأقل."
+        },
+        {
+          "priority": "high",
+          "message": "المساحة غير محددة. يرجى إدخال المساحة."
+        },
+        {
+          "priority": "high",
+          "message": "عدد الأدوار غير محدد. يرجى إدخال عدد الأدوار."
+        }
+      ],
+      "dataSources": [
+        {
+          "name": "projectName",
+          "label": "عنوان المشروع",
+          "priority": 2
+        },
+        {
+          "name": "existingExtraction",
+          "label": "بيانات مستخرجة سابقاً",
+          "priority": 1
+        }
+      ],
+      "log": [
+        {
+          "step": "typeClassification",
+          "result": "Residential_Tower",
+          "evidence": "ناطحة",
+          "source": "projectName",
+          "confidence": 85
+        },
+        {
+          "step": "areaExtraction",
+          "result": "unknown",
+          "source": "none"
+        },
+        {
+          "step": "floorsExtraction",
+          "result": "unknown",
+          "source": "none"
+        },
+        {
+          "step": "structureInference",
+          "result": "skipped",
+          "reason": "عدد الأدوار غير معروف"
+        },
+        {
+          "step": "finishingInference",
+          "result": "unknown",
+          "source": "none"
+        },
+        {
+          "step": "mepInference",
+          "result": "skipped",
+          "reason": "المساحة أو الأدوار غير معروفة"
+        },
+        {
+          "step": "dataQuality",
+          "completenessScore": 40,
+          "hasEnoughForBOQ": false,
+          "issues": 3
+        }
+      ]
+    },
+    "vision": {
+      "images": [],
+      "videos": [],
+      "prompts": [],
+      "features": null,
+      "galleryIds": [],
+      "generationResults": [],
+      "upmSnapshot": null
+    },
+    "navigation": {
+      "spatialModel": null,
+      "elements": [],
+      "overlays": [],
+      "currentMode": "orbit",
+      "currentFloor": 0,
+      "phaseProgress": 1,
+      "layers": {
+        "structure": true,
+        "architecture": true,
+        "finishing": true,
+        "mep": false
+      }
+    },
+    "orchestration": {
+      "sequence": [],
+      "currentStep": null,
+      "status": "idle",
+      "conflicts": [],
+      "crossValidationPassed": true,
+      "startedAt": null,
+      "completedAt": null
+    },
+    "trace": [
+      {
+        "timestamp": "2026-07-30T09:01:20.331Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:01:22.253Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:01:23.802Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:13.455Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:15.048Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:30.835Z",
+        "action": "profiling",
+        "module": "projectProfiler",
+        "details": {
+          "confidence": 85
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:30.887Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:30.903Z",
+        "action": "cost_estimation",
+        "module": "costEstimator",
+        "details": {
+          "costData": {
+            "directCost": 185005,
+            "indirectCost": 22201,
+            "contingency": 5550,
+            "profit": 21276,
+            "taxes": 35105,
+            "totalCost": 269136,
+            "currency": "SAR",
+            "costPerM2": null,
+            "breakdown": {
+              "materials": {
+                "cost": 27810,
+                "percentage": 15
+              },
+              "labor": {
+                "cost": 109149,
+                "percentage": 59
+              },
+              "equipment": {
+                "cost": 48047,
+                "percentage": 26
+              },
+              "indirect": {
+                "cost": 22201,
+                "percentage": 8
+              },
+              "contingency": {
+                "cost": 5550,
+                "percentage": 2
+              },
+              "profit": {
+                "cost": 21276,
+                "percentage": 8
+              },
+              "taxes": {
+                "cost": 35105,
+                "percentage": 13
+              }
+            },
+            "confidence": 0.88,
+            "regionalFactor": 1,
+            "finishingMultiplier": 1,
+            "dataPoints": {
+              "materials": 380,
+              "labor": 234,
+              "equipment": 156,
+              "suppliers": 124
+            }
+          }
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:30.930Z",
+        "action": "schedule",
+        "module": "scheduleOptimizer",
+        "details": {
+          "scheduleData": {
+            "activities": [
+              {
+                "id": "A1",
+                "name": "Site Preparation",
+                "duration": 12,
+                "predecessors": []
+              },
+              {
+                "id": "A2",
+                "name": "Foundation",
+                "duration": 23,
+                "predecessors": [
+                  "A1"
+                ]
+              },
+              {
+                "id": "A3",
+                "name": "Structural Frame",
+                "duration": 39,
+                "predecessors": [
+                  "A2"
+                ]
+              },
+              {
+                "id": "A4",
+                "name": "MEP Rough-in",
+                "duration": 18,
+                "predecessors": [
+                  "A3"
+                ]
+              },
+              {
+                "id": "A5",
+                "name": "Masonry & Block",
+                "duration": 12,
+                "predecessors": [
+                  "A4"
+                ]
+              },
+              {
+                "id": "A6",
+                "name": "Plaster & Finishing",
+                "duration": 15,
+                "predecessors": [
+                  "A5"
+                ]
+              },
+              {
+                "id": "A7",
+                "name": "Flooring & Tiles",
+                "duration": 10,
+                "predecessors": [
+                  "A6"
+                ]
+              },
+              {
+                "id": "A8",
+                "name": "Ceiling & Partitions",
+                "duration": 8,
+                "predecessors": [
+                  "A7"
+                ]
+              },
+              {
+                "id": "A9",
+                "name": "Doors & Windows",
+                "duration": 5,
+                "predecessors": [
+                  "A8"
+                ]
+              },
+              {
+                "id": "A10",
+                "name": "Painting & Decoration",
+                "duration": 6,
+                "predecessors": [
+                  "A9"
+                ]
+              },
+              {
+                "id": "A11",
+                "name": "Exterior & Landscape",
+                "duration": 10,
+                "predecessors": [
+                  "A10"
+                ]
+              },
+              {
+                "id": "A12",
+                "name": "Commissioning & Handover",
+                "duration": 5,
+                "predecessors": [
+                  "A11"
+                ]
+              }
+            ],
+            "totalDuration": 162,
+            "totalMonths": 7.4,
+            "criticalPath": [
+              "A1",
+              "A2",
+              "A3",
+              "A4",
+              "A5",
+              "A6",
+              "A7",
+              "A8",
+              "A9",
+              "A10",
+              "A11",
+              "A12"
+            ],
+            "optimization": {
+              "parallelExecution": 33,
+              "compressionPotential": "Minimal"
+            },
+            "parameters": {
+              "baseDuration": 176,
+              "areaFactor": 1,
+              "floorsFactor": 0.92,
+              "finishingFactor": 1,
+              "methodFactor": 1
+            },
+            "trainingData": 0,
+            "confidence": 0.6
+          }
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:30.959Z",
+        "action": "risk_analysis",
+        "module": "riskAnalyzer",
+        "details": {
+          "riskData": {
+            "risks": [
+              {
+                "category": "Schedule",
+                "risk": "Weather delay potential",
+                "probability": 0.6,
+                "impact": 0.61,
+                "score": 0.37,
+                "mitigation": "Accelerated procurement plan",
+                "trainingSamples": 6646
+              },
+              {
+                "category": "Safety",
+                "risk": "Working at height risk",
+                "probability": 0.61,
+                "impact": 0.61,
+                "score": 0.37,
+                "mitigation": "Enhanced safety training",
+                "trainingSamples": 6168
+              },
+              {
+                "category": "Financial",
+                "risk": "Cement price increase",
+                "probability": 0.61,
+                "impact": 0.61,
+                "score": 0.37,
+                "mitigation": "Fixed price contracts",
+                "trainingSamples": 6912
+              },
+              {
+                "category": "Quality",
+                "risk": "Testing failure rate high",
+                "probability": 0.62,
+                "impact": 0.6,
+                "score": 0.37,
+                "mitigation": "Additional testing regime",
+                "trainingSamples": 6210
+              },
+              {
+                "category": "Material",
+                "risk": "Block moisture absorption high",
+                "probability": 0.61,
+                "impact": 0.61,
+                "score": 0.37,
+                "mitigation": "Alternative supplier sourcing",
+                "trainingSamples": 7325
+              },
+              {
+                "category": "Structural",
+                "risk": "Column failure potential",
+                "probability": 0.61,
+                "impact": 0.61,
+                "score": 0.37,
+                "mitigation": "Design review and structural analysis",
+                "trainingSamples": 6879
+              }
+            ],
+            "overallRiskScore": 0.37,
+            "riskLevel": "Medium",
+            "totalRisksInTraining": 40140,
+            "projectSpecificData": 0
+          }
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:31.010Z",
+        "action": "quality",
+        "module": "qualityInspector",
+        "details": {
+          "qualityData": {
+            "defects": [],
+            "qualityScore": 100,
+            "qualityGrade": "ممتاز",
+            "totalTrainingDefects": 14984,
+            "defectTypes": 6,
+            "estimatedDefects": 0
+          }
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:33.195Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:34.430Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:03:35.669Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:07:16.688Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:07:19.347Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      },
+      {
+        "timestamp": "2026-07-30T09:08:40.448Z",
+        "action": "boq_generation",
+        "module": "quantityEstimator",
+        "details": {
+          "itemCount": 15,
+          "totalCost": 27810
+        },
+        "projectId": "proj-1785324632561"
+      }
+    ]
+  }
+}

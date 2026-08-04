@@ -1,15 +1,12 @@
 {
-  "name": "@acep/ai-bim-parser",
+  "name": "@acep/bim-parser",
   "version": "1.0.0",
-  "description": "BIM Parser Service - IFC file parsing and space extraction for ACEP",
+  "description": "BIM Parser Service - IFC structure extraction with construction quantity takeoffs for ACEP",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest"
   },
-  "dependencies": {
-    "@acep/core": "^1.0.0",
-    "uuid": "^9.0.0"
-  }
+  "dependencies": {}
 }

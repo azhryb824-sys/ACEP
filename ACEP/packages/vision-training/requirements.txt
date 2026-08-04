@@ -1,0 +1,32 @@
+# ACEP Vision Training - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core ML
+torch>=2.1.0
+torchvision>=0.16.0
+
+# Diffusers & Transformers
+diffusers>=0.27.0
+transformers>=4.36.0
+accelerate>=0.25.0
+peft>=0.7.0
+safetensors>=0.4.0
+
+# Image processing
+pillow>=10.1.0
+numpy>=1.24.0
+
+# Training optimizations
+xformers>=0.0.23
+bitsandbytes>=0.41.0
+prodigyopt>=1.0
+
+# Evaluation (optional)
+scipy>=1.11.0
+scikit-image>=0.22.0
+clip>=1.0
+
+# Utility
+tqdm>=4.66.0
+tensorboard>=2.15.0
+wandb>=0.16.0

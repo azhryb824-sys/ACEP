@@ -1,0 +1,258 @@
+const SCHEMA = {
+  version: '1.0.0',
+  tables: {
+    training_projects: `
+      CREATE TABLE IF NOT EXISTS training_projects (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        project_type TEXT,
+        subtype TEXT,
+        area REAL,
+        floors INTEGER,
+        rooms INTEGER,
+        bathrooms INTEGER,
+        country TEXT,
+        city TEXT,
+        description TEXT,
+        boq_items TEXT,
+        elements TEXT,
+        materials TEXT,
+        codes TEXT,
+        phases TEXT,
+        schedule_data TEXT,
+        bim_data TEXT,
+        navigation_data TEXT,
+        source TEXT,
+        version TEXT,
+        status TEXT DEFAULT 'active',
+        created_at TEXT DEFAULT (datetime('now')),
+        updated_at TEXT DEFAULT (datetime('now'))
+      )
+    `,
+    training_images: `
+      CREATE TABLE IF NOT EXISTS training_images (
+        id TEXT PRIMARY KEY,
+        project_id TEXT,
+        project_type TEXT,
+        subtype TEXT,
+        area REAL,
+        floors INTEGER,
+        rooms INTEGER,
+        bathrooms INTEGER,
+        phase TEXT,
+        phase_id TEXT,
+        finishing TEXT,
+        architectural_style TEXT,
+        country TEXT DEFAULT 'Saudi Arabia',
+        city TEXT,
+        image_source TEXT,
+        prompt TEXT,
+        prompt_id TEXT,
+        caption TEXT,
+        boq_item_id TEXT,
+        engineering_elements TEXT,
+        materials_used TEXT,
+        code_reference TEXT,
+        camera_angle TEXT,
+        lighting_type TEXT,
+        file_path TEXT,
+        thumbnail_path TEXT,
+        width INTEGER,
+        height INTEGER,
+        format TEXT,
+        file_size INTEGER,
+        quality_score REAL DEFAULT 0,
+        quality_details TEXT,
+        duplicate_status TEXT DEFAULT 'pending',
+        duplicate_group TEXT,
+        certification_status TEXT DEFAULT 'pending',
+        certification_date TEXT,
+        metadata_complete REAL DEFAULT 0,
+        auto_classified INTEGER DEFAULT 0,
+        dataset_version TEXT,
+        split_type TEXT,
+        created_at TEXT DEFAULT (datetime('now')),
+        updated_at TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (project_id) REFERENCES training_projects(id)
+      )
+    `,
+    training_videos: `
+      CREATE TABLE IF NOT EXISTS training_videos (
+        id TEXT PRIMARY KEY,
+        project_id TEXT,
+        project_type TEXT,
+        phase TEXT,
+        duration REAL,
+        resolution TEXT,
+        fps REAL,
+        prompt TEXT,
+        file_path TEXT,
+        thumbnail_path TEXT,
+        quality_score REAL DEFAULT 0,
+        quality_details TEXT,
+        certification_status TEXT DEFAULT 'pending',
+        created_at TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (project_id) REFERENCES training_projects(id)
+      )
+    `,
+    training_prompts: `
+      CREATE TABLE IF NOT EXISTS training_prompts (
+        id TEXT PRIMARY KEY,
+        prompt TEXT NOT NULL,
+        prompt_ar TEXT,
+        language TEXT DEFAULT 'en',
+        hash TEXT,
+        project_type TEXT,
+        subtype TEXT,
+        area REAL,
+        floors INTEGER,
+        phase TEXT,
+        phase_id TEXT,
+        finishing TEXT,
+        architectural_style TEXT,
+        lighting TEXT,
+        camera_angle TEXT,
+        template_category TEXT,
+        quality_tags TEXT,
+        constraint_tags TEXT,
+        facade_material TEXT,
+        floor_material TEXT,
+        wall_material TEXT,
+        structural_system TEXT,
+        features TEXT,
+        usage_count INTEGER DEFAULT 0,
+        created_at TEXT DEFAULT (datetime('now'))
+      )
+    `,
+    quality_assessments: `
+      CREATE TABLE IF NOT EXISTS quality_assessments (
+        id TEXT PRIMARY KEY,
+        image_id TEXT,
+        resolution_score REAL,
+        clarity_score REAL,
+        noise_score REAL,
+        perspective_score REAL,
+        proportion_score REAL,
+        material_quality_score REAL,
+        lighting_quality_score REAL,
+        ai_artifact_score REAL,
+        text_detected INTEGER DEFAULT 0,
+        logo_detected INTEGER DEFAULT 0,
+        watermark_detected INTEGER DEFAULT 0,
+        people_detected INTEGER DEFAULT 0,
+        animals_detected INTEGER DEFAULT 0,
+        vehicles_detected INTEGER DEFAULT 0,
+        phase_match_score REAL,
+        description_match_score REAL,
+        overall_score REAL,
+        passed INTEGER DEFAULT 0,
+        details TEXT,
+        assessed_at TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (image_id) REFERENCES training_images(id)
+      )
+    `,
+    duplicate_groups: `
+      CREATE TABLE IF NOT EXISTS duplicate_groups (
+        id TEXT PRIMARY KEY,
+        group_type TEXT,
+        primary_image_id TEXT,
+        scores TEXT,
+        resolution TEXT,
+        created_at TEXT DEFAULT (datetime('now'))
+      )
+    `,
+    dataset_versions: `
+      CREATE TABLE IF NOT EXISTS dataset_versions (
+        id TEXT PRIMARY KEY,
+        version TEXT NOT NULL,
+        description TEXT,
+        creator TEXT,
+        project_count INTEGER DEFAULT 0,
+        image_count INTEGER DEFAULT 0,
+        video_count INTEGER DEFAULT 0,
+        prompt_count INTEGER DEFAULT 0,
+        quality_avg REAL DEFAULT 0,
+        acceptance_rate REAL DEFAULT 0,
+        metadata_completeness REAL DEFAULT 0,
+        balance_scores TEXT,
+        notes TEXT,
+        status TEXT DEFAULT 'draft',
+        created_at TEXT DEFAULT (datetime('now'))
+      )
+    `,
+    dataset_splits: `
+      CREATE TABLE IF NOT EXISTS dataset_splits (
+        id TEXT PRIMARY KEY,
+        version_id TEXT,
+        split_type TEXT,
+        image_count INTEGER DEFAULT 0,
+        project_types TEXT,
+        phases TEXT,
+        balance_scores TEXT,
+        created_at TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (version_id) REFERENCES dataset_versions(id)
+      )
+    `,
+    training_readiness: `
+      CREATE TABLE IF NOT EXISTS training_readiness (
+        id TEXT PRIMARY KEY,
+        dataset_version_id TEXT,
+        overall_score REAL,
+        projects_count INTEGER,
+        images_count INTEGER,
+        videos_count INTEGER,
+        prompts_count INTEGER,
+        project_types_count INTEGER,
+        phases_count INTEGER,
+        materials_count INTEGER,
+        codes_count INTEGER,
+        metadata_completeness REAL,
+        duplicate_rate REAL,
+        quality_avg REAL,
+        balance_scores TEXT,
+        certification_stats TEXT,
+        readiness_status TEXT,
+        gaps TEXT,
+        recommendations TEXT,
+        created_at TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (dataset_version_id) REFERENCES dataset_versions(id)
+      )
+    `,
+    balance_analyses: `
+      CREATE TABLE IF NOT EXISTS balance_analyses (
+        id TEXT PRIMARY KEY,
+        dataset_version_id TEXT,
+        project_type_distribution TEXT,
+        phase_distribution TEXT,
+        finishing_distribution TEXT,
+        style_distribution TEXT,
+        quality_distribution TEXT,
+        gaps TEXT,
+        recommendations TEXT,
+        created_at TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (dataset_version_id) REFERENCES dataset_versions(id)
+      )
+    `,
+    training_platform_meta: `
+      CREATE TABLE IF NOT EXISTS training_platform_meta (
+        key TEXT PRIMARY KEY,
+        value TEXT
+      )
+    `,
+  },
+  indexes: [
+    'CREATE INDEX IF NOT EXISTS idx_images_project ON training_images(project_id)',
+    'CREATE INDEX IF NOT EXISTS idx_images_type ON training_images(project_type)',
+    'CREATE INDEX IF NOT EXISTS idx_images_phase ON training_images(phase)',
+    'CREATE INDEX IF NOT EXISTS idx_images_cert ON training_images(certification_status)',
+    'CREATE INDEX IF NOT EXISTS idx_images_quality ON training_images(quality_score)',
+    'CREATE INDEX IF NOT EXISTS idx_images_split ON training_images(split_type)',
+    'CREATE INDEX IF NOT EXISTS idx_images_dup ON training_images(duplicate_status)',
+    'CREATE INDEX IF NOT EXISTS idx_prompts_hash ON training_prompts(hash)',
+    'CREATE INDEX IF NOT EXISTS idx_prompts_type ON training_prompts(project_type)',
+    'CREATE INDEX IF NOT EXISTS idx_quality_image ON quality_assessments(image_id)',
+    'CREATE INDEX IF NOT EXISTS idx_versions_status ON dataset_versions(status)',
+  ],
+};
+
+module.exports = { SCHEMA };

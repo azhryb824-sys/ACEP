@@ -1,0 +1,45 @@
+{
+  "total": 10,
+  "lastBatch": 0,
+  "updatedAt": "2026-07-28T14:47:52.252Z",
+  "stats": {
+    "total": 10,
+    "totalImagesLinked": 0,
+    "uniqueHashes": 10,
+    "byProjectType": {
+      "hospital": 1,
+      "tunnel": 1,
+      "agricultural": 1,
+      "school": 2,
+      "building": 1,
+      "office": 1,
+      "bridge": 1,
+      "tower": 1,
+      "villa": 1
+    },
+    "byPhase": {
+      "hvac": 3,
+      "foundation": 1,
+      "pre_construction": 2,
+      "plumbing": 1,
+      "structure": 1,
+      "excavation": 1,
+      "painting": 1
+    },
+    "byFinishing": {
+      "Economic": 2,
+      "Luxury": 4,
+      "Ultra Luxury": 1,
+      "Ultra Luxury Plus": 3
+    },
+    "byStyle": {
+      "Healthcare Design": 1,
+      "Infrastructure": 1,
+      "Modern": 4,
+      "Contemporary": 1,
+      "Arabic": 1,
+      "Structural": 1,
+      "Minimalist": 1
+    }
+  }
+}

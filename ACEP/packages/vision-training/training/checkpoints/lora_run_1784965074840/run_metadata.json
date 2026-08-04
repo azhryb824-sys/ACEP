@@ -1,0 +1,29 @@
+{
+  "runId": "lora_run_1784965074840",
+  "base_model": "black-forest-labs/FLUX.1-dev",
+  "output_dir": "C:\\Users\\Abdulrahman\\Documents\\مقاولات إلكترونية 2\\ACEP\\packages\\vision-training\\training\\lora\\run_1784965074839",
+  "learning_rate": 0.0001,
+  "train_batch_size": 1,
+  "gradient_accumulation_steps": 4,
+  "max_train_steps": 10,
+  "resolution": 1024,
+  "mixed_precision": "fp16",
+  "checkpointing_steps": 200,
+  "validation_steps": 100,
+  "seed": 42,
+  "warmup_steps": 100,
+  "noise_offset": 0.01,
+  "snr_gamma": 5,
+  "lora": {
+    "rank": 64,
+    "alpha": 128,
+    "target_modules": [
+      "to_q",
+      "to_k",
+      "to_v",
+      "to_out.0"
+    ]
+  },
+  "status": "started",
+  "startedAt": "2026-07-25T07:37:54.840Z"
+}

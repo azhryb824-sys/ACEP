@@ -1,0 +1,7 @@
+{
+  "name": "@acep/unified-training-system",
+  "version": "1.0.0",
+  "description": "UETS - Unified Engineering Training System for ACEP. Single source of engineering truth for all models.",
+  "main": "index.js",
+  "private": true
+}

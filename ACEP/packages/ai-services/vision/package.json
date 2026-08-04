@@ -1,7 +1,7 @@
 {
   "name": "@acep/ai-vision",
   "version": "1.0.0",
-  "description": "Computer Vision Service - Construction site image analysis for ACEP",
+  "description": "Vision Service - Construction site image analysis bridging to ACEP VisionAI engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -9,7 +9,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@acep/core": "^1.0.0",
-    "uuid": "^9.0.0"
+    "axios": "^1.6.0"
   }
 }

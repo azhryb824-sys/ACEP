@@ -1,0 +1,17 @@
+{
+  "dataset": "engineering_llm",
+  "version": "1.0",
+  "generator": "ACEP-Data-Factory",
+  "total_samples": 300,
+  "train": 240,
+  "validation": 30,
+  "test": 30,
+  "languages": [
+    "Arabic",
+    "English"
+  ],
+  "domains": [
+    "engineering_llm"
+  ],
+  "generated": "2026-07-22T16:45:24.211442"
+}

@@ -1,0 +1,662 @@
+{
+  "projects": [
+    {
+      "id": "proj-001",
+      "type": "Villa",
+      "name": "برج المملكة السكني",
+      "recordedAt": "2026-07-26T12:43:32.895Z",
+      "params": {
+        "area": 42000,
+        "floors": 30,
+        "city": null
+      },
+      "boqSummary": {
+        "totalItems": 0,
+        "totalCost": 0,
+        "items": []
+      },
+      "cost": {
+        "total": 0,
+        "perM2": 0
+      },
+      "profile": null
+    },
+    {
+      "id": "proj-1784976600640",
+      "type": "Mall",
+      "name": "مول",
+      "recordedAt": "2026-07-26T12:47:11.408Z",
+      "params": {
+        "area": 3000,
+        "floors": 3,
+        "city": "Riyadh"
+      },
+      "boqSummary": {
+        "totalItems": 52,
+        "totalCost": 0,
+        "items": [
+          {
+            "code": "EXC-001",
+            "qty": 1500,
+            "price": 35,
+            "total": 52500
+          },
+          {
+            "code": "EXC-002",
+            "qty": 3150,
+            "price": 35,
+            "total": 110250
+          },
+          {
+            "code": "EXC-003",
+            "qty": 1500,
+            "price": 35,
+            "total": 52500
+          },
+          {
+            "code": "EXC-004",
+            "qty": 2400,
+            "price": 35,
+            "total": 84000
+          },
+          {
+            "code": "FND-001",
+            "qty": 300,
+            "price": 430,
+            "total": 129000
+          },
+          {
+            "code": "FND-002",
+            "qty": 750,
+            "price": 430,
+            "total": 322500
+          },
+          {
+            "code": "FND-003",
+            "qty": 450,
+            "price": 430,
+            "total": 193500
+          },
+          {
+            "code": "FND-004",
+            "qty": 750,
+            "price": 430,
+            "total": 322500
+          },
+          {
+            "code": "STR-001",
+            "qty": 540,
+            "price": 500,
+            "total": 270000
+          },
+          {
+            "code": "STR-002",
+            "qty": 360,
+            "price": 500,
+            "total": 180000
+          },
+          {
+            "code": "STR-003",
+            "qty": 1620,
+            "price": 480,
+            "total": 777600
+          },
+          {
+            "code": "STR-005",
+            "qty": 349.2,
+            "price": 3500,
+            "total": 1222200
+          },
+          {
+            "code": "STR-006",
+            "qty": 7,
+            "price": 480,
+            "total": 3360
+          },
+          {
+            "code": "MAL-001",
+            "qty": 2,
+            "price": 250000,
+            "total": 500000
+          },
+          {
+            "code": "MAL-002",
+            "qty": 2,
+            "price": 250000,
+            "total": 500000
+          },
+          {
+            "code": "MSN-001",
+            "qty": 2012.46,
+            "price": 40,
+            "total": 80498.4
+          },
+          {
+            "code": "MSN-002",
+            "qty": 704.36,
+            "price": 40,
+            "total": 28174.4
+          },
+          {
+            "code": "MSN-003",
+            "qty": 1350,
+            "price": 100,
+            "total": 135000
+          },
+          {
+            "code": "PLS-001",
+            "qty": 1811.22,
+            "price": 25,
+            "total": 45280.5
+          },
+          {
+            "code": "PLS-002",
+            "qty": 704.36,
+            "price": 25,
+            "total": 17609
+          },
+          {
+            "code": "PNT-001",
+            "qty": 1710.59,
+            "price": 18,
+            "total": 30790.62
+          },
+          {
+            "code": "PNT-002",
+            "qty": 704.36,
+            "price": 18,
+            "total": 12678.48
+          },
+          {
+            "code": "PNT-003",
+            "qty": 9000,
+            "price": 18,
+            "total": 162000
+          },
+          {
+            "code": "TLF-001",
+            "qty": 6930,
+            "price": 65,
+            "total": 450450
+          },
+          {
+            "code": "TLF-002",
+            "qty": 240,
+            "price": 65,
+            "total": 15600
+          },
+          {
+            "code": "TLF-003",
+            "qty": 300,
+            "price": 55,
+            "total": 16500
+          },
+          {
+            "code": "TLF-004",
+            "qty": 0,
+            "price": 180,
+            "total": 0
+          },
+          {
+            "code": "GPS-001",
+            "qty": 5400,
+            "price": 60,
+            "total": 324000
+          },
+          {
+            "code": "DR-001",
+            "qty": 47,
+            "price": 800,
+            "total": 37600
+          },
+          {
+            "code": "DR-002",
+            "qty": 1,
+            "price": 800,
+            "total": 800
+          },
+          {
+            "code": "WN-001",
+            "qty": 45,
+            "price": 350,
+            "total": 15750
+          },
+          {
+            "code": "ELC-001",
+            "qty": 370,
+            "price": 120,
+            "total": 44400
+          },
+          {
+            "code": "ELC-002",
+            "qty": 3,
+            "price": 120,
+            "total": 360
+          },
+          {
+            "code": "ELC-003",
+            "qty": 720,
+            "price": 120,
+            "total": 86400
+          },
+          {
+            "code": "ELC-004",
+            "qty": 540,
+            "price": 120,
+            "total": 64800
+          },
+          {
+            "code": "MAL-004",
+            "qty": 3600,
+            "price": 120,
+            "total": 432000
+          },
+          {
+            "code": "TOW-004",
+            "qty": 1,
+            "price": 120,
+            "total": 120
+          },
+          {
+            "code": "PLB-001",
+            "qty": 90,
+            "price": 150,
+            "total": 13500
+          },
+          {
+            "code": "PLB-002",
+            "qty": 47,
+            "price": 150,
+            "total": 7050
+          },
+          {
+            "code": "PLB-003",
+            "qty": 1,
+            "price": 150,
+            "total": 150
+          },
+          {
+            "code": "PLB-004",
+            "qty": 15,
+            "price": 150,
+            "total": 2250
+          },
+          {
+            "code": "TOW-002",
+            "qty": 1,
+            "price": 150,
+            "total": 150
+          },
+          {
+            "code": "HVAC-001",
+            "qty": 19,
+            "price": 4500,
+            "total": 85500
+          },
+          {
+            "code": "HVAC-002",
+            "qty": 75,
+            "price": 4500,
+            "total": 337500
+          },
+          {
+            "code": "HVAC-003",
+            "qty": 1350,
+            "price": 4500,
+            "total": 6075000
+          },
+          {
+            "code": "NET-002",
+            "qty": 360,
+            "price": 200,
+            "total": 72000
+          },
+          {
+            "code": "NET-004",
+            "qty": 450,
+            "price": 200,
+            "total": 90000
+          },
+          {
+            "code": "FAC-005",
+            "qty": 6,
+            "price": 200,
+            "total": 1200
+          },
+          {
+            "code": "MAL-005",
+            "qty": 15,
+            "price": 180,
+            "total": 2700
+          },
+          {
+            "code": "TOW-003",
+            "qty": 1,
+            "price": 100,
+            "total": 100
+          },
+          {
+            "code": "EXT-001",
+            "qty": 219.09,
+            "price": 40,
+            "total": 8763.6
+          },
+          {
+            "code": "WRH-004",
+            "qty": 4,
+            "price": 100,
+            "total": 400
+          }
+        ]
+      },
+      "cost": {
+        "total": 0,
+        "perM2": 0
+      },
+      "profile": null
+    }
+  ],
+  "priceAdjustments": {
+    "EXC": [
+      {
+        "price": 35,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 35,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 35,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 35,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "FND": [
+      {
+        "price": 430,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 430,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 430,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 430,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "COL": [
+      {
+        "price": 500,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 500,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "SLB": [
+      {
+        "price": 480,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 480,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "REB": [
+      {
+        "price": 3500,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "ELV": [
+      {
+        "price": 250000,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 250000,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "BLK": [
+      {
+        "price": 40,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 40,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 40,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      }
+    ],
+    "WPR": [
+      {
+        "price": 100,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "PLS": [
+      {
+        "price": 25,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 25,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "PNT": [
+      {
+        "price": 18,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 18,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 18,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "TLF": [
+      {
+        "price": 65,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 65,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "CRM": [
+      {
+        "price": 55,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "GPS": [
+      {
+        "price": 60,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "DR": [
+      {
+        "price": 800,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 800,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "WN": [
+      {
+        "price": 350,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      }
+    ],
+    "ELC": [
+      {
+        "price": 120,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 120,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 120,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 120,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 120,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.408Z"
+      },
+      {
+        "price": 120,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      }
+    ],
+    "PLB": [
+      {
+        "price": 150,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      },
+      {
+        "price": 150,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      },
+      {
+        "price": 150,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      },
+      {
+        "price": 150,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      },
+      {
+        "price": 150,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      }
+    ],
+    "HVAC": [
+      {
+        "price": 4500,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      },
+      {
+        "price": 4500,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      },
+      {
+        "price": 4500,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      }
+    ],
+    "FPR": [
+      {
+        "price": 200,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      },
+      {
+        "price": 200,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      },
+      {
+        "price": 200,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      }
+    ],
+    "NET": [
+      {
+        "price": 180,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      }
+    ],
+    "SEC": [
+      {
+        "price": 100,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      }
+    ],
+    "CON": [
+      {
+        "price": 100,
+        "project": "proj-1784976600640",
+        "date": "2026-07-26T12:47:11.409Z"
+      }
+    ]
+  },
+  "quantityAdjustments": {},
+  "modelFeedback": []
+}

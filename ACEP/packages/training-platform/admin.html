@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACEP Training Data Platform</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;padding:16px}
+  .container{max-width:1400px;margin:0 auto}
+  h1{color:#38bdf8;font-size:24px;display:flex;align-items:center;gap:8px}
+  h1 span{font-size:14px;color:#64748b;font-weight:400}
+  .subtitle{color:#94a3b8;margin-bottom:20px;font-size:13px}
+  .tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+  .tab{padding:8px 16px;border-radius:8px;background:#1e293b;cursor:pointer;border:1px solid transparent;font-size:13px}
+  .tab.active{background:#0f172a;border-color:#38bdf8;color:#38bdf8}
+  .tab:hover{border-color:#475569}
+  .page{display:none}
+  .page.active{display:block}
+  .card{background:#1e293b;border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid #334155}
+  .card h3{color:#38bdf8;font-size:15px;margin-bottom:10px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+  .stat{background:#0f172a;border-radius:8px;padding:12px;text-align:center}
+  .stat .val{font-size:22px;font-weight:700;color:#38bdf8}
+  .stat .lbl{font-size:11px;color:#94a3b8;margin-top:2px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  select,input,button,textarea{padding:6px 10px;border-radius:6px;border:1px solid #475569;background:#0f172a;color:#e2e8f0;font-size:13px}
+  button{background:#2563eb;color:#fff;border:none;cursor:pointer;font-weight:600;padding:6px 14px}
+  button:hover{background:#3b82f6}
+  button.danger{background:#dc2626}
+  button.danger:hover{background:#ef4444}
+  button.success{background:#16a34a}
+  button.success:hover{background:#22c55e}
+  button.sm{font-size:11px;padding:4px 8px}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th,td{padding:6px 8px;text-align:right;border-bottom:1px solid #1e293b}
+  th{color:#94a3b8;font-weight:600}
+  .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
+  .badge.green{background:#166534;color:#86efac}
+  .badge.red{background:#7f1d1d;color:#fca5a5}
+  .badge.yellow{background:#713f12;color:#fde68a}
+  .badge.blue{background:#1e3a5f;color:#93c5fd}
+  .log{max-height:150px;overflow-y:auto;font-family:monospace;font-size:11px;background:#0f172a;padding:8px;border-radius:6px}
+  .log div{padding:2px 0;border-bottom:1px solid #1e293b}
+  .progress{height:6px;background:#1e293b;border-radius:3px;overflow:hidden;margin:4px 0}
+  .progress-bar{height:100%;background:#38bdf8;border-radius:3px;transition:width .5s}
+  @media(max-width:768px){.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🧠 ACEP Training Data Platform <span>منصة إدارة بيانات التدريب الهندسية</span></h1>
+  <div class="subtitle">المنصة المركزية لإدارة جميع بيانات التدريب — الفحص، التصنيف، الاعتماد، الإصدارات، التصدير</div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('overview')">📊 نظرة عامة</div>
+    <div class="tab" onclick="showTab('images')">🖼 الصور</div>
+    <div class="tab" onclick="showTab('versions')">📦 الإصدارات</div>
+    <div class="tab" onclick="showTab('balance')">⚖️ التوازن</div>
+    <div class="tab" onclick="showTab('export')">📤 التصدير</div>
+    <div class="tab" onclick="showTab('processing')">⚙️ المعالجة</div>
+    <div class="tab" onclick="showTab('readiness')">✅ الجاهزية</div>
+  </div>
+
+  <!-- Overview -->
+  <div id="page-overview" class="page active">
+    <div class="card"><h3>إحصائيات عامة</h3><div id="stats-grid" class="grid"></div></div>
+    <div class="card">
+      <h3>توزيع المشاريع</h3>
+      <div class="row" style="margin-bottom:8px"><input type="text" id="search-q" placeholder="بحث..." style="flex:1"><button onclick="searchDB()" class="sm">بحث</button><button onclick="loadDashboard()" class="sm success">تحديث</button></div>
+      <div id="diversity-breakdown"></div>
+    </div>
+  </div>
+
+  <!-- Images -->
+  <div id="page-images" class="page">
+    <div class="card">
+      <h3>إدارة الصور</h3>
+      <div class="row" style="margin-bottom:8px">
+        <select id="filter-type"><option value="">All types</option></select>
+        <select id="filter-phase"><option value="">All phases</option></select>
+        <select id="filter-status"><option value="">All status</option><option value="certified">Certified</option><option value="rejected">Rejected</option><option value="pending">Pending</option></select>
+        <input type="number" id="filter-quality" placeholder="Min quality" style="width:80px">
+        <button onclick="loadImages()" class="sm">🔍</button>
+      </div>
+      <div id="images-list" style="max-height:500px;overflow-y:auto"></div>
+    </div>
+  </div>
+
+  <!-- Versions -->
+  <div id="page-versions" class="page">
+    <div class="card">
+      <h3>إدارة الإصدارات</h3>
+      <div class="row" style="margin-bottom:8px">
+        <button onclick="createVersion()">إنشاء إصدار جديد</button>
+        <button onclick="loadVersions()" class="sm secondary">تحديث</button>
+      </div>
+      <div id="versions-list"></div>
+    </div>
+  </div>
+
+  <!-- Balance -->
+  <div id="page-balance" class="page">
+    <div class="card">
+      <h3>تحليل توازن البيانات</h3>
+      <div class="row" style="margin-bottom:8px">
+        <button onclick="runBalance()">تحليل</button>
+      </div>
+      <div id="balance-result"></div>
+    </div>
+  </div>
+
+  <!-- Export -->
+  <div id="page-export" class="page">
+    <div class="card">
+      <h3>تصدير البيانات</h3>
+      <div class="row" style="margin-bottom:8px">
+        <select id="export-format">
+          <option value="json">JSON</option>
+          <option value="csv">CSV</option>
+          <option value="webdataset">WebDataset</option>
+          <option value="huggingface">Hugging Face</option>
+          <option value="diffusers">Diffusers</option>
+          <option value="flux">FLUX</option>
+          <option value="parquet">Parquet</option>
+        </select>
+        <select id="export-type"><option value="">All types</option></select>
+        <select id="export-phase"><option value="">All phases</option></select>
+        <button onclick="exportData()">تصدير</button>
+      </div>
+      <div id="export-result"></div>
+    </div>
+  </div>
+
+  <!-- Processing -->
+  <div id="page-processing" class="page">
+    <div class="card">
+      <h3>المعالجة في الخلفية</h3>
+      <div class="row" style="margin-bottom:8px">
+        <button onclick="startBatchProcess()" class="success">تشغيل معالجة</button>
+        <button onclick="startBatchClassify()">تشغيل تصنيف</button>
+        <button onclick="loadProcessor()" class="secondary">تحديث</button>
+      </div>
+      <div id="processor-status"></div>
+      <div id="processor-log" class="log"></div>
+    </div>
+  </div>
+
+  <!-- Readiness -->
+  <div id="page-readiness" class="page">
+    <div class="card">
+      <h3>تقرير جاهزية التدريب</h3>
+      <button onclick="generateReadiness()">إنشاء تقرير</button>
+      <div id="readiness-result" style="margin-top:12px"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = '/api/v1/training-platform';
+
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  [...document.querySelectorAll('.tab')].find(t => t.textContent.includes({overview:'نظرة',images:'الصور',versions:'الإصدارات',balance:'التوازن',export:'التصدير',processing:'المعالجة',readiness:'الجاهزية'}[name]))?.classList.add('active');
+  document.getElementById('page-'+name).classList.add('active');
+  if (name==='overview') loadDashboard();
+  if (name==='images') loadImages();
+  if (name==='versions') loadVersions();
+  if (name==='processing') loadProcessor();
+}
+
+async function api(path,opts={}){const r=await fetch(API+path,{headers:{'Content-Type':'application/json'},...opts});return r.json()}
+
+// Load filter dropdowns
+let typeOptions = []; let phaseOptions = [];
+(async function init(){
+  const vars = await fetch('/api/v1/engineering-prompts/variables').then(r=>r.json()).catch(()=>({}));
+  const types = vars.projectTypeDetails || {};
+  Object.keys(types).forEach(k => {
+    typeOptions.push(k);
+    document.querySelectorAll('#filter-type,#export-type').forEach(sel => {
+      const o = document.createElement('option'); o.value=k; o.textContent=types[k].name?.en||k; sel.appendChild(o);
+    });
+  });
+  (vars.phases||[]).forEach(p => {
+    phaseOptions.push(p.id);
+    document.querySelectorAll('#filter-phase,#export-phase').forEach(sel => {
+      const o = document.createElement('option'); o.value=p.id; o.textContent=p.name?.en||p.id; sel.appendChild(o);
+    });
+  });
+  loadDashboard();
+})();
+
+async function loadDashboard(){
+  const s = await api('/stats');
+  const el = document.getElementById('stats-grid');
+  el.innerHTML = `
+    <div class="stat"><div class="val">${s.projects?.total||0}</div><div class="lbl">Projects</div></div>
+    <div class="stat"><div class="val">${s.images?.total||0}</div><div class="lbl">Images</div></div>
+    <div class="stat"><div class="val">${s.images?.avgQuality||0}</div><div class="lbl">Avg Quality</div></div>
+    <div class="stat"><div class="val">${s.images?.certified||0}</div><div class="lbl">Certified</div></div>
+    <div class="stat"><div class="val">${s.images?.rejected||0}</div><div class="lbl">Rejected</div></div>
+    <div class="stat"><div class="val">${s.images?.duplicateRate||0}%</div><div class="lbl">Duplicates</div></div>
+    <div class="stat"><div class="val">${s.images?.metadataCompleteness||0}%</div><div class="lbl">Meta Complete</div></div>
+    <div class="stat"><div class="val">${s.prompts?.total||0}</div><div class="lbl">Prompts</div></div>
+    <div class="stat"><div class="val">${s.videos?.total||0}</div><div class="lbl">Videos</div></div>
+  `;
+
+  const div = document.getElementById('diversity-breakdown');
+  div.innerHTML = '<div class="grid">' +
+    `<div class="stat"><div class="val">${s.diversity?.projectTypes||0}</div><div class="lbl">Project Types</div></div>` +
+    `<div class="stat"><div class="val">${s.diversity?.phases||0}</div><div class="lbl">Phases</div></div>` +
+    `<div class="stat"><div class="val">${s.diversity?.styles||0}</div><div class="lbl">Styles</div></div>` +
+    `<div class="stat"><div class="val">${s.diversity?.materials||0}</div><div class="lbl">Materials</div></div>` +
+    `<div class="stat"><div class="val">${s.diversity?.codes||0}</div><div class="lbl">Codes</div></div>` +
+  '</div>';
+
+  if(s.images?.projectTypeBreakdown?.length){
+    let html = '<table><tr><th>Type</th><th>Count</th><th>%</th></tr>';
+    s.images.projectTypeBreakdown.forEach(t => {
+      const pct = s.images.total > 0 ? (t.count/s.images.total*100).toFixed(1) : 0;
+      html += `<tr><td>${t.project_type||'unknown'}</td><td>${t.count}</td><td>${pct}%</td></tr>`;
+    });
+    html += '</table>';
+    div.innerHTML += html;
+  }
+}
+
+async function searchDB(){
+  const q = document.getElementById('search-q').value;
+  if(!q) { loadDashboard(); return; }
+  const r = await api('/images?q='+encodeURIComponent(q)+'&limit=20');
+  const el = document.getElementById('diversity-breakdown');
+  el.innerHTML = '<div style="color:#94a3b8;margin-bottom:8px">'+r.total+' results</div>';
+  (r.results||[]).forEach(img => {
+    el.innerHTML += `<div class="card" style="padding:8px;margin-bottom:4px">
+      <div style="font-size:12px">${img.caption||img.prompt||'—'}</div>
+      <div style="font-size:10px;color:#64748b;margin-top:4px">
+        <span class="badge ${img.certification_status==='certified'?'green':img.certification_status==='rejected'?'red':'yellow'}">${img.certification_status}</span>
+        <span>${img.project_type||'?'}</span> · <span>${img.phase||'?'}</span> · <span>Q:${img.quality_score||0}</span>
+      </div>
+    </div>`;
+  });
+}
+
+async function loadImages(){
+  const filters = [];
+  const ft = document.getElementById('filter-type').value; if(ft) filters.push('project_type='+ft);
+  const fp = document.getElementById('filter-phase').value; if(fp) filters.push('phase='+fp);
+  const fs = document.getElementById('filter-status').value; if(fs) filters.push('certification_status='+fs);
+  const fq = document.getElementById('filter-quality').value; if(fq) filters.push('quality_min='+fq);
+  const r = await api('/images?'+filters.join('&')+'&limit=50');
+  const el = document.getElementById('images-list');
+  el.innerHTML = '<div style="color:#94a3b8;margin-bottom:4px;font-size:12px">'+r.total+' images</div>';
+  (r.results||[]).forEach(img => {
+    const q = img.quality_score||0;
+    const barColor = q>=80?'#16a34a':q>=60?'#2563eb':q>=40?'#ca8a04':'#dc2626';
+    el.innerHTML += `<div class="card" style="padding:8px;margin-bottom:4px">
+      <div style="font-size:11px">${(img.caption||img.prompt||'—').substring(0,120)}</div>
+      <div class="progress" style="width:100px;display:inline-block;vertical-align:middle"><div class="progress-bar" style="width:${q}%;background:${barColor}"></div></div>
+      <span style="font-size:10px;color:#94a3b8">${q}</span>
+      <div style="font-size:10px;color:#64748b;margin-top:2px">
+        <span class="badge ${img.certification_status==='certified'?'green':img.certification_status==='rejected'?'red':'yellow'}">${img.certification_status}</span>
+        <span>${img.project_type||'?'}</span> · <span>${img.phase||'?'}</span> · <span>${img.architectural_style||'?'}</span>
+        ${img.split_type ? ` · <span class="badge blue">${img.split_type}</span>` : ''}
+      </div>
+    </div>`;
+  });
+}
+
+async function loadVersions(){
+  const v = await api('/versions');
+  const el = document.getElementById('versions-list');
+  if(!v.length) { el.innerHTML = '<div style="color:#64748b">No versions yet</div>'; return; }
+  let html = '<table><tr><th>Version</th><th>Status</th><th>Images</th><th>Quality</th><th>Acceptance</th><th>Created</th><th></th></tr>';
+  v.forEach(ver => {
+    const q = ver.quality_avg||0;
+    html += `<tr>
+      <td><strong>${ver.version}</strong></td>
+      <td><span class="badge ${ver.status==='published'?'green':'yellow'}">${ver.status}</span></td>
+      <td>${ver.image_count||0}</td>
+      <td>${q.toFixed(1)}</td>
+      <td>${(ver.acceptance_rate||0).toFixed(1)}%</td>
+      <td style="font-size:10px">${(ver._created_at||'').substring(0,10)}</td>
+      <td>${ver.status!=='published' ? `<button class="sm success" onclick="publishVersion('${ver.id}')">Publish</button>` : ''}</td>
+    </tr>`;
+  });
+  html += '</table>';
+  el.innerHTML = html;
+}
+
+async function createVersion(){
+  const v = await api('/versions',{method:'POST',body:JSON.stringify({description:'Created from dashboard',creator:'admin'})});
+  alert('Version created: '+v.version);
+  loadVersions();
+}
+
+async function publishVersion(id){
+  await api('/versions/'+id+'/publish',{method:'POST'});
+  loadVersions();
+}
+
+async function runBalance(){
+  const v = await api('/versions');
+  if(!v.length) { document.getElementById('balance-result').innerHTML = '<div style="color:#dc2626">Create a version first</div>'; return; }
+  const ll = v[0];
+  const b = await api('/balance',{method:'POST',body:JSON.stringify({versionId:ll.id})});
+  let html = `<div class="grid"><div class="stat"><div class="val">${b.imbalanceScore}</div><div class="lbl">Balance Score</div></div>
+    <div class="stat"><div class="val">${b.total}</div><div class="lbl">Total Images</div></div>
+    <div class="stat"><div class="val">${Object.keys(b.projectTypeDistribution||{}).length}</div><div class="lbl">Types</div></div></div>`;
+  if(b.projectTypeDistribution){
+    html += '<table><tr><th>Type</th><th>Count</th><th>%</th></tr>';
+    Object.entries(b.projectTypeDistribution).forEach(([k,v])=>html+=`<tr><td>${k}</td><td>${v.count}</td><td>${v.percentage}%</td></tr>`);
+    html += '</table>';
+  }
+  if(b.recommendations?.length){
+    html += '<div style="margin-top:8px;font-size:12px"><strong>Recommendations:</strong><ul>';
+    b.recommendations.forEach(r => html += '<li style="color:'+(r.includes('CRITICAL')?'#fca5a5':'#94a3b8')+'">'+r+'</li>');
+    html += '</ul></div>';
+  }
+  document.getElementById('balance-result').innerHTML = html;
+}
+
+async function exportData(){
+  const fmt = document.getElementById('export-format').value;
+  const ft = document.getElementById('export-type').value;
+  const fp = document.getElementById('export-phase').value;
+  const filters = {};
+  if(ft) filters.project_type = ft;
+  if(fp) filters.phase = fp;
+  const r = await api('/export',{method:'POST',body:JSON.stringify({format:fmt,filters})});
+  document.getElementById('export-result').innerHTML = `<div style="color:#16a34a;font-size:13px">✅ ${r.count} images exported as ${fmt} → ${r.path}</div>`;
+}
+
+async function startBatchProcess(){
+  const r = await api('/batch/process',{method:'POST',body:JSON.stringify({limit:100})});
+  document.getElementById('processor-status').innerHTML = `<div style="color:#16a34a;font-size:12px">✅ Queued batch process for ${r.limit} images</div>`;
+  loadProcessor();
+}
+
+async function startBatchClassify(){
+  const r = await api('/batch/classify',{method:'POST',body:JSON.stringify({limit:50})});
+  document.getElementById('processor-status').innerHTML = `<div style="color:#16a34a;font-size:12px">✅ Queued classification for ${r.limit} images</div>`;
+  loadProcessor();
+}
+
+async function loadProcessor(){
+  const s = await api('/batch/status');
+  const el = document.getElementById('processor-status');
+  el.innerHTML = `<div class="grid">
+    <div class="stat"><div class="val">${s.running?'▶':'■'}</div><div class="lbl">Running</div></div>
+    <div class="stat"><div class="val">${s.queued}</div><div class="lbl">Queued</div></div>
+    <div class="stat"><div class="val">${s.processing}</div><div class="lbl">Processing</div></div>
+    <div class="stat"><div class="val">${s.completed}</div><div class="lbl">Completed</div></div>
+    <div class="stat"><div class="val">${s.failed}</div><div class="lbl">Failed</div></div>
+    <div class="stat"><div class="val">${s.processed}</div><div class="lbl">Total Processed</div></div>
+  </div>`;
+  const logEl = document.getElementById('processor-log');
+  if(s.recentLogs?.length){
+    logEl.innerHTML = s.recentLogs.slice(-10).map(l => `<div>[${(l.time||'').substring(11,19)}] ${l.jobId?.substring(0,8)} ${l.type} → ${l.status}${l.error?' ✗ '+l.error:''}</div>`).join('');
+  }
+}
+
+async function generateReadiness(){
+  const v = await api('/versions');
+  const el = document.getElementById('readiness-result');
+  if(!v.length) { el.innerHTML = '<div style="color:#dc2626">Create and publish a version first</div>'; return; }
+  const r = await api('/readiness',{method:'POST',body:JSON.stringify({versionId:v[0].id})});
+  const statusColor = r.readinessStatus === 'ready' ? '#16a34a' : r.readinessStatus === 'conditional' ? '#ca8a04' : '#dc2626';
+  let html = `<div class="grid">
+    <div class="stat"><div class="val" style="color:${statusColor}">${r.overallScore}</div><div class="lbl">Readiness Score</div></div>
+    <div class="stat"><div class="val" style="color:${statusColor}">${r.readinessStatus}</div><div class="lbl">Status</div></div>
+    <div class="stat"><div class="val">${r.certifiedImages}</div><div class="lbl">Certified</div></div>
+    <div class="stat"><div class="val">${r.totalImages}</div><div class="lbl">Total Images</div></div>
+  </div>`;
+  html += '<div class="grid">';
+  html += `<div class="stat"><div class="val">${r.projectTypes}</div><div class="lbl">Types</div></div>`;
+  html += `<div class="stat"><div class="val">${r.phases}</div><div class="lbl">Phases</div></div>`;
+  html += `<div class="stat"><div class="val">${r.qualityAvg}</div><div class="lbl">Avg Quality</div></div>`;
+  html += `<div class="stat"><div class="val">${r.metadataCompleteness}%</div><div class="lbl">Meta Complete</div></div>`;
+  html += `<div class="stat"><div class="val">${r.duplicateRate}%</div><div class="lbl">Duplicate Rate</div></div>`;
+  html += `<div class="stat"><div class="val">${r.acceptanceRate}%</div><div class="lbl">Acceptance</div></div>`;
+  html += '</div>';
+
+  if(r.balancing){
+    html += `<div class="grid"><div class="stat"><div class="val">${r.balancing.imbalanceScore||0}</div><div class="lbl">Balance</div></div></div>`;
+  }
+
+  if(r.gaps?.length){
+    html += '<div style="margin-top:8px;font-size:12px"><strong>Gaps:</strong><ul>';
+    r.gaps.forEach(g => html += '<li style="color:#fca5a5">'+g+'</li>');
+    html += '</ul></div>';
+  }
+  if(r.recommendations?.length){
+    html += '<div style="margin-top:8px;font-size:12px"><strong>Recommendations:</strong><ul>';
+    r.recommendations.forEach(rec => html += '<li style="color:'+(rec.includes('ready')?'#86efac':'#94a3b8')+'">'+rec+'</li>');
+    html += '</ul></div>';
+  }
+
+  el.innerHTML = html;
+}
+</script>
+</body>
+</html>

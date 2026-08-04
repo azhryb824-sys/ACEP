@@ -1,0 +1,132 @@
+{
+  "timestamp": "2026-07-21T11:47:12.996Z",
+  "summary": {
+    "total": 27,
+    "passed": 19,
+    "failed": 8,
+    "passRate": "70.4"
+  },
+  "tests": [
+    {
+      "name": "Server - Health Check",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - Root Endpoint",
+      "status": "FAIL",
+      "error": "Assertion failed"
+    },
+    {
+      "name": "Server - Analyze (POST /api/v1/analyze)",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - Full Analysis",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - BOQ Generation",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - Cost Estimate",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - Schedule Generation",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - Risk Analysis",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - Digital Twin",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - Simulation",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - Engineering Codes",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - Projects List",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - 404 Handling",
+      "status": "PASS"
+    },
+    {
+      "name": "Server - All 12 Platforms",
+      "status": "PASS"
+    },
+    {
+      "name": "Data - CSV Files Exist",
+      "status": "PASS"
+    },
+    {
+      "name": "Data - Project Integrity",
+      "status": "PASS"
+    },
+    {
+      "name": "Data - BOQ Integrity",
+      "status": "FAIL",
+      "error": "85%+ should have valid qty, got 0/85062"
+    },
+    {
+      "name": "Data - Material Prices",
+      "status": "PASS"
+    },
+    {
+      "name": "Data - Risk Integrity",
+      "status": "PASS"
+    },
+    {
+      "name": "Engineering - Concrete Ratios",
+      "status": "FAIL",
+      "error": "75%+ should have valid concrete ratios, got 3794/9063"
+    },
+    {
+      "name": "Engineering - Steel Ratios",
+      "status": "PASS"
+    },
+    {
+      "name": "Engineering - Cost/m² Range",
+      "status": "PASS"
+    },
+    {
+      "name": "Iteration 1 - Data Quality",
+      "status": "FAIL",
+      "error": "85%+ should have valid qty, got 0/85062"
+    },
+    {
+      "name": "Iteration 2 - Data Quality",
+      "status": "FAIL",
+      "error": "85%+ should have valid qty, got 0/85062"
+    },
+    {
+      "name": "Iteration 3 - Data Quality",
+      "status": "FAIL",
+      "error": "85%+ should have valid qty, got 0/85062"
+    },
+    {
+      "name": "Iteration 4 - Data Quality",
+      "status": "FAIL",
+      "error": "85%+ should have valid qty, got 0/85062"
+    },
+    {
+      "name": "Iteration 5 - Data Quality",
+      "status": "FAIL",
+      "error": "85%+ should have valid qty, got 0/85062"
+    }
+  ],
+  "errors": [
+    "Server - Root Endpoint: Assertion failed",
+    "Data - BOQ Integrity: 85%+ should have valid qty, got 0/85062",
+    "Engineering - Concrete Ratios: 75%+ should have valid concrete ratios, got 3794/9063"
+  ]
+}

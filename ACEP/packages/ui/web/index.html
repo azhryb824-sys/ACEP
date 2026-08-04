@@ -45,6 +45,20 @@
         </div>
 
         <div class="sidebar-section">
+          <div class="sidebar-section-title">AI Visualization</div>
+          <a class="sidebar-item" data-page="ai-visualizer"><span class="sidebar-item-icon">🎨</span><span class="sidebar-item-label">AI Project Visualizer</span></a>
+          <a class="sidebar-item" data-page="construction-simulation"><span class="sidebar-item-icon">🏗️</span><span class="sidebar-item-label">Construction Simulation</span></a>
+          <a class="sidebar-item" data-page="interior-designer"><span class="sidebar-item-icon">🛋️</span><span class="sidebar-item-label">Interior Designer AI</span></a>
+          <a class="sidebar-item" data-page="exterior-designer"><span class="sidebar-item-icon">🏠</span><span class="sidebar-item-label">Exterior Designer AI</span></a>
+          <a class="sidebar-item" data-page="material-visualization"><span class="sidebar-item-icon">🧱</span><span class="sidebar-item-label">Material Visualization</span></a>
+          <a class="sidebar-item" data-page="before-after"><span class="sidebar-item-icon">🔄</span><span class="sidebar-item-label">Before / After</span></a>
+          <a class="sidebar-item" data-page="project-timeline"><span class="sidebar-item-icon">⏱️</span><span class="sidebar-item-label">Project Timeline</span></a>
+          <a class="sidebar-item" data-page="visualization-gallery"><span class="sidebar-item-icon">🖼️</span><span class="sidebar-item-label">Visualization Gallery</span></a>
+          <a class="sidebar-item" data-page="video-gallery"><span class="sidebar-item-icon">🎬</span><span class="sidebar-item-label">Video Gallery</span></a>
+          <a class="sidebar-item" data-page="ai-design-studio"><span class="sidebar-item-icon">✨</span><span class="sidebar-item-label">AI Design Studio</span></a>
+        </div>
+
+        <div class="sidebar-section">
           <div class="sidebar-section-title">الهندسة</div>
           <a class="sidebar-item" data-page="boq"><span class="sidebar-item-icon">📋</span><span class="sidebar-item-label">جدول الكميات</span></a>
           <a class="sidebar-item" data-page="cost"><span class="sidebar-item-icon">💰</span><span class="sidebar-item-label">التكاليف</span></a>
@@ -206,7 +220,7 @@
                     <td><div class="flex items-center gap-2"><div class="progress-bar" style="width:100px;"><div class="progress-fill" style="width:72%;"></div></div><span class="text-sm">72%</span></div></td>
                     <td class="font-semibold">450M</td>
                     <td><span class="badge badge-success">قيد التنفيذ</span></td>
-                    <td><button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل</button></td>
+                    <td><button class="btn btn-sm btn-ghost" data-project-id="P-2024-001" onclick="navigateWithProject('analysis', 'P-2024-001')">تحليل</button></td>
                   </tr>
                   <tr>
                     <td><span class="font-semibold">مستشفى المدينة الطبي</span><div class="text-xs text-tertiary">P-2024-002</div></td>
@@ -214,7 +228,7 @@
                     <td><div class="flex items-center gap-2"><div class="progress-bar" style="width:100px;"><div class="progress-fill" style="width:45%;"></div></div><span class="text-sm">45%</span></div></td>
                     <td class="font-semibold">1.2B</td>
                     <td><span class="badge badge-warning">تأخير 15 يوم</span></td>
-                    <td><button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل</button></td>
+                    <td><button class="btn btn-sm btn-ghost" data-project-id="P-2024-002" onclick="navigateWithProject('analysis', 'P-2024-002')">تحليل</button></td>
                   </tr>
                   <tr>
                     <td><span class="font-semibold">مشروع جدة السكني</span><div class="text-xs text-tertiary">P-2024-003</div></td>
@@ -222,7 +236,7 @@
                     <td><div class="flex items-center gap-2"><div class="progress-bar" style="width:100px;"><div class="progress-fill" style="width:15%;"></div></div><span class="text-sm">15%</span></div></td>
                     <td class="font-semibold">280M</td>
                     <td><span class="badge badge-primary">استشارة أولية</span></td>
-                    <td><button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل</button></td>
+                    <td><button class="btn btn-sm btn-ghost" data-project-id="P-2024-003" onclick="navigateWithProject('analysis', 'P-2024-003')">تحليل</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -283,7 +297,7 @@
 
           <!-- Projects List -->
           <div class="grid grid-3">
-            <div class="card card-hover">
+              <div class="card card-hover" data-project-id="P-2024-001">
               <div class="card-body">
                 <div class="flex items-center justify-between mb-4">
                   <span class="badge badge-success">قيد التنفيذ</span>
@@ -302,12 +316,12 @@
                 </div>
               </div>
               <div class="card-footer">
-                <button class="btn btn-sm btn-outline">فتح</button>
-                <button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل AI</button>
+                <button class="btn btn-sm btn-outline" data-project-id="P-2024-001" onclick="openProject('P-2024-001')">فتح</button>
+                <button class="btn btn-sm btn-ghost" data-project-id="P-2024-001" onclick="navigateWithProject('analysis', 'P-2024-001')">تحليل AI</button>
               </div>
             </div>
 
-            <div class="card card-hover">
+            <div class="card card-hover" data-project-id="P-2024-002">
               <div class="card-body">
                 <div class="flex items-center justify-between mb-4">
                   <span class="badge badge-warning">تأخير 15 يوم</span>
@@ -326,12 +340,12 @@
                 </div>
               </div>
               <div class="card-footer">
-                <button class="btn btn-sm btn-outline">فتح</button>
-                <button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل AI</button>
+                <button class="btn btn-sm btn-outline" data-project-id="P-2024-002" onclick="openProject('P-2024-002')">فتح</button>
+                <button class="btn btn-sm btn-ghost" data-project-id="P-2024-002" onclick="navigateWithProject('analysis', 'P-2024-002')">تحليل AI</button>
               </div>
             </div>
 
-            <div class="card card-hover">
+            <div class="card card-hover" data-project-id="P-2024-003">
               <div class="card-body">
                 <div class="flex items-center justify-between mb-4">
                   <span class="badge badge-primary">استشارة أولية</span>
@@ -350,8 +364,8 @@
                 </div>
               </div>
               <div class="card-footer">
-                <button class="btn btn-sm btn-outline">فتح</button>
-                <button class="btn btn-sm btn-ghost" onclick="navigate('analysis')">تحليل AI</button>
+                <button class="btn btn-sm btn-outline" data-project-id="P-2024-003" onclick="openProject('P-2024-003')">فتح</button>
+                <button class="btn btn-sm btn-ghost" data-project-id="P-2024-003" onclick="navigateWithProject('analysis', 'P-2024-003')">تحليل AI</button>
               </div>
             </div>
           </div>
@@ -382,17 +396,10 @@
                 <span class="font-semibold">94%</span>
               </div>
             </div>
-            <p class="text-sm mb-4" style="line-height:1.8;">
-              بناءً على تحليل وصف المشروع والمخططات المرفوعة، تم استنتاج أن المشروع يتكون من <strong>مبنى سكني تجاري</strong> 
-              مكون من <strong>30 دورًا</strong> (3 أدوار مواقف + 2 تجاري + 25 سكني) على أرض مساحتها <strong>2,500 م²</strong> 
-              في مدينة الرياض. إجمالي المساحة المبنية المتوقعة: <strong>42,000 م²</strong>.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="badge badge-primary">🧱 هيكل خرساني</span>
-              <span class="badge badge-secondary">🔧 أنظمة ميكانيكية</span>
-              <span class="badge badge-info">⚡ أنظمة كهربائية</span>
-              <span class="badge badge-success">🌿 أنظمة سباكة</span>
-              <span class="badge badge-warning">🔥 أنظمة حريق</span>
+            <div id="analysis-description" class="text-sm mb-4" style="line-height:1.8;">
+              لم يتم تحليل المشروع بعد. يرجى النقر على "تحليل شامل" للحصول على تحليل دقيق.
+            </div>
+            <div id="analysis-tags" class="flex flex-wrap gap-2">
             </div>
           </div>
 
@@ -402,73 +409,76 @@
               <div class="card-stat">
                 <div style="font-size:32px;margin-bottom:8px;">📋</div>
                 <div class="card-stat-label">بنود الأعمال (BOQ)</div>
-                <div class="card-stat-value" style="font-size:var(--text-2xl);">157 بند</div>
-                <div class="card-stat-change positive">بثقة 92%</div>
+                <div class="card-stat-value" id="analysis-boq-value" style="font-size:var(--text-2xl);">--</div>
+                <div class="card-stat-change" id="analysis-boq-confidence">بإنتظار التحليل</div>
               </div>
             </div>
             <div class="card card-hover" onclick="navigate('cost')">
               <div class="card-stat">
                 <div style="font-size:32px;margin-bottom:8px;">💰</div>
                 <div class="card-stat-label">التكلفة التقديرية</div>
-                <div class="card-stat-value" style="font-size:var(--text-2xl);">412.5M</div>
-                <div class="card-stat-change positive">هامش ±8%</div>
+                <div class="card-stat-value" id="analysis-cost-value" style="font-size:var(--text-2xl);">--</div>
+                <div class="card-stat-change" id="analysis-cost-confidence">بإنتظار التحليل</div>
               </div>
             </div>
             <div class="card card-hover" onclick="navigate('schedule')">
               <div class="card-stat">
                 <div style="font-size:32px;margin-bottom:8px;">📅</div>
                 <div class="card-stat-label">مدة المشروع</div>
-                <div class="card-stat-value" style="font-size:var(--text-2xl);">24 شهر</div>
-                <div class="card-stat-change positive">المسار الحاسم: 22 شهر</div>
+                <div class="card-stat-value" id="analysis-duration-value" style="font-size:var(--text-2xl);">--</div>
+                <div class="card-stat-change" id="analysis-duration-confidence">بإنتظار التحليل</div>
               </div>
             </div>
           </div>
+
+          <!-- Smart Actions -->
+          <div id="smart-actions" style="display:none;"></div>
 
           <!-- Full pipeline -->
           <div class="card">
             <div class="card-header"><span class="card-title">سلسلة التحليل الهندسي</span></div>
             <div class="card-body">
-              <div class="timeline">
+              <div class="timeline" id="analysis-timeline">
                 <div class="timeline-item">
-                  <div class="timeline-dot active">✓</div>
+                  <div class="timeline-dot warning">◷</div>
                   <div class="timeline-content">
                     <div class="timeline-title">فهم المشروع</div>
-                    <div class="timeline-time">اكتمل - 95% ثقة</div>
+                    <div class="timeline-time">بإنتظار التحليل</div>
                   </div>
                 </div>
                 <div class="timeline-item">
-                  <div class="timeline-dot active">✓</div>
+                  <div class="timeline-dot warning">◷</div>
                   <div class="timeline-content">
                     <div class="timeline-title">المبنى الافتراضي</div>
-                    <div class="timeline-time">اكتمل - تم إنشاء 8 أنظمة رئيسية</div>
+                    <div class="timeline-time">بإنتظار التحليل</div>
                   </div>
                 </div>
                 <div class="timeline-item">
-                  <div class="timeline-dot active">✓</div>
+                  <div class="timeline-dot warning">◷</div>
                   <div class="timeline-content">
                     <div class="timeline-title">جدول الكميات (BOQ)</div>
-                    <div class="timeline-time">اكتمل - 157 بنداً</div>
+                    <div class="timeline-time">بإنتظار التحليل</div>
                   </div>
                 </div>
                 <div class="timeline-item">
-                  <div class="timeline-dot active">✓</div>
+                  <div class="timeline-dot warning">◷</div>
                   <div class="timeline-content">
                     <div class="timeline-title">تحليل التكاليف</div>
-                    <div class="timeline-time">اكتمل - 412.5M ر.س</div>
+                    <div class="timeline-time">بإنتظار التحليل</div>
                   </div>
                 </div>
                 <div class="timeline-item">
-                  <div class="timeline-dot active">✓</div>
+                  <div class="timeline-dot warning">◷</div>
                   <div class="timeline-content">
                     <div class="timeline-title">الجدول الزمني</div>
-                    <div class="timeline-time">اكتمل - 24 شهراً</div>
+                    <div class="timeline-time">بإنتظار التحليل</div>
                   </div>
                 </div>
                 <div class="timeline-item">
                   <div class="timeline-dot warning">◷</div>
                   <div class="timeline-content">
                     <div class="timeline-title">تحليل المخاطر</div>
-                    <div class="timeline-time">قيد المعالجة... </div>
+                    <div class="timeline-time">بإنتظار التحليل</div>
                   </div>
                 </div>
               </div>
@@ -481,12 +491,18 @@
           <div class="page-header">
             <div>
               <h1 class="page-title">جدول الكميات الذكي (BOQ)</h1>
-              <p class="page-subtitle">برج المملكة السكني • 157 بنداً • ثقة 92%</p>
+              <p class="page-subtitle" id="boq-subtitle">بإنتظار التحليل...</p>
             </div>
             <div class="flex gap-3">
-              <button class="btn btn-outline">📥 تصدير Excel</button>
-              <button class="btn btn-outline">📄 تصدير PDF</button>
-              <button class="btn btn-primary">+ إضافة بند</button>
+              <button class="btn btn-outline" onclick="window.exportBOQ('csv')">📥 CSV</button>
+              <button class="btn btn-outline" onclick="window.exportBOQ('json')">📄 JSON</button>
+              <button class="btn btn-outline" onclick="window.generatePDF()">📑 PDF</button>
+              <button class="btn btn-ghost" onclick="window.saveBOQ()">💾 حفظ</button>
+              <button class="btn btn-ghost" onclick="window.loadBOQ()">📂 استرجاع</button>
+              <button class="btn btn-secondary" onclick="window.reviewBOQAssumptions()">🔍 افتراضات</button>
+              <button class="btn btn-ghost" onclick="window.recalculateBOQ()" id="btn-recalculate" style="display:none;">🔄 إعادة حساب</button>
+              <button class="btn btn-primary" onclick="window.generateBOQ()">🔄 إنشاء BOQ</button>
+              <button class="btn btn-secondary" onclick="window.generateImageFromBOQ()">🎨 توليد صورة من BOQ</button>
             </div>
           </div>
 
@@ -494,25 +510,31 @@
           <div class="stats-grid mb-6">
             <div class="card card-stat">
               <div class="card-stat-label">إجمالي بنود الأعمال</div>
-              <div class="card-stat-value">157</div>
-              <div class="card-stat-change positive">↑ 3 بنود مقترحة من AI</div>
+              <div class="card-stat-value" id="boq-total-items">--</div>
+              <div class="card-stat-change positive" id="boq-suggested-items"></div>
             </div>
             <div class="card card-stat">
-              <div class="card-stat-label">الكميات الإجمالية</div>
-              <div class="card-stat-value">42,500</div>
-              <div class="card-stat-label">م³ / م² / طن</div>
+              <div class="card-stat-label">مرحلة المشروع</div>
+              <div class="card-stat-value" id="boq-phase">--</div>
+              <div class="card-stat-label" id="boq-phase-desc"></div>
             </div>
             <div class="card card-stat">
               <div class="card-stat-label">التكلفة الإجمالية</div>
-              <div class="card-stat-value">412.5M</div>
+              <div class="card-stat-value" id="boq-total-cost">--</div>
               <div class="card-stat-label">ريال سعودي</div>
             </div>
             <div class="card card-stat">
-              <div class="card-stat-label">بنود تحتاج مراجعة</div>
-              <div class="card-stat-value" style="color:var(--color-warning-600);">12</div>
-              <div class="card-stat-change negative">بثقة أقل من 80%</div>
+              <div class="card-stat-label">متوسط الثقة</div>
+              <div class="card-stat-value" id="boq-confidence" style="color:var(--color-warning-600);">--</div>
+              <div class="card-stat-change" id="boq-confidence-note"></div>
             </div>
           </div>
+
+          <!-- Lifecycle Phases -->
+          <div id="boq-lifecycle-phases" class="flex gap-2 mb-2 flex-wrap"></div>
+
+          <!-- Assumptions Review Inline -->
+          <div id="boq-assumptions-review"></div>
 
           <!-- BOQ Table -->
           <div class="card">
@@ -523,88 +545,24 @@
                     <tr>
                       <th style="width:60px;">#</th>
                       <th>بند العمل</th>
+                      <th style="width:90px;">المرحلة</th>
                       <th>الكمية</th>
                       <th>الوحدة</th>
                       <th>سعر الوحدة</th>
                       <th>الإجمالي</th>
                       <th>الثقة</th>
-                      <th></th>
+                      <th style="width:40px;"></th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-tertiary">1</td>
-                      <td><span class="font-semibold">حفر أساسات</span><div class="text-xs text-tertiary">أعمال الحفر والردم</div></td>
-                      <td>12,500</td>
-                      <td>م³</td>
-                      <td>45</td>
-                      <td class="font-semibold">562,500</td>
-                      <td><span class="badge badge-success">96%</span></td>
-                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
-                    </tr>
-                    <tr>
-                      <td class="text-tertiary">2</td>
-                      <td><span class="font-semibold">خرسانة مسلحة للأساسات</span><div class="text-xs text-tertiary">خرسانة مسلحة</div></td>
-                      <td>4,200</td>
-                      <td>م³</td>
-                      <td>650</td>
-                      <td class="font-semibold">2,730,000</td>
-                      <td><span class="badge badge-success">94%</span></td>
-                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
-                    </tr>
-                    <tr>
-                      <td class="text-tertiary">3</td>
-                      <td><span class="font-semibold">حديد تسليح</span><div class="text-xs text-tertiary">حديد عالي المقاومة 60ksi</div></td>
-                      <td>520</td>
-                      <td>طن</td>
-                      <td>3,800</td>
-                      <td class="font-semibold">1,976,000</td>
-                      <td><span class="badge badge-success">93%</span></td>
-                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
-                    </tr>
-                    <tr>
-                      <td class="text-tertiary">4</td>
-                      <td><span class="font-semibold">صب الخرسانة للأعمدة</span><div class="text-xs text-tertiary">خرسانة جاهزة 40MPa</div></td>
-                      <td>1,800</td>
-                      <td>م³</td>
-                      <td>720</td>
-                      <td class="font-semibold">1,296,000</td>
-                      <td><span class="badge badge-success">91%</span></td>
-                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
-                    </tr>
-                    <tr>
-                      <td class="text-tertiary">5</td>
-                      <td><span class="font-semibold">طوب أسمنتي مصمت</span><div class="text-xs text-tertiary">جدران خارجية 20سم</div></td>
-                      <td>85,000</td>
-                      <td>طوبة</td>
-                      <td>2.5</td>
-                      <td class="font-semibold">212,500</td>
-                      <td><span class="badge badge-warning">82%</span></td>
-                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
-                    </tr>
-                    <tr>
-                      <td class="text-tertiary">6</td>
-                      <td><span class="font-semibold">تركيب شبابيك ألمنيوم</span><div class="text-xs text-tertiary">شبابيك ألمنيوم مزدوجة</div></td>
-                      <td>620</td>
-                      <td>م²</td>
-                      <td>850</td>
-                      <td class="font-semibold">527,000</td>
-                      <td><span class="badge badge-warning">78%</span></td>
-                      <td><button class="btn btn-sm btn-ghost">✏️</button></td>
-                    </tr>
-                    <tr class="boq-total-row">
-                      <td colspan="5" class="font-bold">الإجمالي (6 بنود)</td>
-                      <td class="font-bold">7,304,000</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
+                  <tbody id="boq-tbody">
+                    <tr><td colspan="8" class="text-center text-tertiary py-8">بإنتظار إنشاء جدول الكميات...</td></tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer" id="boq-footer">
               <span class="text-sm text-tertiary">* الأسعار شاملة ضريبة القيمة المضافة</span>
-              <span class="text-sm text-tertiary">جاري تحميل باقي البنود...</span>
+              <span class="text-sm text-tertiary">اضغط على أي بند لمعرفة طريقة الحساب</span>
             </div>
           </div>
         </div>
@@ -614,26 +572,26 @@
           <div class="page-header">
             <div>
               <h1 class="page-title">تحليل التكاليف</h1>
-              <p class="page-subtitle">برج المملكة السكني • التكلفة التقديرية: 412.5M ر.س</p>
+              <p class="page-subtitle" id="cost-subtitle">بإنتظار التحليل...</p>
             </div>
-            <button class="btn btn-primary" data-toast="جاري إنشاء تقرير التكاليف..." data-toast-type="info">إنشاء تقرير</button>
+            <button class="btn btn-primary" onclick="window.loadCostAnalysis()">🔄 تحليل التكاليف</button>
           </div>
 
           <div class="grid grid-3 mb-6">
             <div class="card card-stat">
               <div class="card-stat-label">التكلفة المباشرة</div>
-              <div class="card-stat-value">325.8M</div>
+              <div class="card-stat-value" id="cost-direct">--</div>
               <div class="card-stat-label">مواد + عمالة + معدات</div>
             </div>
             <div class="card card-stat">
               <div class="card-stat-label">التكلفة غير المباشرة</div>
-              <div class="card-stat-value">48.6M</div>
+              <div class="card-stat-value" id="cost-indirect">--</div>
               <div class="card-stat-label">إدارة + استشارات + تصاريح</div>
             </div>
             <div class="card card-stat">
-              <div class="card-stat-label">هامش الربح</div>
-              <div class="card-stat-value" style="color:var(--color-accent-600);">38.1M</div>
-              <div class="card-stat-label">9.2% من الإجمالي</div>
+              <div class="card-stat-label">التكلفة الإجمالية</div>
+              <div class="card-stat-value" id="cost-total" style="color:var(--color-accent-600);">--</div>
+              <div class="card-stat-label" id="cost-total-label">شاملة الضريبة والربح</div>
             </div>
           </div>
 
@@ -642,12 +600,8 @@
             <div class="card">
               <div class="card-header"><span class="card-title">توزيع التكاليف حسب التخصص</span></div>
               <div class="card-body">
-                <div class="flex flex-col gap-3">
-                  <div><div class="flex justify-between text-sm mb-1"><span>أعمال خرسانية</span><span>38% - 125.4M</span></div><div class="progress-bar"><div class="progress-fill" style="width:38%;background:var(--color-primary-500);"></div></div></div>
-                  <div><div class="flex justify-between text-sm mb-1"><span>أعمال حديد</span><span>22% - 72.6M</span></div><div class="progress-bar"><div class="progress-fill" style="width:22%;background:var(--color-secondary-500);"></div></div></div>
-                  <div><div class="flex justify-between text-sm mb-1"><span>أعمال معمارية</span><span>18% - 59.4M</span></div><div class="progress-bar"><div class="progress-fill" style="width:18%;background:var(--color-accent-500);"></div></div></div>
-                  <div><div class="flex justify-between text-sm mb-1"><span>أعمال ميكانيكية</span><span>12% - 39.6M</span></div><div class="progress-bar"><div class="progress-fill" style="width:12%;background:var(--color-warning-500);"></div></div></div>
-                  <div><div class="flex justify-between text-sm mb-1"><span>أعمال كهربائية</span><span>10% - 33.0M</span></div><div class="progress-bar"><div class="progress-fill" style="width:10%;background:var(--color-danger-500);"></div></div></div>
+                <div class="flex flex-col gap-3" id="cost-breakdown-container">
+                  <div class="text-center text-tertiary py-4">بإنتظار تحليل التكاليف...</div>
                 </div>
               </div>
             </div>
@@ -1438,6 +1392,17 @@
             </div>
           </div>
 
+          <!-- BOQ Learning Insights -->
+          <div class="card mb-6">
+            <div class="card-header">
+              <span class="card-title">📊 بصائر التعلم — BOQ</span>
+              <button class="btn btn-sm btn-ghost" onclick="loadLearningInsights()">تحديث</button>
+            </div>
+            <div class="card-body" id="learning-insights-body">
+              <p class="text-sm text-tertiary">اضغط "تحديث" لتحميل بصائر التعلم من النظام</p>
+            </div>
+          </div>
+
           <div class="card">
             <div class="card-header"><span class="card-title">API Endpoints</span></div>
             <div class="table-container" style="border:none;">
@@ -1456,16 +1421,1107 @@
           </div>
         </div>
 
+        <!-- ============================== PAGE: AI VISUALIZER ============================== -->
+        <div id="page-ai-visualizer" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">AI Project Visualizer</h1>
+              <p class="page-subtitle" id="viz-subtitle">تصور المشروع بالذكاء الاصطناعي - اختر مشروعاً أولاً</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" onclick="generateVisualization()">🎨 إنشاء تصور</button>
+              <button class="btn btn-outline" onclick="generateAlternatives()">🔄 بدائل متعددة</button>
+              <button class="btn btn-outline" onclick="generateVideo()">🎬 فيديو</button>
+            </div>
+          </div>
+
+          <div class="grid grid-3 mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">المشروع</div>
+              <div class="card-stat-value" id="viz-proj-name" style="font-size:var(--text-xl);">—</div>
+              <div class="card-stat-label" id="viz-proj-id"></div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">النوع / الموقع</div>
+              <div class="card-stat-value" id="viz-proj-type">—</div>
+              <div class="card-stat-label" id="viz-proj-meta"></div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">الحالة / الجودة</div>
+              <div class="card-stat-value" id="viz-proj-status" style="color:var(--color-accent-600);">—</div>
+              <div class="card-stat-label" id="viz-proj-quality"></div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">صورة المشروع</span>
+                <div class="flex gap-2">
+                  <select id="viz-angle" class="form-select" style="width:auto;font-size:11px;padding:4px 8px;">
+                    <option value="exterior">واجهة خارجية</option>
+                    <option value="interior">داخلي</option>
+                    <option value="aerial">جوي</option>
+                    <option value="drone">طائرة</option>
+                  </select>
+                  <select id="viz-style" class="form-select" style="width:auto;font-size:11px;padding:4px 8px;">
+                    <option value="Photorealistic">واقعي</option>
+                    <option value="Architectural">معماري</option>
+                    <option value="Artistic">فني</option>
+                  </select>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="visualization-placeholder" id="vizPlaceholder" style="height:400px;background:linear-gradient(135deg,var(--color-surface-alt),var(--color-surface));border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+                  <span style="font-size:64px;">🏗️</span>
+                  <span class="text-tertiary">اضغط "إنشاء تصور" للتوليد</span>
+                  <div id="viz-progress-text" style="font-size:12px;color:var(--color-primary-600);"></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">معلومات التوليد</span>
+                <span class="badge badge-info" id="viz-live-status">جاهز</span>
+              </div>
+              <div class="card-body">
+                <div id="viz-result-info">
+                  <div style="text-align:center;padding:40px 0;color:#94a3b8;">
+                    <span style="font-size:48px;">🎨</span>
+                    <div style="margin-top:8px;">لم يتم توليد صورة بعد</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-6">
+            <div class="card-header">
+              <span class="card-title">الإجراءات الذكية</span>
+            </div>
+            <div class="card-body">
+              <div class="grid grid-4" id="viz-smart-actions">
+                <button class="btn btn-outline" onclick="generateVisualization()" style="padding:12px;">
+                  <span style="font-size:24px;display:block;margin-bottom:4px;">🎨</span>
+                  <span style="font-size:11px;">توليد تصور جديد</span>
+                </button>
+                <button class="btn btn-outline" onclick="generateAlternatives()" style="padding:12px;">
+                  <span style="font-size:24px;display:block;margin-bottom:4px;">🔄</span>
+                  <span style="font-size:11px;">بدائل متعددة</span>
+                </button>
+                <button class="btn btn-outline" onclick="generateVideo()" style="padding:12px;">
+                  <span style="font-size:24px;display:block;margin-bottom:4px;">🎬</span>
+                  <span style="font-size:11px;">توليد فيديو</span>
+                </button>
+                <button class="btn btn-outline" onclick="generateConstructionSimulation()" style="padding:12px;">
+                  <span style="font-size:24px;display:block;margin-bottom:4px;">🏗️</span>
+                  <span style="font-size:11px;">محاكاة بناء</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-6">
+            <div class="card-header">
+              <span class="card-title">معرض الصور المولدة</span>
+              <button class="btn btn-sm btn-ghost" onclick="document.getElementById('viz-gallery').innerHTML=''">مسح</button>
+            </div>
+            <div class="card-body">
+              <div class="grid grid-4" id="viz-gallery">
+                <div class="gallery-item" style="aspect-ratio:16/9;background:var(--color-surface-alt);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-size:32px;">🖼️</span>
+                </div>
+                <div class="gallery-item" style="aspect-ratio:16/9;background:var(--color-surface-alt);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-size:32px;">🖼️</span>
+                </div>
+                <div class="gallery-item" style="aspect-ratio:16/9;background:var(--color-surface-alt);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-size:32px;">🖼️</span>
+                </div>
+                <div class="gallery-item" style="aspect-ratio:16/9;background:var(--color-surface-alt);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-size:32px;">🖼️</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <!-- 3D Navigation Section -->
+          <div class="card mb-6">
+            <div class="card-header">
+              <span class="card-title">3D Navigation</span>
+              <div class="flex gap-2">
+                <button class="btn btn-sm btn-primary" id="nav3d-init-btn" onclick="init3DNavigation()">🚀 Open 3D Viewer</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="acep-3d-viewer" style="width:100%;height:500px;background:#0f172a;border-radius:8px;overflow:hidden;position:relative;">
+                <div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px;color:#64748b;">
+                  <span style="font-size:48px;">🏗️</span>
+                  <span>Click "Open 3D Viewer" to load the BIM navigation</span>
+                  <div id="nav3d-init-status" style="font-size:12px;"></div>
+                </div>
+              </div>
+              <div id="nav3d-controls-container"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: CONSTRUCTION SIMULATION ============================== -->
+        <div id="page-construction-simulation" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Construction Simulation</h1>
+              <p class="page-subtitle" id="sim-subtitle">محاكاة البناء بالذكاء الاصطناعي - اختر مشروعاً لبدء المحاكاة</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" onclick="generateConstructionSimulation()">🏗️ إنشاء محاكاة</button>
+              <button class="btn btn-outline" onclick="exportSimulation()">📥 تصدير</button>
+            </div>
+          </div>
+
+          <div class="grid grid-3 mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">نسبة الإنجاز</div>
+              <div class="card-stat-value" id="sim-progress" style="color:var(--color-primary-600);">—</div>
+              <div class="card-stat-label" id="sim-phases">اختر مشروعاً</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">المدة المتوقعة</div>
+              <div class="card-stat-value" id="sim-duration">—</div>
+              <div class="card-stat-label" id="sim-remaining">—</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">الحالة</div>
+              <div class="card-stat-value" id="sim-status" style="color:var(--color-accent-600);">—</div>
+              <div class="card-stat-label" id="sim-quality">—</div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">مخطط زمني للمراحل</span>
+                <div class="flex gap-2">
+                  <button class="btn btn-sm btn-ghost" onclick="simulateConstruction()">▶ تشغيل</button>
+                  <button class="btn btn-sm btn-ghost" onclick="exportSimulation()">📥</button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="timeline" id="sim-timeline" style="max-height:400px;overflow-y:auto;">
+                  <div style="text-align:center;padding:40px 0;color:#94a3b8;">
+                    <span style="font-size:48px;">🏗️</span>
+                    <div style="margin-top:8px;">اختر مشروعاً وابدأ المحاكاة</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">صورة المحاكاة</span>
+                <select id="sim-phase-select" class="form-select" style="width:auto;font-size:11px;padding:4px 8px;" onchange="changeSimPhase()">
+                </select>
+              </div>
+              <div class="card-body">
+                <div id="sim-image-container" style="height:400px;background:linear-gradient(135deg,var(--color-surface-alt),var(--color-surface));border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+                  <span style="font-size:64px;">🏗️</span>
+                  <span class="text-tertiary">صورة المحاكاة</span>
+                  <div id="sim-progress-text" style="font-size:12px;color:var(--color-primary-600);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">متابعة المواد</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-3" id="sim-materials">
+                  <div style="text-align:center;padding:20px 0;color:#94a3b8;">اختر مشروعاً أولاً</div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">تخصيص الموارد</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-3" id="sim-resources">
+                  <div style="text-align:center;padding:20px 0;color:#94a3b8;">اختر مشروعاً أولاً</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">سجل المحاكاة</span>
+              <button class="btn btn-sm btn-ghost" onclick="if(document.getElementById('sim-history-table')){document.getElementById('sim-history-table').querySelector('tbody').innerHTML=''}">مسح</button>
+            </div>
+            <div class="card-body">
+              <div class="table-container" style="border:none;">
+                <table id="sim-history-table">
+                  <thead>
+                    <tr><th>التاريخ</th><th>المرحلة</th><th>الحالة</th><th>نسبة الإنجاز</th><th></th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="5" style="text-align:center;color:#94a3b8;">اختر مشروعاً وابدأ المحاكاة</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: INTERIOR DESIGNER ============================== -->
+        <div id="page-interior-designer" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Interior Designer AI</h1>
+              <p class="page-subtitle" id="int-subtitle">تصميم الديكور الداخلي بالذكاء الاصطناعي - اختر مشروعاً أولاً</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" onclick="generateInteriorDesign()">🛋️ إنشاء تصميم</button>
+              <button class="btn btn-outline">📥 تصدير</button>
+            </div>
+          </div>
+
+          <div class="grid grid-3 mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">المشروع</div>
+              <div class="card-stat-value" id="int-proj-name" style="font-size:var(--text-xl);">—</div>
+              <div class="card-stat-label" id="int-proj-id"></div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">الغرفة / الطراز</div>
+              <div class="card-stat-value" id="int-room-style">—</div>
+              <div class="card-stat-label">اختر من الخيارات أدناه</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">الحالة</div>
+              <div class="card-stat-value" id="int-status" style="color:var(--color-accent-600);">جاهز</div>
+              <div class="card-stat-label" id="int-gen-count">0 تصاميم مولدة</div>
+            </div>
+          </div>
+
+          <!-- Room + Style + Color Controls -->
+          <div class="grid grid-3 mb-6">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">اختيار الغرفة</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-room" value="living" checked>
+                    <span>🛋️ غرفة المعيشة</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-room" value="dining">
+                    <span>🍽️ غرفة الطعام</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-room" value="bedroom">
+                    <span>🛏️ غرفة النوم</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-room" value="bathroom">
+                    <span>🚿 الحمام</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-room" value="kitchen">
+                    <span>👨‍🍳 المطبخ</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">اختيار الطراز</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-style" value="classic" checked>
+                    <span>🏛️ كلاسيكي</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-style" value="modern">
+                    <span>🏢 عصري</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-style" value="natural">
+                    <span>🌿 طبيعي</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-style" value="industrial">
+                    <span>⚡ صناعي</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-style" value="artistic">
+                    <span>🎨 فني</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">اختيار الألوان</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-color" value="white" checked>
+                    <span>⬜ أبيض</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-color" value="black">
+                    <span>⬛ أسود</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-color" value="brown">
+                    <span>🟤 بني</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-color" value="blue">
+                    <span>🔵 أزرق</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="int-color" value="green">
+                    <span>🟢 أخضر</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">معاينة التصميم</span>
+                <span class="badge badge-info" id="int-live-status">جاهز</span>
+              </div>
+              <div class="card-body">
+                <div id="int-preview" style="height:350px;background:linear-gradient(135deg,var(--color-surface-alt),var(--color-surface));border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+                  <span style="font-size:64px;">🛋️</span>
+                  <span class="text-tertiary">اضغط "إنشاء تصميم" للتوليد</span>
+                  <div id="int-progress-text" style="font-size:12px;color:var(--color-primary-600);"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">الإجراءات الذكية</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-2" id="int-smart-actions">
+                  <button class="btn btn-primary" style="width:100%;" onclick="generateInteriorDesign()">🎨 إنشاء التصميم</button>
+                  <button class="btn btn-outline" style="width:100%;" onclick="showToast('جاري حفظ التصميم...','info')">💾 حفظ التصميم</button>
+                  <button class="btn btn-outline" style="width:100%;" onclick="showToast('تم تصدير التصميم','success')">📤 تصدير</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-6">
+            <div class="card-header">
+              <span class="card-title">التصاميم المولدة</span>
+              <button class="btn btn-sm btn-ghost" onclick="document.getElementById('int-gallery').innerHTML='<div style=\"text-align:center;padding:30px 0;color:#94a3b8;\"><span style=\"font-size:32px;\">🖼️</span><div style=\"margin-top:4px;\">لا توجد تصاميم بعد</div></div>'">مسح</button>
+            </div>
+            <div class="card-body">
+              <div class="grid grid-4" id="int-gallery">
+                <div style="text-align:center;padding:30px 0;color:#94a3b8;grid-column:1/-1;">
+                  <span style="font-size:32px;">🖼️</span>
+                  <div style="margin-top:4px;">لا توجد تصاميم بعد</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: EXTERIOR DESIGNER ============================== -->
+        <div id="page-exterior-designer" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Exterior Designer AI</h1>
+              <p class="page-subtitle" id="ext-subtitle">تصميم الواجهات الخارجية بالذكاء الاصطناعي - اختر مشروعاً أولاً</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" onclick="generateExteriorDesign()">🏠 إنشاء تصميم</button>
+              <button class="btn btn-outline">📥 تصدير</button>
+            </div>
+          </div>
+
+          <div class="grid grid-3 mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">المشروع</div>
+              <div class="card-stat-value" id="ext-proj-name" style="font-size:var(--text-xl);">—</div>
+              <div class="card-stat-label" id="ext-proj-id"></div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">نوع المبنى / الطراز</div>
+              <div class="card-stat-value" id="ext-type-style">—</div>
+              <div class="card-stat-label">اختر من الخيارات أدناه</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">الحالة</div>
+              <div class="card-stat-value" id="ext-status" style="color:var(--color-accent-600);">جاهز</div>
+              <div class="card-stat-label" id="ext-gen-count">0 تصاميم مولدة</div>
+            </div>
+          </div>
+
+          <div class="grid grid-3 mb-6">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">نوع المبنى</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-type" value="villa" checked>
+                    <span>🏠 فيلا</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-type" value="apartment">
+                    <span>🏢 عمارة سكنية</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-type" value="commercial">
+                    <span>🏬 مبنى تجاري</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-type" value="government">
+                    <span>🏛️ مبنى حكومي</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-type" value="hospital">
+                    <span>🏥 مستشفى</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">الطراز المعماري</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-style" value="classic" checked>
+                    <span>🏛️ كلاسيكي</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-style" value="modern">
+                    <span>🏢 عصري</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-style" value="sustainable">
+                    <span>🌿 مستدام</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-style" value="artistic">
+                    <span>🎨 فني</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-style" value="tech">
+                    <span>⚡ تقني</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">الألوان الخارجية</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-color" value="gray-light" checked>
+                    <span>⬪ رمادي فاتح</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-color" value="gray-dark">
+                    <span>⬛ رمادي داكن</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-color" value="brown">
+                    <span>🟤 بني</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-color" value="white">
+                    <span>⬜ أبيض</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="radio" name="ext-color" value="blue">
+                    <span>🔵 أزرق</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">المواد الخارجية</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="checkbox" id="ext-mat-stone" checked>
+                    <span>🧱 حجر</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="checkbox" id="ext-mat-wood" checked>
+                    <span>🪵 خشب</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="checkbox" id="ext-mat-glass">
+                    <span>🔲 زجاج</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="checkbox" id="ext-mat-metal">
+                    <span>⚙️ معدن</span>
+                  </label>
+                  <label class="flex items-center gap-2 padding-2" style="padding:8px;cursor:pointer;border-radius:var(--radius-md);transition:var(--transition-all);">
+                    <input type="checkbox" id="ext-mat-brick">
+                    <span>🧱 طوب</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">معاينة الواجهة</span>
+                <span class="badge badge-info" id="ext-live-status">جاهز</span>
+              </div>
+              <div class="card-body">
+                <div id="ext-preview" style="height:350px;background:linear-gradient(135deg,var(--color-surface-alt),var(--color-surface));border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+                  <span style="font-size:64px;">🏠</span>
+                  <span class="text-tertiary">اضغط "إنشاء تصميم" للتوليد</span>
+                  <div id="ext-progress-text" style="font-size:12px;color:var(--color-primary-600);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">توليد</span>
+              </div>
+              <div class="card-body">
+                <button class="btn btn-primary" style="width:100%;margin-bottom:12px;" onclick="generateExteriorDesign()">🎨 إنشاء التصميم</button>
+                <button class="btn btn-outline" style="width:100%;" onclick="showToast('جاري حفظ الإعدادات...','info')">💾 حفظ الإعدادات</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">السجل</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-2" id="ext-history">
+                  <div style="text-align:center;padding:20px 0;color:#94a3b8;">لا توجد تصاميم سابقة</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">معرض التصاميم المولدة</span>
+              <button class="btn btn-sm btn-ghost" onclick="document.getElementById('ext-gallery').innerHTML='<div style=\"text-align:center;padding:30px 0;color:#94a3b8;grid-column:1/-1;\"><span style=\"font-size:32px;\">🏠</span><div style=\"margin-top:4px;\">لا توجد تصاميم بعد</div></div>'">مسح</button>
+            </div>
+            <div class="card-body">
+              <div class="grid grid-4" id="ext-gallery">
+                <div style="text-align:center;padding:30px 0;color:#94a3b8;grid-column:1/-1;">
+                  <span style="font-size:32px;">🏠</span>
+                  <div style="margin-top:4px;">لا توجد تصاميم بعد</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: BEFORE / AFTER ============================== -->
+        <div id="page-before-after" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Before / After Comparison</h1>
+              <p class="page-subtitle" id="ba-subtitle">مقارنة قبل وبعد - اختر مشروعاً لبدء المقارنة</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" onclick="generateBeforeAfter()">📷 إنشاء مقارنة</button>
+              <button class="btn btn-outline">📥 تصدير</button>
+            </div>
+          </div>
+
+          <div class="grid grid-3 mb-6">
+            <div class="card card-stat">
+              <div class="card-stat-label">المشروع</div>
+              <div class="card-stat-value" id="ba-proj-name" style="font-size:var(--text-xl);">—</div>
+              <div class="card-stat-label" id="ba-proj-id"></div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">النوع</div>
+              <div class="card-stat-value" id="ba-type">—</div>
+              <div class="card-stat-label">قبل / بعد</div>
+            </div>
+            <div class="card card-stat">
+              <div class="card-stat-label">الحالة</div>
+              <div class="card-stat-value" id="ba-status" style="color:var(--color-accent-600);">جاهز</div>
+              <div class="card-stat-label" id="ba-count">0 مقارنات</div>
+            </div>
+          </div>
+
+          <div class="card mb-6">
+            <div class="card-header">
+              <span class="card-title">مقارنة قبل / بعد</span>
+              <div class="flex gap-2">
+                <span class="badge badge-warning">قبل</span>
+                <span class="badge badge-success">بعد</span>
+                <span class="badge badge-info" id="ba-live-status">جاهز</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="comparison-container" style="position:relative;height:500px;background:linear-gradient(135deg,var(--color-surface-alt),var(--color-surface));border-radius:var(--radius-lg);overflow:hidden;" id="ba-comparison">
+                <div class="comparison-before" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;" id="ba-before">
+                  <span style="font-size:64px;">🏗️</span>
+                  <span class="text-tertiary">Before - قبل</span>
+                  <span class="badge badge-warning">انتظار التوليد</span>
+                </div>
+                <div class="comparison-after" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;" id="ba-after">
+                  <span style="font-size:64px;">🏢</span>
+                  <span class="text-tertiary">After - بعد</span>
+                  <span class="badge badge-success">انتظار التوليد</span>
+                </div>
+                <div class="comparison-slider" style="position:absolute;top:0;bottom:0;left:50%;width:4px;background:white;cursor:ew-resize;box-shadow:0 0 10px rgba(0,0,0,0.3);">
+                  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+                    <span>↔</span>
+                  </div>
+                </div>
+                <div id="ba-progress" style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:white;padding:4px 12px;border-radius:8px;font-size:12px;display:none;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-4 mb-6">
+            <div class="card">
+              <div class="card-header"><span class="card-title">Zoom</span></div>
+              <div class="card-body">
+                <div class="flex gap-2">
+                  <button class="btn btn-outline" style="flex:1;" onclick="zoomComparison(-10)">➖</button>
+                  <span style="display:flex;align-items:center;justify-content:center;flex:1;" id="ba-zoom">100%</span>
+                  <button class="btn btn-outline" style="flex:1;" onclick="zoomComparison(10)">➕</button>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">Fullscreen</span></div>
+              <div class="card-body">
+                <button class="btn btn-primary" style="width:100%;" onclick="toggleComparisonFullscreen()">⛶ ملء الشاشة</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">Download</span></div>
+              <div class="card-body">
+                <div class="flex flex-col gap-2">
+                  <button class="btn btn-outline" style="width:100%;" onclick="downloadComparisonImage('before')">📥 Before</button>
+                  <button class="btn btn-outline" style="width:100%;" onclick="downloadComparisonImage('after')">📥 After</button>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">Share</span></div>
+              <div class="card-body">
+                <button class="btn btn-primary" style="width:100%;" onclick="shareComparison()">🔗 مشاركة</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">سجل المقارنات</span>
+              <button class="btn btn-sm btn-ghost" onclick="document.getElementById('ba-history').innerHTML=''">مسح</button>
+            </div>
+            <div class="card-body">
+              <div class="grid grid-3" id="ba-history">
+                <div style="text-align:center;padding:30px 0;color:#94a3b8;grid-column:1/-1;">
+                  <span style="font-size:32px;">🔄</span>
+                  <div style="margin-top:4px;">لم يتم إنشاء مقارنات بعد</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: PROJECT TIMELINE ============================== -->
+        <div id="page-project-timeline" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Project Timeline</h1>
+              <p class="page-subtitle" id="tl-subtitle">الجدول الزمني للمشروع - اختر مشروعاً أولاً</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" onclick="generateTimeline()">📅 إنشاء جدول</button>
+              <button class="btn btn-outline">📥 تصدير</button>
+            </div>
+          </div>
+
+          <div class="card mb-6">
+            <div class="card-header">
+              <span class="card-title">نظرة عامة</span>
+              <span class="badge badge-primary" id="tl-phase-badge">—</span>
+            </div>
+            <div class="card-body">
+              <div class="progress-bar mb-4" style="height:12px;">
+                <div class="progress-fill" id="tl-progress-fill" style="width:0%;background:var(--color-accent-500);"></div>
+              </div>
+              <div class="flex justify-between text-sm mb-4">
+                <span class="text-tertiary" id="tl-duration">اختر مشروعاً</span>
+                <span class="font-semibold" id="tl-pct">—</span>
+              </div>
+              <div class="timeline-horizontal" id="tl-cards" style="display:flex;gap:16px;overflow-x:auto;padding-bottom:16px;">
+                <div style="text-align:center;padding:30px 0;color:#94a3b8;min-width:100%;">اختر مشروعاً لعرض الجدول الزمني</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">المرحلة الحالية</span>
+                <span class="badge badge-primary" id="tl-current-badge">—</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-3" id="tl-current-info">
+                  <div style="text-align:center;padding:20px 0;color:#94a3b8;">اختر مشروعاً أولاً</div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">المرحلة القادمة</span>
+                <span class="badge badge-warning" id="tl-next-badge">—</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-3" id="tl-next-info">
+                  <div style="text-align:center;padding:20px 0;color:#94a3b8;">اختر مشروعاً أولاً</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">صور المراحل</span>
+                <button class="btn btn-sm btn-ghost" onclick="generateTimelineImages()">🔄 توليد</button>
+              </div>
+              <div class="card-body">
+                <div class="grid grid-2" id="tl-images">
+                  <div class="stage-image" style="aspect-ratio:16/9;background:var(--color-surface-alt);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;"><span style="font-size:32px;">🏗️</span></div>
+                  <div class="stage-image" style="aspect-ratio:16/9;background:var(--color-surface-alt);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;"><span style="font-size:32px;">🏢</span></div>
+                  <div class="stage-image" style="aspect-ratio:16/9;background:var(--color-surface-alt);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;"><span style="font-size:32px;">🏠</span></div>
+                  <div class="stage-image" style="aspect-ratio:16/9;background:var(--color-surface-alt);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;"><span style="font-size:32px;">🏙️</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">فيديو الجدول</span>
+              </div>
+              <div class="card-body">
+                <div class="video-placeholder" id="tl-video" style="aspect-ratio:16/9;background:var(--color-surface-alt);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;cursor:pointer;">
+                  <span style="font-size:64px;">🎬</span>
+                  <span class="text-tertiary">اضغط لتوليد فيديو الجدول</span>
+                  <button class="btn btn-primary btn-sm" onclick="generateTimelineVideo()">▶ توليد</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: VISUALIZATION GALLERY ============================== -->
+        <div id="page-visualization-gallery" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Visualization Gallery</h1>
+              <p class="page-subtitle" id="gal-subtitle">معرض التصورات - جميع الصور والتصاميم من النظام</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" onclick="loadGalleryFromTraining()">📥 تحميل من التدريب</button>
+              <button class="btn btn-outline">📥 تصدير</button>
+            </div>
+          </div>
+
+          <div class="card mb-6">
+            <div class="card-body">
+              <div class="grid grid-4">
+                <div class="form-group">
+                  <label class="form-label">بحث</label>
+                  <input class="form-input" id="gal-search" placeholder="ابحث في التصورات..." oninput="filterGallery()">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">النوع</label>
+                  <select class="form-select" id="gal-filter-type" onchange="filterGallery()">
+                    <option value="all">الكل</option>
+                    <option value="visualization">تصور</option>
+                    <option value="interior">داخلي</option>
+                    <option value="exterior">خارجي</option>
+                    <option value="construction">إنشاء</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">المشروع</label>
+                  <select class="form-select" id="gal-filter-project" onchange="filterGallery()">
+                    <option value="all">الكل</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">عرض</label>
+                  <div class="flex gap-2">
+                    <button class="btn btn-sm btn-primary" onclick="setGalleryView('grid')">▦</button>
+                    <button class="btn btn-sm btn-outline" onclick="setGalleryView('list')">☰</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-6">
+            <div class="card-header">
+              <span class="card-title">جميع الصور</span>
+              <span class="badge badge-primary" id="gal-count">0 صورة</span>
+            </div>
+            <div class="card-body">
+              <div class="grid grid-4" id="gal-grid">
+                <div style="text-align:center;padding:40px 0;color:#94a3b8;grid-column:1/-1;">
+                  <span style="font-size:48px;">🖼️</span>
+                  <div style="margin-top:8px;">اضغط "تحميل من التدريب" لجلب الصور</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">إجراءات سريعة</span>
+            </div>
+            <div class="card-body">
+              <div class="grid grid-4">
+                <button class="btn btn-outline" onclick="loadGalleryFromTraining()">📥 تحميل الكل</button>
+                <button class="btn btn-outline" onclick="exportGallery()">📤 تصدير</button>
+                <button class="btn btn-outline" onclick="if(ACEP.training)ACEP.training.getStats().then(function(s){showToast('📊 الإحصائيات: '+(s?.imageCount||0)+' صورة','info')})">📊 إحصائيات</button>
+                <button class="btn btn-outline" onclick="showToast('📁 تم إنشاء ألبوم','success')">📁 إنشاء ألبوم</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: VIDEO GALLERY ============================== -->
+        <div id="page-video-gallery" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Video Gallery</h1>
+              <p class="page-subtitle" id="vid-subtitle">معرض الفيديوهات - توليد وتصفح محاكيات البناء</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" onclick="generateGalleryVideo()">🎬 توليد فيديو جديد</button>
+              <button class="btn btn-outline">📥 تصدير</button>
+            </div>
+          </div>
+
+          <div class="card mb-6">
+            <div class="card-body">
+              <div class="grid grid-4">
+                <div class="form-group">
+                  <label class="form-label">بحث</label>
+                  <input class="form-input" id="vid-search" placeholder="ابحث في الفيديوهات..." oninput="filterVideos()">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">النوع</label>
+                  <select class="form-select" id="vid-filter-type" onchange="filterVideos()">
+                    <option value="all">الكل</option>
+                    <option value="walkthrough">جولة</option>
+                    <option value="construction">محاكاة بناء</option>
+                    <option value="flythrough">تحليق</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">توليد فيديو للمشروع</label>
+                  <button class="btn btn-primary btn-sm" onclick="generateGalleryVideo()" style="width:100%;">🎬 توليد</button>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">عدد الفيديوهات</label>
+                  <span class="badge badge-primary" id="vid-count">0 فيديو</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">قائمة الفيديوهات</span>
+              <button class="btn btn-sm btn-ghost" onclick="document.getElementById('vid-grid').innerHTML=emptyVidMsg()">مسح</button>
+            </div>
+            <div class="card-body">
+              <div class="grid grid-3" id="vid-grid">
+                <div style="text-align:center;padding:40px 0;color:#94a3b8;grid-column:1/-1;">
+                  <span style="font-size:48px;">🎬</span>
+                  <div style="margin-top:8px;">اضغط "توليد فيديو جديد" لإنشاء فيديو</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: AI DESIGN STUDIO ============================== -->
+        <div id="page-ai-design-studio" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">AI Design Studio</h1>
+              <p class="page-subtitle" id="studio-subtitle">استوديو التصميم بالذكاء الاصطناعي - اختر مشروعاً للبدء</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" onclick="generateStudioConcepts()">✨ إنشاء مفاهيم</button>
+              <button class="btn btn-outline" onclick="exportStudioConcepts()">📥 تصدير</button>
+            </div>
+          </div>
+
+          <div class="grid grid-3 mb-6" id="studio-concepts">
+            <div style="text-align:center;padding:60px 0;color:#94a3b8;grid-column:1/-1;">
+              <span style="font-size:64px;">🎨</span>
+              <div style="margin-top:12px;font-size:18px;">اضغط "إنشاء مفاهيم" لتوليد 5 تصاميم مختلفة</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">مقارنة المفاهيم</span>
+              <button class="btn btn-sm btn-ghost" onclick="document.getElementById('studio-table').querySelector('tbody').innerHTML=''">مسح</button>
+            </div>
+            <div class="card-body">
+              <div class="table-container" style="border:none;">
+                <table id="studio-table">
+                  <thead>
+                    <tr><th>المفهوم</th><th>الطراز</th><th>الثقة</th><th>الحالة</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="4" style="text-align:center;color:#94a3b8;">لم يتم إنشاء مفاهيم بعد</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== PAGE: MATERIAL VISUALIZATION ============================== -->
+        <div id="page-material-visualization" class="page-view">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Material Visualization</h1>
+              <p class="page-subtitle" id="mat-subtitle">تصور المواد - استكشاف المواد والأنسجة بالذكاء الاصطناعي</p>
+            </div>
+            <div class="flex gap-3">
+              <button class="btn btn-primary" onclick="generateMaterialPreview()">🧱 إنشاء تصور</button>
+              <button class="btn btn-outline">📥 تصدير</button>
+            </div>
+          </div>
+
+          <div class="grid grid-4 mb-6">
+            <div class="card card-hover" onclick="previewMaterial('stone')" style="cursor:pointer;">
+              <div class="card-body" style="text-align:center;">
+                <span style="font-size:48px;display:block;margin-bottom:12px;">🧱</span>
+                <div class="font-semibold">حجر</div>
+                <div class="text-sm text-tertiary">عدة أنواع</div>
+              </div>
+            </div>
+            <div class="card card-hover" onclick="previewMaterial('wood')" style="cursor:pointer;">
+              <div class="card-body" style="text-align:center;">
+                <span style="font-size:48px;display:block;margin-bottom:12px;">🪵</span>
+                <div class="font-semibold">خشب</div>
+                <div class="text-sm text-tertiary">عدة أنواع</div>
+              </div>
+            </div>
+            <div class="card card-hover" onclick="previewMaterial('glass')" style="cursor:pointer;">
+              <div class="card-body" style="text-align:center;">
+                <span style="font-size:48px;display:block;margin-bottom:12px;">🔲</span>
+                <div class="font-semibold">زجاج</div>
+                <div class="text-sm text-tertiary">عدة أنواع</div>
+              </div>
+            </div>
+            <div class="card card-hover" onclick="previewMaterial('metal')" style="cursor:pointer;">
+              <div class="card-body" style="text-align:center;">
+                <span style="font-size:48px;display:block;margin-bottom:12px;">⚙️</span>
+                <div class="font-semibold">معدن</div>
+                <div class="text-sm text-tertiary">عدة أنواع</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-6">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">معاينة المادة</span>
+                <span class="badge badge-info" id="mat-name">اختر مادة</span>
+              </div>
+              <div class="card-body">
+                <div id="mat-preview" style="height:300px;background:linear-gradient(135deg,var(--color-surface-alt),var(--color-surface));border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+                  <span style="font-size:64px;">🧱</span>
+                  <span class="text-tertiary">اختر مادة من القائمة</span>
+                  <div id="mat-progress-text" style="font-size:12px;color:var(--color-primary-600);"></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">خصائص المادة</span>
+              </div>
+              <div class="card-body">
+                <div class="flex flex-col gap-3" id="mat-props">
+                  <div style="text-align:center;padding:20px 0;color:#94a3b8;">اختر مادة لعرض خصائصها</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">معرض المواد المولدة</span>
+              <button class="btn btn-sm btn-ghost" onclick="document.getElementById('mat-gallery').innerHTML=''">مسح</button>
+            </div>
+            <div class="card-body">
+              <div class="grid grid-4" id="mat-gallery">
+                <div style="text-align:center;padding:30px 0;color:#94a3b8;grid-column:1/-1;">
+                  <span style="font-size:32px;">🧱</span>
+                  <div style="margin-top:4px;">لم يتم توليد مواد بعد</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /page-content -->
 
     </main>
   </div><!-- /app-shell -->
 
+  <!-- ===== AI BACKDROP ===== -->
+  <div class="ai-backdrop" id="ai-backdrop"></div>
+
   <!-- ===== AI PANEL ===== -->
   <div class="ai-panel" id="ai-panel">
     <div class="ai-panel-header">
       <div class="ai-panel-title"><span>🤖</span> مساعد ACEP الذكي</div>
-      <button class="btn btn-sm btn-ghost" id="ai-panel-close">✕</button>
+      <button class="btn btn-sm btn-ghost ai-panel-close-btn" id="ai-panel-close" title="إغلاق المساعد">✕</button>
     </div>
     <div class="ai-panel-body" id="ai-messages">
       <div class="ai-message">
@@ -1491,17 +2547,16 @@
 
   <!-- ===== MODAL ===== -->
   <div class="modal-overlay" id="modal-overlay">
-    <div class="modal">
+    <div class="modal" id="modal">
       <div class="modal-header">
         <span class="modal-title" id="modal-title">تأكيد</span>
-        <button class="btn btn-sm btn-ghost" id="modal-close">✕</button>
+        <button class="btn btn-sm btn-ghost" onclick="closeModal()">✕</button>
       </div>
-      <div class="modal-body" id="modal-message">
-        هل أنت متأكد من تنفيذ هذا الإجراء؟
+      <div class="modal-body" id="modal-body">
       </div>
       <div class="modal-footer">
-        <button class="btn btn-outline" id="modal-cancel-btn">إلغاء</button>
-        <button class="btn btn-primary" id="modal-confirm-btn">تأكيد</button>
+        <button class="btn btn-outline" onclick="closeModal()">إلغاء</button>
+        <button class="btn btn-primary" id="modal-confirm-btn" style="display:none;">تأكيد</button>
       </div>
     </div>
   </div>
@@ -1516,6 +2571,237 @@
   </nav>
 
   <!-- Scripts -->
-  <script src="src/app.js"></script>
+  <script src="/3d-nav/engine/camera-controller.js?v=2"></script>
+  <script src="/3d-nav/engine/element-info.js?v=2"></script>
+  <script src="/3d-nav/engine/overlay-manager.js?v=2"></script>
+  <script src="/3d-nav/index.js?v=2"></script>
+  <script src="/3d-nav/ui/nav-panel.js?v=2"></script>
+  <script src="src/app.js?v=2"></script>
+  <script src="src/integration-layer.js?v=2"></script>
+  <script src="src/visualization-pages.js?v=2"></script>
+  <script src="/vision-ai/vision-ai-bridge.js?v=2"></script>
+  <script>
+  const API = window.location.origin;
+
+  // ═══════════════════════════════════════════════
+  // Generation Manager - Full Pipeline Controller
+  // ═══════════════════════════════════════════════
+  const GEN = {
+    active: false, jobId: null, startTime: null, pollTimer: null,
+    logs: [], currentBtn: null, progressStart: null,
+    steps: [
+      'جارٍ تحليل المشروع...',
+      'جارٍ إنشاء Prompt...',
+      'جارٍ تشغيل نموذج FLUX...',
+      'جارٍ توليد الصورة...',
+      'جارٍ حفظ الصورة...',
+      'اكتمل التوليد'
+    ],
+    overlayEl: null, stepTextEl: null, progressBarEl: null, fillEl: null, logEl: null,
+
+    log(step, detail) {
+      const entry = { time: new Date().toISOString(), step, detail };
+      this.logs.push(entry);
+      console.log(`[ACEP-Gen] ${step}: ${detail}`);
+      if (this.logEl) {
+        const d = document.createElement('div');
+        d.style.cssText = 'font-size:11px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.1);direction:ltr;text-align:left;';
+        d.textContent = `[${new Date().toLocaleTimeString()}] ${step}: ${detail}`;
+        this.logEl.appendChild(d);
+        this.logEl.scrollTop = this.logEl.scrollHeight;
+      }
+    },
+
+    _createOverlay() {
+      if (this.overlayEl) return;
+      this.overlayEl = document.createElement('div');
+      this.overlayEl.id = 'gen-overlay';
+      this.overlayEl.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;font-family:sans-serif;';
+      this.overlayEl.innerHTML = `<div style="background:#1a1a2e;border-radius:16px;padding:32px;max-width:480px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+          <div class="spinner" style="width:32px;height:32px;border:3px solid rgba(255,255,255,0.1);border-top-color:#3B82F6;border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0;"></div>
+          <div id="gen-step-text" style="color:#fff;font-size:18px;font-weight:600;"></div>
+        </div>
+        <div id="gen-progress-bar" style="display:none;width:100%;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;margin-bottom:16px;">
+          <div id="gen-progress-fill" style="width:0%;height:100%;background:linear-gradient(90deg,#3B82F6,#8B5CF6);border-radius:4px;transition:width 0.3s ease;"></div>
+        </div>
+        <div id="gen-log" style="max-height:150px;overflow-y:auto;background:rgba(0,0,0,0.3);border-radius:8px;padding:8px;margin-bottom:16px;font-family:monospace;color:#94a3b8;font-size:11px;direction:ltr;text-align:left;"></div>
+        <div id="gen-error" style="display:none;color:#ef4444;font-size:14px;margin-bottom:12px;padding:8px;background:rgba(239,68,68,0.1);border-radius:8px;"></div>
+        <button id="gen-cancel-btn" style="width:100%;padding:10px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;background:transparent;color:#94a3b8;cursor:pointer;font-size:14px;">إغلاق</button>
+      </div>`;
+      document.body.appendChild(this.overlayEl);
+      this.stepTextEl = document.getElementById('gen-step-text');
+      this.progressBarEl = document.getElementById('gen-progress-bar');
+      this.fillEl = document.getElementById('gen-progress-fill');
+      this.logEl = document.getElementById('gen-log');
+      document.getElementById('gen-cancel-btn').onclick = () => this.hide();
+      // Inject spinner animation
+      if (!document.getElementById('gen-spinner-style')) {
+        const s = document.createElement('style');
+        s.id = 'gen-spinner-style';
+        s.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+        document.head.appendChild(s);
+      }
+    },
+
+    show(btn) {
+      this._createOverlay();
+      this.overlayEl.style.display = 'flex';
+      this.currentBtn = btn;
+      if (btn) { btn.disabled = true; btn.style.opacity = '0.5'; btn.style.cursor = 'not-allowed'; }
+      this.active = true;
+      this.startTime = Date.now();
+      this.progressStart = null;
+      this.logs = [];
+      if (this.logEl) this.logEl.innerHTML = '';
+      this.log('START', 'بدأت عملية التوليد');
+      this.updateStep(0, 0);
+    },
+
+    updateStep(stepIndex, progress) {
+      if (!this.stepTextEl) return;
+      const msg = this.steps[stepIndex] || this.steps[this.steps.length - 1];
+      this.stepTextEl.textContent = msg;
+      this.log('STEP', msg);
+      if (progress >= 0 && this.fillEl) {
+        if (this.progressBarEl) this.progressBarEl.style.display = 'block';
+        this.fillEl.style.width = Math.min(progress, 100) + '%';
+      }
+      // Show progress bar if >2s elapsed
+      if (this.progressStart === null && Date.now() - this.startTime > 2000) {
+        this.progressStart = Date.now();
+      }
+      if (this.progressStart && this.progressBarEl) {
+        this.progressBarEl.style.display = 'block';
+      }
+    },
+
+    showError(msg) {
+      const errEl = document.getElementById('gen-error');
+      if (errEl) { errEl.style.display = 'block'; errEl.textContent = '❌ ' + msg; }
+      this.log('ERROR', msg);
+    },
+
+    hide() {
+      if (this.pollTimer) { clearInterval(this.pollTimer); this.pollTimer = null; }
+      if (this.overlayEl) this.overlayEl.style.display = 'none';
+      if (this.currentBtn) { this.currentBtn.disabled = false; this.currentBtn.style.opacity = ''; this.currentBtn.style.cursor = ''; }
+      this.active = false; this.jobId = null; this.currentBtn = null;
+    },
+
+    async pollStatus(jobId) {
+      return new Promise((resolve, reject) => {
+        const start = Date.now();
+        const MAX_POLL = 120000; // 2 minutes max
+        this.pollTimer = setInterval(async () => {
+          try {
+            if (Date.now() - start > MAX_POLL) {
+              clearInterval(this.pollTimer); this.pollTimer = null;
+              reject(new Error('انتهت مهلة التوليد (أكثر من دقيقتين)'));
+              return;
+            }
+            const res = await fetch(API + '/api/v1/vision-generate/status/' + jobId);
+            if (!res.ok) { this.log('POLL-ERR', `HTTP ${res.status}`); return; }
+            const data = await res.json();
+            if (data.status === 'completed') {
+              clearInterval(this.pollTimer); this.pollTimer = null;
+              this.log('POLL', `Job ${jobId} completed in ${Date.now() - start}ms`);
+              resolve(data);
+            } else if (data.status === 'failed') {
+              clearInterval(this.pollTimer); this.pollTimer = null;
+              reject(new Error(data.error || 'Generation failed'));
+            } else if (data.status === 'error') {
+              clearInterval(this.pollTimer); this.pollTimer = null;
+              reject(new Error(data.error || data.message || 'Generation error'));
+            } else {
+              this.updateStep(
+                data.progress < 10 ? 0 : data.progress < 30 ? 1 : data.progress < 50 ? 2 : data.progress < 70 ? 3 : 4,
+                data.progress || 0
+              );
+            }
+          } catch (e) {
+            this.log('POLL-ERR', `Poll error: ${e.message}`);
+          }
+        }, 2000);
+      });
+    },
+
+    async generate(btn, apiPath, body, displayFn) {
+      try {
+        this.show(btn);
+        this.log('REQUEST', `POST ${apiPath}`);
+      } catch (e) {
+        console.error('[ACEP] show/init failed:', e);
+        try { if (window.showToast) showToast('❌ خطأ في بدء التوليد: ' + e.message, 'error'); } catch(_){}
+        return;
+      }
+      try {
+        this.updateStep(0, 5);
+        const res = await fetch(API + apiPath, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+        this.log('API', `Response status: ${res.status}`);
+        if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.error || `HTTP ${res.status}`); }
+        const data = await res.json();
+        this.log('CONTROLLER', 'دخلت API Controller');
+
+        if (data.status === 'queued' && data.jobId) {
+          this.jobId = data.jobId;
+          this.log('QUEUE', `Job ${data.jobId} created, starting polling`);
+          this.updateStep(2, 15);
+          const result = await this.pollStatus(data.jobId);
+          this.log('COMPLETE', 'Job completed via polling');
+          this.updateStep(5, 100);
+          if (displayFn && result.result) displayFn(result.result);
+          this.log('UI', 'تم تحديث الواجهة');
+        } else if (data.status === 'completed') {
+          this.log('COMPLETE', 'Immediate completion');
+          this.updateStep(5, 100);
+          if (displayFn && (data.image || data.result)) displayFn(data.image || data.result);
+          this.log('UI', 'تم تحديث الواجهة');
+        } else {
+          this.log('RESULT', `Status: ${data.status}`);
+          if (displayFn) displayFn(data);
+        }
+        setTimeout(() => { try { this.hide(); if (window.showToast) showToast('✅ اكتمل التوليد بنجاح', 'success'); } catch(_){} }, 1000);
+      } catch (e) {
+        this.log('ERROR', e.message);
+        this.showError(e.message);
+        setTimeout(() => { try { this.hide(); if (window.showToast) showToast('❌ ' + e.message, 'error'); } catch(_){} }, 2000);
+      }
+    }
+  };
+
+  // ═══════════════════════════════════════════════
+  // Helper functions
+  // ═══════════════════════════════════════════════
+  function _getProjectId() {
+    try { const p = window.getCurrentProject(); return p ? p.id : null; } catch(e) { return null; }
+  }
+
+  function _getProjectParams() {
+    try {
+      const p = window.getCurrentProject();
+      if (p) return { type: p.type || 'Villa', area: p.area || 500, floors: p.floors || 2, city: p.city || 'الرياض', style: p.style || 'Contemporary' };
+    } catch(e) {}
+    return { type: 'Villa', area: 500, floors: 2, city: 'الرياض', style: 'Contemporary' };
+  }
+
+  function _getCurrentPage() {
+    try { return document.querySelector('.page-view.active')?.id?.replace('page-', '') || ''; } catch(e) { return ''; }
+  }
+
+  // ─── Self-test on page load ──
+  (function(){
+    try {
+      console.log('[ACEP] Verifying pipeline components...');
+      console.log('[ACEP]   GEN:', typeof GEN);
+      console.log('[ACEP]   showToast:', typeof window.showToast);
+      console.log('[ACEP]   getCurrentProject:', typeof window.getCurrentProject);
+      console.log('[ACEP]   API:', API);
+      console.log('[ACEP] All pipeline components loaded successfully.');
+    } catch(e) {
+      console.error('[ACEP] Self-test failed:', e);
+    }
+  })();
+  </script>
 </body>
 </html>

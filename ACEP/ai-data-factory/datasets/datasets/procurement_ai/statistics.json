@@ -1,0 +1,19 @@
+{
+  "total": 10,
+  "train": 8,
+  "val": 1,
+  "test": 1,
+  "by_generator": {
+    "material": 2,
+    "supplier": 2,
+    "invoice": 2,
+    "tender": 2,
+    "purchase_order": 2
+  },
+  "by_domain": {
+    "Procurement": 10
+  },
+  "by_difficulty": {
+    "medium": 10
+  }
+}

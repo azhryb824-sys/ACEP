@@ -1,0 +1,7 @@
+{
+  "tokenizer": "meta-llama/Llama-3.1-8B-Instruct",
+  "padding_side": "right",
+  "truncation": true,
+  "max_length": 4096,
+  "chat_template": "llama3"
+}

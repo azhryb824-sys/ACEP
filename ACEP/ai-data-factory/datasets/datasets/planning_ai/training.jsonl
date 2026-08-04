@@ -1,0 +1,130 @@
+{
+  "id": "PLN-000001",
+  "instruction": "Prepare a preliminary project schedule for a reinforced concrete villa.\nأعد جدولاً زمنياً مبدئياً لتنفيذ فيلا خرسانية.",
+  "input": {
+    "project_type": "Villa",
+    "floors": 2,
+    "duration_days": 240,
+    "start_date": "2026-01-10"
+  },
+  "output": {
+    "activities": [
+      {
+        "activity": "Site Preparation",
+        "duration_days": 10
+      },
+      {
+        "activity": "Excavation",
+        "duration_days": 12
+      },
+      {
+        "activity": "Foundations",
+        "duration_days": 20
+      },
+      {
+        "activity": "Ground Floor Structure",
+        "duration_days": 35
+      },
+      {
+        "activity": "First Floor Structure",
+        "duration_days": 35
+      },
+      {
+        "activity": "Roof Structure",
+        "duration_days": 18
+      },
+      {
+        "activity": "Block Work",
+        "duration_days": 25
+      },
+      {
+        "activity": "MEP First Fix",
+        "duration_days": 25
+      },
+      {
+        "activity": "Finishing",
+        "duration_days": 45
+      },
+      {
+        "activity": "Testing & Handover",
+        "duration_days": 15
+      }
+    ]
+  },
+  "metadata": {
+    "document_type": "project_schedule",
+    "discipline": "planning"
+  }
+}
+{
+  "id": "CPM-000001",
+  "instruction": "Identify the Critical Path of the project.\nحدد المسار الحرج للمشروع.",
+  "input": {
+    "activities": [
+      "Excavation",
+      "Foundations",
+      "Columns",
+      "Slabs",
+      "Block Work",
+      "Finishing"
+    ]
+  },
+  "output": {
+    "critical_path": [
+      "Excavation",
+      "Foundations",
+      "Columns",
+      "Slabs",
+      "Finishing"
+    ],
+    "total_duration_days": 165,
+    "float_days": {
+      "Block Work": 5
+    }
+  },
+  "metadata": {
+    "document_type": "critical_path",
+    "discipline": "planning"
+  }
+}
+{
+  "id": "DLY-000001",
+  "instruction": "Analyze project delay.\nحلل سبب تأخر المشروع.",
+  "input": {
+    "planned_progress": 68,
+    "actual_progress": 54,
+    "weather_delay_days": 4,
+    "material_delay_days": 6
+  },
+  "output": {
+    "delay_percent": 14,
+    "primary_reason": "Material Procurement Delay",
+    "recommended_action": "Accelerate procurement and increase workforce."
+  },
+  "metadata": {
+    "document_type": "delay_analysis",
+    "discipline": "planning"
+  }
+}
+{
+  "id": "RCV-000001",
+  "instruction": "Prepare a recovery schedule.\nأعد خطة استعادة البرنامج الزمني.",
+  "input": {
+    "delay_days": 15,
+    "remaining_duration_days": 120
+  },
+  "output": {
+    "actions": [
+      "Increase manpower",
+      "Introduce second shift",
+      "Fast-track finishing works",
+      "Prioritize long-lead materials",
+      "Weekly progress monitoring"
+    ],
+    "expected_recovery_days": 12
+  },
+  "metadata": {
+    "document_type": "recovery_plan",
+    "discipline": "planning"
+  }
+}
