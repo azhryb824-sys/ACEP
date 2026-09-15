@@ -1,0 +1,172 @@
+diff --git a/ACEP/.env.example b/ACEP/.env.example
+index 8999fef6b0e5540c173ffc108719cd61f150c8a7..1442877abed2e21744f099b29d00025814982dd2 100644
+--- a/ACEP/.env.example
++++ b/ACEP/.env.example
+@@ -16,6 +16,9 @@ ACEP_API_KEY_SUBJECT=local-admin
+ ACEP_API_KEY_ROLE=admin
+ ACEP_API_KEY_TENANT=default
+ # ACEP_API_KEYS_JSON=[{"token":"...","subject":"...","role":"engineer","tenantId":"..."}]
++# Optional short-lived HMAC tokens minted by an authenticated frontend gateway.
++ACEP_GATEWAY_TOKEN_SECRET=
++ACEP_GATEWAY_TOKEN_AUDIENCE=acep-render
+ # ACEP_ALLOW_INSECURE_DEV=true
+ 
+ # OIDC alternative
+diff --git a/ACEP/packages/security/index.js b/ACEP/packages/security/index.js
+index 30a6ca06cb4e06865528832b03dbb8e5ae20fcb1..9ceccf18b748956a4827199daa789436058f49f5 100644
+--- a/ACEP/packages/security/index.js
++++ b/ACEP/packages/security/index.js
+@@ -60,6 +60,37 @@ function tokenDigest(token) {
+   return crypto.createHash('sha256').update(token).digest('hex');
+ }
+ 
++function verifyGatewayToken(token, secret, audience = 'acep-render') {
++  if (!secret || typeof token !== 'string' || token.length > 8192) return null;
++  const parts = token.split('.');
++  if (parts.length !== 2 || parts.some(part => !/^[A-Za-z0-9_-]+$/.test(part))) return null;
++
++  const expected = crypto.createHmac('sha256', secret).update(parts[0]).digest('base64url');
++  if (!constantTimeEqual(parts[1], expected)) return null;
++
++  let payload;
++  try {
++    const raw = Buffer.from(parts[0], 'base64url');
++    if (raw.length > 2048) return null;
++    payload = JSON.parse(raw.toString('utf8'));
++  } catch {
++    return null;
++  }
++
++  const now = Math.floor(Date.now() / 1000);
++  const validRole = payload.role === 'viewer' || payload.role === 'engineer';
++  const validSubject = typeof payload.sub === 'string' && /^[A-Za-z0-9._:@-]{1,128}$/.test(payload.sub);
++  const validTenant = typeof payload.tenantId === 'string' && /^[A-Za-z0-9._-]{1,128}$/.test(payload.tenantId);
++  const validNonce = typeof payload.nonce === 'string' && /^[A-Za-z0-9_-]{16,128}$/.test(payload.nonce);
++  const validTimes = Number.isInteger(payload.iat) && Number.isInteger(payload.exp)
++    && payload.iat <= now + 30 && payload.exp > now && payload.exp - payload.iat > 0
++    && payload.exp - payload.iat <= 120 && payload.exp <= now + 120;
++  if (payload.v !== 1 || payload.aud !== audience || !validRole || !validSubject || !validTenant || !validNonce || !validTimes) {
++    return null;
++  }
++  return { subject: payload.sub, role: payload.role, tenantId: payload.tenantId, mode: 'gateway-token' };
++}
++
+ function parseApiKeys(env) {
+   let records = [];
+   if (env.ACEP_API_KEYS_JSON) {
+@@ -220,6 +251,8 @@ function createSecurityLayer(options = {}) {
+   const env = options.env || process.env;
+   const nodeEnv = env.NODE_ENV || 'development';
+   const authMode = env.ACEP_AUTH_MODE || 'api-key';
++  const gatewayTokenSecret = env.ACEP_GATEWAY_TOKEN_SECRET || '';
++  const gatewayTokenAudience = env.ACEP_GATEWAY_TOKEN_AUDIENCE || 'acep-render';
+   const insecureDev = authMode === 'disabled' && parseBoolean(env.ACEP_ALLOW_INSECURE_DEV);
+   if (nodeEnv === 'production' && parseBoolean(env.ACEP_ENABLE_LEGACY_UI)) {
+     throw new Error('The legacy inline-script UI is forbidden in production; deploy a CSP-compatible UI separately');
+@@ -228,6 +261,8 @@ function createSecurityLayer(options = {}) {
+     throw new Error('ACEP_AUTH_MODE=disabled is permitted only outside production with ACEP_ALLOW_INSECURE_DEV=true');
+   }
+   if (!['api-key', 'oidc', 'disabled'].includes(authMode)) throw new Error('Unsupported ACEP_AUTH_MODE');
++  if (gatewayTokenSecret && gatewayTokenSecret.length < 32) throw new Error('ACEP_GATEWAY_TOKEN_SECRET must contain at least 32 characters');
++  if (!/^[A-Za-z0-9._:-]{1,128}$/.test(gatewayTokenAudience)) throw new Error('ACEP_GATEWAY_TOKEN_AUDIENCE is invalid');
+ 
+   const apiKeys = parseApiKeys(env);
+   if (nodeEnv === 'production' && authMode === 'api-key' && apiKeys.length === 0) {
+@@ -361,6 +396,8 @@ function createSecurityLayer(options = {}) {
+     res.setHeader('Access-Control-Allow-Credentials', 'false');
+     res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type, X-Request-ID');
+     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
++    res.setHeader('Access-Control-Expose-Headers', 'X-Request-ID');
++    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+     if (req.method === 'OPTIONS') return res.sendStatus(204);
+     next();
+   }
+@@ -416,8 +453,10 @@ function createSecurityLayer(options = {}) {
+     if (authMode === 'oidc') return oidc.verify(token);
+     const digest = tokenDigest(token);
+     const match = apiKeys.find(record => constantTimeEqual(record.digest, digest));
+-    if (!match) throw new Error('Invalid bearer token');
+-    return { subject: match.subject, role: match.role, tenantId: match.tenantId, mode: 'api-key' };
++    if (match) return { subject: match.subject, role: match.role, tenantId: match.tenantId, mode: 'api-key' };
++    const gatewayIdentity = verifyGatewayToken(token, gatewayTokenSecret, gatewayTokenAudience);
++    if (gatewayIdentity) return gatewayIdentity;
++    throw new Error('Invalid bearer token');
+   }
+ 
+   async function authenticate(req, res, next) {
+@@ -521,6 +560,7 @@ function createSecurityLayer(options = {}) {
+       dataProvenance,
+       executionMode,
+       engineeringReleaseApproved,
++      gatewayTokensConfigured: Boolean(gatewayTokenSecret),
+       approvedEngineeringRoutes: approvedEngineeringRoutes.length,
+       corsOrigins: allowedOrigins.size
+     };
+diff --git a/ACEP/tests/security.test.js b/ACEP/tests/security.test.js
+index 66bd42c62b1eee6948bd9b3869d688a55bc6d5eb..f8bc7ec069ed64b52d9f37a0714e715c442eb21d 100644
+--- a/ACEP/tests/security.test.js
++++ b/ACEP/tests/security.test.js
+@@ -9,6 +9,7 @@ const validation = require('../packages/security/validation');
+ const ADMIN_TOKEN = 'admin-token-with-at-least-32-characters';
+ const VIEWER_TOKEN = 'viewer-token-with-at-least-32-characters';
+ const PLATFORM_TOKEN = 'platform-token-with-at-least-32-characters';
++const GATEWAY_SECRET = 'gateway-secret-with-at-least-32-characters';
+ 
+ function signedJwt(privateKey, payload, kid = 'key-1') {
+   const encode = value => Buffer.from(JSON.stringify(value)).toString('base64url');
+@@ -17,6 +18,24 @@ function signedJwt(privateKey, payload, kid = 'key-1') {
+   return `${unsigned}.${signature}`;
+ }
+ 
++function signedGatewayToken(secret, overrides = {}) {
++  const now = Math.floor(Date.now() / 1000);
++  const payload = {
++    v: 1,
++    aud: 'acep-render',
++    sub: 'sites-owner',
++    role: 'engineer',
++    tenantId: 'acep-site',
++    nonce: crypto.randomBytes(18).toString('base64url'),
++    iat: now,
++    exp: now + 60,
++    ...overrides
++  };
++  const encoded = Buffer.from(JSON.stringify(payload)).toString('base64url');
++  const signature = crypto.createHmac('sha256', secret).update(encoded).digest('base64url');
++  return `${encoded}.${signature}`;
++}
++
+ function testApp(overrides = {}, options = {}) {
+   const env = {
+     NODE_ENV: 'test',
+@@ -66,6 +85,7 @@ describe('security configuration', () => {
+     expect(() => createSecurityLayer({ env: { NODE_ENV: 'production', ACEP_AUTH_MODE: 'api-key', ACEP_API_KEY: ADMIN_TOKEN, ACEP_ALLOW_MOCK_RESULTS: 'true' } })).toThrow(/forbidden in production/i);
+     expect(() => createSecurityLayer({ env: { NODE_ENV: 'production', ACEP_AUTH_MODE: 'api-key', ACEP_API_KEY: ADMIN_TOKEN, ACEP_ENABLE_LEGACY_UI: 'true' } })).toThrow(/legacy inline-script UI/i);
+     expect(() => createSecurityLayer({ env: { NODE_ENV: 'test', ACEP_AUTH_MODE: 'unknown' } })).toThrow(/Unsupported/);
++    expect(() => createSecurityLayer({ env: { NODE_ENV: 'test', ACEP_AUTH_MODE: 'api-key', ACEP_API_KEY: ADMIN_TOKEN, ACEP_GATEWAY_TOKEN_SECRET: 'short' } })).toThrow(/32 characters/i);
+   });
+ 
+   test('allows explicitly enabled insecure mode only in non-production', async () => {
+@@ -87,6 +107,22 @@ describe('authentication, authorization, tenant isolation, and CORS', () => {
+     expect(config.body).toEqual(expect.objectContaining({ mode: 'api-key' }));
+   });
+ 
++  test('accepts only valid short-lived gateway tokens', async () => {
++    const { app } = testApp({ ACEP_GATEWAY_TOKEN_SECRET: GATEWAY_SECRET });
++    const valid = signedGatewayToken(GATEWAY_SECRET);
++    const accepted = await request(app).post('/api/v1/resource').set('Authorization', `Bearer ${valid}`).send({ value: 1 });
++    expect(accepted.status).toBe(201);
++
++    const expired = signedGatewayToken(GATEWAY_SECRET, { iat: Math.floor(Date.now() / 1000) - 120, exp: Math.floor(Date.now() / 1000) - 60 });
++    expect((await request(app).get('/api/v1/resource').set('Authorization', `Bearer ${expired}`)).status).toBe(401);
++
++    const elevated = signedGatewayToken(GATEWAY_SECRET, { role: 'admin' });
++    expect((await request(app).get('/api/v1/resource').set('Authorization', `Bearer ${elevated}`)).status).toBe(401);
++
++    const tampered = valid.slice(0, -1) + (valid.endsWith('A') ? 'B' : 'A');
++    expect((await request(app).get('/api/v1/resource').set('Authorization', `Bearer ${tampered}`)).status).toBe(401);
++  });
++
+   test('verifies an RS256 OIDC token through an allowlisted JWKS endpoint', async () => {
+     const originalFetch = global.fetch;
+     const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', { modulusLength: 2048 });
