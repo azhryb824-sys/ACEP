@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const millionProjectModel = require('./million-project-model');
 
 class ScheduleOptimizer {
   constructor() {
@@ -69,7 +70,21 @@ class ScheduleOptimizer {
     return { total: this._projectCount, types: Object.keys(this.byType).length };
   }
 
-  generateSchedule(projectType, totalArea, floors, finishing = 'Standard', region = 'Riyadh', method = 'Traditional') {
+  generateSchedule(projectType, totalArea, floors, finishing = 'Standard', region = 'Riyadh', method = 'Traditional', modelInputs = {}) {
+    const trainedPrediction = millionProjectModel.predict({
+      projectType: modelInputs.modelType || projectType,
+      grossBuiltArea: totalArea,
+      footprintArea: modelInputs.footprintArea,
+      landArea: modelInputs.landArea,
+      floors,
+      basements: modelInputs.basements,
+      buildings: modelInputs.buildings,
+      capacity: modelInputs.capacity,
+      city: region,
+      finishing,
+      method
+    });
+    if (trainedPrediction.available) return this._trainedSchedule(trainedPrediction);
     if (!this.trained) return this._fallbackSchedule(totalArea, floors, finishing);
 
     const stats = this.byType[projectType];
@@ -112,6 +127,60 @@ class ScheduleOptimizer {
       parameters: { baseDuration, areaFactor: Math.round(areaFactor * 100) / 100, floorsFactor: Math.round(floorsFactor * 100) / 100, finishingFactor, methodFactor },
       trainingData: stats ? stats.count : 0,
       confidence: stats ? Math.min(0.9, 0.5 + stats.count * 0.0002) : 0.6
+    };
+  }
+
+  _trainedSchedule(prediction) {
+    const totalDays = Math.max(30, Math.round(prediction.predictions.durationDays));
+    const definitions = [
+      ['Site Preparation', 0.08, []],
+      ['Foundation', 0.16, ['A1']],
+      ['Structural Frame', 0.30, ['A2']],
+      ['MEP Rough-in', 0.24, ['A3']],
+      ['Masonry & Envelope', 0.20, ['A3']],
+      ['Plaster & Finishing', 0.22, ['A4', 'A5']],
+      ['Flooring & Tiles', 0.15, ['A6']],
+      ['Ceiling & Partitions', 0.14, ['A4', 'A5']],
+      ['Doors & Windows', 0.12, ['A5']],
+      ['Painting & Decoration', 0.12, ['A6', 'A8', 'A9']],
+      ['Exterior & Landscape', 0.14, ['A2']],
+      ['Commissioning & Handover', 0.10, ['A4', 'A10', 'A11']]
+    ];
+    const activities = definitions.map(([name, share, predecessors], index) => ({
+      id: `A${index + 1}`,
+      name,
+      duration: Math.max(3, Math.round(totalDays * share)),
+      predecessors
+    }));
+    const criticalPath = ['A1', 'A2', 'A3', 'A5', 'A6', 'A8', 'A10', 'A12'];
+    return {
+      activities,
+      totalDuration: totalDays,
+      totalMonths: Math.round(totalDays / 22 * 10) / 10,
+      criticalPath,
+      optimization: {
+        parallelExecution: 38,
+        compressionPotential: totalDays > 660 ? 'Medium' : 'Low',
+        note: 'Parallel logic is a concept-stage network and requires resource-loaded CPM validation.'
+      },
+      trainingData: prediction.trainingRecords,
+      confidence: 0.65,
+      durationRange: {
+        lower: Math.round(prediction.intervals.durationDays.lower),
+        upper: Math.round(prediction.intervals.durationDays.upper),
+        basis: 'synthetic_holdout_p90_error'
+      },
+      modelId: prediction.modelId,
+      projectType: prediction.projectType,
+      dataProvenance: prediction.dataProvenance,
+      status: 'experimental',
+      contractualUse: false,
+      suitableForModelApproval: false,
+      requiresHumanReview: true,
+      limitations: [
+        ...prediction.limitations,
+        'The activity network is not a contractor resource-loaded baseline schedule.'
+      ]
     };
   }
 

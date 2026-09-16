@@ -42,8 +42,11 @@ class ProjectProfiler {
     const finishing = this._inferFinishing(project, classification.primary.type, log);
 
     // Step 6: MEP — only with evidence
-    const mep = (params.area.value !== null && params.floors.value !== null && classification.primary.type)
-      ? this.mep.infer(project, classification.primary.type, params.area.value, params.floors.value)
+    const mepArea = params.area.value !== null && params.floors.value !== null
+      ? (Number(project.extracted?.grossBuiltArea) > 0 ? Number(project.extracted.grossBuiltArea) : params.area.value * params.floors.value)
+      : null;
+    const mep = (mepArea !== null && params.floors.value !== null && classification.primary.type)
+      ? this.mep.infer(project, classification.primary.type, mepArea, params.floors.value)
       : this._unknownMEP(log);
 
     // Step 7: Scope — based on type only
@@ -285,12 +288,12 @@ class ProjectProfiler {
 
   _getApplicableCodes(type, params) {
     const codes = [];
-    codes.push({ code: 'SBC 301', name: 'Saudi Building Code - Structural' });
-    codes.push({ code: 'SBC 306', name: 'Saudi Energy Code' });
-    if (['Hotel', 'Mall', 'Hospital', 'School', 'Cinema_Theater'].includes(type)) codes.push({ code: 'SBC 302', name: 'Saudi Building Code - Fire Protection' });
-    codes.push({ code: 'SBC 303', name: 'Saudi Building Code - Electrical' });
-    codes.push({ code: 'SBC 304', name: 'Saudi Building Code - Mechanical' });
-    codes.push({ code: 'SBC 305', name: 'Saudi Building Code - Sanitary' });
+    codes.push({ code: 'SBC 301–306', name: 'Saudi Structural Code Family' });
+    codes.push({ code: 'SBC 601/602', name: 'Saudi Energy Conservation Codes' });
+    if (['Hotel', 'Mall', 'Hospital', 'School', 'Cinema_Theater'].includes(type)) codes.push({ code: 'SBC 801', name: 'Saudi Fire Protection Code' });
+    codes.push({ code: 'SBC 401', name: 'Saudi Electrical Code' });
+    codes.push({ code: 'SBC 501', name: 'Saudi Mechanical Code' });
+    codes.push({ code: 'SBC 701', name: 'Saudi Plumbing Code' });
     if (type === 'Hospital') codes.push({ code: 'MOH Standards', name: 'Ministry of Health - Hospital Standards' });
     if (type === 'School') codes.push({ code: 'MOE Standards', name: 'Ministry of Education - School Standards' });
     if (type === 'Mosque') codes.push({ code: 'MOIA Standards', name: 'Ministry of Islamic Affairs - Mosque Standards' });

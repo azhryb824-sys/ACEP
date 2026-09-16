@@ -137,13 +137,13 @@ class MEPInference {
   }
 
   _inferPlumbing(type, area, floors) {
-    const waterDemand = {
-      Villa: 1500, Luxury_Villa: 2500, Apartment: 500, Apartment_Building: 800,
-      Residential_Tower: 700, Hotel: 1200, Hospital: 2000,
-      School: 300, Office_Building: 400, Mall: 500,
-      Factory: 200, Warehouse: 100, Mosque: 500,
-      Sports_Club: 600, Data_Center: 200, Power_Plant: 300,
-      Water_Treatment: 50000, Farm: 100000
+    const waterDemandPerM2 = {
+      Villa: 8, Luxury_Villa: 10, Apartment: 7, Apartment_Building: 7.5,
+      Residential_Tower: 8.5, Hotel: 13, Hospital: 18,
+      School: 6, Office_Building: 5, Mall: 6,
+      Factory: 6, Warehouse: 2, Mosque: 9,
+      Sports_Club: 7, Data_Center: 3, Power_Plant: 10,
+      Water_Treatment: 20, Farm: 25
     };
     const drainageType = {
       Villa: 'Separate (Sanitary + Stormwater)',
@@ -157,11 +157,11 @@ class MEPInference {
       Data_Center: 'Standard + Leak Detection',
       Water_Treatment: 'Process Water Systems',
     };
-    const waterVal = waterDemand[type];
+    const waterVal = waterDemandPerM2[type];
     if (!waterVal) return { dailyWaterDemandL: null, waterSource: null, drainageType: null, hotWater: null, irrigation: null, specialSystems: null, confidence: 0, reason: 'نوع المشروع غير معروف لنظام السباكة' };
 
     return {
-      dailyWaterDemandL: floors !== null ? waterVal * floors : null,
+      dailyWaterDemandL: area !== null ? Math.round(waterVal * area) : null,
       waterSource: type === 'Water_Treatment' ? 'Raw Water Intake' : 'Municipal Supply',
       drainageType: drainageType[type] || 'Combined System',
       hotWater: ['Hotel', 'Hospital', 'Luxury_Villa', 'Residential_Tower', 'Sports_Club'].includes(type) ? 'Central Hot Water System' : 'Individual Water Heaters',
@@ -170,8 +170,8 @@ class MEPInference {
                       type === 'Mosque' ? 'Ablution Water Recycling' :
                       type === 'Hotel' ? 'Grey Water Recycling' :
                       type === 'Water_Treatment' ? 'Process Piping, Chemical Dosing' : 'None',
-      confidence: floors !== null ? 60 : 35,
-      reason: floors !== null ? `تقدير سباكة بناءً على ${floors} أدوار ونوع ${type}` : `عدد الأدوار غير معروف — لا يمكن تقدير الاستهلاك اليومي`
+      confidence: area !== null ? 55 : 35,
+      reason: area !== null ? `تقدير طلب مائي مفاهيمي بناءً على ${area} م² ونوع ${type}` : `المساحة غير معروفة — لا يمكن تقدير الاستهلاك اليومي`
     };
   }
 

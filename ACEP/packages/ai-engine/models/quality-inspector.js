@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const millionProjectModel = require('./million-project-model');
 
 class QualityInspector {
   constructor() {
@@ -57,8 +58,22 @@ class QualityInspector {
     return { total: this.defects.length, types: Object.keys(this.byDefectType).length };
   }
 
-  inspectProject(projectType, totalArea, floors, finishing) {
+  inspectProject(projectType, totalArea, floors, finishing, modelInputs = {}) {
     if (!this.trained) return { error: 'Not trained', defects: [] };
+    const trainedPrediction = millionProjectModel.predict({
+      projectType: modelInputs.modelType || projectType,
+      grossBuiltArea: totalArea,
+      footprintArea: modelInputs.footprintArea,
+      landArea: modelInputs.landArea,
+      floors,
+      basements: modelInputs.basements,
+      buildings: modelInputs.buildings,
+      capacity: modelInputs.capacity,
+      city: modelInputs.city,
+      finishing,
+      method: modelInputs.method
+    });
+    if (trainedPrediction.available) return this._trainedInspection(trainedPrediction, totalArea, floors);
     const types = Object.keys(this.byDefectType);
     const scaleFactor = Math.max(0.3, Math.min(3, 1 + (totalArea / 20000) * 0.3 + (floors / 10) * 0.2));
     const finishingFactor = { Raw: 0.6, Standard: 1.0, Good: 1.2, Premium: 1.5, Luxury: 2.0 }[finishing] || 1.0;
@@ -94,6 +109,79 @@ class QualityInspector {
       totalTrainingDefects: this.defects.length,
       defectTypes: types.length,
       estimatedDefects: topDefects.reduce((s, d) => s + d.expectedCount, 0)
+    };
+  }
+
+  _trainedInspection(prediction, totalArea, floors) {
+    const expectedDefects = Math.max(0, Math.round(prediction.predictions.expectedDefects));
+    const definitions = {
+      hospital: [
+        ['MEP coordination', 'High', 'Ceiling service zone'],
+        ['Infection-control finish', 'High', 'Clinical room'],
+        ['Medical-gas interface', 'Critical', 'Clinical service zone'],
+        ['Waterproofing', 'High', 'Wet area'],
+        ['Fire stopping', 'Critical', 'Service penetration']
+      ],
+      data_center: [
+        ['Power-path installation', 'Critical', 'Electrical room'],
+        ['Cooling containment', 'High', 'Data hall'],
+        ['Fire stopping', 'Critical', 'Service penetration'],
+        ['Raised floor tolerance', 'Medium', 'Data hall'],
+        ['Controls integration', 'High', 'Control room']
+      ]
+    };
+    const generic = [
+      ['Concrete cracking', 'High', 'Structural element'],
+      ['Waterproofing discontinuity', 'High', 'Wet or below-grade area'],
+      ['MEP coordination', 'High', 'Service zone'],
+      ['Finish tolerance', 'Medium', 'Finished area'],
+      ['Fire stopping', 'Critical', 'Service penetration']
+    ];
+    const selected = definitions[prediction.projectType] || generic;
+    const weights = [0.24, 0.21, 0.20, 0.19, 0.16];
+    let allocated = 0;
+    const defects = selected.map(([type, severity, location], index) => {
+      const count = index === selected.length - 1
+        ? Math.max(0, expectedDefects - allocated)
+        : Math.max(0, Math.round(expectedDefects * weights[index]));
+      allocated += count;
+      const floor = Math.max(1, Math.min(Math.max(1, Math.round(floors)), index + 1));
+      return {
+        type,
+        expectedCount: count,
+        severity,
+        confidence: 0.60,
+        commonElements: [location],
+        typicalLocations: [`Floor ${floor} - ${location}`],
+        trainingSamples: prediction.trainingRecords
+      };
+    });
+    const density = expectedDefects / Math.max(1, totalArea / 1000);
+    const qualityScore = Math.max(0, Math.min(100, Math.round(96 - density * 7.5)));
+    return {
+      defects,
+      qualityScore,
+      qualityGrade: qualityScore > 85 ? 'ممتاز' : qualityScore > 70 ? 'جيد' : qualityScore > 50 ? 'متوسط' : 'ضعيف',
+      totalTrainingDefects: prediction.trainingRecords,
+      defectTypes: defects.length,
+      estimatedDefects: expectedDefects,
+      defectRange: {
+        lower: Math.round(prediction.intervals.expectedDefects.lower),
+        upper: Math.round(prediction.intervals.expectedDefects.upper),
+        basis: 'synthetic_holdout_p90_error'
+      },
+      modelId: prediction.modelId,
+      projectType: prediction.projectType,
+      dataProvenance: prediction.dataProvenance,
+      status: 'experimental',
+      contractualUse: false,
+      suitableForModelApproval: false,
+      requiresInspectionEvidence: true,
+      requiresHumanReview: true,
+      limitations: [
+        ...prediction.limitations,
+        'Predicted defect prevalence is not an inspection finding and cannot replace ITP records or site evidence.'
+      ]
     };
   }
 

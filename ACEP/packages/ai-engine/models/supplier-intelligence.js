@@ -8,11 +8,13 @@ class SupplierIntelligence {
     this.materialPrices = [];
     this.bySpeciality = {};
     this.byCity = {};
+    this.dataVerified = false;
   }
 
   async train(supplierPath, materialPath) {
     this.bySpeciality = {};
     this.byCity = {};
+    this.dataVerified = process.env.ACEP_SUPPLIER_DATA_VERIFIED === 'true';
     const baseDir = path.join(__dirname, '..', '..', '..', 'packages', 'databases', 'training', 'csv');
 
     try {
@@ -45,11 +47,32 @@ class SupplierIntelligence {
     }
 
     this.trained = true;
-    return { suppliers: this.suppliers.length, priceRecords: this.materialPrices.length };
+    return {
+      suppliers: this.suppliers.length,
+      priceRecords: this.materialPrices.length,
+      dataVerified: this.dataVerified,
+      recommendationReady: this.dataVerified && this.suppliers.length > 0
+    };
   }
 
   findBestSupplier(category, city, requirements = {}) {
     if (!this.trained) return { error: 'Not trained' };
+    if (!this.dataVerified) {
+      return {
+        status: 'not_evaluated',
+        insufficientData: true,
+        category,
+        city: city || 'All',
+        topSupplier: null,
+        alternatives: [],
+        allCandidates: [],
+        marketAvgPrice: null,
+        totalSuppliers: 0,
+        totalPriceRecords: 0,
+        reason: 'Supplier recommendations are disabled because the bundled records are not verified live market data.',
+        requiredEvidence: ['verified_supplier_identity', 'current_quotation', 'scope_match', 'commercial_and_technical_prequalification']
+      };
+    }
     const categoryMap = {
       'Concrete': 'Concrete', 'Steel': 'Steel', 'Block': 'Block', 'Cement': 'Cement',
       'Tiles': 'Ceramic', 'Ceramic': 'Ceramic', 'Marble': 'Marble', 'Paint': 'Paint',
@@ -61,16 +84,39 @@ class SupplierIntelligence {
     };
     const mapped = categoryMap[category] || category;
 
-    let candidates = this.suppliers.filter(s => {
-      const specMatch = s.speciality === mapped || s.speciality.includes(mapped) || mapped.includes(s.speciality);
-      const cityMatch = !city || s.city === city;
-      return specMatch || cityMatch;
+    const normalize = value => String(value || '').trim().toLowerCase();
+    const mappedKey = normalize(mapped);
+    const specialistCandidates = this.suppliers.filter(s => {
+      const speciality = normalize(s.speciality);
+      return speciality === mappedKey || speciality.includes(mappedKey) || mappedKey.includes(speciality);
     });
+    let candidates = city
+      ? specialistCandidates.filter(s => normalize(s.city) === normalize(city))
+      : specialistCandidates;
 
-    if (candidates.length === 0) {
+    // A matching speciality in another city is preferable to an unrelated local supplier.
+    if (candidates.length === 0) candidates = specialistCandidates;
+
+    if (candidates.length === 0 && ['general', 'general construction'].includes(mappedKey)) {
       candidates = this.suppliers.filter(s => s.speciality === 'General Construction' || s.speciality === 'General');
     }
-    if (candidates.length === 0) candidates = this.suppliers;
+
+    if (candidates.length === 0) {
+      return {
+        status: 'not_evaluated',
+        insufficientData: true,
+        category,
+        city: city || 'All',
+        topSupplier: null,
+        alternatives: [],
+        allCandidates: [],
+        marketAvgPrice: null,
+        totalSuppliers: 0,
+        totalPriceRecords: 0,
+        reason: 'No verified supplier with the required speciality was found.',
+        requiredEvidence: ['speciality_match', 'current_quotation', 'commercial_and_technical_prequalification']
+      };
+    }
 
     const prices = this.materialPrices.filter(m => m.category === category || m.category === mapped);
     const avgPrice = prices.length > 0 ? prices.reduce((s, p) => s + p.price, 0) / prices.length : 0;
@@ -103,6 +149,8 @@ class SupplierIntelligence {
     }).sort((a, b) => b.scores.overall - a.scores.overall);
 
     return {
+      status: 'experimental_recommendation',
+      insufficientData: false,
       category, city: city || 'All',
       topSupplier: scored[0] ? {
         name: scored[0].supplier, score: scored[0].scores.overall,
@@ -117,6 +165,7 @@ class SupplierIntelligence {
   }
 
   comparePrices(category) {
+    if (!this.dataVerified) return [];
     const prices = this.materialPrices.filter(m => m.category === category);
     const grouped = {};
     prices.forEach(p => {
@@ -135,6 +184,18 @@ class SupplierIntelligence {
   }
 
   getMarketAnalysis(region) {
+    if (!this.dataVerified) {
+      return {
+        status: 'not_evaluated',
+        region: region || 'All Saudi Arabia',
+        totalSuppliers: 0,
+        averageRating: null,
+        topSpecialities: [],
+        averageDelivery: null,
+        averageCompliance: null,
+        reason: 'Verified live supplier data is not configured.'
+      };
+    }
     const suppliers = region ? this.suppliers.filter(s => s.city === region) : this.suppliers;
     const specialities = {};
     suppliers.forEach(s => {

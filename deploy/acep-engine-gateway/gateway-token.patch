@@ -1,5 +1,5 @@
 diff --git a/ACEP/.env.example b/ACEP/.env.example
-index 8999fef6b0e5540c173ffc108719cd61f150c8a7..1442877abed2e21744f099b29d00025814982dd2 100644
+index 8999fef..25b44c1 100644
 --- a/ACEP/.env.example
 +++ b/ACEP/.env.example
 @@ -16,6 +16,9 @@ ACEP_API_KEY_SUBJECT=local-admin
@@ -12,8 +12,799 @@ index 8999fef6b0e5540c173ffc108719cd61f150c8a7..1442877abed2e21744f099b29d000258
  # ACEP_ALLOW_INSECURE_DEV=true
  
  # OIDC alternative
+@@ -37,6 +40,9 @@ ACEP_ENGINEERING_RELEASE_APPROVED=false
+ # Comma-separated, reviewed route prefixes. Empty is fail-closed.
+ ACEP_ENGINEERING_ROUTE_ALLOWLIST=
+ ACEP_BENCHMARK_MIN_ACCURACY=0.80
++ACEP_MILLION_MODEL_ENABLED=false
++# Keep supplier recommendations fail-closed until identity, speciality, prices, and dates are independently verified.
++ACEP_SUPPLIER_DATA_VERIFIED=false
+ 
+ # Vision provider policy. "none" keeps generation disabled.
+ ACEP_IMAGE_PROVIDER=none
+diff --git a/ACEP/package.json b/ACEP/package.json
+index a027128..945bab9 100644
+--- a/ACEP/package.json
++++ b/ACEP/package.json
+@@ -30,6 +30,7 @@
+         "test:production-smoke": "node scripts/run-production-smoke.js",
+         "test:engines-smoke": "node scripts/smoke-experiment-engines.js",
+         "test:engines-matrix": "node scripts/smoke-experiment-matrix.js",
++        "train:models:million": "python3 scripts/train-million-project-models.py",
+         "validate:data": "node scripts/validate-datasets.js",
+         "normalize:uets-data": "node scripts/normalize-uets-datasets.js",
+         "verify": "npm run lint && npm run build && npm run validate:data && npm run test:python && npm run test:coverage && npm run test:legacy && npm run test:e2e && npm run test:production-smoke",
+diff --git a/ACEP/packages/ai-engine/engineering-ke/boq-knowledge-base.js b/ACEP/packages/ai-engine/engineering-ke/boq-knowledge-base.js
+index ca2b1ee..1942879 100644
+--- a/ACEP/packages/ai-engine/engineering-ke/boq-knowledge-base.js
++++ b/ACEP/packages/ai-engine/engineering-ke/boq-knowledge-base.js
+@@ -85,7 +85,7 @@ const EXCAVATION_ITEMS = [
+     appliesTo: { types: ['Villa', 'School', 'Hospital', 'Residential_Tower', 'Factory', 'Apartment_Building', 'Mosque', 'Warehouse', 'Hotel', 'Mall', 'Office_Building', 'Residential_Compound'], phases: ['Full_Construction', 'Shell'], minFloors: 1 },
+     calc: (p) => {
+       if (!has(p, 'area')) return insufficient('المساحة مطلوبة لحساب الحفر.');
+-      const footprint = p.area / (p.floors || 1);
++      const footprint = p.area;
+       return ok(footprint * 1.5, `حجم الحفر = مساحة البصمة (${Math.round(footprint)}) × 1.5م عمق`, 0.85);
+     },
+     explanation: 'يُحسب حجم الحفر بضرب مساحة الأرض في عمق حفر متوسط (1.5م) للأساسات المسلحة.',
+diff --git a/ACEP/packages/ai-engine/knowledge-base.js b/ACEP/packages/ai-engine/knowledge-base.js
+index c71cf62..082e117 100644
+--- a/ACEP/packages/ai-engine/knowledge-base.js
++++ b/ACEP/packages/ai-engine/knowledge-base.js
+@@ -63,12 +63,12 @@ class EngineeringKnowledgeBase {
+   _loadEngineeringCodes() {
+     this.cache.codes = {
+       saudi: [
+-        { code: 'SBC 301', name: 'Saudi Building Code - Structural', category: 'Structural' },
+-        { code: 'SBC 302', name: 'Saudi Building Code - Fire Protection', category: 'Fire' },
+-        { code: 'SBC 303', name: 'Saudi Building Code - Electrical', category: 'Electrical' },
+-        { code: 'SBC 304', name: 'Saudi Building Code - Mechanical', category: 'Mechanical' },
+-        { code: 'SBC 305', name: 'Saudi Building Code - Sanitary', category: 'Plumbing' },
+-        { code: 'SBC 306', name: 'Saudi Energy Code', category: 'Energy' }
++        { code: 'SBC 301–306', name: 'Saudi Structural Code Family', category: 'Structural' },
++        { code: 'SBC 801', name: 'Saudi Fire Protection Code', category: 'Fire' },
++        { code: 'SBC 401', name: 'Saudi Electrical Code', category: 'Electrical' },
++        { code: 'SBC 501', name: 'Saudi Mechanical Code', category: 'Mechanical' },
++        { code: 'SBC 701', name: 'Saudi Plumbing Code', category: 'Plumbing' },
++        { code: 'SBC 601/602', name: 'Saudi Energy Conservation Codes', category: 'Energy' }
+       ],
+       international: [
+         { code: 'ACI 318-19', name: 'Building Code for Structural Concrete', category: 'Structural' },
+@@ -104,19 +104,19 @@ class EngineeringKnowledgeBase {
+       { id: 'R005', category: 'Structural', rule: 'Concrete compressive strength f\'c minimum: 25 MPa for residential', code: 'ACI 318' },
+       { id: 'R006', category: 'Structural', rule: 'Steel yield strength fy minimum: 420 MPa', code: 'ACI 318' },
+       { id: 'R007', category: 'Structural', rule: 'Slab thickness minimum: 120mm for two-way slab', code: 'ACI 318' },
+-      { id: 'R008', category: 'Fire', rule: 'Fire resistance rating for structural elements: 2 hours', code: 'SBC 302' },
+-      { id: 'R009', category: 'Fire', rule: 'Maximum travel distance to exit: 45m in sprinklered buildings', code: 'SBC 302' },
+-      { id: 'R010', category: 'Fire', rule: 'Fire extinguisher spacing: maximum 30m travel distance', code: 'SBC 302' },
++      { id: 'R008', category: 'Fire', rule: 'Fire resistance rating requires occupancy- and assembly-specific verification', code: 'SBC 801' },
++      { id: 'R009', category: 'Fire', rule: 'Exit travel distance requires occupancy- and sprinkler-specific verification', code: 'SBC 801' },
++      { id: 'R010', category: 'Fire', rule: 'Portable extinguisher distribution requires hazard-specific verification', code: 'SBC 801' },
+       { id: 'R011', category: 'Safety', rule: 'Guardrail height minimum: 1.1m for balconies above 1st floor', code: 'SBC 301' },
+       { id: 'R012', category: 'Safety', rule: 'Stair tread minimum width: 280mm, riser max: 170mm', code: 'SBC 301' },
+-      { id: 'R013', category: 'Energy', rule: 'Wall insulation R-value minimum: R-11 for residential', code: 'SBC 306' },
+-      { id: 'R014', category: 'Energy', rule: 'Roof insulation R-value minimum: R-22 for residential', code: 'SBC 306' },
+-      { id: 'R015', category: 'Energy', rule: 'Window U-value maximum: 2.5 W/m²K for residential', code: 'SBC 306' },
+-      { id: 'R016', category: 'Plumbing', rule: 'Minimum pipe diameter for main water supply: 20mm', code: 'SBC 305' },
+-      { id: 'R017', category: 'Plumbing', rule: 'Minimum drainage pipe slope: 1:50 for 100mm pipe', code: 'SBC 305' },
+-      { id: 'R018', category: 'Electrical', rule: 'Minimum receptacle spacing: 3m along walls', code: 'SBC 303' },
+-      { id: 'R019', category: 'Electrical', rule: 'Kitchen counter receptacle spacing: every 1.2m', code: 'SBC 303' },
+-      { id: 'R020', category: 'Electrical', rule: 'GFCI protection required for all wet locations', code: 'SBC 303' },
++      { id: 'R013', category: 'Energy', rule: 'Envelope insulation requires climate-zone and occupancy verification', code: 'SBC 601/602' },
++      { id: 'R014', category: 'Energy', rule: 'Roof insulation requires climate-zone and occupancy verification', code: 'SBC 601/602' },
++      { id: 'R015', category: 'Energy', rule: 'Fenestration performance requires climate-zone and occupancy verification', code: 'SBC 601/602' },
++      { id: 'R016', category: 'Plumbing', rule: 'Water supply sizing requires fixture-unit calculation', code: 'SBC 701' },
++      { id: 'R017', category: 'Plumbing', rule: 'Drainage sizing and slope require pipe-specific calculation', code: 'SBC 701' },
++      { id: 'R018', category: 'Electrical', rule: 'Receptacle layout requires occupancy-specific verification', code: 'SBC 401' },
++      { id: 'R019', category: 'Electrical', rule: 'Kitchen receptacle layout requires occupancy-specific verification', code: 'SBC 401' },
++      { id: 'R020', category: 'Electrical', rule: 'Wet-location protection requires circuit- and location-specific verification', code: 'SBC 401' },
+       { id: 'R021', category: 'General', rule: 'Minimum ceiling height for habitable rooms: 2.4m', code: 'IBC' },
+       { id: 'R022', category: 'General', rule: 'Minimum bedroom area: 12m²', code: 'IBC' },
+       { id: 'R023', category: 'General', rule: 'Minimum window area: 10% of floor area for natural light', code: 'IBC' },
+@@ -147,7 +147,47 @@ class EngineeringKnowledgeBase {
+       Office: { minArea: 10, maxArea: 40, typicalArea: 20, requiresWindow: true, finishingLevel: 'Standard' },
+       Reception: { minArea: 15, maxArea: 60, typicalArea: 30, requiresWindow: true, finishingLevel: 'Premium' },
+       MeetingRoom: { minArea: 15, maxArea: 50, typicalArea: 25, requiresWindow: true, finishingLevel: 'Premium' },
+-      Corridor: { minArea: 5, maxArea: 30, typicalArea: 12, requiresWindow: false, finishingLevel: 'Standard' }
++      Corridor: { minArea: 5, maxArea: 30, typicalArea: 12, requiresWindow: false, finishingLevel: 'Standard' },
++      PatientRoom: { minArea: 22, maxArea: 38, typicalArea: 28, requiresWindow: true, finishingLevel: 'Specialized' },
++      IsolationRoom: { minArea: 25, maxArea: 42, typicalArea: 32, requiresWindow: true, finishingLevel: 'Specialized' },
++      ICUBedBay: { minArea: 20, maxArea: 35, typicalArea: 25, requiresWindow: false, finishingLevel: 'Specialized' },
++      EmergencyBay: { minArea: 14, maxArea: 28, typicalArea: 18, requiresWindow: false, finishingLevel: 'Specialized' },
++      OperatingRoom: { minArea: 45, maxArea: 75, typicalArea: 55, requiresWindow: false, finishingLevel: 'Specialized' },
++      ClinicRoom: { minArea: 14, maxArea: 24, typicalArea: 18, requiresWindow: true, finishingLevel: 'Specialized' },
++      ImagingSuite: { minArea: 45, maxArea: 120, typicalArea: 75, requiresWindow: false, finishingLevel: 'Specialized' },
++      Laboratory: { minArea: 30, maxArea: 100, typicalArea: 55, requiresWindow: false, finishingLevel: 'Specialized' },
++      Pharmacy: { minArea: 25, maxArea: 80, typicalArea: 40, requiresWindow: false, finishingLevel: 'Specialized' },
++      CSSD: { minArea: 80, maxArea: 260, typicalArea: 150, requiresWindow: false, finishingLevel: 'Specialized' },
++      NurseStation: { minArea: 18, maxArea: 45, typicalArea: 30, requiresWindow: false, finishingLevel: 'Specialized' },
++      PlantRoom: { minArea: 30, maxArea: 500, typicalArea: 120, requiresWindow: false, finishingLevel: 'Technical' },
++      UtilityRoom: { minArea: 12, maxArea: 120, typicalArea: 35, requiresWindow: false, finishingLevel: 'Technical' },
++      ControlRoom: { minArea: 20, maxArea: 180, typicalArea: 60, requiresWindow: false, finishingLevel: 'Technical' },
++      Classroom: { minArea: 35, maxArea: 80, typicalArea: 55, requiresWindow: true, finishingLevel: 'Standard' },
++      DwellingUnit: { minArea: 55, maxArea: 260, typicalArea: 120, requiresWindow: true, finishingLevel: 'Standard' },
++      LockerRoom: { minArea: 35, maxArea: 250, typicalArea: 90, requiresWindow: false, finishingLevel: 'Specialized' },
++      FirstAidRoom: { minArea: 14, maxArea: 35, typicalArea: 20, requiresWindow: true, finishingLevel: 'Specialized' },
++      PrayerHall: { minArea: 100, maxArea: 5000, typicalArea: 750, requiresWindow: true, finishingLevel: 'Premium' },
++      RetailUnit: { minArea: 20, maxArea: 1000, typicalArea: 120, requiresWindow: false, finishingLevel: 'Standard' },
++      GuestRoom: { minArea: 24, maxArea: 65, typicalArea: 34, requiresWindow: true, finishingLevel: 'Premium' },
++      DataHall: { minArea: 100, maxArea: 5000, typicalArea: 800, requiresWindow: false, finishingLevel: 'Technical' },
++      ProductionHall: { minArea: 250, maxArea: 15000, typicalArea: 1800, requiresWindow: false, finishingLevel: 'Industrial' },
++      WarehouseBay: { minArea: 250, maxArea: 10000, typicalArea: 1200, requiresWindow: false, finishingLevel: 'Industrial' },
++      ProcessArea: { minArea: 100, maxArea: 20000, typicalArea: 1600, requiresWindow: false, finishingLevel: 'Industrial' },
++      RoadSegment: { minArea: 1000, maxArea: 50000, typicalArea: 20000, requiresWindow: false, finishingLevel: 'Infrastructure' },
++      BridgeSpan: { minArea: 300, maxArea: 5000, typicalArea: 900, requiresWindow: false, finishingLevel: 'Infrastructure' },
++      TunnelSection: { minArea: 500, maxArea: 10000, typicalArea: 2500, requiresWindow: false, finishingLevel: 'Infrastructure' },
++      Station: { minArea: 200, maxArea: 10000, typicalArea: 1800, requiresWindow: true, finishingLevel: 'Infrastructure' },
++      TerminalZone: { minArea: 500, maxArea: 25000, typicalArea: 3500, requiresWindow: true, finishingLevel: 'Infrastructure' },
++      Berth: { minArea: 1000, maxArea: 30000, typicalArea: 5000, requiresWindow: false, finishingLevel: 'Infrastructure' },
++      TreatmentProcessZone: { minArea: 250, maxArea: 20000, typicalArea: 2200, requiresWindow: false, finishingLevel: 'Infrastructure' },
++      DamBlock: { minArea: 500, maxArea: 30000, typicalArea: 5000, requiresWindow: false, finishingLevel: 'Infrastructure' },
++      SubstationBay: { minArea: 150, maxArea: 5000, typicalArea: 750, requiresWindow: false, finishingLevel: 'Technical' },
++      TelecomSite: { minArea: 50, maxArea: 1500, typicalArea: 250, requiresWindow: false, finishingLevel: 'Technical' },
++      LandscapeZone: { minArea: 250, maxArea: 50000, typicalArea: 3000, requiresWindow: false, finishingLevel: 'External' },
++      SportsZone: { minArea: 250, maxArea: 20000, typicalArea: 1800, requiresWindow: false, finishingLevel: 'Specialized' },
++      Gallery: { minArea: 100, maxArea: 5000, typicalArea: 750, requiresWindow: false, finishingLevel: 'Specialized' },
++      ExistingFabricZone: { minArea: 50, maxArea: 5000, typicalArea: 500, requiresWindow: false, finishingLevel: 'Existing' },
++      FitoutZone: { minArea: 50, maxArea: 5000, typicalArea: 500, requiresWindow: false, finishingLevel: 'Interior' }
+     };
+   }
+ 
+@@ -216,21 +256,71 @@ class EngineeringKnowledgeBase {
+     return pt ? 0.7 : 0.4;
+   }
+ 
+-  estimateSpaces(type, area, floors) {
++  estimateSpaces(type, area, floors, options = {}) {
+     const pt = this.getProjectType(type);
+     if (!pt) return [];
++    const safeArea = Number(area) > 0 ? Number(area) : 0;
++    const safeFloors = Number(floors) > 0 ? Number(floors) : 1;
++    const grossArea = Number(options.grossBuiltArea) > 0 ? Number(options.grossBuiltArea) : safeArea * safeFloors;
++    const modelType = String(options.modelType || '').trim().toLowerCase();
++    const bounded = (value, minimum = 1, maximum = 250) => Math.max(minimum, Math.min(maximum, Math.round(value)));
++    const capacity = Number(options.capacity) > 0 ? Number(options.capacity) : null;
++    const hospitalBeds = bounded(capacity || grossArea * 0.0035, 20, 800);
+     const configs = {
+       Apartment: { Bedroom: 2, LivingRoom: 1, Kitchen: 1, Bathroom: 1, MasterBedroom: 1, Hallway: 1 },
+       Villa: { Bedroom: 3, LivingRoom: 2, Kitchen: 1, Bathroom: 3, MasterBedroom: 1, DiningRoom: 1, Hallway: 2, Roof: 1 },
+       Luxury_Villa: { Bedroom: 4, LivingRoom: 2, Kitchen: 1, Bathroom: 4, MasterBedroom: 2, DiningRoom: 2, Hallway: 3, Roof: 1, Office: 1 },
+       Apartment_Building: { Bedroom: 2, LivingRoom: 1, Kitchen: 1, Bathroom: 2, Hallway: 1, Corridor: 1 },
+-      Hospital: { Reception: 1, Office: 5, MeetingRoom: 3, Bathroom: 10, Corridor: 5, Storage: 4 },
++      Hospital: {
++        Reception: 2,
++        EmergencyBay: bounded(hospitalBeds * 0.12, 8, 100),
++        ClinicRoom: bounded(hospitalBeds * 0.12, 8, 100),
++        PatientRoom: bounded(hospitalBeds * 0.72, 15, 500),
++        IsolationRoom: bounded(hospitalBeds * 0.05, 2, 50),
++        ICUBedBay: bounded(hospitalBeds * 0.10, 4, 100),
++        OperatingRoom: bounded(hospitalBeds / 35, 2, 30),
++        ImagingSuite: bounded(hospitalBeds / 55, 2, 18),
++        Laboratory: bounded(hospitalBeds / 80, 2, 12),
++        Pharmacy: 2,
++        CSSD: 1,
++        NurseStation: bounded(hospitalBeds / 24, 2, 40),
++        Bathroom: bounded(hospitalBeds * 0.62, 12, 400),
++        Corridor: bounded(safeFloors * 2, 4, 40),
++        Storage: bounded(safeFloors * 2, 4, 40),
++        PlantRoom: bounded(safeFloors / 2, 2, 20),
++        UtilityRoom: bounded(safeFloors * 2, 4, 40)
++      },
+       Office_Building: { Office: 20, MeetingRoom: 4, Reception: 1, Bathroom: 6, Corridor: 3, Storage: 2 },
+       School: { Office: 2, MeetingRoom: 1, Bathroom: 6, Corridor: 3, Storage: 2 },
+       Hotel: { Bedroom: 50, Reception: 1, MeetingRoom: 2, Bathroom: 55, Corridor: 10, Storage: 3 },
+       Mall: { Bathroom: 8, Storage: 4, Corridor: 15 }
+     };
+-    const spaces = configs[type] || { Bedroom: 2, LivingRoom: 1, Kitchen: 1, Bathroom: 1, Hallway: 1 };
++    const modelPrograms = {
++      mixed_use: { RetailUnit: bounded(grossArea / 900, 4, 120), Office: bounded(grossArea / 1400, 4, 100), DwellingUnit: bounded(grossArea / 1800, 2, 80), PlantRoom: bounded(safeFloors / 3, 1, 15) },
++      sports: { SportsZone: bounded(grossArea / 3000, 1, 40), LockerRoom: 4, FirstAidRoom: 2, PlantRoom: bounded(grossArea / 15000, 1, 12) },
++      cultural: { Gallery: bounded(grossArea / 1500, 2, 60), Storage: bounded(grossArea / 5000, 2, 20), MeetingRoom: bounded(grossArea / 6000, 1, 15), PlantRoom: bounded(grossArea / 15000, 1, 12) },
++      data_center: { DataHall: bounded(grossArea / 4000, 2, 50), PlantRoom: bounded(grossArea / 6000, 2, 40), UtilityRoom: bounded(grossArea / 5000, 2, 40), ControlRoom: 2, Storage: bounded(grossArea / 15000, 1, 12) },
++      factory: { ProductionHall: bounded(grossArea / 5000, 1, 80), WarehouseBay: bounded(grossArea / 10000, 1, 30), ControlRoom: 2, PlantRoom: bounded(grossArea / 12000, 1, 20) },
++      warehouse: { WarehouseBay: bounded(grossArea / 5000, 1, 100), Office: bounded(grossArea / 20000, 1, 12), UtilityRoom: bounded(grossArea / 30000, 1, 10) },
++      power_plant: { ProcessArea: bounded(grossArea / 6000, 2, 80), ControlRoom: 3, SubstationBay: bounded(grossArea / 12000, 2, 30), PlantRoom: bounded(grossArea / 10000, 2, 30) },
++      renewable_energy: { LandscapeZone: bounded(grossArea / 50000, 1, 120), SubstationBay: bounded(grossArea / 150000, 1, 20), ControlRoom: 1 },
++      oil_gas: { ProcessArea: bounded(grossArea / 5000, 2, 100), ControlRoom: 3, UtilityRoom: bounded(grossArea / 12000, 2, 30), WarehouseBay: bounded(grossArea / 30000, 1, 15) },
++      road: { RoadSegment: bounded(grossArea / 25000, 1, 200), UtilityRoom: bounded(grossArea / 250000, 1, 20) },
++      bridge: { BridgeSpan: bounded(grossArea / 1200, 1, 200), UtilityRoom: bounded(grossArea / 30000, 1, 12) },
++      tunnel: { TunnelSection: bounded(grossArea / 3000, 1, 200), PlantRoom: bounded(grossArea / 25000, 1, 25), ControlRoom: 2 },
++      railway: { RoadSegment: bounded(grossArea / 50000, 1, 200), Station: bounded(capacity ? capacity / 20000 : grossArea / 500000, 1, 30), SubstationBay: bounded(grossArea / 500000, 1, 20) },
++      airport: { TerminalZone: bounded(grossArea / 10000, 2, 100), PlantRoom: bounded(grossArea / 30000, 2, 40), ControlRoom: 3, WarehouseBay: bounded(grossArea / 60000, 1, 20) },
++      port: { Berth: bounded(grossArea / 50000, 1, 80), WarehouseBay: bounded(grossArea / 30000, 1, 80), ControlRoom: 2, UtilityRoom: bounded(grossArea / 75000, 1, 30) },
++      water: { TreatmentProcessZone: bounded(grossArea / 8000, 2, 100), PlantRoom: bounded(grossArea / 20000, 1, 30), ControlRoom: 2 },
++      dam: { DamBlock: bounded(grossArea / 12000, 1, 150), PlantRoom: bounded(grossArea / 40000, 1, 25), ControlRoom: 2 },
++      power: { SubstationBay: bounded(grossArea / 5000, 2, 120), ControlRoom: 2, UtilityRoom: bounded(grossArea / 20000, 1, 30) },
++      telecom: { TelecomSite: bounded(grossArea / 3000, 1, 150), ControlRoom: 1, UtilityRoom: bounded(grossArea / 15000, 1, 20) },
++      landscape: { LandscapeZone: bounded(grossArea / 10000, 1, 150), UtilityRoom: bounded(grossArea / 75000, 1, 15) },
++      renovation: { ExistingFabricZone: bounded(grossArea / 1500, 1, 100), UtilityRoom: bounded(grossArea / 10000, 1, 20) },
++      heritage: { ExistingFabricZone: bounded(grossArea / 750, 1, 100), Gallery: bounded(grossArea / 3000, 1, 20), Storage: bounded(grossArea / 7000, 1, 12) },
++      fitout: { FitoutZone: bounded(grossArea / 750, 1, 120), MeetingRoom: bounded(grossArea / 5000, 1, 20), Storage: bounded(grossArea / 8000, 1, 15) }
++    };
++    const spaces = modelPrograms[modelType] || configs[type] || { UtilityRoom: 1, PlantRoom: 1 };
+     return Object.entries(spaces).flatMap(([spaceType, count]) => {
+       const info = this.getSpace(spaceType);
+       if (!info) return [];
+@@ -240,7 +330,9 @@ class EngineeringKnowledgeBase {
+         area: info.typicalArea,
+         finishingLevel: info.finishingLevel,
+         estimateStatus: 'rule_of_thumb',
+-        requiresHumanReview: true
++        requiresHumanReview: true,
++        programBasis: modelType || type,
++        suitableForDesign: false
+       }));
+     });
+   }
+diff --git a/ACEP/packages/ai-engine/models/cost-estimator.js b/ACEP/packages/ai-engine/models/cost-estimator.js
+index a10050d..525a3f0 100644
+--- a/ACEP/packages/ai-engine/models/cost-estimator.js
++++ b/ACEP/packages/ai-engine/models/cost-estimator.js
+@@ -7,6 +7,7 @@
+ const fs = require('fs');
+ const path = require('path');
+ const kb = require('../knowledge-base');
++const millionProjectModel = require('./million-project-model');
+ 
+ function parseCSV(content) {
+   const rows = [];
+@@ -166,7 +167,7 @@ class CostEstimator {
+     };
+   }
+ 
+-  estimateCost(boqItems, projectType, area, floors, finishing = 'Standard', region = 'Riyadh') {
++  estimateCost(boqItems, projectType, area, floors, finishing = 'Standard', region = 'Riyadh', modelInputs = {}) {
+     if (!kb.initialized) kb.initialize();
+     const numericArea = Number(area);
+     const numericFloors = Number(floors);
+@@ -174,9 +175,26 @@ class CostEstimator {
+     if (!Number.isFinite(numericFloors) || numericFloors <= 0) throw new TypeError('floors must be a positive finite number');
+     const multiplier = kb.getMaterialPriceMultiplier(finishing);
+     const regionIndex = kb.getRegionIndex(region);
+-    const totalArea = numericArea * numericFloors;
++    const totalArea = Number(modelInputs.grossBuiltArea) > 0
++      ? Number(modelInputs.grossBuiltArea)
++      : numericArea * numericFloors;
+     const pt = kb.getProjectType(projectType);
+ 
++    const trainedPrediction = millionProjectModel.predict({
++      projectType: modelInputs.modelType || projectType,
++      grossBuiltArea: totalArea,
++      footprintArea: modelInputs.footprintArea || numericArea,
++      landArea: modelInputs.landArea,
++      floors: numericFloors,
++      basements: modelInputs.basements,
++      buildings: modelInputs.buildings,
++      capacity: modelInputs.capacity,
++      city: region,
++      finishing,
++      method: modelInputs.method
++    });
++    if (trainedPrediction.available) return this._trainedEstimate(trainedPrediction, totalArea, regionIndex, multiplier);
++
+     if (!this.trained || this.materialPrices.length === 0) {
+       return this._fallbackEstimate(totalArea, projectType, finishing, region);
+     }
+@@ -240,9 +258,9 @@ class CostEstimator {
+     const totalCost = directCost + indirectCost + contingency + profit + taxes;
+ 
+     const breakdown = {
+-      materials: { cost: Math.round(materialCost), percentage: Math.round(materialCost / directCost * 100) },
+-      labor: { cost: Math.round(laborCost), percentage: Math.round(laborCost / directCost * 100) },
+-      equipment: { cost: Math.round(equipmentCost), percentage: Math.round(equipmentCost / directCost * 100) },
++      materials: { cost: Math.round(materialCost), percentage: Math.round(materialCost / totalCost * 100) },
++      labor: { cost: Math.round(laborCost), percentage: Math.round(laborCost / totalCost * 100) },
++      equipment: { cost: Math.round(equipmentCost), percentage: Math.round(equipmentCost / totalCost * 100) },
+       indirect: { cost: Math.round(indirectCost), percentage: Math.round(indirectCost / totalCost * 100) },
+       contingency: { cost: Math.round(contingency), percentage: Math.round(contingency / totalCost * 100) },
+       profit: { cost: Math.round(profit), percentage: Math.round(profit / totalCost * 100) },
+@@ -278,6 +296,48 @@ class CostEstimator {
+     };
+   }
+ 
++  _trainedEstimate(prediction, totalArea, regionIndex, finishingMultiplier) {
++    const totalCost = Math.round(prediction.predictions.costSar);
++    const shares = { materials: 0.42, labor: 0.24, equipment: 0.08, indirect: 0.08, contingency: 0.05, profit: 0.06, taxes: 0.07 };
++    const amounts = Object.fromEntries(Object.entries(shares).map(([key, share]) => [key, Math.round(totalCost * share)]));
++    const roundingDifference = totalCost - Object.values(amounts).reduce((sum, value) => sum + value, 0);
++    amounts.contingency += roundingDifference;
++    const directCost = amounts.materials + amounts.labor + amounts.equipment;
++    const holdout = prediction.syntheticHoldout.costSar || {};
++    return {
++      directCost,
++      indirectCost: amounts.indirect,
++      contingency: amounts.contingency,
++      profit: amounts.profit,
++      taxes: amounts.taxes,
++      totalCost,
++      currency: 'SAR',
++      costPerM2: Math.round(totalCost / totalArea),
++      costRange: {
++        lower: Math.round(prediction.intervals.costSar.lower),
++        upper: Math.round(prediction.intervals.costSar.upper),
++        basis: 'synthetic_holdout_p90_error'
++      },
++      breakdown: Object.fromEntries(Object.entries(shares).map(([key, share]) => [key, {
++        cost: amounts[key], percentage: Math.round(share * 100)
++      }])),
++      confidence: 0.65,
++      regionalFactor: regionIndex,
++      finishingMultiplier,
++      dataPoints: { projects: prediction.trainingRecords },
++      dataProvenance: prediction.dataProvenance,
++      modelId: prediction.modelId,
++      projectType: prediction.projectType,
++      holdoutMetrics: holdout,
++      sourceFiles: {},
++      status: 'experimental',
++      contractualUse: false,
++      suitableForModelApproval: false,
++      requiresHumanReview: true,
++      limitations: prediction.limitations
++    };
++  }
++
+   _mapBOQtoMaterialCategory(boqCat) {
+     const map = {
+       'EarthWork': 'Excavation', 'Concrete': 'Concrete', 'Reinforcement': 'Steel',
+diff --git a/ACEP/packages/ai-engine/models/project-analyzer.js b/ACEP/packages/ai-engine/models/project-analyzer.js
+index 53a4b4a..f75a666 100644
+--- a/ACEP/packages/ai-engine/models/project-analyzer.js
++++ b/ACEP/packages/ai-engine/models/project-analyzer.js
+@@ -6,6 +6,7 @@
+ const fs = require('fs');
+ const path = require('path');
+ const kb = require('../knowledge-base');
++const millionProjectModel = require('./million-project-model');
+ 
+ class ProjectAnalyzer {
+   constructor() {
+@@ -106,9 +107,34 @@ class ProjectAnalyzer {
+     const multiplier = finishing ? kb.getMaterialPriceMultiplier(finishing) : 1.0;
+     const regionIndex = region ? kb.getRegionIndex(region) : 1.0;
+ 
++    const grossBuiltArea = Number(options.grossBuiltArea) > 0
++      ? Number(options.grossBuiltArea)
++      : area * floors;
++    const footprintArea = Number(options.footprintArea) > 0
++      ? Number(options.footprintArea)
++      : grossBuiltArea / Math.max(1, floors);
++    const trainedPrediction = millionProjectModel.predict({
++      projectType: options.modelType || type,
++      grossBuiltArea,
++      footprintArea,
++      landArea: options.landArea,
++      floors,
++      basements: options.basements,
++      buildings: options.buildings,
++      capacity: options.capacity,
++      city: options.city || options.region,
++      finishing: options.finishing,
++      method: options.method
++    });
++
+     let estimatedCost, concreteM3, steelTon, duration;
+-    if (stats && stats.count > 5) {
+-      const scaleFactor = (area * floors) / (stats.avgArea * stats.avgFloors || 1);
++    if (trainedPrediction.available) {
++      estimatedCost = trainedPrediction.predictions.costSar;
++      concreteM3 = trainedPrediction.predictions.concreteM3;
++      steelTon = trainedPrediction.predictions.steelTon;
++      duration = trainedPrediction.predictions.durationDays / 22;
++    } else if (stats && stats.count > 5) {
++      const scaleFactor = grossBuiltArea / (stats.avgArea * stats.avgFloors || 1);
+       estimatedCost = stats.avgCost * scaleFactor * multiplier * regionIndex;
+       concreteM3 = stats.avgConcrete * scaleFactor;
+       steelTon = stats.avgSteel * scaleFactor;
+@@ -124,13 +150,19 @@ class ProjectAnalyzer {
+       };
+     }
+ 
+-    const spaces = kb.estimateSpaces(type, area, floors);
++    const spaces = kb.estimateSpaces(type, area, floors, {
++      modelType: options.modelType,
++      grossBuiltArea,
++      capacity: options.capacity
++    });
+     const confidence = stats ? Math.min(0.5 + stats.count * 0.005, 0.95) : 0.5;
+ 
+     return {
+       projectType: type,
+-      totalArea: Math.round(area * floors),
+-      areaPerFloor: Math.round(area),
++      totalArea: Math.round(grossBuiltArea),
++      grossBuiltArea: Math.round(grossBuiltArea),
++      footprintArea: Math.round(footprintArea),
++      areaPerFloor: Math.round(footprintArea),
+       floors: Math.round(floors),
+       finishing,
+       region,
+@@ -139,8 +171,18 @@ class ProjectAnalyzer {
+       steelTon: Math.round(steelTon * 100) / 100,
+       durationMonths: Math.round(duration),
+       spaces,
+-      confidence: Math.round(confidence * 100) / 100,
++      confidence: trainedPrediction.available ? 0.7 : Math.round(confidence * 100) / 100,
+       trainingDataPoints: stats ? stats.count : 0,
++      trainedModel: trainedPrediction.available ? {
++        modelId: trainedPrediction.modelId,
++        trainingRecords: trainedPrediction.trainingRecords,
++        projectType: trainedPrediction.projectType,
++        dataProvenance: trainedPrediction.dataProvenance,
++        suitableForModelApproval: false,
++        predictions: trainedPrediction.predictions,
++        intervals: trainedPrediction.intervals
++      } : null,
++      predictionSource: trainedPrediction.available ? 'million_project_research_candidate' : 'legacy_bundled_statistics',
+       insufficientData: false
+     };
+   }
+diff --git a/ACEP/packages/ai-engine/models/risk-analyzer.js b/ACEP/packages/ai-engine/models/risk-analyzer.js
+index 335d7cb..35d2bda 100644
+--- a/ACEP/packages/ai-engine/models/risk-analyzer.js
++++ b/ACEP/packages/ai-engine/models/risk-analyzer.js
+@@ -1,5 +1,6 @@
+ const fs = require('fs');
+ const path = require('path');
++const millionProjectModel = require('./million-project-model');
+ 
+ class RiskAnalyzer {
+   constructor() {
+@@ -71,9 +72,24 @@ class RiskAnalyzer {
+     };
+   }
+ 
+-  analyzeRisks(projectType, totalArea, floors, region, finishing) {
++  analyzeRisks(projectType, totalArea, floors, region, finishing, modelInputs = {}) {
+     if (!this.trained) return { error: 'Not trained', risks: [] };
+ 
++    const trainedPrediction = millionProjectModel.predict({
++      projectType: modelInputs.modelType || projectType,
++      grossBuiltArea: totalArea,
++      footprintArea: modelInputs.footprintArea,
++      landArea: modelInputs.landArea,
++      floors,
++      basements: modelInputs.basements,
++      buildings: modelInputs.buildings,
++      capacity: modelInputs.capacity,
++      city: region,
++      finishing,
++      method: modelInputs.method
++    });
++    if (trainedPrediction.available) return this._trainedRisks(trainedPrediction);
++
+     const ptStats = this.byProjectType[projectType];
+     const allCategories = Object.keys(this.byCategory);
+     const scaleFactor = Math.max(0.5, Math.min(2, 1 + (totalArea / 10000) * 0.2 + (floors / 10) * 0.15));
+@@ -119,6 +135,79 @@ class RiskAnalyzer {
+     };
+   }
+ 
++  _trainedRisks(prediction) {
++    const baseScore = prediction.predictions.riskScore;
++    const common = [
++      ['Schedule', 0.90, 1.04, 'Interface and approval delays', 'Maintain an approval register and a constraint-removal plan.'],
++      ['Cost', 0.82, 1.08, 'Escalation and scope growth', 'Freeze the cost basis, track scope changes, and update the risk allowance.'],
++      ['Quality', 0.72, 0.96, 'Rework from coordination or workmanship gaps', 'Use discipline hold points, mock-ups, and coordinated inspection plans.'],
++      ['Safety', 0.68, 1.12, 'High-risk construction activities', 'Issue activity-specific permits, method statements, and independent supervision.'],
++      ['Procurement', 0.76, 1.00, 'Long-lead equipment and material availability', 'Approve long-lead registers and dual-source critical packages.'],
++      ['Design', 0.70, 0.94, 'Incomplete or conflicting design information', 'Run multidisciplinary design reviews and close clashes before release.']
++    ];
++    const specific = {
++      hospital: [
++        ['Clinical systems', 0.86, 1.14, 'Medical gases, infection control, and clinical commissioning', 'Validate clinical workflows and commission critical systems with the operator.'],
++        ['Medical equipment', 0.80, 1.10, 'Late equipment data affecting rooms and services', 'Freeze equipment schedules and interface loads before coordinated design release.']
++      ],
++      data_center: [
++        ['Resilience', 0.88, 1.16, 'Power and cooling redundancy not meeting the required tier', 'Witness integrated systems testing under credible failure scenarios.']
++      ],
++      tunnel: [
++        ['Geotechnical', 0.92, 1.18, 'Unknown ground, groundwater, and settlement behavior', 'Use staged investigation, instrumentation, and observational controls.']
++      ],
++      bridge: [
++        ['Temporary works', 0.84, 1.14, 'Launching, lifting, or falsework instability', 'Independently check temporary works and lifting sequences.']
++      ],
++      renovation: [
++        ['Existing conditions', 0.90, 1.08, 'Concealed conditions and undocumented services', 'Survey, scan, open up, and maintain a controlled discovery allowance.']
++      ],
++      heritage: [
++        ['Conservation', 0.90, 1.15, 'Irreversible loss of historic fabric', 'Use conservation trials and authority-approved intervention limits.']
++      ]
++    };
++    if (['road', 'railway', 'water', 'power', 'telecom'].includes(prediction.projectType)) {
++      common.push(['Utilities and access', 0.86, 1.10, 'Unknown utilities, traffic, and right-of-way constraints', 'Verify utilities and phase access/traffic before construction release.']);
++    }
++    const definitions = [...common, ...(specific[prediction.projectType] || [])];
++    const root = Math.sqrt(Math.max(0.01, baseScore));
++    const risks = definitions.map(([category, probabilityFactor, impactFactor, risk, mitigation], index) => {
++      const probability = Math.max(0.05, Math.min(0.90, root * probabilityFactor * (1 + (index % 3 - 1) * 0.035)));
++      const impact = Math.max(0.08, Math.min(0.93, root * impactFactor * (1 + ((index + 1) % 4 - 1.5) * 0.025)));
++      return {
++        category,
++        risk,
++        probability: Math.round(probability * 100) / 100,
++        impact: Math.round(impact * 100) / 100,
++        score: Math.round(probability * impact * 100) / 100,
++        mitigation,
++        trainingSamples: prediction.trainingRecords,
++        projectSpecific: Boolean((specific[prediction.projectType] || []).some(item => item[0] === category))
++      };
++    }).sort((left, right) => right.score - left.score);
++    const riskLevel = baseScore >= 0.60 ? 'High' : baseScore >= 0.35 ? 'Medium' : 'Low';
++    return {
++      risks: risks.slice(0, 10),
++      overallRiskScore: Math.round(baseScore * 100) / 100,
++      riskRange: {
++        lower: Math.round(prediction.intervals.riskScore.lower * 100) / 100,
++        upper: Math.round(prediction.intervals.riskScore.upper * 100) / 100,
++        basis: 'synthetic_holdout_error'
++      },
++      riskLevel,
++      totalRisksInTraining: prediction.trainingRecords,
++      projectSpecificData: prediction.trainingRecords,
++      modelId: prediction.modelId,
++      projectType: prediction.projectType,
++      status: 'experimental',
++      dataProvenance: prediction.dataProvenance,
++      contractualUse: false,
++      suitableForModelApproval: false,
++      requiresHumanReview: true,
++      limitations: prediction.limitations
++    };
++  }
++
+   getRiskTrends(projectId) {
+     const projRisks = this.risks.filter(r => r.projectId === projectId);
+     const byCat = {};
+diff --git a/ACEP/packages/ai-engine/project-brief.js b/ACEP/packages/ai-engine/project-brief.js
+index 14f4a6e..108bbe6 100644
+--- a/ACEP/packages/ai-engine/project-brief.js
++++ b/ACEP/packages/ai-engine/project-brief.js
+@@ -73,14 +73,29 @@ function primaryScale(brief, family) {
+ }
+ 
+ function quantitativeArea(brief, family) {
+-  const directArea = numberOrNull(brief.area) || numberOrNull(brief.landArea);
+-  if (directArea) return { value: directArea, basis: numberOrNull(brief.area) ? 'treated_area' : 'land_area_proxy' };
++  const directArea = numberOrNull(brief.area);
++  const floors = numberOrNull(brief.floors);
++  if (directArea) {
++    if (['building', 'industrial', 'existing', 'other'].includes(family)) {
++      return {
++        value: floors ? directArea / floors : directArea,
++        grossBuiltArea: directArea,
++        footprintArea: floors ? directArea / floors : null,
++        basis: 'gross_built_area'
++      };
++    }
++    return { value: directArea, grossBuiltArea: directArea, footprintArea: directArea, basis: 'treated_area' };
++  }
+   const length = numberOrNull(brief.length);
+   const width = numberOrNull(brief.width);
+   if (['linear', 'utility'].includes(family) && length && width) {
+-    return { value: length * width, basis: 'length_times_width' };
++    return { value: length * width, grossBuiltArea: length * width, footprintArea: length * width, basis: 'length_times_width' };
++  }
++  const landArea = numberOrNull(brief.landArea);
++  if (['site', 'utility'].includes(family) && landArea) {
++    return { value: landArea, grossBuiltArea: landArea, footprintArea: landArea, basis: 'treated_site_area' };
+   }
+-  return { value: null, basis: null };
++  return { value: null, grossBuiltArea: null, footprintArea: null, basis: landArea ? 'land_area_not_quantity_basis' : null };
+ }
+ 
+ function buildCanonicalDescription(brief) {
+@@ -113,9 +128,19 @@ function toEngineParams(brief) {
+   const normalizedNonBuildingFloors = ['linear', 'utility', 'site'].includes(resolved.family) ? 1 : null;
+   return {
+     type: resolved.engineType,
++    modelType: resolved.key,
+     typeConfidence: resolved.native ? 0.95 : 0.55,
+     area: area.value,
++    grossBuiltArea: area.grossBuiltArea,
++    footprintArea: area.footprintArea,
++    landArea: numberOrNull(brief.landArea),
++    areaBasis: area.basis,
+     floors: numberOrNull(brief.floors) || normalizedNonBuildingFloors,
++    basements: Number.isFinite(Number(brief.basements)) ? Math.max(0, Number(brief.basements)) : 0,
++    buildings: numberOrNull(brief.buildings) || 1,
++    capacity: numberOrNull(brief.capacity),
++    finishing: compact(brief.finishing) || null,
++    method: compact(brief.delivery) || null,
+     rooms: null,
+     bathrooms: null,
+     hasKitchen: false,
+@@ -128,6 +153,8 @@ function toEngineParams(brief) {
+       engineArchetype: resolved.engineType,
+       nativeCoverage: resolved.native,
+       quantitativeAreaBasis: area.basis,
++      grossBuiltArea: area.grossBuiltArea,
++      footprintArea: area.footprintArea,
+       floorBasis: numberOrNull(brief.floors) ? 'user_input' : (normalizedNonBuildingFloors ? 'non_building_normalization' : null)
+     }
+   };
+diff --git a/ACEP/packages/ai-engine/workflow-engine.js b/ACEP/packages/ai-engine/workflow-engine.js
+index 6f74ea2..b9a42ef 100644
+--- a/ACEP/packages/ai-engine/workflow-engine.js
++++ b/ACEP/packages/ai-engine/workflow-engine.js
+@@ -35,9 +35,14 @@ class WorkflowEngine {
+     const params = parseDescriptionFn(description);
+     project.setExtracted({
+       type: params.type,
++      modelType: params.modelType || null,
+       typeConfidence: params.typeConfidence || 0.7,
+       area: params.area,
+       areaExtracted: params.area !== null,
++      grossBuiltArea: params.grossBuiltArea ?? null,
++      footprintArea: params.footprintArea ?? null,
++      landArea: params.landArea ?? null,
++      areaBasis: params.areaBasis || null,
+       floors: params.floors,
+       floorsExtracted: params.floors !== null,
+       rooms: params.rooms || null,
+@@ -48,6 +53,11 @@ class WorkflowEngine {
+       halls: params.halls || null,
+       city: params.city || null,
+       phase: params.phase || null,
++      basements: params.basements || 0,
++      buildings: params.buildings || 1,
++      capacity: params.capacity || null,
++      finishing: params.finishing || null,
++      method: params.method || null,
+       extractionLog: params.extractionLog || null
+     });
+     return params;
+@@ -60,8 +70,19 @@ class WorkflowEngine {
+     const effective = this._getEffectiveParams(project);
+     const analysis = this.ai.projectAnalyzer.analyzeProject(description, {
+       type: effective.type,
++      modelType: effective.modelType,
+       area: effective.area,
++      grossBuiltArea: effective.grossBuiltArea,
++      footprintArea: effective.footprintArea,
++      landArea: effective.landArea,
++      areaBasis: effective.areaBasis,
+       floors: effective.floors,
++      basements: effective.basements,
++      buildings: effective.buildings,
++      capacity: effective.capacity,
++      city: effective.city,
++      finishing: effective.finishing,
++      method: effective.method,
+       typeConfidence: project.extracted.typeConfidence || 0.7
+     });
+     if (analysis.insufficientData) {
+@@ -77,7 +98,11 @@ class WorkflowEngine {
+    */
+   async stepVirtualBuilding(project) {
+     const effective = this._getEffectiveParams(project);
+-    const spaces = this.ai.kb.estimateSpaces(effective.type, effective.area, effective.floors);
++    const spaces = this.ai.kb.estimateSpaces(effective.type, effective.area, effective.floors, {
++      modelType: effective.modelType,
++      grossBuiltArea: effective.grossBuiltArea,
++      capacity: effective.capacity
++    });
+     const totalHeight = effective.floors * 3.2;
+     project.building = {
+       spaces: spaces || [],
+@@ -104,11 +129,19 @@ class WorkflowEngine {
+       hasKitchen: project.approved.hasKitchen || project.extracted.hasKitchen,
+       halls: project.approved.halls || project.extracted.halls,
+       city: project.approved.city || project.extracted.city,
++      modelType: effective.modelType,
++      grossBuiltArea: effective.grossBuiltArea || effective.area * effective.floors,
++      footprintArea: effective.footprintArea || effective.area,
++      landArea: effective.landArea,
++      basements: effective.basements,
++      buildings: effective.buildings,
++      capacity: effective.capacity,
++      method: effective.method,
+       description
+     };
+     const boqResult = this.ai.quantityEstimator.estimateBOQ(
+       effective.type, effective.area, effective.floors,
+-      'Standard', 'Riyadh', extra
++      effective.finishing || 'Standard', effective.city || 'Riyadh', extra
+     );
+     project.setBOQ(boqResult);
+     return boqResult;
+@@ -121,7 +154,17 @@ class WorkflowEngine {
+     const effective = this._getEffectiveParams(project);
+     const boqItems = project.boq.items;
+     const costData = this.ai.costEstimator.estimateCost(
+-      boqItems, effective.type, effective.area, effective.floors
++      boqItems, effective.type, effective.area, effective.floors,
++      effective.finishing || 'Standard', effective.city || 'Riyadh', {
++        grossBuiltArea: effective.grossBuiltArea,
++        footprintArea: effective.footprintArea,
++        landArea: effective.landArea,
++        basements: effective.basements,
++        buildings: effective.buildings,
++        capacity: effective.capacity,
++        method: effective.method,
++        modelType: effective.modelType
++      }
+     );
+     project.setCost(costData);
+     return costData;
+@@ -135,7 +178,15 @@ class WorkflowEngine {
+     const totalArea = project.predicted.totalArea || effective.area * effective.floors;
+     const floors = project.predicted.floors || effective.floors;
+     const scheduleData = this.ai.scheduleOptimizer.generateSchedule(
+-      effective.type, totalArea, floors
++      effective.type, totalArea, floors,
++      effective.finishing || 'Standard', effective.city || 'Riyadh', effective.method || 'Traditional', {
++        landArea: effective.landArea,
++        footprintArea: effective.footprintArea,
++        basements: effective.basements,
++        buildings: effective.buildings,
++        capacity: effective.capacity,
++        modelType: effective.modelType
++      }
+     );
+     project.setSchedule(scheduleData);
+     return scheduleData;
+@@ -149,7 +200,16 @@ class WorkflowEngine {
+     const totalArea = project.predicted.totalArea || effective.area * effective.floors;
+     const floors = project.predicted.floors || effective.floors;
+     const riskData = this.ai.riskAnalyzer.analyzeRisks(
+-      effective.type, totalArea, floors
++      effective.type, totalArea, floors,
++      effective.city, effective.finishing, {
++        landArea: effective.landArea,
++        footprintArea: effective.footprintArea,
++        basements: effective.basements,
++        buildings: effective.buildings,
++        capacity: effective.capacity,
++        method: effective.method,
++        modelType: effective.modelType
++      }
+     );
+     project.setRisks(riskData);
+     return riskData;
+@@ -163,7 +223,16 @@ class WorkflowEngine {
+     const totalArea = project.predicted.totalArea || effective.area * effective.floors;
+     const floors = project.predicted.floors || effective.floors;
+     const qualityData = this.ai.qualityInspector.inspectProject(
+-      effective.type, totalArea, floors
++      effective.type, totalArea, floors, effective.finishing, {
++        city: effective.city,
++        landArea: effective.landArea,
++        footprintArea: effective.footprintArea,
++        basements: effective.basements,
++        buildings: effective.buildings,
++        capacity: effective.capacity,
++        method: effective.method,
++        modelType: effective.modelType
++      }
+     );
+     project.setQuality(qualityData);
+     return qualityData;
+@@ -272,11 +341,22 @@ class WorkflowEngine {
+   _getEffectiveParams(project) {
+     return {
+       type: project.approved.typeConfirmed ? project.approved.type : (project.extracted.type || 'Unknown'),
++      modelType: project.extracted.modelType || null,
+       area: project.approved.areaConfirmed ? project.approved.area : (project.extracted.area ?? null),
++      grossBuiltArea: project.extracted.grossBuiltArea ?? null,
++      footprintArea: project.extracted.footprintArea ?? null,
++      landArea: project.extracted.landArea ?? null,
++      areaBasis: project.extracted.areaBasis || null,
+       floors: project.approved.floorsConfirmed ? project.approved.floors : (project.extracted.floors ?? null),
+       rooms: project.approved.roomsConfirmed ? project.approved.rooms : (project.extracted.rooms || null),
+       bathrooms: project.approved.bathroomsConfirmed ? project.approved.bathrooms : (project.extracted.bathrooms || null),
+       hasKitchen: project.approved.kitchenConfirmed ? project.approved.hasKitchen : (project.extracted.hasKitchen || false),
++      basements: project.extracted.basements || 0,
++      buildings: project.extracted.buildings || 1,
++      capacity: project.extracted.capacity || null,
++      city: project.approved.cityConfirmed ? project.approved.city : (project.extracted.city || null),
++      finishing: project.extracted.finishing || null,
++      method: project.extracted.method || null,
+     };
+   }
+ 
 diff --git a/ACEP/packages/security/index.js b/ACEP/packages/security/index.js
-index 30a6ca06cb4e06865528832b03dbb8e5ae20fcb1..9ceccf18b748956a4827199daa789436058f49f5 100644
+index 30a6ca0..9ceccf1 100644
 --- a/ACEP/packages/security/index.js
 +++ b/ACEP/packages/security/index.js
 @@ -60,6 +60,37 @@ function tokenDigest(token) {
@@ -102,8 +893,284 @@ index 30a6ca06cb4e06865528832b03dbb8e5ae20fcb1..9ceccf18b748956a4827199daa789436
        approvedEngineeringRoutes: approvedEngineeringRoutes.length,
        corsOrigins: allowedOrigins.size
      };
+diff --git a/ACEP/packages/security/validation.js b/ACEP/packages/security/validation.js
+index 2d07f27..0f27699 100644
+--- a/ACEP/packages/security/validation.js
++++ b/ACEP/packages/security/validation.js
+@@ -38,10 +38,13 @@ const projectBriefSchema = z.object({
+   typeLabel: optionalText(160),
+   subtype: optionalText(200),
+   nature: z.enum(['new', 'expansion', 'renovation', 'fitout', 'maintenance']).optional(),
++  natureLabel: optionalText(160),
+   country: optionalText(100),
+   city: safeText(120),
+   stage: z.enum(['concept', 'design', 'tender', 'construction', 'handover', 'operation']),
++  stageLabel: optionalText(160),
+   delivery: z.enum(['unknown', 'traditional', 'design_build', 'epc', 'cm', 'framework']).optional(),
++  deliveryLabel: optionalText(160),
+   landArea: optionalPositive,
+   area: optionalPositive,
+   floors: optionalNonNegativeInteger,
+diff --git a/ACEP/render.yaml b/ACEP/render.yaml
+index eebe0be..b48eb29 100644
+--- a/ACEP/render.yaml
++++ b/ACEP/render.yaml
+@@ -21,6 +21,10 @@ services:
+         value: development
+       - key: ACEP_DATA_PROVENANCE
+         value: synthetic
++      - key: ACEP_MILLION_MODEL_ENABLED
++        value: "true"
++      - key: ACEP_SUPPLIER_DATA_VERIFIED
++        value: "false"
+       - key: ACEP_AUTH_MODE
+         value: api-key
+       - key: ACEP_API_KEY
+diff --git a/ACEP/server.js b/ACEP/server.js
+index 405a792..00e9cbd 100644
+--- a/ACEP/server.js
++++ b/ACEP/server.js
+@@ -2444,14 +2444,21 @@ function coreEngineCatalog() {
+     ESG: true,
+     SUPPLY: status.supplierIntelligence
+   };
+-  return Object.entries(ENGINE_LABELS).map(([code, label]) => ({
+-    code,
+-    label,
+-    registered: true,
+-    ready: Boolean(aiReady && readiness[code]),
+-    status: aiReady && readiness[code] ? 'ready_for_experiment' : 'initializing',
+-    execution: code === 'ESG' ? 'qualitative_target_review_until_lca_inputs_are_supplied' : 'local_cpu'
+-  }));
++  return Object.entries(ENGINE_LABELS).map(([code, label]) => {
++    const ready = Boolean(aiReady && readiness[code]);
++    const supplierVerified = code !== 'SUPPLY' || ai.supplierIntelligence.dataVerified;
++    return {
++      code,
++      label,
++      registered: true,
++      ready,
++      status: ready
++        ? (supplierVerified ? 'ready_for_experiment' : 'ready_to_assess_inputs_no_verified_market_data')
++        : 'initializing',
++      execution: code === 'ESG' ? 'qualitative_target_review_until_lca_inputs_are_supplied' : 'local_cpu',
++      recommendationReady: code === 'SUPPLY' ? Boolean(ready && supplierVerified) : undefined
++    };
++  });
+ }
+ 
+ function stepState(stepMap, names) {
+@@ -2464,6 +2471,90 @@ function stepState(stepMap, names) {
+   return { status: executed ? 'completed' : 'skipped', durationMs, executed };
+ }
+ 
++function buildSafetyProjection(brief, effective) {
++  const modelType = String(effective.modelType || brief.type || '').trim().toLowerCase();
++  const grossArea = Number(effective.grossBuiltArea) > 0
++    ? Number(effective.grossBuiltArea)
++    : Math.max(1, Number(effective.area) || 1) * Math.max(1, Number(effective.floors) || 1);
++  const floors = Math.max(1, Number(effective.floors) || 1);
++  const basements = Math.max(0, Number(effective.basements) || 0);
++  const prediction = ai.millionProjectModel.predict({
++    projectType: modelType || effective.type,
++    grossBuiltArea: grossArea,
++    footprintArea: effective.footprintArea,
++    landArea: effective.landArea,
++    floors,
++    basements,
++    buildings: effective.buildings,
++    capacity: effective.capacity,
++    city: brief.city,
++    finishing: brief.finishing,
++    method: effective.method
++  });
++  const calibratedRisk = prediction.available ? prediction.predictions.riskScore : 0.36;
++  const root = Math.sqrt(Math.max(0.05, calibratedRisk));
++  const clamp = value => Math.max(0.05, Math.min(0.92, value));
++  const definitions = [
++    ['Excavation and temporary support', 0.78 + basements * 0.05, 1.02, 'Approve excavation, shoring, access, and inspection controls before work starts.', basements > 0 || grossArea > 1000],
++    ['Work at height and falling objects', 0.80 + Math.min(0.12, floors / 120), 1.08, 'Use engineered access, edge protection, lifting exclusion zones, and permit controls.', floors > 1 || ['bridge', 'tower', 'telecom'].includes(modelType)],
++    ['Lifting and mobile plant interfaces', 0.76, 1.04, 'Approve lifting plans, segregate people and plant, and verify competent operators.', grossArea > 500 || ['port', 'factory', 'warehouse'].includes(modelType)],
++    ['Electrical energization and temporary power', 0.70, 1.12, 'Apply isolation, lockout/tagout, inspection, and controlled energization procedures.', true],
++    ['Hot work and fire load', 0.66, 1.08, 'Use permits, fire watch, combustible controls, and tested emergency arrangements.', true]
++  ];
++  const specific = {
++    hospital: [
++      ['Medical gas installation and commissioning', 0.72, 1.18, 'Segregate oxygen-compatible work, verify cleanliness, and independently witness testing.', true],
++      ['Clinical systems commissioning interfaces', 0.68, 1.12, 'Coordinate energization and testing under a clinical commissioning safety plan.', true]
++    ],
++    tunnel: [
++      ['Confined-space atmosphere and egress', 0.88, 1.20, 'Provide ventilation, continuous monitoring, rescue readiness, and controlled entry.', true],
++      ['Ground movement and water ingress', 0.86, 1.20, 'Use instrumentation, trigger levels, emergency pumping, and observational controls.', true]
++    ],
++    bridge: [['Temporary works and work over traffic or water', 0.84, 1.18, 'Independently check falsework, access, lifting, and rescue arrangements.', true]],
++    road: [['Live traffic and public interface', 0.86, 1.14, 'Implement approved traffic staging, barriers, lighting, and speed management.', true]],
++    railway: [['Rail possessions and moving-rail interface', 0.88, 1.18, 'Control possessions, isolation, lookouts, and rail-specific competency.', true]],
++    oil_gas: [['Process energy and hazardous atmosphere', 0.90, 1.22, 'Apply process isolation, gas testing, hazardous-area controls, and emergency response.', true]],
++    power_plant: [['High-energy systems and commissioning', 0.88, 1.22, 'Use system boundaries, isolation registers, controlled energization, and witnessed testing.', true]],
++    dam: [['Water diversion, inundation, and heavy civil works', 0.86, 1.20, 'Maintain diversion assurance, flood response, access control, and rescue capability.', true]],
++    water: [['Confined spaces, chemicals, and water hazards', 0.82, 1.16, 'Control entry, chemical handling, ventilation, and water rescue.', true]],
++    airport: [['Airside and operational interface', 0.84, 1.18, 'Use airside permits, foreign-object controls, escorts, and phased handover zones.', true]],
++    port: [['Marine lifting and waterside operations', 0.86, 1.18, 'Coordinate marine movements, lifting plans, exclusion zones, and water rescue.', true]],
++    renovation: [['Unknown existing services and hazardous materials', 0.86, 1.16, 'Survey, isolate, scan, sample suspect materials, and control discoveries.', true]],
++    heritage: [['Fragile existing fabric and hidden instability', 0.84, 1.16, 'Use temporary stabilization, monitoring, controlled opening-up, and conservation supervision.', true]],
++    data_center: [['Stored energy and live-system interfaces', 0.82, 1.18, 'Control batteries, generators, arc-flash exposure, and integrated systems testing.', true]]
++  };
++  const hazards = [...definitions, ...(specific[modelType] || [])]
++    .filter(item => item[4])
++    .map(([hazard, probabilityFactor, impactFactor, controls], index) => {
++      const probability = clamp(root * probabilityFactor * (1 + (index % 3 - 1) * 0.035));
++      const impact = clamp(root * impactFactor * (1 + ((index + 1) % 4 - 1.5) * 0.025));
++      return {
++        hazard,
++        probability: Math.round(probability * 100) / 100,
++        impact: Math.round(impact * 100) / 100,
++        score: Math.round(probability * impact * 100) / 100,
++        minimumControls: controls,
++        evidenceStatus: 'requires_site_specific_verification'
++      };
++    })
++    .sort((left, right) => right.score - left.score);
++  const overall = hazards.length ? hazards.reduce((sum, item) => sum + item.score, 0) / hazards.length : 0;
++  return {
++    hazards,
++    riskScore: Math.round(overall * 100) / 100,
++    riskLevel: overall >= 0.55 ? 'High' : overall >= 0.30 ? 'Medium' : 'Low',
++    modelCalibration: prediction.available ? prediction.modelId : 'rule_based_fallback',
++    dataProvenance: prediction.available ? prediction.dataProvenance : 'rules_only',
++    ppeCompliance: null,
++    safetyIndex: null,
++    suitableForPermitToWork: false,
++    limitations: [
++      'This is a concept-stage hazard projection, not a site inspection or approved HSE plan.',
++      'PPE compliance and a safety index require verified site observations.'
++    ]
++  };
++}
++
+ function projectEngineRuns(project, pipelineResult, brief, requirements) {
+   const stepMap = new Map((pipelineResult.steps || []).map(step => [step.name, step]));
+   const resolvedType = resolveProjectType(brief.type);
+@@ -2486,30 +2577,34 @@ function projectEngineRuns(project, pipelineResult, brief, requirements) {
+   const effective = {
+     type: project.getEffective('type').value,
+     area: project.getEffective('area').value,
+-    floors: project.getEffective('floors').value
++    floors: project.getEffective('floors').value,
++    modelType: project.extracted?.modelType || null,
++    grossBuiltArea: project.extracted?.grossBuiltArea || null,
++    footprintArea: project.extracted?.footprintArea || null,
++    landArea: project.extracted?.landArea || null,
++    basements: project.extracted?.basements || 0,
++    buildings: project.extracted?.buildings || 1,
++    capacity: project.extracted?.capacity || null,
++    method: project.extracted?.method || null
+   };
+-  const safetyAnalysis = ai.riskAnalyzer.analyzeRisks(
+-    effective.type,
+-    (effective.area || 0) * (effective.floors || 1),
+-    effective.floors || 1,
+-    brief.city,
+-    brief.finishing
+-  );
++  const safetyAnalysis = buildSafetyProjection(brief, effective);
+   const safetyRun = {
+     code: 'SAFETY', name: ENGINE_LABELS.SAFETY,
+-    status: Array.isArray(safetyAnalysis.risks) ? 'completed_with_limits' : 'failed',
+-    executed: Array.isArray(safetyAnalysis.risks),
++    status: Array.isArray(safetyAnalysis.hazards) ? 'completed_with_limits' : 'failed',
++    executed: Array.isArray(safetyAnalysis.hazards),
+     durationMs: Date.now() - safetyStartedAt,
+-    source: 'risk-analyzer/safety-projection',
++    source: 'safety-hazard-projection/million-risk-calibration',
+     inputReady: requirements.SAFETY.inputReady,
+     missingInputs: requirements.SAFETY.missing,
+     output: {
+-      riskScore: safetyAnalysis.overallRiskScore ?? null,
++      riskScore: safetyAnalysis.riskScore ?? null,
+       riskLevel: safetyAnalysis.riskLevel || null,
+-      topRisks: (safetyAnalysis.risks || []).slice(0, 5),
+-      ppeCompliance: null,
+-      safetyIndex: null,
+-      limitations: ['PPE compliance and a site safety index require verified site observations.']
++      topRisks: (safetyAnalysis.hazards || []).slice(0, 7),
++      ppeCompliance: safetyAnalysis.ppeCompliance,
++      safetyIndex: safetyAnalysis.safetyIndex,
++      modelCalibration: safetyAnalysis.modelCalibration,
++      suitableForPermitToWork: safetyAnalysis.suitableForPermitToWork,
++      limitations: safetyAnalysis.limitations
+     }
+   };
+ 
+@@ -2542,20 +2637,24 @@ function projectEngineRuns(project, pipelineResult, brief, requirements) {
+   }[system])).filter(Boolean);
+   const supplyCategories = boqCategories.length ? boqCategories : [...new Set(fallbackCategories)].slice(0, 5);
+   const supplierResults = supplyCategories.map(category => ai.supplierIntelligence.findBestSupplier(category, brief.city));
+-  const supplyExecuted = supplierResults.some(result => !result.error);
++  const supplyExecuted = supplyCategories.length > 0 && supplierResults.every(result => !result.error);
++  const recommendationReady = supplierResults.some(result => Boolean(result.topSupplier));
+   const supplyRun = {
+     code: 'SUPPLY', name: ENGINE_LABELS.SUPPLY,
+     status: supplyExecuted ? 'completed_with_limits' : 'blocked',
+     executed: supplyExecuted,
+     durationMs: Date.now() - supplyStartedAt,
+-    source: 'supplier-intelligence/local-dataset',
++    source: 'supplier-intelligence/readiness-gated-local-dataset',
+     inputReady: requirements.SUPPLY.inputReady,
+     missingInputs: requirements.SUPPLY.missing,
+     output: {
+       categories: supplyCategories,
+       recommendations: supplierResults,
++      recommendationReady,
+       liveMarketData: false,
+-      limitations: ['Supplier and price records are experimental bundled data until a live, licensed market connector is configured.']
++      limitations: recommendationReady
++        ? ['Recommendations require current quotation and procurement due diligence before use.']
++        : ['No supplier is recommended until verified identities, specialities, and current quotations are configured.']
+     }
+   };
+ 
+diff --git a/ACEP/tests/project-brief.test.js b/ACEP/tests/project-brief.test.js
+index 7dceda3..2fadd99 100644
+--- a/ACEP/tests/project-brief.test.js
++++ b/ACEP/tests/project-brief.test.js
+@@ -52,9 +52,12 @@ function completeBrief(overrides = {}) {
+ 
+ describe('professional project brief', () => {
+   test('validates a bounded multi-discipline project brief', () => {
+-    const parsed = validation.parseProjectBrief(completeBrief());
++    const parsed = validation.parseProjectBrief(completeBrief({
++      natureLabel: 'إنشاء جديد', stageLabel: 'التصميم', deliveryLabel: 'تصميم وتنفيذ'
++    }));
+     expect(parsed.ok).toBe(true);
+     expect(parsed.data.systems).toContain('structural');
++    expect(parsed.data.deliveryLabel).toBe('تصميم وتنفيذ');
+   });
+ 
+   test('rejects missing scale, inverted dates, and unknown fields', () => {
+@@ -69,6 +72,20 @@ describe('professional project brief', () => {
+     expect(toEngineParams(completeBrief()).typeConfidence).toBe(0.95);
+   });
+ 
++  test('keeps gross built area distinct from per-floor footprint', () => {
++    const params = toEngineParams(completeBrief({ area: 58000, floors: 6, landArea: 42000 }));
++    expect(params.area).toBeCloseTo(9666.6667, 3);
++    expect(params.grossBuiltArea).toBe(58000);
++    expect(params.footprintArea).toBeCloseTo(9666.6667, 3);
++    expect(params.areaBasis).toBe('gross_built_area');
++  });
++
++  test('does not treat building land area as gross built area', () => {
++    const landOnly = completeBrief({ area: undefined, capacity: undefined, floors: 6, landArea: 42000 });
++    expect(toEngineParams(landOnly).area).toBeNull();
++    expect(engineRequirements(landOnly).BOQ.missing).toContain('treated_area_or_length_and_width');
++  });
++
+   test('creates canonical context and per-engine evidence requirements', () => {
+     const brief = completeBrief();
+     const context = buildCanonicalDescription(brief);
 diff --git a/ACEP/tests/security.test.js b/ACEP/tests/security.test.js
-index 66bd42c62b1eee6948bd9b3869d688a55bc6d5eb..f8bc7ec069ed64b52d9f37a0714e715c442eb21d 100644
+index 66bd42c..f8bc7ec 100644
 --- a/ACEP/tests/security.test.js
 +++ b/ACEP/tests/security.test.js
 @@ -9,6 +9,7 @@ const validation = require('../packages/security/validation');

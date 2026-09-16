@@ -7,6 +7,7 @@ const riskAnalyzer = require('./models/risk-analyzer');
 const qualityInspector = require('./models/quality-inspector');
 const scheduleOptimizer = require('./models/schedule-optimizer');
 const supplierIntelligence = require('./models/supplier-intelligence');
+const millionProjectModel = require('./models/million-project-model');
 const trainer = require('./models/trainer');
 const ProjectProfiler = require('./project-understanding/project-profiler');
 const KnowledgeBaseEngine = require('./knowledge-engine/knowledge-base-engine');
@@ -56,7 +57,8 @@ function getStatus() {
     riskAnalyzer: riskAnalyzer.trained,
     qualityInspector: qualityInspector.trained,
     scheduleOptimizer: scheduleOptimizer.trained,
-    supplierIntelligence: supplierIntelligence.trained
+    supplierIntelligence: supplierIntelligence.trained,
+    millionProjectModel: millionProjectModel.getStatus()
   };
 }
 
@@ -65,6 +67,7 @@ module.exports = {
   projectAnalyzer, quantityEstimator, costEstimator,
   engineeringAssistant, riskAnalyzer, qualityInspector,
   scheduleOptimizer, supplierIntelligence,
+  millionProjectModel,
   projectProfiler, knowledgeEngine, knowledgeGraph,
   getAgentPipeline: () => agentPipeline,
   getReviewSystem: () => reviewSystem,
