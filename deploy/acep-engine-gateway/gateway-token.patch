@@ -927,7 +927,7 @@ index eebe0be..b48eb29 100644
          value: api-key
        - key: ACEP_API_KEY
 diff --git a/ACEP/server.js b/ACEP/server.js
-index 405a792..00e9cbd 100644
+index 405a792..eb7ffd6 100644
 --- a/ACEP/server.js
 +++ b/ACEP/server.js
 @@ -2444,14 +2444,21 @@ function coreEngineCatalog() {
@@ -1129,7 +1129,18 @@ index 405a792..00e9cbd 100644
 +        : ['No supplier is recommended until verified identities, specialities, and current quotations are configured.']
      }
    };
- 
+
+@@ -4496,6 +4595,9 @@ const httpServer = app.listen(PORT, HOST, () => {
+       decisionGraph: Boolean(decisionGraph),
+       finalReport: Boolean(finalReport)
+     },
++    modelGovernance: {
++      millionProject: ai.millionProjectModel.getStatus()
++    },
+     note: 'Module registration does not constitute engineering, data, security, or regulatory approval.'
+   }));
+ });
+
 diff --git a/ACEP/tests/project-brief.test.js b/ACEP/tests/project-brief.test.js
 index 7dceda3..2fadd99 100644
 --- a/ACEP/tests/project-brief.test.js
