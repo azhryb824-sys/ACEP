@@ -1,0 +1,177 @@
+{
+  "testedAt": "2026-09-17",
+  "sourceTreeSha256": "1f1ee173b17a7b602f51ddae266dd55258a2fbbfa3f3d6a7f2e85064c713005d",
+  "mandatoryVerify": "passed",
+  "jest": {
+    "suites": 22,
+    "passed": 161,
+    "failed": 0
+  },
+  "python": {
+    "passed": 4
+  },
+  "legacy": {
+    "passed": 4233
+  },
+  "httpE2E": {
+    "passed": 21
+  },
+  "httpMatrix": {
+    "benchmark": "ACEP authenticated HTTP engineering matrix v1",
+    "ready": "ready",
+    "projectTypes": 35,
+    "engineExecutions": 350,
+    "checks": 420,
+    "passed": 420,
+    "failed": 0,
+    "score": 100,
+    "accepted": true,
+    "failures": [],
+    "maxDurationMs": 18
+  },
+  "siteSecurity": {
+    "assertions": 13,
+    "identity": "trusted Sites authenticated identity",
+    "database": "real local SQLite adapter matching D1 schema",
+    "hostedD1Verified": false
+  },
+  "coverageEngineering": {
+    "scope": "models, scope/domain/concept estimates, UETS, evidence governance and parser/embedding packages; descriptive only",
+    "overall": {
+      "lines": {
+        "total": 2618,
+        "covered": 1395,
+        "skipped": 0,
+        "pct": 53.28
+      },
+      "statements": {
+        "total": 3216,
+        "covered": 1648,
+        "skipped": 0,
+        "pct": 51.24
+      },
+      "functions": {
+        "total": 697,
+        "covered": 342,
+        "skipped": 0,
+        "pct": 49.06
+      },
+      "branches": {
+        "total": 3068,
+        "covered": 1207,
+        "skipped": 0,
+        "pct": 39.34
+      },
+      "branchesTrue": {
+        "total": 0,
+        "covered": 0,
+        "skipped": 0,
+        "pct": 100
+      }
+    },
+    "byDomain": {
+      "statistical_models": {
+        "statements": {
+          "total": 1260,
+          "covered": 880,
+          "percent": 69.84
+        },
+        "branches": {
+          "total": 1024,
+          "covered": 534,
+          "percent": 52.15
+        },
+        "functions": {
+          "total": 304,
+          "covered": 195,
+          "percent": 64.14
+        },
+        "lines": {
+          "total": 1039,
+          "covered": 740,
+          "percent": 71.22
+        }
+      },
+      "uets": {
+        "statements": {
+          "total": 1493,
+          "covered": 390,
+          "percent": 26.12
+        },
+        "branches": {
+          "total": 1628,
+          "covered": 356,
+          "percent": 21.87
+        },
+        "functions": {
+          "total": 301,
+          "covered": 69,
+          "percent": 22.92
+        },
+        "lines": {
+          "total": 1227,
+          "covered": 352,
+          "percent": 28.69
+        }
+      },
+      "evidence_governance": {
+        "statements": {
+          "total": 42,
+          "covered": 23,
+          "percent": 54.76
+        },
+        "branches": {
+          "total": 69,
+          "covered": 33,
+          "percent": 47.83
+        },
+        "functions": {
+          "total": 7,
+          "covered": 4,
+          "percent": 57.14
+        },
+        "lines": {
+          "total": 28,
+          "covered": 18,
+          "percent": 64.29
+        }
+      },
+      "cad_bim_embeddings": {
+        "statements": {
+          "total": 210,
+          "covered": 153,
+          "percent": 72.86
+        },
+        "branches": {
+          "total": 132,
+          "covered": 94,
+          "percent": 71.21
+        },
+        "functions": {
+          "total": 35,
+          "covered": 25,
+          "percent": 71.43
+        },
+        "lines": {
+          "total": 156,
+          "covered": 119,
+          "percent": 76.28
+        }
+      }
+    }
+  },
+  "rebuild": {
+    "sourceFilesCompared": 71,
+    "sourceMismatches": 0,
+    "uetsExportFilesChecked": 21,
+    "uetsRows": 91795
+  },
+  "researchTraining": {
+    "records": 1000000,
+    "calibration": 35000,
+    "holdout": 70000,
+    "realWorldIndependentEvaluation": false
+  },
+  "engineeringReleaseApproved": false,
+  "deployed": false
+}

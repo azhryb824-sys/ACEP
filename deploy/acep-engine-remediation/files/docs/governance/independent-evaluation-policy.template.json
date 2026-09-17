@@ -1,0 +1,25 @@
+{
+  "status": "template_requires_independent_preapproval",
+  "minimumProjects": null,
+  "minimumProjectsPerStratum": null,
+  "requiredSuccessRate": null,
+  "requiredProjectTypes": [],
+  "requiredStrata": [
+    "city:<city>",
+    "period:<period>",
+    "contractor:<contractor>"
+  ],
+  "targets": {
+    "costSar": {
+      "unit": "SAR",
+      "relativeError": null,
+      "zeroAbsoluteError": null
+    },
+    "durationDays": {
+      "unit": "working_day",
+      "relativeError": null,
+      "zeroAbsoluteError": null
+    }
+  },
+  "notes": "Freeze tolerances, sample size, strata and project exclusions before inspecting predictions. Supply independent baseline measurements for every target. No default 98 percent claim."
+}

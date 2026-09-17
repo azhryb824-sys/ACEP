@@ -1,0 +1,124 @@
+{
+  "schema": "acep-synthetic-project-record/v2",
+  "generatorSha256": "6fac589154f33a3b35c19e066b4535ff6f78bdbe34c76220ced4189806c53ad8",
+  "dependencyLockSha256": "bb5a6caf2c38066afaa1e24f3f7eb025d77504d0e6c43b4606d6b6ba44b089de",
+  "recordFilesPersisted": true,
+  "calibration": {
+    "records": 35000,
+    "start": 30000000,
+    "seedOffset": 774311
+  },
+  "holdout": {
+    "records": 70000,
+    "start": 10000000,
+    "seedOffset": 991733
+  },
+  "records": 1000000,
+  "holdoutRecords": 70000,
+  "seed": 20260917,
+  "shardSize": 100000,
+  "projectTypes": 35,
+  "typeCounts": {
+    "airport": 28571,
+    "apartment": 28572,
+    "apartment_building": 28572,
+    "bridge": 28571,
+    "cultural": 28572,
+    "dam": 28571,
+    "data_center": 28572,
+    "factory": 28571,
+    "fitout": 28571,
+    "heritage": 28571,
+    "hospital": 28572,
+    "hotel": 28572,
+    "landscape": 28571,
+    "mall": 28572,
+    "mixed_use": 28572,
+    "mosque": 28572,
+    "office": 28572,
+    "oil_gas": 28571,
+    "other": 28571,
+    "port": 28571,
+    "power": 28571,
+    "power_plant": 28571,
+    "railway": 28571,
+    "renewable_energy": 28571,
+    "renovation": 28571,
+    "residential_compound": 28572,
+    "residential_tower": 28572,
+    "road": 28571,
+    "school": 28572,
+    "sports": 28572,
+    "telecom": 28571,
+    "tunnel": 28571,
+    "villa": 28572,
+    "warehouse": 28571,
+    "water": 28571
+  },
+  "shards": [
+    {
+      "file": "train-001.jsonl.gz",
+      "records": 100000,
+      "bytes": 18418589,
+      "sha256": "bd5fcdb384a253f1ef576fbf1570443108c8e6efd3e6d6fe37a8bb4ded7bf41a"
+    },
+    {
+      "file": "train-002.jsonl.gz",
+      "records": 100000,
+      "bytes": 18422306,
+      "sha256": "d75ffb20e1cf04d4843ebc34d25b0015215d8b2399b17f34c7d3556dc0a9f9cc"
+    },
+    {
+      "file": "train-003.jsonl.gz",
+      "records": 100000,
+      "bytes": 18419311,
+      "sha256": "a88d45f5c330739a2e0c780a703c6083ab51cabe4e48b5749c070f75e29750d5"
+    },
+    {
+      "file": "train-004.jsonl.gz",
+      "records": 100000,
+      "bytes": 18419846,
+      "sha256": "dc2b44cb501091e30f48099ec2c028c0ca89da15dc9c454d9b35f813ec183bc7"
+    },
+    {
+      "file": "train-005.jsonl.gz",
+      "records": 100000,
+      "bytes": 18419270,
+      "sha256": "aa495ed0c30c16005c1678e593a94441c79615564b47dd342dbed0891620e182"
+    },
+    {
+      "file": "train-006.jsonl.gz",
+      "records": 100000,
+      "bytes": 18418352,
+      "sha256": "af581612466aaa58db67c61a0daa8ee8628a0de6ed4ac2873b4f699bdbe2a98a"
+    },
+    {
+      "file": "train-007.jsonl.gz",
+      "records": 100000,
+      "bytes": 18418011,
+      "sha256": "6d3db92fd63a5689bb8f92f3b153ff687b5e9ee1bf7523210f2d95db3ce6b7fe"
+    },
+    {
+      "file": "train-008.jsonl.gz",
+      "records": 100000,
+      "bytes": 18422408,
+      "sha256": "b02d6242c1145dd1e3f316f23f4fc6105e1e29c6ab4c0f192c7cb1ebe97126a1"
+    },
+    {
+      "file": "train-009.jsonl.gz",
+      "records": 100000,
+      "bytes": 18421782,
+      "sha256": "ba1ca9c2918fb3e49afc09fe686ec29d319f030a57be05504d1d49a0533b6ced"
+    },
+    {
+      "file": "train-010.jsonl.gz",
+      "records": 100000,
+      "bytes": 18419410,
+      "sha256": "4c7710808b15efc2652d38765a40a21cd23c302575e21d14059cdda5f9f6be67"
+    }
+  ],
+  "configSha256": "881307bf80e6d14ab42991852cced496f2c14db590baff653bfe6877ab8f2e7d",
+  "dataProvenance": "synthetic_engineering_prior",
+  "suitableForModelApproval": false,
+  "manifestSha256": "951ce3c35798d6f2fdf4df757b057c734315823f1b7b556af3191c0e53b64c3e"
+}
