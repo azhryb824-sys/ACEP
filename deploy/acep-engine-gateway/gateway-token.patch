@@ -23,10 +23,10 @@ index 8999fef..25b44c1 100644
  # Vision provider policy. "none" keeps generation disabled.
  ACEP_IMAGE_PROVIDER=none
 diff --git a/ACEP/package.json b/ACEP/package.json
-index a027128..344f295 100644
+index a027128..0415bd5 100644
 --- a/ACEP/package.json
 +++ b/ACEP/package.json
-@@ -30,6 +30,9 @@
+@@ -30,13 +30,17 @@
          "test:production-smoke": "node scripts/run-production-smoke.js",
          "test:engines-smoke": "node scripts/smoke-experiment-engines.js",
          "test:engines-matrix": "node scripts/smoke-experiment-matrix.js",
@@ -36,9 +36,18 @@ index a027128..344f295 100644
          "validate:data": "node scripts/validate-datasets.js",
          "normalize:uets-data": "node scripts/normalize-uets-datasets.js",
          "verify": "npm run lint && npm run build && npm run validate:data && npm run test:python && npm run test:coverage && npm run test:legacy && npm run test:e2e && npm run test:production-smoke",
+         "lint": "eslint server.js packages/security packages/runtime packages/vision-ai/providers packages/vision-ai/shared packages/vision-training scripts tests --ext .js --no-error-on-unmatched-pattern",
+         "clean": "rimraf dist *.tsbuildinfo",
+         "start": "node server.js",
+-        "dev": "node server.js"
++        "dev": "node server.js",
++        "test:engineering-adversarial": "node scripts/engineering-adversarial-audit.js"
+     },
+     "dependencies": {
+         "axios": "^1.19.0",
 diff --git a/ACEP/packages/ai-engine/engineering-concept-estimator.js b/ACEP/packages/ai-engine/engineering-concept-estimator.js
 new file mode 100644
-index 0000000..5a23112
+index 0000000..33ca61f
 --- /dev/null
 +++ b/ACEP/packages/ai-engine/engineering-concept-estimator.js
 @@ -0,0 +1,475 @@
@@ -54,7 +63,7 @@ index 0000000..5a23112
 + * they are never described as live market quotations.
 + */
 +
-+const VALID_UNITS = new Set(['مقطوعية', 'م²', 'م³', 'م طولي', 'كم', 'طن', 'عدد', 'نقطة', 'سرير', 'م.و', 'ك.ف.أ']);
++const VALID_UNITS = new Set(['مقطوعية', 'م²', 'م³', 'م طولي', 'كم', 'طن', 'عدد', 'نقطة', 'سرير', 'م.و', 'م.ف.أ', 'ك.ف.أ']);
 +
 +function finitePositive(value, fallback = null) {
 +  const number = Number(value);
@@ -106,7 +115,7 @@ index 0000000..5a23112
 +
 +function buildingLines(type, c) {
 +  const facade = perimeter(c.footprint) * Math.max(1, c.floors) * 3.6;
-+  const external = Math.max(c.land - c.footprint, c.footprint * 0.15);
++  const external = Math.max(0, c.land - c.footprint);
 +  const lines = [
 +    item('BLD-PRE-001', 'الأعمال التمهيدية وإدارة الموقع', 'Preliminaries', 'م²', c.gross, 0.055, 'المساحة المبنية الإجمالية'),
 +    item('EXC-001', 'تجهيز الموقع والحفر والردم', 'Earthworks', 'م³', c.footprint * 1.5, 0.030, 'بصمة المبنى × عمق حفر مفاهيمي 1.5م'),
@@ -268,12 +277,12 @@ index 0000000..5a23112
 +  return [
 +    item('PW-PRE-001', 'الدراسات والتعبئة والتنسيق مع الشبكة', 'Preliminaries', 'مقطوعية', 1, 0.050, 'حزمة واحدة'),
 +    item('PW-CIV-001', 'المباني والقواعد والممرات والخنادق', 'CivilWorks', 'م²', c.land, 0.140, 'مساحة الموقع'),
-+    item('PW-TRF-001', 'المحولات ومعدات الجهد العالي', 'PrimaryEquipment', 'م.و', capacity, 0.315, 'السعة المعلنة أو المرجعية'),
-+    item('PW-SWG-001', 'المفاتيح والقضبان ومعدات الحماية', 'Switchgear', 'م.و', capacity, 0.180, 'السعة المعلنة أو المرجعية'),
++    item('PW-TRF-001', 'المحولات ومعدات الجهد العالي', 'PrimaryEquipment', 'م.ف.أ', capacity, 0.315, 'القدرة الظاهرية بالميجافولت أمبير؛ ليست مستوى الجهد'),
++    item('PW-SWG-001', 'المفاتيح والقضبان ومعدات الحماية', 'Switchgear', 'م.ف.أ', capacity, 0.180, 'القدرة الظاهرية بالميجافولت أمبير'),
 +    item('PW-CAB-001', 'الكابلات والنهايات ومساراتها', 'Cabling', 'م طولي', Math.max(100, c.land * 0.12), 0.115, 'طول كابلات مفاهيمي'),
 +    item('PW-EAR-001', 'شبكة التأريض والحماية من الصواعق', 'Earthing', 'م²', c.land, 0.050, 'مساحة الموقع'),
 +    item('PW-CTL-001', 'الحماية والتحكم والاتصالات وSCADA', 'Controls', 'مقطوعية', 1, 0.095, 'حزمة تحكم'),
-+    item('PW-COM-001', 'الاختبارات والربط والتشغيل', 'Commissioning', 'م.و', capacity, 0.055, 'السعة المعلنة أو المرجعية')
++    item('PW-COM-001', 'الاختبارات والربط والتشغيل', 'Commissioning', 'م.ف.أ', capacity, 0.055, 'القدرة الظاهرية بالميجافولت أمبير')
 +  ];
 +}
 +
@@ -564,6 +573,58 @@ index 140f350..6341794 100644
        qualityScore: qualityData.qualityScore || 0,
        qualityGrade: qualityData.qualityGrade || '',
        estimatedDefects: qualityData.estimatedDefects || 0,
+diff --git a/ACEP/packages/ai-engine/engineering-input-guards.js b/ACEP/packages/ai-engine/engineering-input-guards.js
+new file mode 100644
+index 0000000..c218a21
+--- /dev/null
++++ b/ACEP/packages/ai-engine/engineering-input-guards.js
+@@ -0,0 +1,46 @@
++'use strict';
++
++function normalizedText(value) {
++  return String(value || '').normalize('NFKC').toLowerCase()
++    .replace(/[٠-٩]/g, digit => '٠١٢٣٤٥٦٧٨٩'.indexOf(digit))
++    .replace(/[۰-۹]/g, digit => '۰۱۲۳۴۵۶۷۸۹'.indexOf(digit))
++    .replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/٫/g, '.').trim();
++}
++
++function normalizedCapacity(brief) {
++  const value = Number(brief.capacity);
++  const unit = normalizedText(brief.capacityUnit).replace(/\s+/g, '');
++  if (!(value > 0)) return { value: null, unit: null, valid: true, assumed: false };
++  const families = {
++    renewable_energy: { unit: 'MW', units: {mw:1,'ميجاواط':1,'ميغاواط':1,kw:0.001,'كيلوواط':0.001,gw:1000,'جيجاواط':1000} },
++    power_plant: { unit: 'MW', units: {mw:1,'ميجاواط':1,'ميغاواط':1,kw:0.001,'كيلوواط':0.001,gw:1000,'جيجاواط':1000} },
++    power: { unit: 'MVA', units: {mva:1,'ميجافولتامبير':1,'ميغافولتامبير':1,kva:0.001,'كيلوفولتامبير':0.001} },
++    water: { unit: 'm3/day', units: {'m3/day':1,'م3/يوم':1,'مترمكعب/يوم':1,'l/day':0.001,'لتر/يوم':0.001,'m3/h':24,'m3/hour':24,'l/s':86.4} },
++    dam: { unit: 'm3', units: {'m3':1,'م3':1,'مترمكعب':1,'مليونم3':1e6,'millionm3':1e6} },
++  };
++  const family = families[brief.type];
++  if (!family) return { value, unit: brief.capacityUnit || null, valid: true, assumed: !unit };
++  // Backward compatible missing units remain explicit assumptions, never conversions.
++  if (!unit) return { value, unit: family.unit, valid: true, assumed: true };
++  const multiplier = family.units[unit];
++  return { value: multiplier ? value * multiplier : null, unit: family.unit, valid: Boolean(multiplier), assumed: false };
++}
++
++function validCalendarDate(value) {
++  if (!value) return true;
++  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
++  const date = new Date(value + 'T00:00:00.000Z');
++  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
++}
++
++function sustainabilityPercentage(target) {
++  const text = normalizedText(target).replace(/٪/g, '%');
++  const match = text.match(/(-?\d+(?:[.,]\d+)?)\s*%/);
++  if (!match) return { value: null, status: 'percentage_not_supplied' };
++  const value = Number(match[1].replace(',', '.'));
++  const isIncrease = /زياده|increase/.test(text);
++  if (value < 0 || (!isIncrease && value > 100)) return { value: null, status: 'invalid_percentage' };
++  return { value, status: 'stated_target_not_verified_performance' };
++}
++
++module.exports = { normalizedCapacity, validCalendarDate, sustainabilityPercentage };
 diff --git a/ACEP/packages/ai-engine/engineering-ke/boq-knowledge-base.js b/ACEP/packages/ai-engine/engineering-ke/boq-knowledge-base.js
 index ca2b1ee..1942879 100644
 --- a/ACEP/packages/ai-engine/engineering-ke/boq-knowledge-base.js
@@ -1397,10 +1458,10 @@ index 335d7cb..b049f6d 100644
      const projRisks = this.risks.filter(r => r.projectId === projectId);
      const byCat = {};
 diff --git a/ACEP/packages/ai-engine/models/schedule-optimizer.js b/ACEP/packages/ai-engine/models/schedule-optimizer.js
-index 12c6488..32c4b08 100644
+index 12c6488..8f6ef52 100644
 --- a/ACEP/packages/ai-engine/models/schedule-optimizer.js
 +++ b/ACEP/packages/ai-engine/models/schedule-optimizer.js
-@@ -132,27 +132,40 @@ class ScheduleOptimizer {
+@@ -132,39 +132,62 @@ class ScheduleOptimizer {
  
    _trainedSchedule(prediction) {
      const totalDays = Math.max(30, Math.round(prediction.predictions.durationDays));
@@ -1419,6 +1480,12 @@ index 12c6488..32c4b08 100644
 -      ['Commissioning & Handover', 0.10, ['A4', 'A10', 'A11']]
 -    ];
 -    const activities = definitions.map(([name, share, predecessors], index) => ({
+-      id: `A${index + 1}`,
+-      name,
+-      duration: Math.max(3, Math.round(totalDays * share)),
+-      predecessors
+-    }));
+-    const criticalPath = ['A1', 'A2', 'A3', 'A5', 'A6', 'A8', 'A10', 'A12'];
 +    const networks = {
 +      road: ['Survey, permits & traffic staging', 'Utility diversions', 'Earthworks', 'Drainage & culverts', 'Subgrade improvement', 'Subbase & roadbase', 'Asphalt paving', 'Lighting, signs & barriers', 'Testing & road opening'],
 +      bridge: ['Investigations & temporary traffic works', 'Piling & foundations', 'Piers and abutments', 'Superstructure erection', 'Deck slab & post-tensioning', 'Bearings and expansion joints', 'Waterproofing & surfacing', 'Barriers, drainage & lighting', 'Load testing & opening'],
@@ -1446,24 +1513,52 @@ index 12c6488..32c4b08 100644
 +      if (index === names.length - 1) return 0.10;
 +      return 0.82 / Math.max(1, names.length - 2);
 +    });
-+    const activities = names.map((name, index) => ({
-       id: `A${index + 1}`,
-       name,
--      duration: Math.max(3, Math.round(totalDays * share)),
--      predecessors
-+      duration: Math.max(3, Math.round(totalDays * shares[index])),
-+      predecessors: index === 0 ? [] : [`A${index}`]
-     }));
--    const criticalPath = ['A1', 'A2', 'A3', 'A5', 'A6', 'A8', 'A10', 'A12'];
++    // Allocate whole working days without changing the predicted total.
++    // Cumulative boundaries eliminate rounding drift in a sequential network.
++    let elapsedDays = 0;
++    let cumulativeShare = 0;
++    const activities = names.map((name, index) => {
++      cumulativeShare += shares[index];
++      const finish = index === names.length - 1 ? totalDays : Math.round(totalDays * cumulativeShare);
++      const activity = {
++        id: `A${index + 1}`, name, duration: finish - elapsedDays,
++        earlyStart: elapsedDays, earlyFinish: finish, critical: true,
++        predecessors: index === 0 ? [] : [`A${index}`]
++      };
++      elapsedDays = finish;
++      return activity;
++    });
 +    const criticalPath = activities.map(activity => activity.id);
      return {
        activities,
        totalDuration: totalDays,
+       totalMonths: Math.round(totalDays / 22 * 10) / 10,
+       criticalPath,
+       optimization: {
+-        parallelExecution: 38,
+-        compressionPotential: totalDays > 660 ? 'Medium' : 'Low',
+-        note: 'Parallel logic is a concept-stage network and requires resource-loaded CPM validation.'
++        parallelExecution: null,
++        compressionPotential: 'Not evaluated',
++        note: 'Sequential concept network; no overlap or acceleration has been evaluated.'
+       },
+       trainingData: prediction.trainingRecords,
+       confidence: 0.65,
++      calendar: { dayType: 'working', workingDaysPerMonth: 22, calendarDatesCalculated: false },
+       durationRange: {
+         lower: Math.round(prediction.intervals.durationDays.lower),
+         upper: Math.round(prediction.intervals.durationDays.upper),
 diff --git a/ACEP/packages/ai-engine/project-brief.js b/ACEP/packages/ai-engine/project-brief.js
-index 14f4a6e..9fd0ab1 100644
+index 14f4a6e..e558851 100644
 --- a/ACEP/packages/ai-engine/project-brief.js
 +++ b/ACEP/packages/ai-engine/project-brief.js
-@@ -73,14 +73,29 @@ function primaryScale(brief, family) {
+@@ -1,4 +1,5 @@
+ 'use strict';
++const { normalizedCapacity } = require('./engineering-input-guards');
+
+ const TYPE_ARCHETYPES = Object.freeze({
+   villa: { engineType: 'Villa', native: true, family: 'building' },
+@@ -73,14 +74,29 @@ function primaryScale(brief, family) {
  }
  
  function quantitativeArea(brief, family) {
@@ -1487,17 +1582,22 @@ index 14f4a6e..9fd0ab1 100644
    if (['linear', 'utility'].includes(family) && length && width) {
 -    return { value: length * width, basis: 'length_times_width' };
 +    return { value: length * width, grossBuiltArea: length * width, footprintArea: length * width, basis: 'length_times_width' };
-+  }
+   }
+-  return { value: null, basis: null };
 +  const landArea = numberOrNull(brief.landArea);
 +  if (['site', 'utility'].includes(family) && landArea) {
 +    return { value: landArea, grossBuiltArea: landArea, footprintArea: landArea, basis: 'treated_site_area' };
-   }
--  return { value: null, basis: null };
++  }
 +  return { value: null, grossBuiltArea: null, footprintArea: null, basis: landArea ? 'land_area_not_quantity_basis' : null };
  }
  
  function buildCanonicalDescription(brief) {
-@@ -113,9 +128,22 @@ function toEngineParams(brief) {
+@@ -109,13 +125,28 @@ function buildCanonicalDescription(brief) {
+
+ function toEngineParams(brief) {
+   const resolved = resolveProjectType(brief.type);
++  const capacity = normalizedCapacity(brief);
+   const area = quantitativeArea(brief, resolved.family);
    const normalizedNonBuildingFloors = ['linear', 'utility', 'site'].includes(resolved.family) ? 1 : null;
    return {
      type: resolved.engineType,
@@ -1513,14 +1613,15 @@ index 14f4a6e..9fd0ab1 100644
      floors: numberOrNull(brief.floors) || normalizedNonBuildingFloors,
 +    basements: Number.isFinite(Number(brief.basements)) ? Math.max(0, Number(brief.basements)) : 0,
 +    buildings: numberOrNull(brief.buildings) || 1,
-+    capacity: numberOrNull(brief.capacity),
-+    capacityUnit: compact(brief.capacityUnit) || null,
++    capacity: capacity.valid ? capacity.value : null,
++    capacityUnit: capacity.unit,
++    capacityUnitAssumed: capacity.assumed,
 +    finishing: compact(brief.finishing) || null,
 +    method: compact(brief.delivery) || null,
      rooms: null,
      bathrooms: null,
      hasKitchen: false,
-@@ -128,6 +156,8 @@ function toEngineParams(brief) {
+@@ -128,6 +159,8 @@ function toEngineParams(brief) {
        engineArchetype: resolved.engineType,
        nativeCoverage: resolved.native,
        quantitativeAreaBasis: area.basis,
@@ -1529,6 +1630,84 @@ index 14f4a6e..9fd0ab1 100644
        floorBasis: numberOrNull(brief.floors) ? 'user_input' : (normalizedNonBuildingFloors ? 'non_building_normalization' : null)
      }
    };
+@@ -187,6 +220,9 @@ function engineRequirements(brief) {
+   if (!compact(brief.sustainability)) missing.ESG.push('measurable_sustainability_target');
+   missing.ESG.push('approved_lca_factors_and_system_boundary');
+   if (!compact(brief.city)) missing.SUPPLY.push('delivery_location');
++  if (brief.capacity && normalizedCapacity(brief).assumed) {
++    for (const code of ['BOQ', 'COST', 'TIME', 'VBE']) missing[code].push('capacity_unit');
++  }
+   return Object.fromEntries(Object.entries(missing).map(([code, values]) => [code, {
+     code,
+     label: ENGINE_LABELS[code],
+diff --git a/ACEP/packages/ai-engine/tests/test-quantities.js b/ACEP/packages/ai-engine/tests/test-quantities.js
+index 134592a..e06a426 100644
+--- a/ACEP/packages/ai-engine/tests/test-quantities.js
++++ b/ACEP/packages/ai-engine/tests/test-quantities.js
+@@ -15,6 +15,9 @@ function assert(condition, msg) {
+
+ const engine = new BOQEngine();
+
++// Legacy BOQ area is the single-floor footprint, not total gross floor area.
++// Excavation expectations below are explicit volume checks at the declared
++// concept assumption of 1.5 m; they do not validate actual foundation design.
+ // ─── Test Scenarios ───
+ const scenarios = [
+   // Small Villa 300m²
+@@ -22,7 +25,7 @@ const scenarios = [
+     name: 'فيلا صغيرة 300م²',
+     params: { type: 'Villa', area: 300, floors: 2, rooms: 4, bathrooms: 3, hasKitchen: true },
+     checks: [
+-      { code: 'EXC-001', min: 50, max: 400, desc: 'حفر أساسات' },
++      { code: 'EXC-001', min: 450, max: 450, desc: 'حفر أساسات' },
+       { code: 'FND-001', min: 10, max: 100, desc: 'قواعد أساسات' },
+       { code: 'STR-001', min: 10, max: 100, desc: 'أعمدة خرسانية' },
+       { code: 'MSN-001', min: 100, max: 3000, desc: 'بلوك الجدران' },
+@@ -40,7 +43,7 @@ const scenarios = [
+     name: 'فيلا كبيرة 500م² دورين',
+     params: { type: 'Villa', area: 500, floors: 2, rooms: 6, bathrooms: 4, hasKitchen: true },
+     checks: [
+-      { code: 'EXC-001', min: 100, max: 600, desc: 'حفر' },
++      { code: 'EXC-001', min: 750, max: 750, desc: 'حفر' },
+       { code: 'FND-001', min: 20, max: 200, desc: 'قواعد' },
+       { code: 'MSN-001', min: 200, max: 5000, desc: 'بلوك' },
+       { code: 'PLS-001', min: 200, max: 5000, desc: 'لياسة' },
+@@ -66,7 +69,7 @@ const scenarios = [
+     name: 'مدرسة 2000م²',
+     params: { type: 'School', area: 2000, floors: 2, rooms: 20, bathrooms: 15 },
+     checks: [
+-      { code: 'EXC-001', min: 200, max: 2000, desc: 'حفر' },
++      { code: 'EXC-001', min: 3000, max: 3000, desc: 'حفر' },
+       { code: 'FND-001', min: 50, max: 1000, desc: 'قواعد' },
+       { code: 'MSN-001', min: 300, max: 10000, desc: 'بلوك' },
+       { code: 'PLS-001', min: 300, max: 10000, desc: 'لياسة' },
+@@ -81,7 +84,7 @@ const scenarios = [
+     name: 'مستشفى 5000م²',
+     params: { type: 'Hospital', area: 5000, floors: 5, rooms: 100, bathrooms: 50 },
+     checks: [
+-      { code: 'EXC-001', min: 500, max: 2500, desc: 'حفر' },
++      { code: 'EXC-001', min: 7500, max: 7500, desc: 'حفر' },
+       { code: 'STR-004', min: 10, max: 1000, desc: 'جدران قص' },
+       { code: 'ELC-001', min: 100, max: 3000, desc: 'كهرباء' },
+       { code: 'NET-001', min: 50, max: 2000, desc: 'شبكة بيانات' },
+@@ -96,7 +99,7 @@ const scenarios = [
+     name: 'مسجد 1000م²',
+     params: { type: 'Mosque', area: 1000, floors: 2, rooms: 5, bathrooms: 10 },
+     checks: [
+-      { code: 'EXC-001', min: 100, max: 1500, desc: 'حفر' },
++      { code: 'EXC-001', min: 1500, max: 1500, desc: 'حفر' },
+       { code: 'MSQ-001', min: 50, max: 500, desc: 'سجاد قاعة الصلاة' },
+       { code: 'MSQ-002', min: 1, max: 1, desc: 'محراب ومنبر' },
+       { code: 'MSQ-003', min: 1, max: 2, desc: 'مئذنة' },
+@@ -110,7 +113,7 @@ const scenarios = [
+     name: 'مستودع 3000م²',
+     params: { type: 'Warehouse', area: 3000, floors: 1, rooms: 5, bathrooms: 4 },
+     checks: [
+-      { code: 'EXC-001', min: 1000, max: 8000, desc: 'حفر' },
++      { code: 'EXC-001', min: 4500, max: 4500, desc: 'حفر' },
+       { code: 'MSN-001', min: 200, max: 4000, desc: 'بلوك' },
+       { code: 'PLS-001', min: 200, max: 4000, desc: 'لياسة' },
+       { code: 'EXT-001', min: 50, max: 500, desc: 'سور' },
 diff --git a/ACEP/packages/ai-engine/workflow-engine.js b/ACEP/packages/ai-engine/workflow-engine.js
 index 6f74ea2..548c559 100644
 --- a/ACEP/packages/ai-engine/workflow-engine.js
@@ -1813,10 +1992,16 @@ index 30a6ca0..9ceccf1 100644
        corsOrigins: allowedOrigins.size
      };
 diff --git a/ACEP/packages/security/validation.js b/ACEP/packages/security/validation.js
-index 2d07f27..0f27699 100644
+index 2d07f27..eafc71a 100644
 --- a/ACEP/packages/security/validation.js
 +++ b/ACEP/packages/security/validation.js
-@@ -38,10 +38,13 @@ const projectBriefSchema = z.object({
+@@ -1,4 +1,5 @@
+ const { z } = require('zod');
++const { normalizedCapacity, validCalendarDate } = require('../ai-engine/engineering-input-guards');
+
+ const safeText = max => z.string().trim().min(1).max(max).refine(value => !/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(value), 'Control characters are not allowed');
+ const optionalText = max => z.string().trim().max(max).optional();
+@@ -38,10 +39,13 @@ const projectBriefSchema = z.object({
    typeLabel: optionalText(160),
    subtype: optionalText(200),
    nature: z.enum(['new', 'expansion', 'renovation', 'fitout', 'maintenance']).optional(),
@@ -1830,6 +2015,25 @@ index 2d07f27..0f27699 100644
    landArea: optionalPositive,
    area: optionalPositive,
    floors: optionalNonNegativeInteger,
+@@ -68,6 +72,18 @@ const projectBriefSchema = z.object({
+   systems: z.array(projectSystem).max(20).default([]),
+   documents: z.array(projectDocument).max(30).default([])
+ }).strict().superRefine((value, ctx) => {
++  const issue = (field, message) => ctx.addIssue({ code: z.ZodIssueCode.custom, path: [field], message });
++  for (const field of ['startDate', 'targetDate']) {
++    if (!validCalendarDate(value[field])) issue(field, 'Date must be a valid calendar date');
++  }
++  if (value.currency && value.currency !== 'SAR') issue('currency', 'Cost estimates currently require SAR; a verified exchange-rate basis is not configured');
++  if (!normalizedCapacity(value).valid) issue('capacityUnit', 'Capacity unit is incompatible with this project type; voltage cannot substitute for power');
++  if (['road', 'bridge', 'tunnel', 'railway'].includes(value.type) && value.area && value.length && value.width) {
++    const calculated = value.length * value.width;
++    if (Math.abs(value.area - calculated) > Math.max(0.01, calculated * 0.001)) {
++      issue('area', 'Treated area conflicts with length multiplied by treated width');
++    }
++  }
+   if (!value.area && !value.landArea && !value.length && !value.capacity) {
+     ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['area'], message: 'At least one project scale value is required' });
+   }
 diff --git a/ACEP/render.yaml b/ACEP/render.yaml
 index eebe0be..b48eb29 100644
 --- a/ACEP/render.yaml
@@ -2089,9 +2293,81 @@ index 0000000..90056d7
 +}
 +
 +module.exports = { CASES, briefFor, runBenchmark, runEngines, scoreCase };
+diff --git a/ACEP/scripts/engineering-adversarial-audit.js b/ACEP/scripts/engineering-adversarial-audit.js
+new file mode 100644
+index 0000000..0e6f537
+--- /dev/null
++++ b/ACEP/scripts/engineering-adversarial-audit.js
+@@ -0,0 +1,66 @@
++'use strict';
++
++// Hand-specified counterexamples. Expected values do not come from training data.
++const { spawn } = require('child_process');
++const fs = require('fs');
++const os = require('os');
++const path = require('path');
++const crypto = require('crypto');
++const root = path.resolve(__dirname, '..');
++const port = 3197;
++const key = crypto.randomBytes(32).toString('hex');
++const runtime = fs.mkdtempSync(path.join(os.tmpdir(), 'acep-independent-'));
++const base = {
++  name: 'Independent engineering audit', type: 'villa', city: 'مكة المكرمة', stage: 'concept',
++  description: 'مشروع فيلا سكنية في مكة المكرمة لاختبار القواعد الهندسية وحسابات الكميات والتكلفة والمخاطر والسلامة ومعالجة نقص البيانات وتعارضها.',
++  area: 600, landArea: 500, floors: 2, finishing: 'standard',
++  inclusions: 'الأعمال الإنشائية والمعمارية والأنظمة والاختبارات والتشغيل',
++  systems: ['structural','electrical'], documents: [], sustainability: 'خفض الطاقة بنسبة 20%',
++};
++const cases = [
++  { id: 'complete', changes: {}, check: (s, d) => s === 200 && d.engineRuns?.length === 10 },
++  { id: 'land_only_no_quantities', changes: { area: null, floors: null }, check: (s,d,r) => s === 200 && !r.BOQ?.output?.items?.length && !r.COST?.output?.totalCost },
++  { id: 'missing_floors_no_quantities', changes: { floors: null }, check: (s,d,r) => s === 200 && !r.BOQ?.output?.items?.length },
++  { id: 'road_is_not_a_building', changes: {type:'road',area:20000,length:1000,width:20,floors:1}, check: (s,d,r) => s===200 && r.VBE.output.building===null && r.VBE.output.navigation.length===1000 && r.VBE.output.navigation.width===20 && r.VBE.output.constructionProgress===null },
++  { id: 'conflicting_linear_geometry', changes: { type:'road',area:500,length:1000,width:20,floors:1 }, check: s => s === 400 },
++  { id: 'invalid_calendar_date', changes: { startDate:'2027-02-30',targetDate:'2028-01-01' }, check: s => s === 400 },
++  { id: 'unsupported_currency', changes: { currency:'USD' }, check: s => s === 400 },
++  { id: 'negative_area', changes: { area:-200 }, check: s => s === 400 },
++  { id: 'fractional_floors', changes: { floors:2.5 }, check: s => s === 400 },
++  { id: 'voltage_is_not_power_capacity', changes: {type:'power',floors:1,area:20000,landArea:25000,capacity:132,capacityUnit:'kV'}, check: s => s === 400 },
++  { id: 'kw_to_mw', changes: {type:'renewable_energy',floors:1,area:1000000,landArea:1000000,capacity:100000,capacityUnit:'kW'}, check: (s,d,r) => s===200 && r.BOQ.output.items.some(i=>i.category==='GenerationEquipment'&&i.quantity===100) },
++  { id: 'no_measured_safety_probability', changes: {}, check: (s,d,r) => s===200 && r.SAFETY?.output?.riskScore===null && r.SAFETY?.output?.riskLevel==='Unassessed' },
++  { id: 'arabic_esg_percentage', changes: {sustainability:'خفض استهلاك الطاقة بنسبة ٢٠٪ مقارنة بخط أساس معتمد'}, check: (s,d,r) => s===200 && r.ESG?.output?.measurablePercentage===20 },
++  { id: 'invalid_reduction_percentage', changes: {sustainability:'خفض استهلاك الطاقة بنسبة 150% مقارنة بخط أساس معتمد'}, check: (s,d,r) => s===200 && r.ESG?.output?.measurablePercentage===null },
++  { id: 'schedule_matches_sequential_network', changes: {}, check: (s,d,r) => {const t=r.TIME?.output;return s===200 && t.activities.reduce((a,b)=>a+b.duration,0)===t.totalDuration && t.activities.every((a,i)=>a.earlyFinish-a.earlyStart===a.duration && (!i||a.earlyStart===t.activities[i-1].earlyFinish)) && t.optimization.parallelExecution===null && t.calendar.dayType==='working';} },
++  { id: 'no_verified_supplier', changes: {}, check: (s,d,r) => s===200 && r.SUPPLY?.output?.recommendationReady===false },
++  { id: 'external_area_zero', changes: {area:600,landArea:300,floors:2}, check: (s,d,r) => s===200 && !r.BOQ?.output?.items?.some(i=>i.code==='BLD-EXT-001'&&i.quantity>0) },
++];
++
++async function main() {
++  const child=spawn(process.execPath,['server.js'],{cwd:root,env:{...process.env,PORT:String(port),HOST:'127.0.0.1',NODE_ENV:'development',ACEP_SERVICE_MODE:'engineering',ACEP_EXECUTION_MODE:'development',ACEP_DATA_PROVENANCE:'synthetic',ACEP_MILLION_MODEL_ENABLED:'true',ACEP_SUPPLIER_DATA_VERIFIED:'false',ACEP_AUTH_MODE:'api-key',ACEP_API_KEY:key,ACEP_API_KEY_SUBJECT:'independent-audit',ACEP_API_KEY_ROLE:'engineer',ACEP_API_KEY_TENANT:'audit',ACEP_RUNTIME_DATA_DIR:runtime,ACEP_BOOTSTRAP_DATA_MODE:'readonly',ACEP_ALLOW_MOCK_RESULTS:'false',ACEP_ENGINEERING_RELEASE_APPROVED:'false'},stdio:['ignore','pipe','pipe']});
++  let log='';child.stdout.on('data',b=>{log=(log+b).slice(-5000);});child.stderr.on('data',b=>{log=(log+b).slice(-5000);});
++  const results=[];
++  try {
++    let ready=false;
++    for(let i=0;i<240;i++) {
++      try {const r=await fetch(`http://127.0.0.1:${port}/ready`);if(r.ok){ready=true;break;}} catch {}
++      await new Promise(r=>setTimeout(r,250));
++    }
++    if(!ready)throw new Error('Readiness failed: '+log);
++    for(const c of cases){
++      const project=Object.fromEntries(Object.entries({...base,...c.changes}).filter(([,v])=>v!==null));
++      const response=await fetch(`http://127.0.0.1:${port}/api/v1/experiments/analyze`,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},body:JSON.stringify({project})});
++      const data=await response.json();const runs=Object.fromEntries((data.engineRuns||[]).map(r=>[r.code,r]));
++      const passed=Boolean(c.check(response.status,data,runs));
++      results.push({id:c.id,passed,http:response.status,summary:data.summary,errors:data.fields,engines:(data.engineRuns||[]).map(r=>({code:r.code,status:r.status})),evidence:process.argv.includes('--full')?data:undefined});
++      console.log(`${passed?'PASS':'FAIL'} ${c.id} HTTP ${response.status}`);
++    }
++    const report={scope:'Independent counterexamples and engineering validity gates; not field accuracy',cases:results.length,passed:results.filter(r=>r.passed).length,failed:results.filter(r=>!r.passed).length,results};
++    const target=process.env.ACEP_AUDIT_REPORT;
++    if(target){fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,JSON.stringify(report,null,2));}
++    console.log(JSON.stringify({cases:report.cases,passed:report.passed,failed:report.failed}));
++    if(report.failed)process.exitCode=1;
++  }finally{child.kill('SIGTERM');await new Promise(r=>child.once('exit',r));fs.rmSync(runtime,{recursive:true,force:true});}
++}
++main().catch(error=>{console.error(error.message);process.exitCode=1;});
 diff --git a/ACEP/scripts/http-engineering-matrix.js b/ACEP/scripts/http-engineering-matrix.js
 new file mode 100644
-index 0000000..88015d5
+index 0000000..63ffc72
 --- /dev/null
 +++ b/ACEP/scripts/http-engineering-matrix.js
 @@ -0,0 +1,175 @@
@@ -2134,7 +2410,7 @@ index 0000000..88015d5
 +    basements: profile.family === 'building' && floors > 4 ? 1 : 0,
 +    buildings: 1,
 +    capacity: Math.max(1, Math.round(area * profile.capacity)),
-+    capacityUnit: ['renewable_energy', 'power', 'power_plant'].includes(profile.key) ? 'MW' : 'وحدة تشغيلية',
++    capacityUnit: ({renewable_energy:'MW', power_plant:'MW', power:'MVA', water:'m3/day', dam:'m3'})[profile.key] || 'وحدة تشغيلية',
 +    structure: linear ? 'linear_infrastructure' : 'project_specific',
 +    foundation: 'وفق تقرير التربة والتحريات المعتمدة',
 +    finishing: profile.family === 'building' || profile.family === 'existing' ? 'standard' : 'raw',
@@ -2271,10 +2547,18 @@ index 0000000..88015d5
 +  process.exitCode = 1;
 +});
 diff --git a/ACEP/server.js b/ACEP/server.js
-index 405a792..eb7ffd6 100644
+index 405a792..6936530 100644
 --- a/ACEP/server.js
 +++ b/ACEP/server.js
-@@ -2444,14 +2444,21 @@ function coreEngineCatalog() {
+@@ -12,6 +12,7 @@ const {
+   inputCompleteness,
+   engineRequirements
+ } = require('./packages/ai-engine/project-brief');
++const { sustainabilityPercentage } = require('./packages/ai-engine/engineering-input-guards');
+ const { TenantRegistry } = require('./packages/runtime/tenant-registry');
+ const { runtimePath } = require('./packages/runtime/paths');
+ const app = express();
+@@ -2444,14 +2445,21 @@ function coreEngineCatalog() {
      ESG: true,
      SUPPLY: status.supplierIntelligence
    };
@@ -2304,7 +2588,7 @@ index 405a792..eb7ffd6 100644
  }
  
  function stepState(stepMap, names) {
-@@ -2464,6 +2471,90 @@ function stepState(stepMap, names) {
+@@ -2464,6 +2472,68 @@ function stepState(stepMap, names) {
    return { status: executed ? 'completed' : 'skipped', durationMs, executed };
  }
  
@@ -2315,22 +2599,6 @@ index 405a792..eb7ffd6 100644
 +    : Math.max(1, Number(effective.area) || 1) * Math.max(1, Number(effective.floors) || 1);
 +  const floors = Math.max(1, Number(effective.floors) || 1);
 +  const basements = Math.max(0, Number(effective.basements) || 0);
-+  const prediction = ai.millionProjectModel.predict({
-+    projectType: modelType || effective.type,
-+    grossBuiltArea: grossArea,
-+    footprintArea: effective.footprintArea,
-+    landArea: effective.landArea,
-+    floors,
-+    basements,
-+    buildings: effective.buildings,
-+    capacity: effective.capacity,
-+    city: brief.city,
-+    finishing: brief.finishing,
-+    method: effective.method
-+  });
-+  const calibratedRisk = prediction.available ? prediction.predictions.riskScore : 0.36;
-+  const root = Math.sqrt(Math.max(0.05, calibratedRisk));
-+  const clamp = value => Math.max(0.05, Math.min(0.92, value));
 +  const definitions = [
 +    ['Excavation and temporary support', 0.78 + basements * 0.05, 1.02, 'Approve excavation, shoring, access, and inspection controls before work starts.', basements > 0 || grossArea > 1000],
 +    ['Work at height and falling objects', 0.80 + Math.min(0.12, floors / 120), 1.08, 'Use engineered access, edge protection, lifting exclusion zones, and permit controls.', floors > 1 || ['bridge', 'tower', 'telecom'].includes(modelType)],
@@ -2362,32 +2630,26 @@ index 405a792..eb7ffd6 100644
 +  };
 +  const hazards = [...definitions, ...(specific[modelType] || [])]
 +    .filter(item => item[4])
-+    .map(([hazard, probabilityFactor, impactFactor, controls], index) => {
-+      const probability = clamp(root * probabilityFactor * (1 + (index % 3 - 1) * 0.035));
-+      const impact = clamp(root * impactFactor * (1 + ((index + 1) % 4 - 1.5) * 0.025));
-+      return {
-+        hazard,
-+        probability: Math.round(probability * 100) / 100,
-+        impact: Math.round(impact * 100) / 100,
-+        score: Math.round(probability * impact * 100) / 100,
-+        minimumControls: controls,
-+        evidenceStatus: 'requires_site_specific_verification'
-+      };
-+    })
-+    .sort((left, right) => right.score - left.score);
-+  const overall = hazards.length ? hazards.reduce((sum, item) => sum + item.score, 0) / hazards.length : 0;
++    .map(([hazard, , , controls]) => ({
++      hazard,
++      probability: null,
++      impact: null,
++      score: null,
++      minimumControls: controls,
++      evidenceStatus: 'requires_site_specific_verification'
++    }));
 +  return {
 +    hazards,
-+    riskScore: Math.round(overall * 100) / 100,
-+    riskLevel: overall >= 0.55 ? 'High' : overall >= 0.30 ? 'Medium' : 'Low',
-+    modelCalibration: prediction.available ? prediction.modelId : 'rule_based_fallback',
-+    dataProvenance: prediction.available ? prediction.dataProvenance : 'rules_only',
++    riskScore: null,
++    riskLevel: 'Unassessed',
++    modelCalibration: null,
++    dataProvenance: 'qualitative_rules_only',
 +    ppeCompliance: null,
 +    safetyIndex: null,
 +    suitableForPermitToWork: false,
 +    limitations: [
 +      'This is a concept-stage hazard projection, not a site inspection or approved HSE plan.',
-+      'PPE compliance and a safety index require verified site observations.'
++      'Likelihood, severity, residual risk, PPE compliance, and safety indices require a documented site-specific assessment; synthetic project risk scores cannot supply them.'
 +    ]
 +  };
 +}
@@ -2395,7 +2657,7 @@ index 405a792..eb7ffd6 100644
  function projectEngineRuns(project, pipelineResult, brief, requirements) {
    const stepMap = new Map((pipelineResult.steps || []).map(step => [step.name, step]));
    const resolvedType = resolveProjectType(brief.type);
-@@ -2486,30 +2577,34 @@ function projectEngineRuns(project, pipelineResult, brief, requirements) {
+@@ -2486,36 +2556,40 @@ function projectEngineRuns(project, pipelineResult, brief, requirements) {
    const effective = {
      type: project.getEffective('type').value,
      area: project.getEffective('area').value,
@@ -2426,7 +2688,7 @@ index 405a792..eb7ffd6 100644
 +    executed: Array.isArray(safetyAnalysis.hazards),
      durationMs: Date.now() - safetyStartedAt,
 -    source: 'risk-analyzer/safety-projection',
-+    source: 'safety-hazard-projection/million-risk-calibration',
++    source: 'qualitative-hazard-register/site-assessment-required',
      inputReady: requirements.SAFETY.inputReady,
      missingInputs: requirements.SAFETY.missing,
      output: {
@@ -2446,7 +2708,24 @@ index 405a792..eb7ffd6 100644
      }
    };
  
-@@ -2542,20 +2637,24 @@ function projectEngineRuns(project, pipelineResult, brief, requirements) {
+   const esgStartedAt = Date.now();
+   const sustainabilityTarget = String(brief.sustainability || '').trim();
+-  const numericTarget = sustainabilityTarget.match(/(\d+(?:[.,]\d+)?)\s*%/);
++  const numericTarget = sustainabilityPercentage(sustainabilityTarget);
+   const esgRun = {
+     code: 'ESG', name: ENGINE_LABELS.ESG,
+     status: sustainabilityTarget ? 'completed_with_limits' : 'blocked',
+@@ -2526,7 +2600,8 @@ function projectEngineRuns(project, pipelineResult, brief, requirements) {
+     missingInputs: requirements.ESG.missing,
+     output: {
+       statedTarget: sustainabilityTarget || null,
+-      measurablePercentage: numericTarget ? Number(numericTarget[1].replace(',', '.')) : null,
++      measurablePercentage: numericTarget.value,
++      targetStatus: numericTarget.status,
+       carbonFootprint: null,
+       energyScore: null,
+       limitations: ['Carbon, energy, and ESG scores require an approved system boundary and versioned LCA/EPD factors.']
+@@ -2542,20 +2617,24 @@ function projectEngineRuns(project, pipelineResult, brief, requirements) {
    }[system])).filter(Boolean);
    const supplyCategories = boqCategories.length ? boqCategories : [...new Set(fallbackCategories)].slice(0, 5);
    const supplierResults = supplyCategories.map(category => ai.supplierIntelligence.findBestSupplier(category, brief.city));
@@ -2474,7 +2753,77 @@ index 405a792..eb7ffd6 100644
      }
    };
  
-@@ -4499,6 +4598,9 @@ const httpServer = app.listen(PORT, HOST, () => {
+@@ -2565,11 +2644,20 @@ function projectEngineRuns(project, pipelineResult, brief, requirements) {
+       profile: project.digitalProfile,
+       predicted: project.predicted
+     }, 'project-profiler/project-analyzer'),
+-    coreRun('VBE', ['virtual_building', 'vision_ai', 'navigation'], {
+-      building: project.building,
+-      vision: project.vision.features,
+-      navigation: project.navigation.spatialModel
+-    }, 'virtual-building/upm/3d-navigation'),
++    { ...coreRun('VBE', ['virtual_building', 'vision_ai', 'navigation'], {
++      building: ['linear', 'site', 'utility'].includes(resolvedType.family) ? null : project.building,
++      vision: ['linear', 'site', 'utility'].includes(resolvedType.family) ? null : {
++        ...project.vision.features, phase: brief.stage || null
++      },
++      navigation: ['linear', 'site', 'utility'].includes(resolvedType.family) ? {
++        type: brief.type, family: resolvedType.family,
++        area: effective.grossBuiltArea, length: brief.length || null, width: brief.width || null,
++        floors: null, geometryStatus: 'dimensions_only_no_verified_geometry'
++      } : project.navigation.spatialModel,
++      geometryVerified: false,
++      constructionProgress: null,
++      limitations: ['An asset brief is not verified geometry. Linear and utility assets must not inherit building rooms, columns, heights, or a completed construction status.']
++    }, 'virtual-building/typed-asset-brief'), status: 'completed_with_limits' },
+     coreRun('BOQ', ['boq'], {
+       summary: project.boq.summary,
+       phase: project.boq.phase,
+@@ -2653,14 +2741,30 @@ app.post('/api/v1/experiments/analyze', waitForAI(async (req, res) => {
+   project.setApproved(approved);
+
+   const pipelineStartedAt = Date.now();
+-  const pipelineResult = await orchestrator.runFullPipeline(project, canonicalDescription, () => engineParams);
++  const needsGeometry = !engineParams.area || !engineParams.floors;
++  const pipelineResult = needsGeometry ? {
++    ok: true,
++    steps: [
++      { name: 'extraction', status: 'completed', durationMs: 0 },
++      ...['virtual_building', 'boq', 'cost', 'schedule', 'risks', 'quality', 'vision_ai', 'navigation']
++        .map(name => ({ name, status: 'blocked', durationMs: 0, error: 'Project quantity basis and floor count are required' }))
++    ]
++  } : await orchestrator.runFullPipeline(project, canonicalDescription, () => engineParams);
+   const engineRuns = projectEngineRuns(project, pipelineResult, brief, requirements);
++  for (const run of engineRuns) {
++    if (!run.executed) {
++      run.output = { status: 'not_evaluated', insufficientData: true, missingInputs: run.missingInputs,
++        items: [], risks: [], defects: [], activities: [], totalCost: null, riskLevel: null,
++        overallRiskScore: null, qualityScore: null, totalDuration: null };
++    }
++  }
++  if (needsGeometry) engineRuns.find(run => run.code === 'PUE').source = 'structured-project-brief';
+   const executedCount = engineRuns.filter(run => run.executed).length;
+   const failedCount = engineRuns.filter(run => run.status === 'failed').length;
+   const blockedCount = engineRuns.filter(run => run.status === 'blocked').length;
+   const response = {
+     projectId: project.id,
+-    status: pipelineResult.ok && failedCount === 0 ? 'completed' : 'partial',
++    status: needsGeometry ? 'needs_input' : pipelineResult.ok && failedCount === 0 ? 'completed' : 'partial',
+     durationMs: Date.now() - pipelineStartedAt,
+     inputCompleteness: inputCompleteness(brief),
+     projectType: {
+@@ -2676,8 +2780,8 @@ app.post('/api/v1/experiments/analyze', waitForAI(async (req, res) => {
+       total: engineRuns.length,
+       totalCost: project.cost.totalCost || null,
+       scheduleMonths: project.schedule.totalMonths || null,
+-      riskLevel: project.risks.riskLevel || null,
+-      qualityScore: project.quality.qualityScore ?? null,
++      riskLevel: engineRuns.find(run => run.code === 'RISK').executed ? project.risks.riskLevel || null : null,
++      qualityScore: engineRuns.find(run => run.code === 'QUALITY').executed ? project.quality.qualityScore ?? null : null,
+       boqItems: (project.boq.items || []).length
+     },
+     workflow: pipelineResult.steps,
+@@ -4499,6 +4603,9 @@ const httpServer = app.listen(PORT, HOST, () => {
        decisionGraph: Boolean(decisionGraph),
        finalReport: Boolean(finalReport)
      },

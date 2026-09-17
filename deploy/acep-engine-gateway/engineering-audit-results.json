@@ -1,0 +1,723 @@
+{
+  "scope": "Independent counterexamples and engineering validity gates; not field accuracy",
+  "cases": 17,
+  "passed": 17,
+  "failed": 0,
+  "baseline": {
+    "cases": 15,
+    "passed": 4,
+    "failed": 11
+  },
+  "results": [
+    {
+      "id": "complete",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 10,
+        "failed": 0,
+        "blocked": 0,
+        "total": 10,
+        "totalCost": 2332983,
+        "scheduleMonths": 13.8,
+        "riskLevel": "Low",
+        "qualityScore": 89,
+        "boqItems": 12
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "COST",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "TIME",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "RISK",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "QUALITY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    },
+    {
+      "id": "land_only_no_quantities",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 4,
+        "failed": 0,
+        "blocked": 5,
+        "total": 10,
+        "totalCost": null,
+        "scheduleMonths": null,
+        "riskLevel": null,
+        "qualityScore": null,
+        "boqItems": 0
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "blocked"
+        },
+        {
+          "code": "COST",
+          "status": "blocked"
+        },
+        {
+          "code": "TIME",
+          "status": "blocked"
+        },
+        {
+          "code": "RISK",
+          "status": "blocked"
+        },
+        {
+          "code": "QUALITY",
+          "status": "blocked"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    },
+    {
+      "id": "missing_floors_no_quantities",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 4,
+        "failed": 0,
+        "blocked": 5,
+        "total": 10,
+        "totalCost": null,
+        "scheduleMonths": null,
+        "riskLevel": null,
+        "qualityScore": null,
+        "boqItems": 0
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "blocked"
+        },
+        {
+          "code": "COST",
+          "status": "blocked"
+        },
+        {
+          "code": "TIME",
+          "status": "blocked"
+        },
+        {
+          "code": "RISK",
+          "status": "blocked"
+        },
+        {
+          "code": "QUALITY",
+          "status": "blocked"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    },
+    {
+      "id": "road_is_not_a_building",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 10,
+        "failed": 0,
+        "blocked": 0,
+        "total": 10,
+        "totalCost": 19561301,
+        "scheduleMonths": 12.8,
+        "riskLevel": "Low",
+        "qualityScore": 89,
+        "boqItems": 15
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "COST",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "TIME",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "RISK",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "QUALITY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    },
+    {
+      "id": "conflicting_linear_geometry",
+      "passed": true,
+      "http": 400,
+      "errors": [
+        {
+          "path": "project.area",
+          "message": "Treated area conflicts with length multiplied by treated width"
+        }
+      ],
+      "engines": []
+    },
+    {
+      "id": "invalid_calendar_date",
+      "passed": true,
+      "http": 400,
+      "errors": [
+        {
+          "path": "project.startDate",
+          "message": "Date must be a valid calendar date"
+        }
+      ],
+      "engines": []
+    },
+    {
+      "id": "unsupported_currency",
+      "passed": true,
+      "http": 400,
+      "errors": [
+        {
+          "path": "project.currency",
+          "message": "Cost estimates currently require SAR; a verified exchange-rate basis is not configured"
+        }
+      ],
+      "engines": []
+    },
+    {
+      "id": "negative_area",
+      "passed": true,
+      "http": 400,
+      "errors": [
+        {
+          "path": "project.area",
+          "message": "Number must be greater than 0"
+        }
+      ],
+      "engines": []
+    },
+    {
+      "id": "fractional_floors",
+      "passed": true,
+      "http": 400,
+      "errors": [
+        {
+          "path": "project.floors",
+          "message": "Expected integer, received float"
+        }
+      ],
+      "engines": []
+    },
+    {
+      "id": "voltage_is_not_power_capacity",
+      "passed": true,
+      "http": 400,
+      "errors": [
+        {
+          "path": "project.capacityUnit",
+          "message": "Capacity unit is incompatible with this project type; voltage cannot substitute for power"
+        }
+      ],
+      "engines": []
+    },
+    {
+      "id": "kw_to_mw",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 10,
+        "failed": 0,
+        "blocked": 0,
+        "total": 10,
+        "totalCost": 1322679221,
+        "scheduleMonths": 42.8,
+        "riskLevel": "Medium",
+        "qualityScore": 91,
+        "boqItems": 10
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "COST",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "TIME",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "RISK",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "QUALITY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    },
+    {
+      "id": "no_measured_safety_probability",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 10,
+        "failed": 0,
+        "blocked": 0,
+        "total": 10,
+        "totalCost": 2332983,
+        "scheduleMonths": 13.8,
+        "riskLevel": "Low",
+        "qualityScore": 89,
+        "boqItems": 12
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "COST",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "TIME",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "RISK",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "QUALITY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    },
+    {
+      "id": "arabic_esg_percentage",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 10,
+        "failed": 0,
+        "blocked": 0,
+        "total": 10,
+        "totalCost": 2332983,
+        "scheduleMonths": 13.8,
+        "riskLevel": "Low",
+        "qualityScore": 89,
+        "boqItems": 12
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "COST",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "TIME",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "RISK",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "QUALITY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    },
+    {
+      "id": "invalid_reduction_percentage",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 10,
+        "failed": 0,
+        "blocked": 0,
+        "total": 10,
+        "totalCost": 2332983,
+        "scheduleMonths": 13.8,
+        "riskLevel": "Low",
+        "qualityScore": 89,
+        "boqItems": 12
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "COST",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "TIME",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "RISK",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "QUALITY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    },
+    {
+      "id": "schedule_matches_sequential_network",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 10,
+        "failed": 0,
+        "blocked": 0,
+        "total": 10,
+        "totalCost": 2332983,
+        "scheduleMonths": 13.8,
+        "riskLevel": "Low",
+        "qualityScore": 89,
+        "boqItems": 12
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "COST",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "TIME",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "RISK",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "QUALITY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    },
+    {
+      "id": "no_verified_supplier",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 10,
+        "failed": 0,
+        "blocked": 0,
+        "total": 10,
+        "totalCost": 2332983,
+        "scheduleMonths": 13.8,
+        "riskLevel": "Low",
+        "qualityScore": 89,
+        "boqItems": 12
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "COST",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "TIME",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "RISK",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "QUALITY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    },
+    {
+      "id": "external_area_zero",
+      "passed": true,
+      "http": 200,
+      "summary": {
+        "executed": 10,
+        "failed": 0,
+        "blocked": 0,
+        "total": 10,
+        "totalCost": 2335478,
+        "scheduleMonths": 14,
+        "riskLevel": "Low",
+        "qualityScore": 89,
+        "boqItems": 11
+      },
+      "engines": [
+        {
+          "code": "PUE",
+          "status": "completed"
+        },
+        {
+          "code": "VBE",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "BOQ",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "COST",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "TIME",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "RISK",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "QUALITY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SAFETY",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "ESG",
+          "status": "completed_with_limits"
+        },
+        {
+          "code": "SUPPLY",
+          "status": "completed_with_limits"
+        }
+      ]
+    }
+  ]
+}
