@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-17T00:00:00.000Z",
+  "files": {
+    "contract_ai/training.jsonl": "f3d8236bac04c7a05818f1fbeba29aac540c37395ddba3aafea89403806d2580",
+    "contract_ai/validation.jsonl": "e60a7c9496b621f545c20e76be51159543d8ce825238e59a8b0dbe518c2077f2",
+    "cost_ai/training.jsonl": "e086a6b5b866694dc4038b91d47558b89e2a6b8a8e74e4b3e97722ad04832143",
+    "cost_ai/validation.jsonl": "03a623141748f88147f2e19ea68e39228a62d1c9737ae703c9c3559d53a9ef38",
+    "drawing_ai/training.jsonl": "30be118e8afab683527bedd86ab9a6732cf064766403ca0a67d37571db96f801",
+    "drawing_ai/validation.jsonl": "6c07bd93ca786f597303910686c7b675ac5b6c04550df585ee51daff5203c838",
+    "engineering_llm/training.jsonl": "13490cd2d3d47befa11a4b762b9160edbaf866f31dc9aac8eb5fa9437825a88e",
+    "engineering_llm/validation.jsonl": "c099b6d01136a5bdfd60cb69a1317887af2d7b0981ddb7999f0e9dbe915438db",
+    "planning_ai/training.jsonl": "a40893df98cefc50b420e60c473dd9e09248a238ad6d4e1850713075ce3dd977",
+    "planning_ai/validation.jsonl": "7d0ad9c816a68981ec6268eda18833625473dbf91b75ccec2f96cd12be592ecc",
+    "procurement_ai/training.jsonl": "d7b4f36e3e2fcfb2e850fc36e0f27d50658e5207b0ae360d062b0ffda7412aff",
+    "procurement_ai/validation.jsonl": "bc4151451216b913f6fa32f23c13000a27ab011b05125e5b7ace0e5d61d6224f",
+    "quality_ai/training.jsonl": "dcd8215724a43c36ab79d79905e7c55daafc7b77dc4164ff159c3937a20172c3",
+    "quality_ai/validation.jsonl": "38f656352f3ec8c093c01b9240bc50b46b4032b8d9887ecd2eb925812e0ea7d2",
+    "quantity_ai/training.jsonl": "eb0837d295d5e5a6a8c99b62b746d600e0a5dad23079839f4157e33310c326dc",
+    "quantity_ai/validation.jsonl": "0b2e71e54a98396d78c3a262c5ffe6d7432028397b95998ac843d66331ad0b31",
+    "rebuild-report.json": "50ba7949319605b5b803ef365ddac7a9971f0c56eb7eee88a5033c693a89b1ce",
+    "risk_ai/training.jsonl": "0fd7989859a48f6f90844142ae57cbaf2849cabe7de69fe973d80547b4ccad95",
+    "risk_ai/validation.jsonl": "cbc09336fc55a437b4983be65bfcd73ce7d47dd66d7c43dc952665e9380d375a",
+    "safety_ai/training.jsonl": "26e05a668339f7f2b990dd31610f10ac74f6246bce984fb23cc4f18919a082ba",
+    "safety_ai/validation.jsonl": "c2e180daab14e915f612b88ee8600a9ce83596f2beb3343462179ab5b3393c67"
+  },
+  "dataStatus": "unverified_legacy_source",
+  "suitableForModelApproval": false
+}

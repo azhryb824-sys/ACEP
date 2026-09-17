@@ -1,0 +1,19 @@
+{
+  "artifacts": [
+    {
+      "originalPath": "training/models/active/pytorch_lora_weights.safetensors",
+      "quarantinePath": "quarantine/legacy-simulation/8115269db6cd91f3.simulation.json",
+      "sha256": "8115269db6cd91f31f127c883028028bed17f421564d774a6b567b87b56c7589",
+      "reason": "JSON simulation, not tensor weights",
+      "eligibleForTrainingOrRelease": false
+    },
+    {
+      "originalPath": "training/checkpoints/construction_lora/pytorch_lora_weights.safetensors",
+      "quarantinePath": "quarantine/legacy-simulation/68e7586994c59f13.simulation.json",
+      "sha256": "68e7586994c59f13a4c8fa6b29712d91804580e4db307c1b4b2c3886a80207e9",
+      "reason": "JSON simulation, not tensor weights",
+      "eligibleForTrainingOrRelease": false
+    }
+  ],
+  "status": "not_a_model"
+}

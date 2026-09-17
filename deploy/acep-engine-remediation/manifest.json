@@ -1,0 +1,448 @@
+{
+  "schemaVersion": 1,
+  "baseArchiveSha256": "5631ffa6969d9d35b3e565d3cc9588846e32498d790e590d393c62d897dcc43c",
+  "basePatchSha256": "b1aecaf2f4ecbb84cd00c3b53eb35abd4abf151461cfb129d76d5f0fe026bb92",
+  "baseReviewCommit": "fe9e3bec057f66a323d7b38280418c8692784f4d",
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "f1819da519f4d15884b8d441eefcf27343a278a94d3a7a5b524005ceb56ab52d",
+      "beforeSha256": "3459753fb6cda7298b381953bc54d439f81467406d9817719ad30abf9ee8ddeb",
+      "bytes": 4293
+    },
+    {
+      "path": "docs/governance/ACEP_RESEARCH_V2_TRAINING.md",
+      "sha256": "38d6449f50d5a07c0415ca5790977905caccf8ba76e9650372ce3bfc494d8c65",
+      "beforeSha256": null,
+      "bytes": 2965
+    },
+    {
+      "path": "docs/governance/REMEDIATION_REVIEW_REQUIREMENTS.md",
+      "sha256": "ab0ef4051c16faafa1888b6af7560e1597211a9beda587191d3474438f824365",
+      "beforeSha256": null,
+      "bytes": 2385
+    },
+    {
+      "path": "docs/governance/independent-evaluation-policy.template.json",
+      "sha256": "a14c96dadb1eaddb5325d30ea9665f9f8f65e4529a3a7334bc68f00975834420",
+      "beforeSha256": null,
+      "bytes": 723
+    },
+    {
+      "path": "docs/governance/research-v2-corpus-verification.json",
+      "sha256": "5b3b427f8caff89fb7c8d5c3236c8f7d465664b285f4dbf4e04da2af458a6ca4",
+      "beforeSha256": null,
+      "bytes": 758
+    },
+    {
+      "path": "docs/governance/research-v2-dataset-manifest.json",
+      "sha256": "6d815550002748f5a8d5d903e550b36c07e4fe87cf9012364724ed76bddd9199",
+      "beforeSha256": null,
+      "bytes": 3491
+    },
+    {
+      "path": "docs/governance/uets-rebuilt-manifest.json",
+      "sha256": "05730321a35d9e3d5d3b202ca942b8269c05eb735d91fca117dc64cf80815ce0",
+      "beforeSha256": null,
+      "bytes": 2313
+    },
+    {
+      "path": "jest.engineering-report.config.cjs",
+      "sha256": "c2bfecc3f40e359aaef84f22988c9c570b2a88d512d344384b264f5b2d4a5b2e",
+      "beforeSha256": null,
+      "bytes": 627
+    },
+    {
+      "path": "models/registry/candidates/acep-million-synthetic-v1.config.json",
+      "sha256": "a8c64a431f1c58e81d5c7bee85fdeaa9c79dcc27e90ffe066389e5654d64398e",
+      "beforeSha256": null,
+      "bytes": 13224
+    },
+    {
+      "path": "models/registry/candidates/acep-million-synthetic-v2.json",
+      "sha256": "1eea25ac41f5c89a36f6a0e55d5cc76b8048a1010f889a6532051c1d62f9aa77",
+      "beforeSha256": null,
+      "bytes": 310988
+    },
+    {
+      "path": "models/registry/candidates/acep-million-synthetic-v2.json.sha256",
+      "sha256": "f9fb4c8cb5d01561514fbd524aae78e6ddb3b31c44726b570a6420fbcef9a811",
+      "beforeSha256": null,
+      "bytes": 97
+    },
+    {
+      "path": "package.json",
+      "sha256": "fd67df8df0c1c4a6c7c6b111d9e80e83eceb282399c16a01c1b937c679929d76",
+      "beforeSha256": "a8fe77e3e4bd1806c077becf84e36e37ddfa5a2f8aa5d9750188b5bd074568c3",
+      "bytes": 3261
+    },
+    {
+      "path": "packages/ai-engine/ai-orchestrator.js",
+      "sha256": "d6a57bec578e43dee6be7c5bf5742ac697a5731fcdea7d3ce81b4ad8794e11ba",
+      "beforeSha256": "dda63829f9119de3f577d118d6ef0480b27dacf622e9c87ebcc66a56fe073a74",
+      "bytes": 18873
+    },
+    {
+      "path": "packages/ai-engine/engineering-concept-estimator.js",
+      "sha256": "f3a309d9cb026b6befbc27fb1c94218212b5470c0ab804fb85d1aa1f16e56649",
+      "beforeSha256": "75b5da84c296b86a334ecdb891cffd451325ffb0339f7943a3d56a6676ce3fd7",
+      "bytes": 38630
+    },
+    {
+      "path": "packages/ai-engine/engineering-data-layer.js",
+      "sha256": "876e5d1f5d70b386c859392841a8d40028e78ac6fca6c717c5e8830adcbf5cd4",
+      "beforeSha256": "c02fc57dcd402420b915dcba593596758ee9a07cf27bd9e5699542cf0e786ce5",
+      "bytes": 21007
+    },
+    {
+      "path": "packages/ai-engine/model-domain-guards.js",
+      "sha256": "3978b5ce4b6b2fadcaf830062e3932946e42b965280f6115ae0a37ae933df038",
+      "beforeSha256": null,
+      "bytes": 3050
+    },
+    {
+      "path": "packages/ai-engine/model-training/project-archetypes.json",
+      "sha256": "881307bf80e6d14ab42991852cced496f2c14db590baff653bfe6877ab8f2e7d",
+      "beforeSha256": "a8c64a431f1c58e81d5c7bee85fdeaa9c79dcc27e90ffe066389e5654d64398e",
+      "bytes": 22754
+    },
+    {
+      "path": "packages/ai-engine/models/cost-estimator.js",
+      "sha256": "e2f3595821d321ea5100b56d9051b7f9e2f212d6a232fc0152f0faadbdff2f38",
+      "beforeSha256": "ef956b015df1d0eee8a7f4e68a1b438fff9ec3f563baec0413914ba69a4001df",
+      "bytes": 23466
+    },
+    {
+      "path": "packages/ai-engine/models/csv-rows.js",
+      "sha256": "3f0ffb32e4494249c8d0f6daa9f99c77b232add32df3336443f34ae6887bb0ee",
+      "beforeSha256": null,
+      "bytes": 1092
+    },
+    {
+      "path": "packages/ai-engine/models/million-project-model.js",
+      "sha256": "80c7f10c1c336dc7df9959aeea2ad32833e1a5db42b9233a357b3cb5964cb8b7",
+      "beforeSha256": "cb7f47914fc4b0dc832f5018dbf7bcadc5c260d4a4c8d32c1263188c59f0dd9e",
+      "bytes": 13922
+    },
+    {
+      "path": "packages/ai-engine/models/project-analyzer.js",
+      "sha256": "785c097d48abd4379714369e9689a8e854afa9e9ab506627b46b2687e154432b",
+      "beforeSha256": "0f5414ac5c1f034a1543490bda77c1422ee75ad64c69fc030683c5d0c5895c75",
+      "bytes": 8279
+    },
+    {
+      "path": "packages/ai-engine/models/quality-inspector.js",
+      "sha256": "8810487da7762ab7a02b98101f444ac147ecf9781de1715ce77fd8c8dd2db1ae",
+      "beforeSha256": "eca8d9198840c0eaf110e574910f7baa54684d1b0d65d0c45e00f0793e38ad16",
+      "bytes": 14767
+    },
+    {
+      "path": "packages/ai-engine/models/quantity-estimator.js",
+      "sha256": "cfd66daed492fde167378003262f839961316fbc3018afbb02c868cbe727d55f",
+      "beforeSha256": "3e2eee0d5b34d7d14c8efd479598ba10d4ba7634921c83b072451b3a6d42832a",
+      "bytes": 15443
+    },
+    {
+      "path": "packages/ai-engine/models/risk-analyzer.js",
+      "sha256": "2ec720af826c4d4ace7cecae32efdf4d33f8dd16590efaac22dec45536597b16",
+      "beforeSha256": "030141ac3b70a13bcff14b668c202acdc089920846dd8508b5dbbc9746303d97",
+      "bytes": 13693
+    },
+    {
+      "path": "packages/ai-engine/models/schedule-optimizer.js",
+      "sha256": "f4240b46f779e5fd24cacec9cd220c6cedc63843e7ddd1703129ddabf5252bc7",
+      "beforeSha256": "ff24a5b0fbb66b8c4a1f86e6ad2421179d6dbdeac507d21506db07c039763cf3",
+      "bytes": 13867
+    },
+    {
+      "path": "packages/ai-engine/models/supplier-intelligence.js",
+      "sha256": "9b3587f9ca003cb5d552bad57624cb4854e12faf14041b884209db85c42aed1c",
+      "beforeSha256": "03b172592e52ecac41b5b43039c6a1890a28a3710aecef82c20fc3db3fb6aff6",
+      "bytes": 8937
+    },
+    {
+      "path": "packages/ai-engine/models/trainer.js",
+      "sha256": "698108994a9615834171d19a7fc8fe16f722819f8994b74e8f365d9ec18cfde4",
+      "beforeSha256": "a8cfb5e06c877ecdc5027230fde85a4f340a6dbb838d4cc7381bd4565a453946",
+      "bytes": 6394
+    },
+    {
+      "path": "packages/ai-engine/project-brief.js",
+      "sha256": "f6b082eb32777c2b26b1177f3e39912a851aef989357df865b5cbcbb978d0e4f",
+      "beforeSha256": "1193a81f5e47cc6097428f20b23e02b81a25adfb597bc0fe3945b17e9b94adee",
+      "bytes": 13221
+    },
+    {
+      "path": "packages/ai-engine/project-scope.js",
+      "sha256": "2649f420b12a5eb1108cde565dc242b0504d8f10445b982450ce137dfe7049ec",
+      "beforeSha256": null,
+      "bytes": 5937
+    },
+    {
+      "path": "packages/ai-engine/retraining-orchestrator.js",
+      "sha256": "5641551dfb00f7af2d686fe3336c461dbf1ae373e6d6a723ee781f81c84f7199",
+      "beforeSha256": "b7862f4cb9598945afa2945c3d0183286ad133a0abc89c29ce02efbc2b309b16",
+      "bytes": 2637
+    },
+    {
+      "path": "packages/ai-engine/tests/test-phases-comprehensive.js",
+      "sha256": "a2aa6876698c8f3fc4b94131abe3e37cb5b576be10382002bce21c67fd7add9a",
+      "beforeSha256": "6fe1dd7fbaa0ab70c1974dcec211b7e5b1e4badb4606a331c44445c6d1692ac6",
+      "bytes": 20378
+    },
+    {
+      "path": "packages/ai-engine/workflow-engine.js",
+      "sha256": "1cd776c35e7eeab7efb81aea2e86445ae9243d9c19cb0309fe021e2153a4970f",
+      "beforeSha256": "6cf189fa113cc35b75f7ed401188029bbde3f061bd7f35bc7e45ca06b99fb632",
+      "bytes": 17120
+    },
+    {
+      "path": "packages/ai-services/bim-parser/src/index.ts",
+      "sha256": "dcd4a119488036a734f0635b241e574cc10d1f289be45af3cdddbbd3b8815201",
+      "beforeSha256": "169e510f7d28a1de10f533561aa67f10a30f44a3863c1725e1c2814e47d49551",
+      "bytes": 3711
+    },
+    {
+      "path": "packages/ai-services/cad-parser/src/index.ts",
+      "sha256": "72fdd5c494b64e90f2eab09ee50ea06b5f04906d105a03b6ad852c470c56cdf0",
+      "beforeSha256": "2197d36958cf56c6794426e1e4f49efd018a463cb4b7c5093a1400a761800879",
+      "bytes": 6342
+    },
+    {
+      "path": "packages/ai-services/embeddings/src/index.ts",
+      "sha256": "e35a337ff3df84765ebd45a49db0fd8e7335b4aa72a5cdf7d8dcc7107a77a1da",
+      "beforeSha256": "2c08fe37f7acb81514244997fc8a693ae3fdbd27727bcaae9ba5a4037365cb0d",
+      "bytes": 6005
+    },
+    {
+      "path": "packages/governance/evidence-validation.js",
+      "sha256": "d5a9710c7a1bd4be093c2dad4bdda6b3c0bddda84dad00a95388f7415ceebc1b",
+      "beforeSha256": null,
+      "bytes": 3160
+    },
+    {
+      "path": "packages/runtime/release-identity.js",
+      "sha256": "aac246abe8e732fe033d81571ac559981a1c5ae82e08000df562df8437772c83",
+      "beforeSha256": null,
+      "bytes": 1375
+    },
+    {
+      "path": "packages/security/validation.js",
+      "sha256": "15fdefa2b1fe42a9e486d6c7ea93a6f1253fbf50989128ecbaffb094a5c0e1b6",
+      "beforeSha256": "6377d3ad7dab49339dbdd287bd741fd517a6b1070d0da83778791729c9f20fdc",
+      "bytes": 7077
+    },
+    {
+      "path": "packages/uets/adapters/csv-adapter.js",
+      "sha256": "a6acf6880ce1647ceaf25af54f553e5949046b28152dbc834b0ca8620a7bbb6f",
+      "beforeSha256": "e9346484d464f51b00105d938f82d8423d012402cb3142cc17ecbc9acd8f8f09",
+      "bytes": 4542
+    },
+    {
+      "path": "packages/uets/api/routes.js",
+      "sha256": "4afd7f3e1e18b936c32e6e7f0f3923ae021281e0bfe74dc682557724ab9c4b06",
+      "beforeSha256": "e2b363b4f107aadc8b250b014a9fe111be19f01161d4005be7f32f644155693c",
+      "bytes": 8337
+    },
+    {
+      "path": "packages/uets/core/egt-factory.js",
+      "sha256": "d3f7bc5d870846e43a3703e0f905b100ddc6ffb174937865ba9de61a08f06144",
+      "beforeSha256": "4b2430322f1f36109c5eeaa9db31d89e378ee3e45e72340fee94956f50c6c145",
+      "bytes": 15177
+    },
+    {
+      "path": "packages/uets/core/engineering-ground-truth.js",
+      "sha256": "ea7f9152651ca1ec7f7471c8dbb7d0ec56b2ea8eeb475184133b12d068f82bd2",
+      "beforeSha256": "0125946b12cc765208f0980387061491c93982fcfab823315dc7170427a62402",
+      "bytes": 9937
+    },
+    {
+      "path": "packages/uets/dataset/generator.js",
+      "sha256": "b97cfa6b3880edce0c350f2db4f852753cb3c63c6aaa721b190c0809616cb36a",
+      "beforeSha256": "63fab9718d3c1fe2a16435c20bb4264a13a87298db4b7b1662267c63b8f56137",
+      "bytes": 16311
+    },
+    {
+      "path": "packages/uets/training/snapshot.js",
+      "sha256": "5e40650da1eabc7a07ecd0b69fef8b110e7ff30f539a27f8bc15e9324de4a934",
+      "beforeSha256": null,
+      "bytes": 2948
+    },
+    {
+      "path": "packages/uets/training/training-manager.js",
+      "sha256": "627b3021cf36e66693c3e114c29422aef57a4ce12648a39d12eeafb43a4b31f1",
+      "beforeSha256": "f6224eac7f22f859174d4e11f8c557b9c82b9ac721fa6750848b8a7eecbf023f",
+      "bytes": 8389
+    },
+    {
+      "path": "packages/uets/training/worker-handlers.js",
+      "sha256": "d3ca44ffefd361f6ce00e821f40ffebcd9058d52179b3f7e4c683f86b6728fdf",
+      "beforeSha256": null,
+      "bytes": 1475
+    },
+    {
+      "path": "packages/vision-training/models/model-loader.js",
+      "sha256": "6080a7720e9521278231ad45d8aa946a4a6524433706a8098f8f59eeea6f5b74",
+      "beforeSha256": "d6250623ad10472b0e4d53009b76d31a6bb5b73a21b3eddb5012252d9045222a",
+      "bytes": 3571
+    },
+    {
+      "path": "packages/vision-training/models/model-registry.js",
+      "sha256": "331b9f82c0384f01656b2dc9b02d68cdb45aa79ffbe29aa353f848198ebdb45f",
+      "beforeSha256": "afe79ea1e89fab9397b8fecfe86ed7156cc514b69a754f2f8ff7f8083d170bf3",
+      "bytes": 16115
+    },
+    {
+      "path": "packages/vision-training/models/safetensors-format.js",
+      "sha256": "3f21bf040e331844781488632d8210fd9c4c29d346bce43f411661067b7ec824",
+      "beforeSha256": null,
+      "bytes": 3198
+    },
+    {
+      "path": "packages/vision-training/quarantine/legacy-simulation/68e7586994c59f13.simulation.json",
+      "sha256": "68e7586994c59f13a4c8fa6b29712d91804580e4db307c1b4b2c3886a80207e9",
+      "beforeSha256": null,
+      "bytes": 348
+    },
+    {
+      "path": "packages/vision-training/quarantine/legacy-simulation/8115269db6cd91f3.simulation.json",
+      "sha256": "8115269db6cd91f31f127c883028028bed17f421564d774a6b567b87b56c7589",
+      "beforeSha256": null,
+      "bytes": 333
+    },
+    {
+      "path": "packages/vision-training/quarantine/legacy-simulation/manifest.json",
+      "sha256": "934da6b5e63c91b6975617d1db2f0921fe3e29110cee9eb07e79d03c552b5170",
+      "beforeSha256": null,
+      "bytes": 799
+    },
+    {
+      "path": "packages/vision-training/registry/registry.json",
+      "sha256": "b6971d910f8aef1425c9ec4245295dbbefe57107154cc93345aaeffb138dbbca",
+      "beforeSha256": "ce9768f4bf81d096afac580ed4fd599780ed26ad1f830eded01018d1b925242f",
+      "bytes": 791
+    },
+    {
+      "path": "packages/vision-training/training/lora-trainer.js",
+      "sha256": "35c2926bb45fadfab7ea7ccebc55b4e5e157200e988a34d7ea7148792897002c",
+      "beforeSha256": "3d8b8c7e4e5016ceec5a68a0b639b14d029043382e266d4a575e698a94e7248d",
+      "bytes": 17991
+    },
+    {
+      "path": "scripts/backup-runtime.js",
+      "sha256": "182669ecdd69448f9178d682f20fef638339ddd869ba727d7439c9548c504449",
+      "beforeSha256": null,
+      "bytes": 3499
+    },
+    {
+      "path": "scripts/engineering-acceptance-benchmark.js",
+      "sha256": "56389c2d720dda626bdfa3e7929ce5bde880fb7653291e513ee5ed45c4bf4d84",
+      "beforeSha256": "1e81a33dd0b26f2615dc911bcfdfbf7a4d6c18d16482de84f31c5b0b03e1db4f",
+      "bytes": 14740
+    },
+    {
+      "path": "scripts/evaluate-real-projects.js",
+      "sha256": "b19f418c0c472e98e2dfc517389841e23b88db8d8561c9e6b2314b565c7b1758",
+      "beforeSha256": null,
+      "bytes": 7479
+    },
+    {
+      "path": "scripts/http-engineering-matrix.js",
+      "sha256": "be42a41f52694433aa8169772eaab20e7d544bd8fd1d4f6bc9e450090a5de53f",
+      "beforeSha256": "55ee91b9be8266af82384749c65e4a232f47ae77734d164c178f8f96e2d9ff75",
+      "bytes": 9463
+    },
+    {
+      "path": "scripts/normalize-uets-datasets.js",
+      "sha256": "2ed767f7b9a674c5ec8b29a46eaf5abfe77a7b0388df3e5385ad6c8da5b33f74",
+      "beforeSha256": "2498a49d0410c13677a8fd5f67c6defc55e44e1f7eb2049ce6c4455523f81224",
+      "bytes": 2161
+    },
+    {
+      "path": "scripts/rebuild-uets-reviewed-schema.js",
+      "sha256": "f11ffa532610e5878507074e3ad525e6921352f75aa46d39e37d4e02611b1c8a",
+      "beforeSha256": null,
+      "bytes": 3042
+    },
+    {
+      "path": "scripts/train-million-project-models.py",
+      "sha256": "6fac589154f33a3b35c19e066b4535ff6f78bdbe34c76220ced4189806c53ad8",
+      "beforeSha256": "4d61815d91685e11cbc1dc0002a753b00602220829f618f2385f289958272bc7",
+      "bytes": 36403
+    },
+    {
+      "path": "scripts/uets-worker.js",
+      "sha256": "004556788a46842bbed976ac8d3c2d7a88c6c43974c286bcda57a7a74b6f3a4d",
+      "beforeSha256": null,
+      "bytes": 887
+    },
+    {
+      "path": "scripts/verify-research-corpus.py",
+      "sha256": "9fee3ba14b5bc3448bbfd7b6c7933e62f1a2cda77d454e0962772e7e1a5398b9",
+      "beforeSha256": null,
+      "bytes": 2016
+    },
+    {
+      "path": "server.js",
+      "sha256": "c4a5cb0a56790637e30eb5a920f6ce0047e25062c40170ca2304a1d1c5fdd61e",
+      "beforeSha256": "61db407e220b9e30ad1520d6e1ee1d4493c9785bbc5b5ed2888d9daabe4cb0d6",
+      "bytes": 217759
+    },
+    {
+      "path": "tests/artifact-and-restore.test.js",
+      "sha256": "1de394fa0ad7354bef021902dced30b8150ce52dc50edc41f298e597b6cd4fe8",
+      "beforeSha256": null,
+      "bytes": 3042
+    },
+    {
+      "path": "tests/audit-remediation.test.js",
+      "sha256": "bc3daa54091c8c89f43c9ca1da28046033c666fe14bb6e6c0420fadef84d87cf",
+      "beforeSha256": null,
+      "bytes": 6000
+    },
+    {
+      "path": "tests/engineering-type-matrix.test.js",
+      "sha256": "e968153da6754f20b5669f9d440e375c9285daeb98ee9c23f4450292b31d23da",
+      "beforeSha256": "b54bd1aa8c5ac0fe3461b4b39fbed28b26db769a2060b17575b12049a29a6a4f",
+      "bytes": 3205
+    },
+    {
+      "path": "tests/evidence-validation.test.js",
+      "sha256": "6e4986cc84f444e217af88f871202eab6655b4ef74ca2ac3d1f605838631e87a",
+      "beforeSha256": null,
+      "bytes": 1619
+    },
+    {
+      "path": "tests/million-project-model.test.js",
+      "sha256": "f1c2e277cf79d3e2875c073b9d7e05f1623453427f2785f51eab62de7424dbe5",
+      "beforeSha256": "7acb7f256653b460c9cf6b5aa40a9b17d520ee1b0f30517f625664baa3c56dcf",
+      "bytes": 8903
+    },
+    {
+      "path": "tests/parser-embedding-integrity.test.js",
+      "sha256": "fb883fd2208c07571a5772b4b4d1f4c27d0f4070c6796cc06727ea259d04e729",
+      "beforeSha256": null,
+      "bytes": 2489
+    },
+    {
+      "path": "tests/uets-remediation.test.js",
+      "sha256": "1a901cd2de87f8d558f4ef4ce6fbe9576c63f94313315d28edacd68a6943485e",
+      "beforeSha256": null,
+      "bytes": 5361
+    }
+  ],
+  "remove": [
+    {
+      "path": "packages/vision-training/training/checkpoints/construction_lora/pytorch_lora_weights.safetensors",
+      "beforeSha256": "68e7586994c59f13a4c8fa6b29712d91804580e4db307c1b4b2c3886a80207e9"
+    },
+    {
+      "path": "packages/vision-training/training/models/active/pytorch_lora_weights.safetensors",
+      "beforeSha256": "8115269db6cd91f31f127c883028028bed17f421564d774a6b567b87b56c7589"
+    }
+  ],
+  "datasetManifestSha256": "951ce3c35798d6f2fdf4df757b057c734315823f1b7b556af3191c0e53b64c3e",
+  "engineeringReleaseApproved": false,
+  "baseDirectoryTreeSha": "a83acf2fabf250ed1b8525e55c1aafb9f63ad352",
+  "sourceTreeSha256": "1f1ee173b17a7b602f51ddae266dd55258a2fbbfa3f3d6a7f2e85064c713005d"
+}

@@ -1,0 +1,25 @@
+{
+  "status": "verified",
+  "trainingRecords": 1000000,
+  "trainingManifestFileSha256": "6d815550002748f5a8d5d903e550b36c07e4fe87cf9012364724ed76bddd9199",
+  "additionalSplits": {
+    "calibration": {
+      "records": 35000,
+      "start": 30000000,
+      "seedOffset": 774311,
+      "file": "calibration.jsonl.gz",
+      "bytes": 6451475,
+      "sha256": "27d65978024bdea3d0aaf52d1aab8b8fafaf22ff525d81785d5cd8e051d0638d"
+    },
+    "holdout": {
+      "records": 70000,
+      "start": 10000000,
+      "seedOffset": 991733,
+      "file": "holdout.jsonl.gz",
+      "bytes": 12894704,
+      "sha256": "92a9b859ac160edfd0849ec98883b222fb006878622eb95c2acfd682ccd0d79c"
+    }
+  },
+  "independentRealWorldEvidence": false,
+  "engineeringReleaseApproved": false
+}

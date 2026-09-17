@@ -1,0 +1,1198 @@
+{
+  "version": "2.0.0",
+  "description": "Synthetic engineering-prior archetypes for research training only. Not independently validated ground truth.",
+  "cities": {
+    "Riyadh": {
+      "costIndex": 1.0,
+      "climateIndex": 1.1
+    },
+    "Jeddah": {
+      "costIndex": 0.97,
+      "climateIndex": 1.18
+    },
+    "Makkah": {
+      "costIndex": 1.04,
+      "climateIndex": 1.16
+    },
+    "Madinah": {
+      "costIndex": 0.95,
+      "climateIndex": 1.12
+    },
+    "Dammam": {
+      "costIndex": 0.98,
+      "climateIndex": 1.2
+    },
+    "Khobar": {
+      "costIndex": 1.01,
+      "climateIndex": 1.2
+    },
+    "Taif": {
+      "costIndex": 0.91,
+      "climateIndex": 0.9
+    },
+    "Abha": {
+      "costIndex": 0.9,
+      "climateIndex": 0.82
+    },
+    "Tabuk": {
+      "costIndex": 0.92,
+      "climateIndex": 0.94
+    },
+    "Buraydah": {
+      "costIndex": 0.93,
+      "climateIndex": 1.08
+    },
+    "Jazan": {
+      "costIndex": 0.91,
+      "climateIndex": 1.22
+    },
+    "Najran": {
+      "costIndex": 0.92,
+      "climateIndex": 1.08
+    },
+    "AlUla": {
+      "costIndex": 1.08,
+      "climateIndex": 1.02
+    }
+  },
+  "finishes": {
+    "raw": {
+      "cost": 0.72,
+      "duration": 0.76,
+      "defects": 0.78
+    },
+    "standard": {
+      "cost": 1.0,
+      "duration": 1.0,
+      "defects": 1.0
+    },
+    "good": {
+      "cost": 1.12,
+      "duration": 1.08,
+      "defects": 1.08
+    },
+    "premium": {
+      "cost": 1.28,
+      "duration": 1.18,
+      "defects": 1.16
+    },
+    "luxury": {
+      "cost": 1.48,
+      "duration": 1.3,
+      "defects": 1.25
+    },
+    "specialized": {
+      "cost": 1.62,
+      "duration": 1.34,
+      "defects": 1.2
+    }
+  },
+  "methods": {
+    "traditional": {
+      "cost": 1.0,
+      "duration": 1.0,
+      "risk": 1.0
+    },
+    "design_build": {
+      "cost": 1.03,
+      "duration": 0.88,
+      "risk": 0.92
+    },
+    "precast": {
+      "cost": 1.06,
+      "duration": 0.76,
+      "risk": 0.88
+    },
+    "steel_frame": {
+      "cost": 1.1,
+      "duration": 0.72,
+      "risk": 0.9
+    },
+    "modular": {
+      "cost": 1.12,
+      "duration": 0.68,
+      "risk": 0.84
+    },
+    "rehabilitation": {
+      "cost": 1.08,
+      "duration": 1.12,
+      "risk": 1.18
+    }
+  },
+  "projectTypes": [
+    {
+      "key": "villa",
+      "aliases": [
+        "Villa"
+      ],
+      "family": "building",
+      "complexity": 4,
+      "area": [
+        180,
+        2500
+      ],
+      "floors": [
+        1,
+        4
+      ],
+      "costPerM2": 3800,
+      "durationMonths": 14,
+      "concrete": 0.28,
+      "steel": 0.035,
+      "blocks": 1.6,
+      "hvac": 4.2,
+      "electrical": 0.075,
+      "water": 8.0,
+      "risk": 0.26,
+      "defects": 1.8,
+      "capacity": 0.02,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "apartment",
+      "aliases": [
+        "Apartment_Finishing",
+        "Apartment"
+      ],
+      "family": "existing",
+      "complexity": 3,
+      "area": [
+        50,
+        600
+      ],
+      "floors": [
+        1,
+        1
+      ],
+      "costPerM2": 2500,
+      "durationMonths": 4,
+      "concrete": 0.01,
+      "steel": 0.001,
+      "blocks": 0.4,
+      "hvac": 4.5,
+      "electrical": 0.08,
+      "water": 7.0,
+      "risk": 0.2,
+      "defects": 2.2,
+      "capacity": 0.025,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "apartment_building",
+      "aliases": [
+        "Apartment_Building",
+        "Building"
+      ],
+      "family": "building",
+      "complexity": 6,
+      "area": [
+        2000,
+        60000
+      ],
+      "floors": [
+        3,
+        20
+      ],
+      "costPerM2": 4300,
+      "durationMonths": 25,
+      "concrete": 0.32,
+      "steel": 0.042,
+      "blocks": 1.75,
+      "hvac": 4.4,
+      "electrical": 0.082,
+      "water": 7.5,
+      "risk": 0.34,
+      "defects": 2.0,
+      "capacity": 0.022,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "residential_tower",
+      "aliases": [
+        "Residential_Tower",
+        "Tower"
+      ],
+      "family": "building",
+      "complexity": 8,
+      "area": [
+        12000,
+        220000
+      ],
+      "floors": [
+        12,
+        60
+      ],
+      "costPerM2": 6500,
+      "durationMonths": 42,
+      "concrete": 0.4,
+      "steel": 0.06,
+      "blocks": 1.6,
+      "hvac": 4.7,
+      "electrical": 0.095,
+      "water": 8.5,
+      "risk": 0.48,
+      "defects": 2.3,
+      "capacity": 0.024,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "residential_compound",
+      "aliases": [
+        "Residential_Compound",
+        "Compound"
+      ],
+      "family": "building",
+      "complexity": 7,
+      "area": [
+        10000,
+        300000
+      ],
+      "floors": [
+        2,
+        8
+      ],
+      "costPerM2": 4600,
+      "durationMonths": 36,
+      "concrete": 0.3,
+      "steel": 0.038,
+      "blocks": 1.8,
+      "hvac": 4.3,
+      "electrical": 0.08,
+      "water": 8.0,
+      "risk": 0.38,
+      "defects": 2.0,
+      "capacity": 0.021,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "mixed_use",
+      "aliases": [
+        "MixedUse",
+        "Mixed_Use"
+      ],
+      "family": "building",
+      "complexity": 9,
+      "area": [
+        15000,
+        320000
+      ],
+      "floors": [
+        5,
+        55
+      ],
+      "costPerM2": 6900,
+      "durationMonths": 46,
+      "concrete": 0.38,
+      "steel": 0.055,
+      "blocks": 1.55,
+      "hvac": 5.2,
+      "electrical": 0.115,
+      "water": 9.0,
+      "risk": 0.5,
+      "defects": 2.4,
+      "capacity": 0.032,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "office",
+      "aliases": [
+        "Office_Building",
+        "Office"
+      ],
+      "family": "building",
+      "complexity": 6,
+      "area": [
+        2000,
+        120000
+      ],
+      "floors": [
+        2,
+        35
+      ],
+      "costPerM2": 5000,
+      "durationMonths": 28,
+      "concrete": 0.3,
+      "steel": 0.04,
+      "blocks": 1.25,
+      "hvac": 5.2,
+      "electrical": 0.11,
+      "water": 5.0,
+      "risk": 0.34,
+      "defects": 1.8,
+      "capacity": 0.04,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "mall",
+      "aliases": [
+        "Mall"
+      ],
+      "family": "building",
+      "complexity": 8,
+      "area": [
+        10000,
+        260000
+      ],
+      "floors": [
+        2,
+        8
+      ],
+      "costPerM2": 5700,
+      "durationMonths": 34,
+      "concrete": 0.32,
+      "steel": 0.044,
+      "blocks": 1.2,
+      "hvac": 6.0,
+      "electrical": 0.135,
+      "water": 6.0,
+      "risk": 0.44,
+      "defects": 2.1,
+      "capacity": 0.08,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "hotel",
+      "aliases": [
+        "Hotel"
+      ],
+      "family": "building",
+      "complexity": 8,
+      "area": [
+        5000,
+        130000
+      ],
+      "floors": [
+        3,
+        40
+      ],
+      "costPerM2": 6600,
+      "durationMonths": 36,
+      "concrete": 0.34,
+      "steel": 0.046,
+      "blocks": 1.7,
+      "hvac": 5.4,
+      "electrical": 0.105,
+      "water": 13.0,
+      "risk": 0.43,
+      "defects": 2.5,
+      "capacity": 0.03,
+      "capacityUnit": "room"
+    },
+    {
+      "key": "hospital",
+      "aliases": [
+        "Hospital"
+      ],
+      "family": "building",
+      "complexity": 10,
+      "area": [
+        5000,
+        160000
+      ],
+      "floors": [
+        2,
+        20
+      ],
+      "costPerM2": 9200,
+      "durationMonths": 28,
+      "concrete": 0.38,
+      "steel": 0.052,
+      "blocks": 1.5,
+      "hvac": 7.5,
+      "electrical": 0.165,
+      "water": 5.0,
+      "waterPerCapacity": 450,
+      "risk": 0.54,
+      "defects": 2.8,
+      "capacity": 0.0035,
+      "capacityUnit": "bed"
+    },
+    {
+      "key": "school",
+      "aliases": [
+        "School"
+      ],
+      "family": "building",
+      "complexity": 5,
+      "area": [
+        2000,
+        60000
+      ],
+      "floors": [
+        1,
+        6
+      ],
+      "costPerM2": 4100,
+      "durationMonths": 22,
+      "concrete": 0.29,
+      "steel": 0.036,
+      "blocks": 1.65,
+      "hvac": 4.8,
+      "electrical": 0.085,
+      "water": 6.0,
+      "risk": 0.3,
+      "defects": 1.7,
+      "capacity": 0.06,
+      "capacityUnit": "student"
+    },
+    {
+      "key": "mosque",
+      "aliases": [
+        "Mosque"
+      ],
+      "family": "building",
+      "complexity": 6,
+      "area": [
+        500,
+        35000
+      ],
+      "floors": [
+        1,
+        5
+      ],
+      "costPerM2": 5200,
+      "durationMonths": 20,
+      "concrete": 0.31,
+      "steel": 0.04,
+      "blocks": 1.3,
+      "hvac": 5.6,
+      "electrical": 0.075,
+      "water": 9.0,
+      "risk": 0.31,
+      "defects": 1.8,
+      "capacity": 0.09,
+      "capacityUnit": "person"
+    },
+    {
+      "key": "sports",
+      "aliases": [
+        "Sports"
+      ],
+      "family": "site",
+      "complexity": 7,
+      "area": [
+        2000,
+        180000
+      ],
+      "floors": [
+        1,
+        8
+      ],
+      "costPerM2": 5700,
+      "durationMonths": 30,
+      "concrete": 0.28,
+      "steel": 0.05,
+      "blocks": 0.85,
+      "hvac": 4.5,
+      "electrical": 0.1,
+      "water": 7.0,
+      "risk": 0.41,
+      "defects": 1.7,
+      "capacity": 0.11,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "cultural",
+      "aliases": [
+        "Cultural"
+      ],
+      "family": "building",
+      "complexity": 7,
+      "area": [
+        1000,
+        110000
+      ],
+      "floors": [
+        1,
+        12
+      ],
+      "costPerM2": 5500,
+      "durationMonths": 28,
+      "concrete": 0.31,
+      "steel": 0.043,
+      "blocks": 1.3,
+      "hvac": 5.1,
+      "electrical": 0.1,
+      "water": 5.5,
+      "risk": 0.36,
+      "defects": 2.0,
+      "capacity": 0.055,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "data_center",
+      "aliases": [
+        "Data_Center"
+      ],
+      "family": "industrial",
+      "complexity": 10,
+      "area": [
+        2000,
+        100000
+      ],
+      "floors": [
+        1,
+        8
+      ],
+      "costPerM2": 11500,
+      "durationMonths": 30,
+      "concrete": 0.34,
+      "steel": 0.05,
+      "blocks": 0.65,
+      "hvac": 11.0,
+      "electrical": 0.42,
+      "water": 3.0,
+      "risk": 0.55,
+      "defects": 2.0,
+      "capacity": 0.01,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "factory",
+      "aliases": [
+        "Factory"
+      ],
+      "family": "industrial",
+      "complexity": 8,
+      "area": [
+        2000,
+        280000
+      ],
+      "floors": [
+        1,
+        5
+      ],
+      "costPerM2": 4700,
+      "durationMonths": 28,
+      "concrete": 0.24,
+      "steel": 0.05,
+      "blocks": 0.9,
+      "hvac": 4.2,
+      "electrical": 0.18,
+      "water": 6.0,
+      "risk": 0.46,
+      "defects": 1.9,
+      "capacity": 0.025,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "warehouse",
+      "aliases": [
+        "Warehouse"
+      ],
+      "family": "industrial",
+      "complexity": 4,
+      "area": [
+        1000,
+        350000
+      ],
+      "floors": [
+        1,
+        3
+      ],
+      "costPerM2": 2600,
+      "durationMonths": 18,
+      "concrete": 0.18,
+      "steel": 0.04,
+      "blocks": 0.55,
+      "hvac": 2.0,
+      "electrical": 0.07,
+      "water": 2.0,
+      "risk": 0.3,
+      "defects": 1.2,
+      "capacity": 0.008,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "power_plant",
+      "aliases": [
+        "Power_Plant"
+      ],
+      "family": "industrial",
+      "complexity": 10,
+      "area": [
+        5000,
+        250000
+      ],
+      "floors": [
+        1,
+        6
+      ],
+      "costPerM2": 14500,
+      "durationMonths": 48,
+      "concrete": 0.42,
+      "steel": 0.075,
+      "blocks": 0.45,
+      "hvac": 3.0,
+      "electrical": 0.5,
+      "water": 10.0,
+      "risk": 0.62,
+      "defects": 2.0,
+      "capacity": 0.005,
+      "capacityUnit": "MW"
+    },
+    {
+      "key": "renewable_energy",
+      "aliases": [
+        "Renewable_Energy"
+      ],
+      "family": "site",
+      "complexity": 7,
+      "area": [
+        10000,
+        2000000
+      ],
+      "floors": [
+        1,
+        1
+      ],
+      "costPerM2": 1200,
+      "durationMonths": 24,
+      "concrete": 0.08,
+      "steel": 0.025,
+      "blocks": 0.05,
+      "hvac": 0.2,
+      "electrical": 0.3,
+      "water": 0.5,
+      "risk": 0.38,
+      "defects": 0.7,
+      "capacity": 0.002,
+      "capacityUnit": "MW"
+    },
+    {
+      "key": "oil_gas",
+      "aliases": [
+        "Oil_Gas"
+      ],
+      "family": "industrial",
+      "complexity": 10,
+      "area": [
+        5000,
+        350000
+      ],
+      "floors": [
+        1,
+        5
+      ],
+      "costPerM2": 15500,
+      "durationMonths": 52,
+      "concrete": 0.3,
+      "steel": 0.09,
+      "blocks": 0.35,
+      "hvac": 2.5,
+      "electrical": 0.26,
+      "water": 8.0,
+      "risk": 0.68,
+      "defects": 2.2,
+      "capacity": 0.004,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "road",
+      "aliases": [
+        "Road"
+      ],
+      "family": "linear",
+      "complexity": 6,
+      "area": [
+        5000,
+        5000000
+      ],
+      "floors": [
+        1,
+        1
+      ],
+      "costPerM2": 900,
+      "durationMonths": 20,
+      "concrete": 0.04,
+      "steel": 0.004,
+      "blocks": 0.0,
+      "hvac": 0.0,
+      "electrical": 0.015,
+      "water": 0.2,
+      "risk": 0.37,
+      "defects": 0.8,
+      "capacity": 0.001,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "bridge",
+      "aliases": [
+        "Bridge"
+      ],
+      "family": "linear",
+      "complexity": 9,
+      "area": [
+        2000,
+        220000
+      ],
+      "floors": [
+        1,
+        1
+      ],
+      "costPerM2": 9500,
+      "durationMonths": 30,
+      "concrete": 0.65,
+      "steel": 0.11,
+      "blocks": 0.0,
+      "hvac": 0.0,
+      "electrical": 0.03,
+      "water": 0.2,
+      "risk": 0.58,
+      "defects": 1.4,
+      "capacity": 0.002,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "tunnel",
+      "aliases": [
+        "Tunnel"
+      ],
+      "family": "linear",
+      "complexity": 10,
+      "area": [
+        5000,
+        550000
+      ],
+      "floors": [
+        1,
+        1
+      ],
+      "costPerM2": 25000,
+      "durationMonths": 48,
+      "concrete": 0.85,
+      "steel": 0.13,
+      "blocks": 0.0,
+      "hvac": 1.8,
+      "electrical": 0.12,
+      "water": 0.5,
+      "risk": 0.72,
+      "defects": 1.8,
+      "capacity": 0.002,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "railway",
+      "aliases": [
+        "Railway"
+      ],
+      "family": "linear",
+      "complexity": 8,
+      "area": [
+        10000,
+        10000000
+      ],
+      "floors": [
+        1,
+        1
+      ],
+      "costPerM2": 3200,
+      "durationMonths": 40,
+      "concrete": 0.18,
+      "steel": 0.045,
+      "blocks": 0.0,
+      "hvac": 0.0,
+      "electrical": 0.055,
+      "water": 0.2,
+      "risk": 0.52,
+      "defects": 1.0,
+      "capacity": 0.001,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "airport",
+      "aliases": [
+        "Airport"
+      ],
+      "family": "site",
+      "complexity": 10,
+      "area": [
+        50000,
+        2500000
+      ],
+      "floors": [
+        1,
+        8
+      ],
+      "costPerM2": 10500,
+      "durationMonths": 60,
+      "concrete": 0.35,
+      "steel": 0.055,
+      "blocks": 0.75,
+      "hvac": 5.8,
+      "electrical": 0.18,
+      "water": 8.0,
+      "risk": 0.65,
+      "defects": 2.0,
+      "capacity": 0.08,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "port",
+      "aliases": [
+        "Port",
+        "Seaport"
+      ],
+      "family": "site",
+      "complexity": 9,
+      "area": [
+        50000,
+        3000000
+      ],
+      "floors": [
+        1,
+        4
+      ],
+      "costPerM2": 7200,
+      "durationMonths": 50,
+      "concrete": 0.42,
+      "steel": 0.075,
+      "blocks": 0.25,
+      "hvac": 1.0,
+      "electrical": 0.1,
+      "water": 3.0,
+      "risk": 0.61,
+      "defects": 1.5,
+      "capacity": 0.006,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "water",
+      "aliases": [
+        "Water",
+        "WaterTreatment"
+      ],
+      "family": "utility",
+      "complexity": 8,
+      "area": [
+        5000,
+        1000000
+      ],
+      "floors": [
+        1,
+        3
+      ],
+      "costPerM2": 5200,
+      "durationMonths": 34,
+      "concrete": 0.55,
+      "steel": 0.075,
+      "blocks": 0.2,
+      "hvac": 0.8,
+      "electrical": 0.13,
+      "water": 20.0,
+      "risk": 0.48,
+      "defects": 1.4,
+      "capacity": 0.02,
+      "capacityUnit": "m3/day"
+    },
+    {
+      "key": "dam",
+      "aliases": [
+        "Dam"
+      ],
+      "family": "utility",
+      "complexity": 10,
+      "area": [
+        10000,
+        2000000
+      ],
+      "floors": [
+        1,
+        1
+      ],
+      "costPerM2": 12000,
+      "durationMonths": 64,
+      "concrete": 1.1,
+      "steel": 0.1,
+      "blocks": 0.0,
+      "hvac": 0.0,
+      "electrical": 0.06,
+      "water": 1.0,
+      "risk": 0.7,
+      "defects": 1.2,
+      "capacity": 0.001,
+      "capacityUnit": "m3"
+    },
+    {
+      "key": "power",
+      "aliases": [
+        "Power",
+        "Substation"
+      ],
+      "family": "utility",
+      "complexity": 8,
+      "area": [
+        5000,
+        2000000
+      ],
+      "floors": [
+        1,
+        3
+      ],
+      "costPerM2": 4300,
+      "durationMonths": 30,
+      "concrete": 0.18,
+      "steel": 0.04,
+      "blocks": 0.2,
+      "hvac": 0.5,
+      "electrical": 0.55,
+      "water": 0.5,
+      "risk": 0.52,
+      "defects": 1.0,
+      "capacity": 0.002,
+      "capacityUnit": "MVA"
+    },
+    {
+      "key": "telecom",
+      "aliases": [
+        "Telecom"
+      ],
+      "family": "utility",
+      "complexity": 6,
+      "area": [
+        500,
+        500000
+      ],
+      "floors": [
+        1,
+        4
+      ],
+      "costPerM2": 4700,
+      "durationMonths": 20,
+      "concrete": 0.1,
+      "steel": 0.025,
+      "blocks": 0.15,
+      "hvac": 2.0,
+      "electrical": 0.22,
+      "water": 0.5,
+      "risk": 0.36,
+      "defects": 0.9,
+      "capacity": 0.003,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "landscape",
+      "aliases": [
+        "Landscape"
+      ],
+      "family": "site",
+      "complexity": 4,
+      "area": [
+        1000,
+        2000000
+      ],
+      "floors": [
+        1,
+        1
+      ],
+      "costPerM2": 850,
+      "durationMonths": 14,
+      "concrete": 0.03,
+      "steel": 0.002,
+      "blocks": 0.05,
+      "hvac": 0.0,
+      "electrical": 0.025,
+      "water": 12.0,
+      "risk": 0.25,
+      "defects": 0.8,
+      "capacity": 0.002,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "renovation",
+      "aliases": [
+        "Renovation"
+      ],
+      "family": "existing",
+      "complexity": 6,
+      "area": [
+        100,
+        200000
+      ],
+      "floors": [
+        1,
+        40
+      ],
+      "costPerM2": 2800,
+      "durationMonths": 16,
+      "concrete": 0.03,
+      "steel": 0.004,
+      "blocks": 0.45,
+      "hvac": 3.5,
+      "electrical": 0.07,
+      "water": 3.0,
+      "risk": 0.43,
+      "defects": 3.0,
+      "capacity": 0.03,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "heritage",
+      "aliases": [
+        "Heritage"
+      ],
+      "family": "existing",
+      "complexity": 9,
+      "area": [
+        300,
+        60000
+      ],
+      "floors": [
+        1,
+        8
+      ],
+      "costPerM2": 6800,
+      "durationMonths": 26,
+      "concrete": 0.02,
+      "steel": 0.003,
+      "blocks": 0.3,
+      "hvac": 2.8,
+      "electrical": 0.055,
+      "water": 2.5,
+      "risk": 0.62,
+      "defects": 4.0,
+      "capacity": 0.025,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "fitout",
+      "aliases": [
+        "Fitout"
+      ],
+      "family": "existing",
+      "complexity": 5,
+      "area": [
+        50,
+        120000
+      ],
+      "floors": [
+        1,
+        30
+      ],
+      "costPerM2": 3600,
+      "durationMonths": 12,
+      "concrete": 0.005,
+      "steel": 0.001,
+      "blocks": 0.35,
+      "hvac": 3.8,
+      "electrical": 0.085,
+      "water": 3.5,
+      "risk": 0.34,
+      "defects": 2.5,
+      "capacity": 0.04,
+      "capacityUnit": "scenario_capacity_index"
+    },
+    {
+      "key": "other",
+      "aliases": [
+        "Other",
+        "Infrastructure"
+      ],
+      "family": "other",
+      "complexity": 6,
+      "area": [
+        500,
+        120000
+      ],
+      "floors": [
+        1,
+        15
+      ],
+      "costPerM2": 4700,
+      "durationMonths": 24,
+      "concrete": 0.28,
+      "steel": 0.04,
+      "blocks": 1.0,
+      "hvac": 3.5,
+      "electrical": 0.085,
+      "water": 5.0,
+      "risk": 0.39,
+      "defects": 1.9,
+      "capacity": 0.025,
+      "capacityUnit": "scenario_capacity_index"
+    }
+  ],
+  "compatibility": {
+    "building": {
+      "methods": [
+        "traditional",
+        "precast",
+        "steel_frame",
+        "modular"
+      ],
+      "finishes": [
+        "raw",
+        "standard",
+        "good",
+        "premium",
+        "luxury",
+        "specialized"
+      ]
+    },
+    "industrial": {
+      "methods": [
+        "traditional",
+        "precast",
+        "steel_frame",
+        "modular"
+      ],
+      "finishes": [
+        "raw",
+        "standard",
+        "specialized"
+      ]
+    },
+    "existing": {
+      "methods": [
+        "rehabilitation"
+      ],
+      "finishes": [
+        "raw",
+        "standard",
+        "good",
+        "premium",
+        "luxury",
+        "specialized"
+      ]
+    },
+    "linear": {
+      "methods": [
+        "traditional"
+      ],
+      "finishes": [
+        "standard"
+      ]
+    },
+    "site": {
+      "methods": [
+        "traditional"
+      ],
+      "finishes": [
+        "standard",
+        "specialized"
+      ]
+    },
+    "utility": {
+      "methods": [
+        "traditional"
+      ],
+      "finishes": [
+        "standard",
+        "specialized"
+      ]
+    },
+    "other": {
+      "methods": [
+        "traditional"
+      ],
+      "finishes": [
+        "standard"
+      ]
+    }
+  },
+  "limitations": [
+    "Compatibility is a conservative research sampling policy, not an engineering design approval.",
+    "design_build is a legacy feature and is not sampled as a physical construction method.",
+    "scenario_capacity_index is synthetic and must not be interpreted as a physical capacity."
+  ]
+}
