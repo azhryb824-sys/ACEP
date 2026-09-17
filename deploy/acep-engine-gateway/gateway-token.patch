@@ -23,17 +23,547 @@ index 8999fef..25b44c1 100644
  # Vision provider policy. "none" keeps generation disabled.
  ACEP_IMAGE_PROVIDER=none
 diff --git a/ACEP/package.json b/ACEP/package.json
-index a027128..945bab9 100644
+index a027128..344f295 100644
 --- a/ACEP/package.json
 +++ b/ACEP/package.json
-@@ -30,6 +30,7 @@
+@@ -30,6 +30,9 @@
          "test:production-smoke": "node scripts/run-production-smoke.js",
          "test:engines-smoke": "node scripts/smoke-experiment-engines.js",
          "test:engines-matrix": "node scripts/smoke-experiment-matrix.js",
++        "test:engineering-acceptance": "node scripts/engineering-acceptance-benchmark.js",
++        "test:http-engineering-matrix": "node scripts/http-engineering-matrix.js",
 +        "train:models:million": "python3 scripts/train-million-project-models.py",
          "validate:data": "node scripts/validate-datasets.js",
          "normalize:uets-data": "node scripts/normalize-uets-datasets.js",
          "verify": "npm run lint && npm run build && npm run validate:data && npm run test:python && npm run test:coverage && npm run test:legacy && npm run test:e2e && npm run test:production-smoke",
+diff --git a/ACEP/packages/ai-engine/engineering-concept-estimator.js b/ACEP/packages/ai-engine/engineering-concept-estimator.js
+new file mode 100644
+index 0000000..5a23112
+--- /dev/null
++++ b/ACEP/packages/ai-engine/engineering-concept-estimator.js
+@@ -0,0 +1,475 @@
++'use strict';
++
++/**
++ * Engineering concept estimate library.
++ *
++ * This module deliberately produces a concept cost plan, not a tender BOQ.  It
++ * keeps quantities, work-package coverage, and cost composition internally
++ * consistent while drawings, specifications, and a dated rate book are absent.
++ * Rates are parametric allocations of the governed research cost prediction;
++ * they are never described as live market quotations.
++ */
++
++const VALID_UNITS = new Set(['مقطوعية', 'م²', 'م³', 'م طولي', 'كم', 'طن', 'عدد', 'نقطة', 'سرير', 'م.و', 'ك.ف.أ']);
++
++function finitePositive(value, fallback = null) {
++  const number = Number(value);
++  return Number.isFinite(number) && number > 0 ? number : fallback;
++}
++
++function round(value, digits = 2) {
++  const factor = 10 ** digits;
++  return Math.round((Number(value) + Number.EPSILON) * factor) / factor;
++}
++
++function perimeter(area) {
++  const width = Math.sqrt(Math.max(1, area) / 1.5);
++  return 2 * (width + width * 1.5);
++}
++
++function item(code, description, category, unit, quantity, share, calculationBasis, phase = 'CONCEPT') {
++  return { code, description, category, unit, quantity, share, calculationBasis, phase };
++}
++
++function getCostComposition(projectType, family) {
++  const contingencyByFamily = {
++    building: 0.08,
++    existing: 0.15,
++    industrial: 0.12,
++    linear: 0.11,
++    site: 0.10,
++    utility: 0.12,
++    other: 0.12
++  };
++  let contingencyRate = contingencyByFamily[family] ?? 0.12;
++  if (['hospital', 'data_center', 'tunnel', 'dam', 'oil_gas', 'heritage'].includes(projectType)) {
++    contingencyRate += 0.03;
++  }
++  return {
++    indirectRate: ['linear', 'site', 'utility'].includes(family) ? 0.11 : 0.10,
++    contingencyRate,
++    profitRate: 0.07,
++    taxRate: 0.15,
++    taxBasis: 'VAT applied after direct, indirect, contingency, and profit',
++    status: 'concept_assumption'
++  };
++}
++
++function allInFactor(composition) {
++  const beforeProfit = 1 + composition.indirectRate + composition.contingencyRate;
++  return beforeProfit * (1 + composition.profitRate) * (1 + composition.taxRate);
++}
++
++function buildingLines(type, c) {
++  const facade = perimeter(c.footprint) * Math.max(1, c.floors) * 3.6;
++  const external = Math.max(c.land - c.footprint, c.footprint * 0.15);
++  const lines = [
++    item('BLD-PRE-001', 'الأعمال التمهيدية وإدارة الموقع', 'Preliminaries', 'م²', c.gross, 0.055, 'المساحة المبنية الإجمالية'),
++    item('EXC-001', 'تجهيز الموقع والحفر والردم', 'Earthworks', 'م³', c.footprint * 1.5, 0.030, 'بصمة المبنى × عمق حفر مفاهيمي 1.5م'),
++    item('BLD-SUB-001', 'الأساسات والأعمال تحت منسوب الأرض', 'Substructure', 'م²', c.footprint * (1 + c.basements * 0.75), 0.095, 'البصمة مع أثر الأقبية'),
++    item('BLD-STR-001', 'الهيكل الإنشائي', 'Structure', 'م²', c.gross, 0.205, 'المساحة المبنية الإجمالية'),
++    item('BLD-ENV-001', 'الواجهات والعزل والأسقف', 'Envelope', 'م²', facade, 0.075, 'محيط تقريبي × ارتفاع الطوابق'),
++    item('BLD-ARC-001', 'القواطع والتشطيبات والأعمال المعمارية', 'Architecture', 'م²', c.gross, 0.135, 'المساحة المبنية الإجمالية'),
++    item('BLD-MEC-001', 'أنظمة التكييف والتهوية الميكانيكية', 'Mechanical', 'م²', c.gross, 0.105, 'المساحة المخدومة'),
++    item('BLD-ELE-001', 'القوى والإنارة والتيار الخفيف', 'Electrical', 'م²', c.gross, 0.100, 'المساحة المخدومة'),
++    item('BLD-PLB-001', 'المياه والصرف والتجهيزات الصحية', 'Plumbing', 'م²', c.gross, 0.055, 'المساحة المخدومة'),
++    item('BLD-FIR-001', 'الحريق والسلامة وأنظمة الإخلاء', 'FireLifeSafety', 'م²', c.gross, 0.045, 'المساحة المحمية'),
++    item('BLD-EXT-001', 'الطرق والمواقف وتنسيق الموقع', 'ExternalWorks', 'م²', external, 0.045, 'المساحة الخارجية المعالجة'),
++    item('BLD-COM-001', 'الاختبارات والتشغيل والتسليم', 'Commissioning', 'م²', c.gross, 0.025, 'المساحة المبنية الإجمالية')
++  ];
++  const specialist = {
++    hospital: ['BLD-SPC-HSP', 'حزمة الأنظمة السريرية والغازات الطبية والتعقيم', 'ClinicalSystems', 'سرير', c.capacity || Math.max(1, c.gross / 290), 0.090, 'عدد الأسرة المعلن أو المستنتج'],
++    hotel: ['BLD-SPC-HTL', 'حزمة غرف النزلاء والمطابخ والمغاسل', 'HospitalitySystems', 'عدد', c.capacity || Math.max(1, c.gross / 55), 0.060, 'عدد الغرف المعلن أو المستنتج'],
++    data_center: ['BLD-SPC-DCT', 'حزمة الطاقة الحرجة والتبريد والاحتواء', 'MissionCritical', 'ك.ف.أ', Math.max(1, c.electricalKVA), 0.180, 'الحمل الكهربائي المرجعي'],
++    mall: ['BLD-SPC-MAL', 'حزمة المناطق العامة والواجهات التجارية', 'RetailSystems', 'م²', c.gross, 0.050, 'المساحة المبنية الإجمالية'],
++    school: ['BLD-SPC-SCH', 'حزمة المختبرات والملاعب وتجهيزات التعليم', 'EducationSystems', 'عدد', c.capacity || Math.max(1, c.gross / 12), 0.045, 'سعة الطلاب المعلنة أو المستنتجة'],
++    mosque: ['BLD-SPC-MSQ', 'حزمة قاعة الصلاة والصوتيات والوضوء', 'WorshipSystems', 'عدد', c.capacity || Math.max(1, c.gross / 1.2), 0.045, 'سعة المصلين المعلنة أو المستنتجة'],
++    mixed_use: ['BLD-SPC-MIX', 'حزمة فصل الاستخدامات والأنظمة المشتركة', 'MixedUseInterfaces', 'م²', c.gross, 0.050, 'المساحة متعددة الاستخدامات']
++  }[type];
++  if (specialist) lines.push(item(...specialist));
++  return lines;
++}
++
++function industrialLines(type, c) {
++  const lines = [
++    item('IND-PRE-001', 'الأعمال التمهيدية والتجهيزات المؤقتة', 'Preliminaries', 'م²', c.gross, 0.055, 'المساحة الصناعية'),
++    item('IND-EAR-001', 'تسوية الموقع والأعمال الترابية', 'Earthworks', 'م²', c.land, 0.050, 'مساحة الموقع'),
++    item('IND-FND-001', 'الأساسات والقواعد للمباني والمعدات', 'Foundations', 'م²', c.footprint, 0.115, 'بصمة المنشآت'),
++    item('IND-FRM-001', 'الهيكل الإنشائي والإطارات', 'Structure', 'م²', c.gross, 0.170, 'المساحة المغطاة'),
++    item('IND-CLD-001', 'الأسقف والكسوات والعزل', 'Envelope', 'م²', c.gross, 0.080, 'المساحة المغطاة'),
++    item('IND-FLR-001', 'الأرضيات الصناعية والأحمال الخاصة', 'IndustrialFloor', 'م²', c.gross, 0.075, 'مساحة الأرضيات'),
++    item('IND-PRO-001', 'تركيبات العملية والخدمات الصناعية', 'ProcessSystems', 'م²', c.gross, type === 'warehouse' ? 0.055 : 0.155, 'المساحة الصناعية'),
++    item('IND-MEC-001', 'الأنظمة الميكانيكية والتهوية', 'Mechanical', 'م²', c.gross, 0.080, 'المساحة المخدومة'),
++    item('IND-ELE-001', 'القوى والتحكم والإنارة', 'Electrical', 'م²', c.gross, type === 'data_center' ? 0.180 : 0.105, 'المساحة المخدومة'),
++    item('IND-FIR-001', 'الحريق وكشف الغاز والسلامة', 'FireLifeSafety', 'م²', c.gross, 0.065, 'المساحة المحمية'),
++    item('IND-UTL-001', 'المرافق والشبكات الخارجية', 'Utilities', 'م²', c.land, 0.070, 'مساحة الموقع'),
++    item('IND-COM-001', 'التشغيل المتكامل واختبارات الأداء', 'Commissioning', 'م²', c.gross, type === 'data_center' ? 0.080 : 0.035, 'المساحة الصناعية')
++  ];
++  if (type === 'power_plant') lines.push(item('IND-SPC-PWR', 'معدات التوليد والربط وأنظمة القدرة', 'GenerationEquipment', 'م.و', c.capacity || 1, 0.260, 'القدرة المعلنة'));
++  if (type === 'oil_gas') lines.push(item('IND-SPC-OG', 'معدات العملية والأنابيب والآلات الدوارة', 'ProcessEquipment', 'مقطوعية', 1, 0.280, 'حزمة عملية مفاهيمية'));
++  if (type === 'data_center') lines.push(item('IND-SPC-DCT', 'الخوادم الحرجة وUPS والمولدات والتبريد الدقيق', 'MissionCritical', 'ك.ف.أ', Math.max(1, c.electricalKVA), 0.240, 'الحمل الكهربائي المرجعي'));
++  return lines;
++}
++
++function roadLines(c) {
++  const lanes = Math.max(2, Math.round(c.width / 3.5));
++  return [
++    item('RD-PRE-001', 'التعبئة وإدارة الحركة المؤقتة', 'Preliminaries', 'كم', c.length / 1000, 0.055, 'طول الطريق'),
++    item('RD-SUR-001', 'الرفع المساحي والتوقيع', 'Survey', 'كم', c.length / 1000, 0.020, 'طول الطريق'),
++    item('RD-CLR-001', 'إزالة العوائق وتنظيف الحرم', 'SiteClearance', 'م²', c.area, 0.025, 'الطول × العرض'),
++    item('RD-EWK-001', 'القطع والردم والأعمال الترابية', 'Earthworks', 'م³', c.area * 0.45, 0.115, 'مساحة الممر × عمق ترابي مفاهيمي 0.45م'),
++    item('RD-SUB-001', 'تحسين ودك التربة التأسيسية', 'Subgrade', 'م²', c.area, 0.070, 'مساحة الرصف'),
++    item('RD-SBB-001', 'طبقة تحت الأساس الحصوية', 'Subbase', 'م³', c.area * 0.25, 0.095, 'مساحة الرصف × 0.25م'),
++    item('RD-BAS-001', 'طبقة الأساس الحصوية', 'Roadbase', 'م³', c.area * 0.20, 0.095, 'مساحة الرصف × 0.20م'),
++    item('RD-ASB-001', 'الطبقة الإسفلتية الرابطة', 'Asphalt', 'طن', c.area * 0.07 * 2.35, 0.135, 'مساحة الرصف × 0.07م × كثافة 2.35طن/م³'),
++    item('RD-ASW-001', 'طبقة الإسفلت السطحية', 'Asphalt', 'طن', c.area * 0.05 * 2.35, 0.125, 'مساحة الرصف × 0.05م × كثافة 2.35طن/م³'),
++    item('RD-DRN-001', 'تصريف مياه الأمطار والعبارات', 'Drainage', 'م طولي', c.length * 2, 0.085, 'جانبا الطريق'),
++    item('RD-KRB-001', 'الأرصفة والبردورات', 'Kerbs', 'م طولي', c.length * 2, 0.040, 'جانبا الطريق'),
++    item('RD-MRK-001', 'الدهانات والعلامات الأرضية', 'RoadMarking', 'م طولي', c.length * (lanes + 1), 0.025, 'خطوط المسارات والحواف'),
++    item('RD-LGT-001', 'إنارة الطريق', 'Lighting', 'نقطة', Math.max(1, Math.ceil(c.length / 35)), 0.040, 'نقطة كل 35م تقريبًا'),
++    item('RD-SGN-001', 'اللوحات والحواجز وتجهيزات السلامة', 'RoadFurniture', 'عدد', Math.max(1, Math.ceil(c.length / 250)), 0.035, 'توزيع مفاهيمي على طول المسار'),
++    item('RD-UTL-001', 'تحويل وحماية الخدمات القائمة', 'UtilityDiversions', 'كم', c.length / 1000, 0.040, 'طول الطريق')
++  ];
++}
++
++function bridgeLines(c) {
++  return [
++    item('BR-PRE-001', 'التعبئة وإدارة الموقع والتحويلات', 'Preliminaries', 'م²', c.area, 0.055, 'مساحة سطح الجسر'),
++    item('BR-SUR-001', 'الرفع والتحريات الجيوتقنية والهيدرولوجية', 'Investigations', 'م طولي', c.length, 0.035, 'طول الجسر'),
++    item('BR-FND-001', 'الخوازيق والقواعد والدعامات', 'Substructure', 'م³', c.area * 0.55, 0.245, 'حجم خرساني مفاهيمي للبنية التحتية'),
++    item('BR-SUP-001', 'الكمرات والبلاطة والهيكل العلوي', 'Superstructure', 'م³', c.area * 0.50, 0.270, 'حجم خرساني مفاهيمي للهيكل العلوي'),
++    item('BR-STL-001', 'حديد التسليح والشد اللاحق', 'StructuralSteel', 'طن', c.area * 0.11, 0.135, 'معدل 0.11 طن/م² سطح'),
++    item('BR-BRG-001', 'المساند وفواصل التمدد', 'BearingsJoints', 'عدد', Math.max(4, Math.ceil(c.length / 35) * 4), 0.060, 'حسب عدد البحور المفاهيمي'),
++    item('BR-DEC-001', 'عزل ورصف سطح الجسر', 'DeckFinishes', 'م²', c.area, 0.055, 'مساحة السطح'),
++    item('BR-DRN-001', 'تصريف السطح', 'Drainage', 'م طولي', c.length * 2, 0.025, 'جانبا الجسر'),
++    item('BR-SAF-001', 'الحواجز والدرابزين واللوحات', 'RoadFurniture', 'م طولي', c.length * 2, 0.040, 'جانبا الجسر'),
++    item('BR-APP-001', 'طرق الاقتراب والحماية', 'ApproachWorks', 'م²', Math.max(c.area * 0.5, c.width * 200), 0.050, 'منطقتا الاقتراب'),
++    item('BR-COM-001', 'اختبارات التحميل والتشغيل', 'Commissioning', 'مقطوعية', 1, 0.030, 'حزمة اختبار واحدة')
++  ];
++}
++
++function tunnelLines(c) {
++  return [
++    item('TN-PRE-001', 'التعبئة والتحريات ومراقبة الحركة الأرضية', 'Preliminaries', 'م طولي', c.length, 0.055, 'طول النفق'),
++    item('TN-EXC-001', 'الحفر والدعم الأولي', 'ExcavationSupport', 'م³', c.area * 0.85, 0.260, 'مساحة المقطع المعالجة × معامل الحفر'),
++    item('TN-LIN-001', 'البطانة الخرسانية الدائمة', 'Lining', 'م³', c.area * 0.35, 0.180, 'حجم بطانة مفاهيمي'),
++    item('TN-WPR-001', 'العزل المائي والحقن', 'Waterproofing', 'م²', c.area * 1.8, 0.055, 'مساحة غلاف مفاهيمية'),
++    item('TN-SLB-001', 'بلاطة الطريق أو السكة', 'TrackRoadSlab', 'م²', c.area, 0.080, 'المساحة المعالجة'),
++    item('TN-VEN-001', 'التهوية والتحكم بالدخان', 'Ventilation', 'م طولي', c.length, 0.105, 'طول النفق'),
++    item('TN-FIR-001', 'الحريق والإخلاء ومخارج الطوارئ', 'FireLifeSafety', 'م طولي', c.length, 0.090, 'طول النفق'),
++    item('TN-ELE-001', 'القوى والإنارة والتحكم والاتصالات', 'ElectricalControls', 'م طولي', c.length, 0.095, 'طول النفق'),
++    item('TN-DRN-001', 'الصرف ومحطات الضخ', 'Drainage', 'م طولي', c.length * 2, 0.050, 'خطا صرف طوليان'),
++    item('TN-COM-001', 'التشغيل المتكامل وسيناريوهات الطوارئ', 'Commissioning', 'مقطوعية', 1, 0.030, 'حزمة اختبار واحدة')
++  ];
++}
++
++function railwayLines(c) {
++  return [
++    item('RL-PRE-001', 'التعبئة والمسح والتحريات', 'Preliminaries', 'كم', c.length / 1000, 0.045, 'طول المسار'),
++    item('RL-EWK-001', 'الأعمال الترابية وتشكيل المسار', 'Earthworks', 'م³', c.area * 0.60, 0.160, 'مساحة الحرم × عمق مفاهيمي'),
++    item('RL-DRN-001', 'الصرف والعبارات', 'Drainage', 'م طولي', c.length * 2, 0.065, 'جانبا المسار'),
++    item('RL-FRM-001', 'طبقات التأسيس وتحت البالاست', 'Formation', 'م³', c.area * 0.35, 0.115, 'مساحة المسار × 0.35م'),
++    item('RL-BAL-001', 'البالاست', 'Ballast', 'م³', c.area * 0.30, 0.080, 'مساحة المسار × 0.30م'),
++    item('RL-TRK-001', 'القضبان والفلنكات والمثبتات', 'Trackwork', 'كم', c.length / 1000, 0.210, 'طول السكة'),
++    item('RL-SIG-001', 'الإشارات والاتصالات والتحكم', 'Signalling', 'كم', c.length / 1000, 0.115, 'طول المسار'),
++    item('RL-PWR-001', 'الكهربة ومحطات التغذية', 'TractionPower', 'كم', c.length / 1000, 0.105, 'طول المسار'),
++    item('RL-COM-001', 'الاختبارات والتشغيل التجريبي', 'Commissioning', 'كم', c.length / 1000, 0.055, 'طول المسار')
++  ];
++}
++
++function renewableLines(c) {
++  const capacity = c.capacity || Math.max(1, c.land / 10000);
++  return [
++    item('RE-PRE-001', 'الدراسات والتعبئة وإدارة الموقع', 'Preliminaries', 'م.و', capacity, 0.045, 'القدرة المعلنة'),
++    item('RE-CIV-001', 'التسوية والطرق والأساسات', 'CivilWorks', 'م²', c.land, 0.105, 'مساحة الموقع'),
++    item('RE-GEN-001', 'وحدات التوليد المتجدد', 'GenerationEquipment', 'م.و', capacity, 0.355, 'القدرة المعلنة'),
++    item('RE-MNT-001', 'الهياكل وأنظمة التتبع', 'MountingSystems', 'م.و', capacity, 0.120, 'القدرة المعلنة'),
++    item('RE-DC-001', 'شبكات التيار المستمر والتجميع', 'DCCollection', 'م.و', capacity, 0.085, 'القدرة المعلنة'),
++    item('RE-INV-001', 'العواكس ومحطات التحويل', 'InvertersTransformers', 'م.و', capacity, 0.115, 'القدرة المعلنة'),
++    item('RE-GRD-001', 'محطة الربط وخط التصدير', 'GridConnection', 'م.و', capacity, 0.095, 'القدرة المعلنة'),
++    item('RE-SCA-001', 'الحماية والتحكم وSCADA والأرصاد', 'Controls', 'م.و', capacity, 0.040, 'القدرة المعلنة'),
++    item('RE-SEC-001', 'السياج والأمن والمراقبة', 'Security', 'م طولي', perimeter(c.land), 0.020, 'محيط الموقع التقريبي'),
++    item('RE-COM-001', 'الاختبارات والتشغيل وقياس الأداء', 'Commissioning', 'م.و', capacity, 0.020, 'القدرة المعلنة')
++  ];
++}
++
++function waterLines(c) {
++  if (c.length > 0) {
++    const diameter = Math.max(0.2, Math.min(2.0, Math.sqrt((c.capacity || 10000) / 86400 / 1.2 / Math.PI) * 2));
++    return [
++      item('WT-PRE-001', 'التعبئة والمسح وكشف الخدمات', 'Preliminaries', 'كم', c.length / 1000, 0.055, 'طول الخط'),
++      item('WT-TRN-001', 'حفر الخندق وتدعيمه ونزح المياه', 'Trenching', 'م³', c.length * c.width * 2.2, 0.155, 'الطول × عرض الخندق × عمق مفاهيمي'),
++      item('WT-BED-001', 'فرشة وإحاطة الأنبوب', 'Bedding', 'م³', c.length * c.width * 0.55, 0.065, 'الطول × عرض الخندق × 0.55م'),
++      item('WT-PIP-001', 'توريد وتركيب خط الأنابيب', 'Pipeline', 'م طولي', c.length, 0.360, `طول الخط؛ قطر هيدروليكي مرجعي ${round(diameter, 2)}م`),
++      item('WT-VLV-001', 'غرف المحابس والملحقات', 'ValvesChambers', 'عدد', Math.max(2, Math.ceil(c.length / 1000)), 0.105, 'غرفة لكل كيلومتر تقريبًا'),
++      item('WT-TST-001', 'الاختبار والتطهير والتشغيل', 'TestingCommissioning', 'م طولي', c.length, 0.055, 'طول الخط'),
++      item('WT-REI-001', 'إعادة الوضع والطرق والمعابر', 'Reinstatement', 'م²', c.length * c.width, 0.145, 'مساحة مسار الخندق'),
++      item('WT-CNT-001', 'القياس والتحكم وSCADA', 'Controls', 'عدد', Math.max(1, Math.ceil(c.length / 5000)), 0.060, 'نقاط تحكم موزعة')
++    ];
++  }
++  return [
++    item('WTP-PRE-001', 'الدراسات والتعبئة والأعمال المؤقتة', 'Preliminaries', 'م²', c.land, 0.055, 'مساحة الموقع'),
++    item('WTP-CIV-001', 'الأحواض والمنشآت الخرسانية', 'CivilStructures', 'م³', c.area * 0.55, 0.235, 'حجم خرساني مفاهيمي'),
++    item('WTP-PRO-001', 'معدات المعالجة والمرشحات', 'ProcessEquipment', 'مقطوعية', 1, 0.285, 'حزمة معالجة مفاهيمية'),
++    item('WTP-PMP-001', 'المضخات والأنابيب والصمامات', 'Mechanical', 'مقطوعية', 1, 0.155, 'حزمة ميكانيكية'),
++    item('WTP-ELE-001', 'القوى والتوزيع والمولدات', 'Electrical', 'ك.ف.أ', Math.max(1, c.electricalKVA), 0.105, 'الحمل المرجعي'),
++    item('WTP-ICA-001', 'الأجهزة والتحكم وSCADA', 'Controls', 'مقطوعية', 1, 0.080, 'حزمة تحكم'),
++    item('WTP-EXT-001', 'الخزانات والشبكات والأعمال الخارجية', 'ExternalWorks', 'م²', c.land, 0.055, 'مساحة الموقع'),
++    item('WTP-COM-001', 'اختبارات الأداء والتشغيل', 'Commissioning', 'مقطوعية', 1, 0.030, 'حزمة اختبار واحدة')
++  ];
++}
++
++function powerLines(c) {
++  const capacity = c.capacity || Math.max(1, c.electricalKVA / 1000);
++  return [
++    item('PW-PRE-001', 'الدراسات والتعبئة والتنسيق مع الشبكة', 'Preliminaries', 'مقطوعية', 1, 0.050, 'حزمة واحدة'),
++    item('PW-CIV-001', 'المباني والقواعد والممرات والخنادق', 'CivilWorks', 'م²', c.land, 0.140, 'مساحة الموقع'),
++    item('PW-TRF-001', 'المحولات ومعدات الجهد العالي', 'PrimaryEquipment', 'م.و', capacity, 0.315, 'السعة المعلنة أو المرجعية'),
++    item('PW-SWG-001', 'المفاتيح والقضبان ومعدات الحماية', 'Switchgear', 'م.و', capacity, 0.180, 'السعة المعلنة أو المرجعية'),
++    item('PW-CAB-001', 'الكابلات والنهايات ومساراتها', 'Cabling', 'م طولي', Math.max(100, c.land * 0.12), 0.115, 'طول كابلات مفاهيمي'),
++    item('PW-EAR-001', 'شبكة التأريض والحماية من الصواعق', 'Earthing', 'م²', c.land, 0.050, 'مساحة الموقع'),
++    item('PW-CTL-001', 'الحماية والتحكم والاتصالات وSCADA', 'Controls', 'مقطوعية', 1, 0.095, 'حزمة تحكم'),
++    item('PW-COM-001', 'الاختبارات والربط والتشغيل', 'Commissioning', 'م.و', capacity, 0.055, 'السعة المعلنة أو المرجعية')
++  ];
++}
++
++function damLines(c) {
++  return [
++    item('DM-PRE-001', 'التحريات والتعبئة وتحويل المجرى', 'Preliminaries', 'مقطوعية', 1, 0.070, 'حزمة واحدة'),
++    item('DM-EXC-001', 'الحفر والمعالجة الجيوتقنية', 'Excavation', 'م³', c.area * 0.9, 0.135, 'مساحة الأعمال × عمق مفاهيمي'),
++    item('DM-BDY-001', 'جسم السد والردميات أو الخرسانة', 'DamBody', 'م³', c.area * 1.1, 0.330, 'حجم مرجعي من نموذج النوع'),
++    item('DM-SPW-001', 'المفيض ومنشآت التبديد', 'Spillway', 'مقطوعية', 1, 0.150, 'حزمة مفيض'),
++    item('DM-INT-001', 'المآخذ والمخارج والبوابات', 'HydraulicStructures', 'مقطوعية', 1, 0.120, 'حزمة هيدروليكية'),
++    item('DM-GRT-001', 'الحقن والستارة القاطعة والصرف', 'GroundTreatment', 'م²', c.area, 0.080, 'مساحة المعالجة'),
++    item('DM-INS-001', 'الأجهزة والمراقبة والتحكم', 'Instrumentation', 'عدد', Math.max(10, Math.ceil(c.area / 5000)), 0.055, 'نقاط مراقبة مفاهيمية'),
++    item('DM-EXT-001', 'طرق الوصول والمرافق', 'ExternalWorks', 'م²', c.land, 0.040, 'مساحة الموقع'),
++    item('DM-COM-001', 'الملء الأول والتشغيل وخطة الطوارئ', 'Commissioning', 'مقطوعية', 1, 0.020, 'حزمة واحدة')
++  ];
++}
++
++function telecomLines(c) {
++  const length = c.length || Math.sqrt(c.land) * 4;
++  return [
++    item('TC-PRE-001', 'التصميم والمسح والتصاريح', 'Preliminaries', 'كم', length / 1000, 0.060, 'طول الشبكة'),
++    item('TC-CIV-001', 'الحفر والدكت وغرف التفتيش', 'CivilWorks', 'م طولي', length, 0.210, 'طول الشبكة'),
++    item('TC-FBR-001', 'كابلات الألياف والوصلات', 'FiberNetwork', 'م طولي', length, 0.250, 'طول الشبكة'),
++    item('TC-TWR-001', 'الأبراج والقواعد والهوائيات', 'Towers', 'عدد', Math.max(1, Math.ceil(length / 5000)), 0.180, 'برج لكل 5كم تقريبًا'),
++    item('TC-ACT-001', 'المعدات النشطة ومراكز التجميع', 'ActiveEquipment', 'عدد', Math.max(1, Math.ceil(length / 2500)), 0.170, 'عقد شبكة موزعة'),
++    item('TC-PWR-001', 'الطاقة الاحتياطية والتأريض', 'Power', 'عدد', Math.max(1, Math.ceil(length / 5000)), 0.075, 'حسب مواقع الأبراج'),
++    item('TC-NMS-001', 'إدارة الشبكة والأمن السيبراني', 'Controls', 'مقطوعية', 1, 0.035, 'حزمة واحدة'),
++    item('TC-COM-001', 'الاختبارات والقبول والتشغيل', 'Commissioning', 'كم', length / 1000, 0.020, 'طول الشبكة')
++  ];
++}
++
++function landscapeLines(c) {
++  return [
++    item('LS-PRE-001', 'المسح والتعبئة وحماية الموقع', 'Preliminaries', 'م²', c.land, 0.050, 'مساحة الموقع'),
++    item('LS-EWK-001', 'التشكيل والأعمال الترابية وتحسين التربة', 'Earthworks', 'م³', c.land * 0.20, 0.105, 'مساحة الموقع × 0.20م'),
++    item('LS-HRD-001', 'الرصف والساحات والعناصر الصلبة', 'Hardscape', 'م²', c.land * 0.35, 0.270, '35% من مساحة الموقع'),
++    item('LS-SFT-001', 'الزراعة والأشجار والتربة الزراعية', 'Softscape', 'م²', c.land * 0.50, 0.205, '50% من مساحة الموقع'),
++    item('LS-IRR-001', 'شبكة الري والتحكم', 'Irrigation', 'م²', c.land * 0.50, 0.130, 'المساحة المزروعة'),
++    item('LS-LGT-001', 'إنارة الموقع', 'Lighting', 'نقطة', Math.max(1, Math.ceil(c.land / 400)), 0.085, 'نقطة لكل 400م² تقريبًا'),
++    item('LS-DRN-001', 'الصرف السطحي وإدارة مياه الأمطار', 'Drainage', 'م²', c.land, 0.075, 'مساحة الموقع'),
++    item('LS-FUR-001', 'الأثاث والعلامات وتجهيزات الموقع', 'SiteFurniture', 'عدد', Math.max(1, Math.ceil(c.land / 800)), 0.055, 'عنصر لكل 800م² تقريبًا'),
++    item('LS-COM-001', 'الاختبارات وفترة التأسيس والصيانة الأولية', 'Commissioning', 'م²', c.land, 0.025, 'مساحة الموقع')
++  ];
++}
++
++function existingLines(type, c) {
++  const conservation = type === 'heritage';
++  return [
++    item('EX-PRE-001', 'المسح وفتح العينات والتوثيق', 'Investigations', 'م²', c.gross, conservation ? 0.085 : 0.050, 'المساحة القائمة'),
++    item('EX-DEM-001', 'الإزالة الانتقائية والتخلص', 'Demolition', 'م²', c.gross, 0.100, 'المساحة القائمة'),
++    item('EX-REP-001', conservation ? 'تدعيم وترميم النسيج التاريخي' : 'الإصلاحات والتدعيم الإنشائي', conservation ? 'Conservation' : 'StructuralRepairs', 'م²', c.gross, conservation ? 0.220 : 0.120, 'المساحة القائمة'),
++    item('EX-ENV-001', 'إصلاح الغلاف والعزل ومنع التسرب', 'Envelope', 'م²', perimeter(c.footprint) * c.floors * 3.3, 0.095, 'مساحة الواجهات التقريبية'),
++    item('EX-ARC-001', 'القواطع والتشطيبات والتجهيز الداخلي', 'Architecture', 'م²', c.gross, type === 'fitout' ? 0.260 : 0.185, 'المساحة القائمة'),
++    item('EX-MEP-001', 'تجديد الأنظمة الميكانيكية والصحية', 'Mechanical', 'م²', c.gross, 0.135, 'المساحة المخدومة'),
++    item('EX-ELE-001', 'تجديد القوى والإنارة والتيار الخفيف', 'Electrical', 'م²', c.gross, 0.115, 'المساحة المخدومة'),
++    item('EX-FIR-001', 'تحديث الحريق والسلامة', 'FireLifeSafety', 'م²', c.gross, 0.060, 'المساحة المحمية'),
++    item('EX-EXT-001', 'إعادة الوضع والأعمال الخارجية', 'ExternalWorks', 'م²', Math.max(1, c.land - c.footprint), 0.035, 'المساحة الخارجية'),
++    item('EX-COM-001', 'الاختبارات والتشغيل والتسليم المرحلي', 'Commissioning', 'م²', c.gross, 0.035, 'المساحة القائمة')
++  ];
++}
++
++function genericSiteLines(type, c) {
++  const label = type === 'airport' ? 'المطار' : type === 'port' ? 'الميناء' : type === 'sports' ? 'المنشأة الرياضية' : 'الموقع';
++  return [
++    item('ST-PRE-001', `الدراسات والتعبئة وإدارة ${label}`, 'Preliminaries', 'م²', c.land, 0.055, 'مساحة الموقع'),
++    item('ST-EWK-001', 'التسوية والأعمال الترابية', 'Earthworks', 'م³', c.land * 0.35, 0.125, 'مساحة الموقع × عمق مفاهيمي'),
++    item('ST-CIV-001', 'المنشآت والأعمال المدنية الرئيسية', 'CivilWorks', 'م²', c.area, 0.220, 'المساحة المعالجة'),
++    item('ST-PAV-001', 'الساحات والطرق والرصف التشغيلي', 'Pavements', 'م²', c.land * 0.55, 0.185, '55% من الموقع'),
++    item('ST-BLD-001', 'المباني التشغيلية والخدمية', 'Buildings', 'م²', Math.max(c.area * 0.15, c.gross * 0.15), 0.145, 'حصة مبانٍ تشغيلية مفاهيمية'),
++    item('ST-MEP-001', 'المرافق والأنظمة الميكانيكية والكهربائية', 'Utilities', 'م²', c.land, 0.125, 'مساحة الموقع'),
++    item('ST-SPC-001', 'المعدات والأنظمة التشغيلية المتخصصة', 'SpecialistSystems', 'مقطوعية', 1, 0.095, 'حزمة متخصصة'),
++    item('ST-SAF-001', 'الأمن والسلامة والتحكم', 'SafetySecurity', 'مقطوعية', 1, 0.030, 'حزمة واحدة'),
++    item('ST-COM-001', 'اختبارات التكامل والتشغيل', 'Commissioning', 'مقطوعية', 1, 0.020, 'حزمة واحدة')
++  ];
++}
++
++function genericLines(c) {
++  return [
++    item('GN-PRE-001', 'الدراسات والتعبئة وإدارة المشروع', 'Preliminaries', 'م²', c.area, 0.080, 'المساحة المعالجة'),
++    item('GN-CIV-001', 'الأعمال المدنية والإنشائية', 'CivilWorks', 'م²', c.area, 0.300, 'المساحة المعالجة'),
++    item('GN-ARC-001', 'الأعمال المعمارية والتشطيبات', 'Architecture', 'م²', c.area, 0.180, 'المساحة المعالجة'),
++    item('GN-MEP-001', 'الأعمال الميكانيكية والصحية', 'Mechanical', 'م²', c.area, 0.150, 'المساحة المعالجة'),
++    item('GN-ELE-001', 'الأعمال الكهربائية والتحكم', 'Electrical', 'م²', c.area, 0.140, 'المساحة المعالجة'),
++    item('GN-EXT-001', 'المرافق والأعمال الخارجية', 'ExternalWorks', 'م²', c.land, 0.100, 'مساحة الموقع'),
++    item('GN-COM-001', 'الاختبارات والتشغيل والتسليم', 'Commissioning', 'مقطوعية', 1, 0.050, 'حزمة واحدة')
++  ];
++}
++
++function selectLines(type, family, c) {
++  if (type === 'road') return roadLines(c);
++  if (type === 'bridge') return bridgeLines(c);
++  if (type === 'tunnel') return tunnelLines(c);
++  if (type === 'railway') return railwayLines(c);
++  if (type === 'renewable_energy') return renewableLines(c);
++  if (type === 'water') return waterLines(c);
++  if (type === 'dam') return damLines(c);
++  if (type === 'power') return powerLines(c);
++  if (type === 'telecom') return telecomLines(c);
++  if (type === 'landscape') return landscapeLines(c);
++  if (['airport', 'port', 'sports'].includes(type)) return genericSiteLines(type, c);
++  if (family === 'existing') return existingLines(type, c);
++  if (family === 'industrial') return industrialLines(type, c);
++  if (family === 'building') return buildingLines(type, c);
++  if (family === 'site') return genericSiteLines(type, c);
++  return genericLines(c);
++}
++
++function buildConceptEstimate(prediction, extra = {}) {
++  if (!prediction?.available) return null;
++  const type = prediction.projectType;
++  const family = prediction.family;
++  const gross = finitePositive(prediction.inputs.grossBuiltArea, 1);
++  const footprint = finitePositive(prediction.inputs.footprintArea, gross);
++  const land = finitePositive(prediction.inputs.landArea, footprint * 1.2);
++  const suppliedLength = finitePositive(extra.length);
++  const suppliedWidth = finitePositive(extra.width);
++  let width = suppliedWidth;
++  let length = suppliedLength;
++  if (!length && width) length = gross / width;
++  if (!width && length) width = gross / length;
++  if (!length && ['linear', 'utility'].includes(family)) {
++    width = width || ({ road: 24, bridge: 20, tunnel: 12, railway: 12, water: 2, telecom: 1.2 }[type] || 10);
++    length = gross / width;
++  }
++  length = length || Math.sqrt(gross * 1.5);
++  width = width || gross / length;
++
++  const context = {
++    type,
++    family,
++    gross,
++    area: gross,
++    footprint,
++    land,
++    floors: finitePositive(prediction.inputs.floors, 1),
++    basements: Math.max(0, Number(prediction.inputs.basements) || 0),
++    capacity: finitePositive(extra.capacity, finitePositive(prediction.inputs.capacity)),
++    length,
++    width,
++    electricalKVA: finitePositive(prediction.predictions.electricalKVA, 1)
++  };
++  const definitions = selectLines(type, family, context).filter(definition => finitePositive(definition.quantity));
++  const totalShare = definitions.reduce((sum, definition) => sum + definition.share, 0);
++  const composition = getCostComposition(type, family);
++  const modelAllInCost = finitePositive(prediction.predictions.costSar, 0);
++  const directBudget = modelAllInCost / allInFactor(composition);
++  const items = definitions.map((definition, index) => {
++    const quantity = round(definition.quantity, 2);
++    const normalizedShare = definition.share / totalShare;
++    const allocatedCost = directBudget * normalizedShare;
++    const unitPrice = round(allocatedCost / quantity, 2);
++    const totalPrice = round(quantity * unitPrice, 2);
++    return {
++      code: definition.code,
++      description: definition.description,
++      category: definition.category,
++      material: definition.category,
++      unit: VALID_UNITS.has(definition.unit) ? definition.unit : 'مقطوعية',
++      quantity,
++      unitPrice,
++      totalPrice,
++      phase: definition.phase,
++      phaseName: 'تقدير مفاهيمي',
++      calculationMethod: definition.calculationBasis,
++      quantityFormula: definition.calculationBasis,
++      dataSource: `${prediction.modelId}:engineering-work-package-library`,
++      rateBasis: 'parametric_cost_allocation_not_live_market_rate',
++      costShare: round(normalizedShare, 5),
++      confidence: 0.62,
++      estimateStatus: 'experimental_concept_cost_plan',
++      insufficient: false,
++      editable: true,
++      needsReview: true,
++      contractualUse: false,
++      suitableForProcurement: false,
++      sequence: index + 1
++    };
++  });
++  const directCost = round(items.reduce((sum, current) => sum + current.totalPrice, 0), 2);
++  const categories = [...new Set(items.map(current => current.category))];
++  return {
++    items,
++    suggestedItems: [],
++    assumptions: items.map(current => ({
++      code: current.code,
++      description: current.description,
++      quantity: current.quantity,
++      unit: current.unit,
++      calculationMethod: current.calculationMethod,
++      rateBasis: current.rateBasis,
++      requiresConfirmation: true
++    })),
++    lifecyclePhases: [{ id: 'CONCEPT', name: 'خطة تكلفة مفاهيمية', order: 0 }],
++    phase: 'Conceptual',
++    summary: {
++      totalItems: items.length,
++      insufficientCount: 0,
++      suggestedCount: 0,
++      totalCost: directCost,
++      directCost,
++      modelAllInCost: round(modelAllInCost, 2),
++      averageConfidence: 0.62,
++      phasesUsed: 1,
++      engineVersion: '5.0-engineering-concept',
++      generatedAt: new Date().toISOString(),
++      dataSource: `${prediction.modelId}:engineering-work-package-library`,
++      dataProvenance: prediction.dataProvenance,
++      status: 'experimental_concept_cost_plan',
++      detailLevel: 'concept_cost_plan',
++      projectType: type,
++      family,
++      categories,
++      costComposition: composition,
++      trainingDataAvailable: prediction.trainingRecords,
++      trainedReference: {
++        modelId: prediction.modelId,
++        projectType: prediction.projectType,
++        trainingRecords: prediction.trainingRecords,
++        dataProvenance: prediction.dataProvenance,
++        quantities: Object.fromEntries(['concreteM3', 'steelTon', 'blocksM2', 'hvacTR', 'electricalKVA', 'waterLpd']
++          .map(target => [target, round(prediction.predictions[target], 2)])),
++        intervals: prediction.intervals,
++        suitableForModelApproval: false
++      },
++      predictionSource: 'governed_research_candidate_with_engineering_rules',
++      contractualUse: false,
++      suitableForProcurement: false,
++      requiresHumanReview: true,
++      limitations: [
++        'This is a concept cost plan, not a measured tender BOQ.',
++        'Package rates are parametric allocations and are not current supplier quotations.',
++        'Drawings, specifications, measurement rules, geotechnical data, and a dated local rate book are required before procurement.'
++      ]
++    }
++  };
++}
++
++module.exports = {
++  VALID_UNITS,
++  allInFactor,
++  buildConceptEstimate,
++  getCostComposition
++};
+diff --git a/ACEP/packages/ai-engine/engineering-data-layer.js b/ACEP/packages/ai-engine/engineering-data-layer.js
+index 140f350..6341794 100644
+--- a/ACEP/packages/ai-engine/engineering-data-layer.js
++++ b/ACEP/packages/ai-engine/engineering-data-layer.js
+@@ -274,8 +274,10 @@ class ProjectModel {
+   // ─── Set BOQ Data ───────────────────────
+   setBOQ(boqResult) {
+     this.boq = {
++      ...boqResult,
+       items: boqResult.items || [],
+       suggestedItems: boqResult.suggestedItems || [],
++      assumptions: boqResult.assumptions || [],
+       phase: boqResult.phase || 'Unknown',
+       lifecyclePhases: boqResult.lifecyclePhases || [],
+       summary: boqResult.summary || { totalItems: 0, suggestedCount: 0, totalCost: 0, averageConfidence: 0 }
+@@ -288,6 +290,7 @@ class ProjectModel {
+   // ─── Set Cost Data ──────────────────────
+   setCost(costData) {
+     this.cost = {
++      ...costData,
+       directCost: costData.directCost || 0,
+       indirectCost: costData.indirectCost || 0,
+       contingency: costData.contingency || 0,
+@@ -307,6 +310,7 @@ class ProjectModel {
+   // ─── Set Schedule Data ──────────────────
+   setSchedule(scheduleData) {
+     this.schedule = {
++      ...scheduleData,
+       activities: scheduleData.activities || [],
+       totalDuration: scheduleData.totalDuration || 0,
+       totalMonths: scheduleData.totalMonths || 0,
+@@ -321,6 +325,7 @@ class ProjectModel {
+   // ─── Set Risk Data ──────────────────────
+   setRisks(riskData) {
+     this.risks = {
++      ...riskData,
+       risks: riskData.risks || [],
+       overallRiskScore: riskData.overallRiskScore || 0,
+       riskLevel: riskData.riskLevel || 'Low',
+@@ -334,6 +339,7 @@ class ProjectModel {
+   // ─── Set Quality Data ───────────────────
+   setQuality(qualityData) {
+     this.quality = {
++      ...qualityData,
+       qualityScore: qualityData.qualityScore || 0,
+       qualityGrade: qualityData.qualityGrade || '',
+       estimatedDefects: qualityData.estimatedDefects || 0,
 diff --git a/ACEP/packages/ai-engine/engineering-ke/boq-knowledge-base.js b/ACEP/packages/ai-engine/engineering-ke/boq-knowledge-base.js
 index ca2b1ee..1942879 100644
 --- a/ACEP/packages/ai-engine/engineering-ke/boq-knowledge-base.js
@@ -237,18 +767,19 @@ index c71cf62..082e117 100644
      });
    }
 diff --git a/ACEP/packages/ai-engine/models/cost-estimator.js b/ACEP/packages/ai-engine/models/cost-estimator.js
-index a10050d..525a3f0 100644
+index a10050d..827d9bb 100644
 --- a/ACEP/packages/ai-engine/models/cost-estimator.js
 +++ b/ACEP/packages/ai-engine/models/cost-estimator.js
-@@ -7,6 +7,7 @@
+@@ -7,6 +7,8 @@
  const fs = require('fs');
  const path = require('path');
  const kb = require('../knowledge-base');
 +const millionProjectModel = require('./million-project-model');
++const { getCostComposition } = require('../engineering-concept-estimator');
  
  function parseCSV(content) {
    const rows = [];
-@@ -166,7 +167,7 @@ class CostEstimator {
+@@ -166,7 +168,7 @@ class CostEstimator {
      };
    }
  
@@ -257,7 +788,7 @@ index a10050d..525a3f0 100644
      if (!kb.initialized) kb.initialize();
      const numericArea = Number(area);
      const numericFloors = Number(floors);
-@@ -174,9 +175,26 @@ class CostEstimator {
+@@ -174,9 +176,32 @@ class CostEstimator {
      if (!Number.isFinite(numericFloors) || numericFloors <= 0) throw new TypeError('floors must be a positive finite number');
      const multiplier = kb.getMaterialPriceMultiplier(finishing);
      const regionIndex = kb.getRegionIndex(region);
@@ -280,12 +811,18 @@ index a10050d..525a3f0 100644
 +      finishing,
 +      method: modelInputs.method
 +    });
++    const pricedBOQ = Array.isArray(boqItems) && boqItems.length > 0 && boqItems.every(item =>
++      finiteNumber(item.quantity) > 0 && finiteNumber(item.unitPrice) > 0
++    );
++    if (pricedBOQ) {
++      return this._estimateFromBOQ(boqItems, trainedPrediction, totalArea, projectType);
++    }
 +    if (trainedPrediction.available) return this._trainedEstimate(trainedPrediction, totalArea, regionIndex, multiplier);
 +
      if (!this.trained || this.materialPrices.length === 0) {
        return this._fallbackEstimate(totalArea, projectType, finishing, region);
      }
-@@ -240,9 +258,9 @@ class CostEstimator {
+@@ -240,9 +265,9 @@ class CostEstimator {
      const totalCost = directCost + indirectCost + contingency + profit + taxes;
  
      const breakdown = {
@@ -298,10 +835,106 @@ index a10050d..525a3f0 100644
        indirect: { cost: Math.round(indirectCost), percentage: Math.round(indirectCost / totalCost * 100) },
        contingency: { cost: Math.round(contingency), percentage: Math.round(contingency / totalCost * 100) },
        profit: { cost: Math.round(profit), percentage: Math.round(profit / totalCost * 100) },
-@@ -278,6 +296,48 @@ class CostEstimator {
+@@ -278,6 +303,144 @@ class CostEstimator {
      };
    }
  
++  _estimateFromBOQ(boqItems, prediction, totalArea, projectType) {
++    const projectKey = prediction.available ? prediction.projectType : String(projectType || 'other').toLowerCase();
++    const family = prediction.available ? prediction.family : 'other';
++    const composition = getCostComposition(projectKey, family);
++    const directCost = Math.round(boqItems.reduce((sum, item) => {
++      const explicitTotal = finiteNumber(item.totalPrice);
++      return sum + (explicitTotal > 0 ? explicitTotal : finiteNumber(item.quantity) * finiteNumber(item.unitPrice));
++    }, 0));
++    const indirectCost = Math.round(directCost * composition.indirectRate);
++    const contingency = Math.round(directCost * composition.contingencyRate);
++    const beforeProfit = directCost + indirectCost + contingency;
++    const profit = Math.round(beforeProfit * composition.profitRate);
++    const beforeTax = beforeProfit + profit;
++    const taxes = Math.round(beforeTax * composition.taxRate);
++    const totalCost = beforeTax + taxes;
++
++    const categoryCosts = new Map();
++    for (const item of boqItems) {
++      const category = String(item.category || item.material || 'WorkPackages');
++      const cost = finiteNumber(item.totalPrice) || finiteNumber(item.quantity) * finiteNumber(item.unitPrice);
++      categoryCosts.set(category, (categoryCosts.get(category) || 0) + cost);
++    }
++    const components = [
++      ...[...categoryCosts.entries()].map(([key, cost]) => ({ key, cost: Math.round(cost) })),
++      { key: 'indirect', cost: indirectCost },
++      { key: 'contingency', cost: contingency },
++      { key: 'profit', cost: profit },
++      { key: 'taxes', cost: taxes }
++    ];
++    let allocatedPercentage = 0;
++    const breakdown = {};
++    components.forEach((component, index) => {
++      const percentage = index === components.length - 1
++        ? 100 - allocatedPercentage
++        : Math.max(0, Math.floor(component.cost / totalCost * 100));
++      allocatedPercentage += percentage;
++      breakdown[component.key] = { cost: component.cost, percentage };
++    });
++
++    const modelTotal = prediction.available ? Math.round(prediction.predictions.costSar) : null;
++    const modelVariancePercent = modelTotal
++      ? Math.round(Math.abs(totalCost - modelTotal) / modelTotal * 10000) / 100
++      : null;
++    return {
++      directCost,
++      boqSubtotal: directCost,
++      indirectCost,
++      contingency,
++      profit,
++      taxes,
++      totalCost,
++      currency: 'SAR',
++      costPerM2: Math.round(totalCost / totalArea),
++      costRange: prediction.available ? {
++        lower: Math.round(prediction.intervals.costSar.lower),
++        upper: Math.round(prediction.intervals.costSar.upper),
++        basis: 'synthetic_holdout_p90_error'
++      } : null,
++      breakdown,
++      composition,
++      boqReconciliation: {
++        pricedItems: boqItems.length,
++        lineItemSubtotal: directCost,
++        directCost,
++        indirectCost,
++        contingency,
++        profit,
++        taxes,
++        totalCost,
++        arithmeticVariance: 0,
++        modelReferenceTotal: modelTotal,
++        modelVariancePercent,
++        formula: 'BOQ subtotal + indirect + contingency + profit + VAT'
++      },
++      confidence: 0.62,
++      dataPoints: {
++        boqItems: boqItems.length,
++        projects: prediction.available ? prediction.trainingRecords : 0
++      },
++      sourceFiles: { ...this.sources },
++      dataProvenance: prediction.available ? prediction.dataProvenance : this.dataProvenance,
++      modelId: prediction.available ? prediction.modelId : null,
++      projectType: projectKey,
++      status: 'experimental_concept_cost_plan',
++      pricingStatus: 'parametric_not_live_market',
++      contractualUse: false,
++      suitableForModelApproval: false,
++      suitableForProcurement: false,
++      requiresHumanReview: true,
++      limitations: [
++        ...(prediction.available ? prediction.limitations : []),
++        'The estimate is arithmetically reconciled to the concept BOQ, but rates are parametric and require a dated local rate book.'
++      ]
++    };
++  }
++
 +  _trainedEstimate(prediction, totalArea, regionIndex, finishingMultiplier) {
 +    const totalCost = Math.round(prediction.predictions.costSar);
 +    const shares = { materials: 0.42, labor: 0.24, equipment: 0.08, indirect: 0.08, contingency: 0.05, profit: 0.06, taxes: 0.07 };
@@ -439,8 +1072,181 @@ index 53a4b4a..f75a666 100644
        insufficientData: false
      };
    }
+diff --git a/ACEP/packages/ai-engine/models/quality-inspector.js b/ACEP/packages/ai-engine/models/quality-inspector.js
+index e03a5bd..9edf057 100644
+--- a/ACEP/packages/ai-engine/models/quality-inspector.js
++++ b/ACEP/packages/ai-engine/models/quality-inspector.js
+@@ -128,6 +128,83 @@ class QualityInspector {
+         ['Fire stopping', 'Critical', 'Service penetration'],
+         ['Raised floor tolerance', 'Medium', 'Data hall'],
+         ['Controls integration', 'High', 'Control room']
++      ],
++      road: [
++        ['Subgrade compaction', 'High', 'Formation layer'],
++        ['Pavement layer thickness', 'High', 'Roadbase and asphalt'],
++        ['Asphalt density and segregation', 'High', 'Wearing course'],
++        ['Drainage level and falls', 'High', 'Drainage run'],
++        ['Road marking retroreflectivity', 'Medium', 'Finished carriageway']
++      ],
++      bridge: [
++        ['Pile and foundation integrity', 'Critical', 'Substructure'],
++        ['Concrete durability and cover', 'High', 'Piers and deck'],
++        ['Prestress and grout acceptance', 'Critical', 'Superstructure'],
++        ['Bearing and joint alignment', 'High', 'Bearing shelf'],
++        ['Deck waterproofing', 'High', 'Bridge deck']
++      ],
++      tunnel: [
++        ['Ground support conformity', 'Critical', 'Excavation face'],
++        ['Lining thickness and defects', 'Critical', 'Permanent lining'],
++        ['Waterproofing continuity', 'High', 'Tunnel envelope'],
++        ['Ventilation performance', 'Critical', 'Ventilation zone'],
++        ['Life-safety integration', 'Critical', 'Emergency system']
++      ],
++      railway: [
++        ['Formation compaction', 'High', 'Track formation'],
++        ['Track geometry', 'Critical', 'Track alignment'],
++        ['Rail weld integrity', 'Critical', 'Running rail'],
++        ['Signalling installation', 'Critical', 'Signalling zone'],
++        ['Traction power clearances', 'Critical', 'Electrification zone']
++      ],
++      renewable_energy: [
++        ['Foundation alignment', 'High', 'Generation field'],
++        ['Module or turbine installation', 'High', 'Generation equipment'],
++        ['DC insulation and polarity', 'Critical', 'DC collection'],
++        ['Cable termination quality', 'High', 'Electrical collection'],
++        ['Protection and performance ratio', 'Critical', 'Grid interface']
++      ],
++      water: [
++        ['Pipe bedding and alignment', 'High', 'Pipeline or process train'],
++        ['Joint integrity', 'Critical', 'Pressure boundary'],
++        ['Concrete water tightness', 'High', 'Hydraulic structure'],
++        ['Instrumentation calibration', 'High', 'Control point'],
++        ['Disinfection and water quality', 'Critical', 'Commissioned system']
++      ],
++      dam: [
++        ['Foundation treatment', 'Critical', 'Dam foundation'],
++        ['Fill placement and compaction', 'Critical', 'Dam body'],
++        ['Concrete lift and joint quality', 'High', 'Hydraulic structure'],
++        ['Instrumentation installation', 'Critical', 'Monitoring section'],
++        ['Gate and outlet functional test', 'Critical', 'Outlet works']
++      ],
++      power: [
++        ['Primary equipment installation', 'Critical', 'High-voltage yard'],
++        ['Cable termination and testing', 'Critical', 'Cable system'],
++        ['Earthing continuity', 'Critical', 'Earthing grid'],
++        ['Protection settings', 'Critical', 'Protection panel'],
++        ['Interlock and energization test', 'Critical', 'Control system']
++      ],
++      telecom: [
++        ['Duct and chamber installation', 'High', 'Civil route'],
++        ['Fiber splice loss', 'High', 'Fiber link'],
++        ['Tower plumb and bolt torque', 'Critical', 'Tower site'],
++        ['Grounding continuity', 'Critical', 'Equipment site'],
++        ['End-to-end service performance', 'High', 'Network segment']
++      ],
++      renovation: [
++        ['Existing-condition interface', 'High', 'Existing fabric'],
++        ['Structural repair acceptance', 'Critical', 'Repair zone'],
++        ['Hidden MEP coordination', 'High', 'Service zone'],
++        ['Fire stopping upgrade', 'Critical', 'Service penetration'],
++        ['Finish compatibility', 'Medium', 'Renovated area']
++      ],
++      heritage: [
++        ['Historic fabric condition', 'Critical', 'Conservation zone'],
++        ['Repair material compatibility', 'Critical', 'Historic element'],
++        ['Moisture and salt control', 'High', 'Masonry zone'],
++        ['Reversibility of intervention', 'High', 'Intervention area'],
++        ['Conservation documentation', 'High', 'Recorded fabric']
+       ]
+     };
+     const generic = [
+@@ -137,7 +214,30 @@ class QualityInspector {
+       ['Finish tolerance', 'Medium', 'Finished area'],
+       ['Fire stopping', 'Critical', 'Service penetration']
+     ];
+-    const selected = definitions[prediction.projectType] || generic;
++    const familyDefinitions = {
++      industrial: [
++        ['Foundation tolerance', 'High', 'Equipment foundation'],
++        ['Structural connection', 'Critical', 'Primary frame'],
++        ['Industrial floor flatness', 'High', 'Production floor'],
++        ['Process utility pressure test', 'Critical', 'Utility system'],
++        ['Integrated controls test', 'Critical', 'Control system']
++      ],
++      site: [
++        ['Earthworks compaction', 'High', 'Site formation'],
++        ['Pavement tolerance', 'High', 'Operational pavement'],
++        ['Utility testing', 'Critical', 'Utility network'],
++        ['Specialist system performance', 'Critical', 'Operational system'],
++        ['Drainage falls', 'High', 'Drainage zone']
++      ],
++      utility: [
++        ['Civil structure conformity', 'High', 'Civil work zone'],
++        ['Equipment installation', 'Critical', 'Equipment zone'],
++        ['Cable or pipeline testing', 'Critical', 'Network section'],
++        ['Protection and control test', 'Critical', 'Control system'],
++        ['Integrated performance test', 'Critical', 'Commissioned system']
++      ]
++    };
++    const selected = definitions[prediction.projectType] || familyDefinitions[prediction.family] || generic;
+     const weights = [0.24, 0.21, 0.20, 0.19, 0.16];
+     let allocated = 0;
+     const defects = selected.map(([type, severity, location], index) => {
+@@ -146,13 +246,20 @@ class QualityInspector {
+         : Math.max(0, Math.round(expectedDefects * weights[index]));
+       allocated += count;
+       const floor = Math.max(1, Math.min(Math.max(1, Math.round(floors)), index + 1));
++      const contextualLocation = prediction.family === 'linear'
++        ? `Chainage zone ${index + 1} - ${location}`
++        : ['site', 'utility'].includes(prediction.family)
++          ? `Work zone ${index + 1} - ${location}`
++          : prediction.family === 'existing'
++            ? `Existing asset zone ${index + 1} - ${location}`
++            : `Floor ${floor} - ${location}`;
+       return {
+         type,
+         expectedCount: count,
+         severity,
+         confidence: 0.60,
+         commonElements: [location],
+-        typicalLocations: [`Floor ${floor} - ${location}`],
++        typicalLocations: [contextualLocation],
+         trainingSamples: prediction.trainingRecords
+       };
+     });
+diff --git a/ACEP/packages/ai-engine/models/quantity-estimator.js b/ACEP/packages/ai-engine/models/quantity-estimator.js
+index 140b150..05d7c20 100644
+--- a/ACEP/packages/ai-engine/models/quantity-estimator.js
++++ b/ACEP/packages/ai-engine/models/quantity-estimator.js
+@@ -12,6 +12,7 @@ const path = require('path');
+ const kb = require('../knowledge-base');
+ const boqRules = require('./boq-rules');
+ const millionProjectModel = require('./million-project-model');
++const { buildConceptEstimate } = require('../engineering-concept-estimator');
+ 
+ const DETAILED_RULE_MODEL_TYPES = new Set([
+   'villa', 'apartment', 'apartment_building', 'residential_tower', 'residential_compound',
+@@ -105,6 +106,18 @@ class QuantityEstimator {
+       method: extraParams.method
+     });
+ 
++    // A governed research prediction is converted into a project-family-specific
++    // concept cost plan.  This replaces the previous mix of detailed-looking
++    // building rows and four generic infrastructure references.  The result is
++    // internally reconciled, but remains explicitly unsuitable for procurement.
++    if (trainedPrediction.available) {
++      return buildConceptEstimate(trainedPrediction, {
++        ...extraParams,
++        region,
++        finishing
++      });
++    }
++
+     const modelType = String(extraParams.modelType || '').trim().toLowerCase();
+     if (modelType && !DETAILED_RULE_MODEL_TYPES.has(modelType)) {
+       return this._conceptualBOQ(params, extraParams, trainedPrediction, finishing, region);
 diff --git a/ACEP/packages/ai-engine/models/risk-analyzer.js b/ACEP/packages/ai-engine/models/risk-analyzer.js
-index 335d7cb..35d2bda 100644
+index 335d7cb..b049f6d 100644
 --- a/ACEP/packages/ai-engine/models/risk-analyzer.js
 +++ b/ACEP/packages/ai-engine/models/risk-analyzer.js
 @@ -1,5 +1,6 @@
@@ -476,7 +1282,7 @@ index 335d7cb..35d2bda 100644
      const ptStats = this.byProjectType[projectType];
      const allCategories = Object.keys(this.byCategory);
      const scaleFactor = Math.max(0.5, Math.min(2, 1 + (totalArea / 10000) * 0.2 + (floors / 10) * 0.15));
-@@ -119,6 +135,79 @@ class RiskAnalyzer {
+@@ -119,6 +135,113 @@ class RiskAnalyzer {
      };
    }
  
@@ -503,6 +1309,40 @@ index 335d7cb..35d2bda 100644
 +      ],
 +      bridge: [
 +        ['Temporary works', 0.84, 1.14, 'Launching, lifting, or falsework instability', 'Independently check temporary works and lifting sequences.']
++      ],
++      road: [
++        ['Traffic interface', 0.88, 1.14, 'Live traffic staging and public-interface incidents', 'Approve staged traffic management and audit barriers, lighting, and transitions.'],
++        ['Pavement performance', 0.78, 1.04, 'Subgrade variability or pavement materials not meeting design assumptions', 'Verify geotechnical sections, trial compaction, and pavement acceptance lots.']
++      ],
++      railway: [
++        ['Rail systems integration', 0.86, 1.14, 'Track, signalling, traction power, and rolling-stock interfaces', 'Maintain an interface register and execute staged dynamic testing.'],
++        ['Possessions', 0.82, 1.08, 'Insufficient access or possession windows', 'Freeze possession strategy and protect critical access windows.']
++      ],
++      renewable_energy: [
++        ['Grid connection', 0.86, 1.12, 'Grid studies, interconnection approval, or energization delay', 'Close grid studies and protection settings against a dated connection programme.'],
++        ['Generation yield', 0.72, 1.08, 'Resource, soiling, wake, or equipment performance below the energy model', 'Independently validate yield assumptions and require performance guarantees.']
++      ],
++      water: [
++        ['Hydraulic performance', 0.82, 1.12, 'Capacity, pressure, surge, or process performance shortfall', 'Validate the hydraulic/process model and witness performance testing.'],
++        ['Water quality', 0.76, 1.16, 'Contamination or treatment compliance failure', 'Apply cleanliness controls, sampling plans, disinfection, and hold points.']
++      ],
++      dam: [
++        ['Hydrology and diversion', 0.90, 1.18, 'Flood exceedance or diversion failure during construction', 'Use updated hydrology, staged diversion assurance, and an emergency action plan.'],
++        ['Foundation behavior', 0.86, 1.18, 'Seepage, settlement, or foundation discontinuities', 'Use staged investigation, grouting trials, instrumentation, and trigger levels.']
++      ],
++      power: [
++        ['Energization', 0.86, 1.18, 'Protection, interlock, or grid-interface failure at energization', 'Freeze settings, boundaries, and witnessed energization procedures.'],
++        ['Long-lead equipment', 0.84, 1.12, 'Transformer or switchgear delivery delay', 'Secure factory slots, inspection milestones, and contingency logistics.']
++      ],
++      telecom: [
++        ['Network integration', 0.80, 1.10, 'Interoperability, coverage, or capacity shortfall', 'Use end-to-end design validation and staged service acceptance.'],
++        ['Wayleave and permits', 0.82, 1.04, 'Route access or authority permit delay', 'Maintain route-by-route permit and access readiness.']
++      ],
++      factory: [
++        ['Process interfaces', 0.82, 1.12, 'Building, utilities, and production-equipment interfaces', 'Freeze process loads and run multidisciplinary interface reviews.']
++      ],
++      warehouse: [
++        ['Operational layout', 0.74, 1.06, 'Racking, fire strategy, and material-handling conflicts', 'Coordinate racking, egress, sprinklers, and equipment clearances before release.']
 +      ],
 +      renovation: [
 +        ['Existing conditions', 0.90, 1.08, 'Concealed conditions and undocumented services', 'Survey, scan, open up, and maintain a controlled discovery allowance.']
@@ -556,8 +1396,71 @@ index 335d7cb..35d2bda 100644
    getRiskTrends(projectId) {
      const projRisks = this.risks.filter(r => r.projectId === projectId);
      const byCat = {};
+diff --git a/ACEP/packages/ai-engine/models/schedule-optimizer.js b/ACEP/packages/ai-engine/models/schedule-optimizer.js
+index 12c6488..32c4b08 100644
+--- a/ACEP/packages/ai-engine/models/schedule-optimizer.js
++++ b/ACEP/packages/ai-engine/models/schedule-optimizer.js
+@@ -132,27 +132,40 @@ class ScheduleOptimizer {
+ 
+   _trainedSchedule(prediction) {
+     const totalDays = Math.max(30, Math.round(prediction.predictions.durationDays));
+-    const definitions = [
+-      ['Site Preparation', 0.08, []],
+-      ['Foundation', 0.16, ['A1']],
+-      ['Structural Frame', 0.30, ['A2']],
+-      ['MEP Rough-in', 0.24, ['A3']],
+-      ['Masonry & Envelope', 0.20, ['A3']],
+-      ['Plaster & Finishing', 0.22, ['A4', 'A5']],
+-      ['Flooring & Tiles', 0.15, ['A6']],
+-      ['Ceiling & Partitions', 0.14, ['A4', 'A5']],
+-      ['Doors & Windows', 0.12, ['A5']],
+-      ['Painting & Decoration', 0.12, ['A6', 'A8', 'A9']],
+-      ['Exterior & Landscape', 0.14, ['A2']],
+-      ['Commissioning & Handover', 0.10, ['A4', 'A10', 'A11']]
+-    ];
+-    const activities = definitions.map(([name, share, predecessors], index) => ({
++    const networks = {
++      road: ['Survey, permits & traffic staging', 'Utility diversions', 'Earthworks', 'Drainage & culverts', 'Subgrade improvement', 'Subbase & roadbase', 'Asphalt paving', 'Lighting, signs & barriers', 'Testing & road opening'],
++      bridge: ['Investigations & temporary traffic works', 'Piling & foundations', 'Piers and abutments', 'Superstructure erection', 'Deck slab & post-tensioning', 'Bearings and expansion joints', 'Waterproofing & surfacing', 'Barriers, drainage & lighting', 'Load testing & opening'],
++      tunnel: ['Ground investigation & enabling works', 'Portal and shaft works', 'Excavation & initial support', 'Permanent lining & waterproofing', 'Road or track slab', 'Ventilation and life-safety systems', 'Power, controls & communications', 'Emergency systems integration', 'Trial operation & handover'],
++      railway: ['Survey, permits & possessions', 'Earthworks & formation', 'Drainage and structures', 'Ballast, sleepers & rails', 'Stations and depots', 'Signalling & communications', 'Traction power', 'System integration', 'Dynamic testing & operation'],
++      renewable_energy: ['Studies, permits & grid agreement', 'Site roads & civil works', 'Foundations and mounting', 'Generation equipment installation', 'DC collection', 'Inverters and transformers', 'Grid connection', 'SCADA and protection', 'Performance testing & energization'],
++      water: ['Survey, design & permits', 'Enabling works and access', 'Civil structures or trenching', 'Pipelines and process equipment', 'Mechanical installation', 'Electrical, controls & SCADA', 'Testing, flushing & disinfection', 'Performance trial & handover'],
++      dam: ['Investigation & river diversion', 'Foundation excavation & treatment', 'Dam body construction', 'Spillway and hydraulic structures', 'Outlets, gates & MEP', 'Instrumentation and monitoring', 'Reservoir preparation', 'First filling & emergency readiness'],
++      power: ['Studies & grid coordination', 'Civil works and foundations', 'Primary equipment installation', 'Switchgear and cabling', 'Protection and control', 'Earthing and auxiliaries', 'Pre-commissioning', 'Energization & reliability run'],
++      telecom: ['Survey, design & permits', 'Civil ducts and chambers', 'Fiber or feeder installation', 'Towers and passive equipment', 'Active equipment installation', 'Power and grounding', 'Network integration', 'Testing and service activation'],
++      renovation: ['Surveys, opening-up & design freeze', 'Isolation and selective demolition', 'Structural and envelope repairs', 'MEP replacement', 'Partitions and finishes', 'Fire and life-safety upgrade', 'Testing & phased handover'],
++      heritage: ['Documentation & conservation trials', 'Temporary stabilization', 'Controlled dismantling and repair', 'Fabric conservation', 'Discreet MEP installation', 'Specialist finishes', 'Authority inspection & handover'],
++      fitout: ['Survey and design coordination', 'Strip-out and enabling works', 'Partitions and ceilings', 'MEP alterations', 'Joinery and finishes', 'Testing, snagging & handover']
++    };
++    const familyNetworks = {
++      industrial: ['Design and permitting', 'Site preparation', 'Foundations and undergrounds', 'Structural frame and envelope', 'Process equipment', 'Mechanical and utility systems', 'Power and controls', 'Integrated testing', 'Performance run & handover'],
++      site: ['Studies and permits', 'Site preparation and earthworks', 'Civil works and pavements', 'Buildings and utilities', 'Specialist operational systems', 'Safety and security systems', 'Integrated testing & handover'],
++      existing: networks.renovation,
++      building: ['Design and mobilization', 'Excavation & substructure', 'Structural frame', 'Envelope and roofing', 'Partitions and architectural works', 'MEP first fix', 'Finishes and second fix', 'External works', 'Testing & commissioning', 'Handover'],
++      other: ['Definition and design', 'Mobilization', 'Civil and structural works', 'Architecture and systems', 'External works', 'Testing & handover']
++    };
++    const names = networks[prediction.projectType] || familyNetworks[prediction.family] || familyNetworks.other;
++    const shares = names.map((unused, index) => {
++      if (index === 0) return 0.08;
++      if (index === names.length - 1) return 0.10;
++      return 0.82 / Math.max(1, names.length - 2);
++    });
++    const activities = names.map((name, index) => ({
+       id: `A${index + 1}`,
+       name,
+-      duration: Math.max(3, Math.round(totalDays * share)),
+-      predecessors
++      duration: Math.max(3, Math.round(totalDays * shares[index])),
++      predecessors: index === 0 ? [] : [`A${index}`]
+     }));
+-    const criticalPath = ['A1', 'A2', 'A3', 'A5', 'A6', 'A8', 'A10', 'A12'];
++    const criticalPath = activities.map(activity => activity.id);
+     return {
+       activities,
+       totalDuration: totalDays,
 diff --git a/ACEP/packages/ai-engine/project-brief.js b/ACEP/packages/ai-engine/project-brief.js
-index 14f4a6e..108bbe6 100644
+index 14f4a6e..9fd0ab1 100644
 --- a/ACEP/packages/ai-engine/project-brief.js
 +++ b/ACEP/packages/ai-engine/project-brief.js
 @@ -73,14 +73,29 @@ function primaryScale(brief, family) {
@@ -594,7 +1497,7 @@ index 14f4a6e..108bbe6 100644
  }
  
  function buildCanonicalDescription(brief) {
-@@ -113,9 +128,19 @@ function toEngineParams(brief) {
+@@ -113,9 +128,22 @@ function toEngineParams(brief) {
    const normalizedNonBuildingFloors = ['linear', 'utility', 'site'].includes(resolved.family) ? 1 : null;
    return {
      type: resolved.engineType,
@@ -604,17 +1507,20 @@ index 14f4a6e..108bbe6 100644
 +    grossBuiltArea: area.grossBuiltArea,
 +    footprintArea: area.footprintArea,
 +    landArea: numberOrNull(brief.landArea),
++    length: numberOrNull(brief.length),
++    width: numberOrNull(brief.width),
 +    areaBasis: area.basis,
      floors: numberOrNull(brief.floors) || normalizedNonBuildingFloors,
 +    basements: Number.isFinite(Number(brief.basements)) ? Math.max(0, Number(brief.basements)) : 0,
 +    buildings: numberOrNull(brief.buildings) || 1,
 +    capacity: numberOrNull(brief.capacity),
++    capacityUnit: compact(brief.capacityUnit) || null,
 +    finishing: compact(brief.finishing) || null,
 +    method: compact(brief.delivery) || null,
      rooms: null,
      bathrooms: null,
      hasKitchen: false,
-@@ -128,6 +153,8 @@ function toEngineParams(brief) {
+@@ -128,6 +156,8 @@ function toEngineParams(brief) {
        engineArchetype: resolved.engineType,
        nativeCoverage: resolved.native,
        quantitativeAreaBasis: area.basis,
@@ -624,10 +1530,10 @@ index 14f4a6e..108bbe6 100644
      }
    };
 diff --git a/ACEP/packages/ai-engine/workflow-engine.js b/ACEP/packages/ai-engine/workflow-engine.js
-index 6f74ea2..b9a42ef 100644
+index 6f74ea2..548c559 100644
 --- a/ACEP/packages/ai-engine/workflow-engine.js
 +++ b/ACEP/packages/ai-engine/workflow-engine.js
-@@ -35,9 +35,14 @@ class WorkflowEngine {
+@@ -35,9 +35,16 @@ class WorkflowEngine {
      const params = parseDescriptionFn(description);
      project.setExtracted({
        type: params.type,
@@ -638,23 +1544,26 @@ index 6f74ea2..b9a42ef 100644
 +      grossBuiltArea: params.grossBuiltArea ?? null,
 +      footprintArea: params.footprintArea ?? null,
 +      landArea: params.landArea ?? null,
++      length: params.length ?? null,
++      width: params.width ?? null,
 +      areaBasis: params.areaBasis || null,
        floors: params.floors,
        floorsExtracted: params.floors !== null,
        rooms: params.rooms || null,
-@@ -48,6 +53,11 @@ class WorkflowEngine {
+@@ -48,6 +55,12 @@ class WorkflowEngine {
        halls: params.halls || null,
        city: params.city || null,
        phase: params.phase || null,
 +      basements: params.basements || 0,
 +      buildings: params.buildings || 1,
 +      capacity: params.capacity || null,
++      capacityUnit: params.capacityUnit || null,
 +      finishing: params.finishing || null,
 +      method: params.method || null,
        extractionLog: params.extractionLog || null
      });
      return params;
-@@ -60,8 +70,19 @@ class WorkflowEngine {
+@@ -60,8 +73,22 @@ class WorkflowEngine {
      const effective = this._getEffectiveParams(project);
      const analysis = this.ai.projectAnalyzer.analyzeProject(description, {
        type: effective.type,
@@ -663,18 +1572,21 @@ index 6f74ea2..b9a42ef 100644
 +      grossBuiltArea: effective.grossBuiltArea,
 +      footprintArea: effective.footprintArea,
 +      landArea: effective.landArea,
++      length: effective.length,
++      width: effective.width,
 +      areaBasis: effective.areaBasis,
        floors: effective.floors,
 +      basements: effective.basements,
 +      buildings: effective.buildings,
 +      capacity: effective.capacity,
++      capacityUnit: effective.capacityUnit,
 +      city: effective.city,
 +      finishing: effective.finishing,
 +      method: effective.method,
        typeConfidence: project.extracted.typeConfidence || 0.7
      });
      if (analysis.insufficientData) {
-@@ -77,7 +98,11 @@ class WorkflowEngine {
+@@ -77,7 +104,11 @@ class WorkflowEngine {
     */
    async stepVirtualBuilding(project) {
      const effective = this._getEffectiveParams(project);
@@ -687,7 +1599,7 @@ index 6f74ea2..b9a42ef 100644
      const totalHeight = effective.floors * 3.2;
      project.building = {
        spaces: spaces || [],
-@@ -104,11 +129,19 @@ class WorkflowEngine {
+@@ -104,11 +135,21 @@ class WorkflowEngine {
        hasKitchen: project.approved.hasKitchen || project.extracted.hasKitchen,
        halls: project.approved.halls || project.extracted.halls,
        city: project.approved.city || project.extracted.city,
@@ -695,6 +1607,8 @@ index 6f74ea2..b9a42ef 100644
 +      grossBuiltArea: effective.grossBuiltArea || effective.area * effective.floors,
 +      footprintArea: effective.footprintArea || effective.area,
 +      landArea: effective.landArea,
++      length: effective.length,
++      width: effective.width,
 +      basements: effective.basements,
 +      buildings: effective.buildings,
 +      capacity: effective.capacity,
@@ -708,7 +1622,7 @@ index 6f74ea2..b9a42ef 100644
      );
      project.setBOQ(boqResult);
      return boqResult;
-@@ -121,7 +154,17 @@ class WorkflowEngine {
+@@ -121,7 +162,19 @@ class WorkflowEngine {
      const effective = this._getEffectiveParams(project);
      const boqItems = project.boq.items;
      const costData = this.ai.costEstimator.estimateCost(
@@ -718,6 +1632,8 @@ index 6f74ea2..b9a42ef 100644
 +        grossBuiltArea: effective.grossBuiltArea,
 +        footprintArea: effective.footprintArea,
 +        landArea: effective.landArea,
++        length: effective.length,
++        width: effective.width,
 +        basements: effective.basements,
 +        buildings: effective.buildings,
 +        capacity: effective.capacity,
@@ -727,7 +1643,7 @@ index 6f74ea2..b9a42ef 100644
      );
      project.setCost(costData);
      return costData;
-@@ -135,7 +178,15 @@ class WorkflowEngine {
+@@ -135,7 +188,15 @@ class WorkflowEngine {
      const totalArea = project.predicted.totalArea || effective.area * effective.floors;
      const floors = project.predicted.floors || effective.floors;
      const scheduleData = this.ai.scheduleOptimizer.generateSchedule(
@@ -744,7 +1660,7 @@ index 6f74ea2..b9a42ef 100644
      );
      project.setSchedule(scheduleData);
      return scheduleData;
-@@ -149,7 +200,16 @@ class WorkflowEngine {
+@@ -149,7 +210,16 @@ class WorkflowEngine {
      const totalArea = project.predicted.totalArea || effective.area * effective.floors;
      const floors = project.predicted.floors || effective.floors;
      const riskData = this.ai.riskAnalyzer.analyzeRisks(
@@ -762,7 +1678,7 @@ index 6f74ea2..b9a42ef 100644
      );
      project.setRisks(riskData);
      return riskData;
-@@ -163,7 +223,16 @@ class WorkflowEngine {
+@@ -163,7 +233,16 @@ class WorkflowEngine {
      const totalArea = project.predicted.totalArea || effective.area * effective.floors;
      const floors = project.predicted.floors || effective.floors;
      const qualityData = this.ai.qualityInspector.inspectProject(
@@ -780,7 +1696,7 @@ index 6f74ea2..b9a42ef 100644
      );
      project.setQuality(qualityData);
      return qualityData;
-@@ -272,11 +341,22 @@ class WorkflowEngine {
+@@ -272,11 +351,25 @@ class WorkflowEngine {
    _getEffectiveParams(project) {
      return {
        type: project.approved.typeConfirmed ? project.approved.type : (project.extracted.type || 'Unknown'),
@@ -789,6 +1705,8 @@ index 6f74ea2..b9a42ef 100644
 +      grossBuiltArea: project.extracted.grossBuiltArea ?? null,
 +      footprintArea: project.extracted.footprintArea ?? null,
 +      landArea: project.extracted.landArea ?? null,
++      length: project.extracted.length ?? null,
++      width: project.extracted.width ?? null,
 +      areaBasis: project.extracted.areaBasis || null,
        floors: project.approved.floorsConfirmed ? project.approved.floors : (project.extracted.floors ?? null),
        rooms: project.approved.roomsConfirmed ? project.approved.rooms : (project.extracted.rooms || null),
@@ -797,6 +1715,7 @@ index 6f74ea2..b9a42ef 100644
 +      basements: project.extracted.basements || 0,
 +      buildings: project.extracted.buildings || 1,
 +      capacity: project.extracted.capacity || null,
++      capacityUnit: project.extracted.capacityUnit || null,
 +      city: project.approved.cityConfirmed ? project.approved.city : (project.extracted.city || null),
 +      finishing: project.extracted.finishing || null,
 +      method: project.extracted.method || null,
@@ -926,6 +1845,431 @@ index eebe0be..b48eb29 100644
        - key: ACEP_AUTH_MODE
          value: api-key
        - key: ACEP_API_KEY
+diff --git a/ACEP/scripts/engineering-acceptance-benchmark.js b/ACEP/scripts/engineering-acceptance-benchmark.js
+new file mode 100644
+index 0000000..90056d7
+--- /dev/null
++++ b/ACEP/scripts/engineering-acceptance-benchmark.js
+@@ -0,0 +1,238 @@
++'use strict';
++
++process.env.ACEP_MILLION_MODEL_ENABLED = 'true';
++process.env.ACEP_SUPPLIER_DATA_VERIFIED = 'false';
++
++const ai = require('../packages/ai-engine');
++const { toEngineParams } = require('../packages/ai-engine/project-brief');
++
++const CASES = [
++  {
++    id: 'villa', type: 'villa', area: 820, landArea: 650, floors: 2, city: 'الرياض', finishing: 'premium',
++    expected: ['Structure', 'Architecture', 'Mechanical', 'Electrical', 'Plumbing'],
++    schedule: /structural frame|finishes/i, risk: /schedule|cost/i, quality: /concrete|waterproofing|fire stopping/i,
++    forbidden: /ballast|rail weld|asphalt density/i
++  },
++  {
++    id: 'apartments', type: 'apartment_building', area: 12000, landArea: 4800, floors: 8, basements: 1, city: 'جدة', finishing: 'good',
++    expected: ['Substructure', 'Structure', 'Envelope', 'FireLifeSafety'],
++    schedule: /structural frame|MEP first fix/i, risk: /schedule|cost/i, quality: /concrete|MEP coordination/i,
++    forbidden: /track geometry|pipeline or process train/i
++  },
++  {
++    id: 'hospital', type: 'hospital', area: 58000, landArea: 42000, floors: 6, basements: 2, buildings: 3, capacity: 200, city: 'الرياض', finishing: 'specialized',
++    expected: ['ClinicalSystems', 'Mechanical', 'Electrical', 'FireLifeSafety'],
++    schedule: /commissioning|MEP/i, risk: /clinical systems|medical equipment/i, quality: /medical-gas|infection-control/i,
++    forbidden: /ballast|rail weld/i
++  },
++  {
++    id: 'hotel', type: 'hotel', area: 26000, landArea: 9000, floors: 12, basements: 1, capacity: 220, city: 'مكة', finishing: 'luxury',
++    expected: ['HospitalitySystems', 'Envelope', 'Mechanical', 'Commissioning'],
++    schedule: /finishes|commissioning/i, risk: /schedule|procurement/i, quality: /finish tolerance|MEP coordination/i,
++    forbidden: /track geometry|subgrade compaction/i
++  },
++  {
++    id: 'warehouse', type: 'warehouse', area: 24000, landArea: 38000, floors: 1, city: 'الدمام', finishing: 'standard',
++    expected: ['Foundations', 'IndustrialFloor', 'FireLifeSafety', 'Utilities'],
++    schedule: /industrial|process|structural frame/i, risk: /operational layout/i, quality: /industrial floor|structural connection/i,
++    forbidden: /clinical|patient/i
++  },
++  {
++    id: 'data_center', type: 'data_center', area: 30000, landArea: 22000, floors: 3, capacity: 24, city: 'الرياض', finishing: 'specialized',
++    expected: ['MissionCritical', 'Electrical', 'Commissioning', 'FireLifeSafety'],
++    schedule: /integrated testing|power and controls/i, risk: /resilience/i, quality: /power-path|cooling containment/i,
++    forbidden: /patient room|ballast/i
++  },
++  {
++    id: 'road', type: 'road', length: 12000, width: 30, area: 360000, landArea: 420000, floors: 1, city: 'مكة', finishing: 'standard',
++    expected: ['Earthworks', 'Subgrade', 'Subbase', 'Roadbase', 'Asphalt', 'Drainage', 'RoadMarking'],
++    schedule: /asphalt paving|traffic staging/i, risk: /traffic interface|pavement performance/i, quality: /asphalt density|pavement layer/i,
++    forbidden: /ceiling|patient|partition/i
++  },
++  {
++    id: 'bridge', type: 'bridge', length: 1200, width: 24, area: 28800, landArea: 52000, floors: 1, city: 'جدة', finishing: 'standard',
++    expected: ['Substructure', 'Superstructure', 'StructuralSteel', 'BearingsJoints', 'ApproachWorks'],
++    schedule: /superstructure erection|load testing/i, risk: /temporary works/i, quality: /bearing|prestress|pile/i,
++    forbidden: /ceiling|patient room/i
++  },
++  {
++    id: 'water_pipeline', type: 'water', length: 25000, width: 2.5, area: 62500, landArea: 75000, floors: 1, capacity: 50000, city: 'المدينة', finishing: 'standard',
++    expected: ['Trenching', 'Bedding', 'Pipeline', 'ValvesChambers', 'TestingCommissioning'],
++    schedule: /pipeline|flushing|disinfection/i, risk: /hydraulic performance|water quality/i, quality: /pipe bedding|joint integrity/i,
++    forbidden: /ceiling|asphalt density|patient/i
++  },
++  {
++    id: 'solar', type: 'renewable_energy', area: 1000000, landArea: 1000000, floors: 1, capacity: 100, city: 'تبوك', finishing: 'standard',
++    expected: ['GenerationEquipment', 'MountingSystems', 'DCCollection', 'GridConnection', 'Controls'],
++    schedule: /generation equipment|grid connection|energization/i, risk: /grid connection|generation yield/i, quality: /module|DC insulation|performance ratio/i,
++    forbidden: /ceiling|patient|rail weld/i
++  },
++  {
++    id: 'substation', type: 'power', area: 20000, landArea: 26000, floors: 1, capacity: 132, city: 'الرياض', finishing: 'standard',
++    expected: ['PrimaryEquipment', 'Switchgear', 'Cabling', 'Earthing', 'Controls'],
++    schedule: /primary equipment|energization/i, risk: /energization|long-lead equipment/i, quality: /earthing|protection settings|primary equipment/i,
++    forbidden: /ceiling|patient|asphalt density/i
++  },
++  {
++    id: 'renovation', type: 'renovation', area: 10000, landArea: 4200, floors: 5, city: 'جدة', finishing: 'good',
++    expected: ['Investigations', 'Demolition', 'StructuralRepairs', 'Mechanical', 'Electrical'],
++    schedule: /opening-up|selective demolition|phased handover/i, risk: /existing conditions/i, quality: /existing-condition|structural repair/i,
++    forbidden: /ballast|asphalt density|patient room/i
++  }
++];
++
++function briefFor(testCase, scale = 1) {
++  const scaledArea = testCase.area * scale;
++  const scaledLength = testCase.length ? testCase.length * scale : undefined;
++  return {
++    name: `Engineering acceptance: ${testCase.id}`,
++    type: testCase.type,
++    typeLabel: testCase.type,
++    country: 'المملكة العربية السعودية',
++    city: testCase.city,
++    stage: 'concept',
++    delivery: 'design_build',
++    area: scaledArea,
++    landArea: (testCase.landArea || scaledArea * 1.2) * scale,
++    length: scaledLength,
++    width: testCase.width,
++    floors: testCase.floors,
++    basements: testCase.basements || 0,
++    buildings: testCase.buildings || 1,
++    capacity: testCase.capacity ? testCase.capacity * scale : undefined,
++    finishing: testCase.finishing,
++    description: `مشروع اختبار هندسي متكامل من نوع ${testCase.type} يشمل الأعمال المدنية والأنظمة والتشغيل، مع بيانات كمية صريحة لاختبار ترابط التحليل وقابلية المراجعة.`,
++    inclusions: 'يشمل التصميم والتنفيذ والأعمال المدنية والأنظمة والاختبارات والتشغيل والتسليم.',
++    exclusions: 'لا يشمل ثمن الأرض أو التمويل.',
++    siteCondition: 'موقع قائم داخل المملكة مع ضرورة التحقق المساحي والجيوتقني قبل التصميم التفصيلي.',
++    constraints: 'استمرار الوصول للموقع ومتطلبات الجهات المختصة والخدمات القائمة.',
++    standards: 'Saudi Building Code and applicable authority requirements',
++    systems: ['structural', 'mechanical', 'electrical', 'plumbing', 'fire'],
++    documents: ['survey', 'specifications'],
++    priceBasis: 'Parametric September 2026 research basis; not a supplier quotation',
++    sustainability: 'خفض استهلاك الطاقة بنسبة 20%'
++  };
++}
++
++function runEngines(testCase, scale = 1) {
++  const brief = briefFor(testCase, scale);
++  const params = toEngineParams(brief);
++  const extra = {
++    ...params,
++    city: brief.city,
++    description: brief.description
++  };
++  const boq = ai.quantityEstimator.estimateBOQ(
++    params.type, params.area, params.floors, params.finishing, params.city, extra
++  );
++  const cost = ai.costEstimator.estimateCost(
++    boq.items, params.type, params.area, params.floors, params.finishing, params.city, extra
++  );
++  const schedule = ai.scheduleOptimizer.generateSchedule(
++    params.type, params.grossBuiltArea, params.floors, params.finishing, params.city, params.method, extra
++  );
++  const risks = ai.riskAnalyzer.analyzeRisks(
++    params.type, params.grossBuiltArea, params.floors, params.city, params.finishing, extra
++  );
++  const quality = ai.qualityInspector.inspectProject(
++    params.type, params.grossBuiltArea, params.floors, params.finishing, extra
++  );
++  return { brief, params, boq, cost, schedule, risks, quality };
++}
++
++function near(left, right, tolerance = 1) {
++  return Math.abs(Number(left) - Number(right)) <= tolerance;
++}
++
++function scoreCase(testCase, result, scaled) {
++  const checks = [];
++  const add = (name, passed, evidence) => checks.push({ name, passed: Boolean(passed), evidence });
++  const { params, boq, cost, schedule, risks, quality } = result;
++  const items = boq.items || [];
++  const categories = new Set(items.map(current => current.category));
++  const description = items.map(current => current.description).join(' ');
++  const itemTotal = items.reduce((sum, current) => sum + Number(current.totalPrice || 0), 0);
++  const componentTotal = Number(cost.directCost || 0) + Number(cost.indirectCost || 0) + Number(cost.contingency || 0)
++    + Number(cost.profit || 0) + Number(cost.taxes || 0);
++  const scheduleNames = (schedule.activities || []).map(activity => activity.name).join(' ');
++  const riskText = (risks.risks || []).map(risk => `${risk.category} ${risk.risk}`).join(' ');
++  const qualityText = (quality.defects || []).map(defect => `${defect.type} ${(defect.typicalLocations || []).join(' ')}`).join(' ');
++  const durationSum = (schedule.activities || []).reduce((sum, activity) => sum + Number(activity.duration || 0), 0);
++
++  add('correct_project_type', boq.summary?.projectType === testCase.type, boq.summary?.projectType);
++  add('professional_item_coverage', items.length >= 8, items.length);
++  add('unique_item_codes', new Set(items.map(current => current.code)).size === items.length, items.length);
++  add('positive_quantities', items.every(current => Number.isFinite(current.quantity) && current.quantity > 0), null);
++  add('positive_parametric_rates', items.every(current => Number.isFinite(current.unitPrice) && current.unitPrice > 0), null);
++  add('line_arithmetic', items.every(current => near(current.totalPrice, current.quantity * current.unitPrice, 1.5)), null);
++  add('boq_summary_reconciles', near(itemTotal, boq.summary?.totalCost, 1.5), { itemTotal, summary: boq.summary?.totalCost });
++  add('mandatory_categories', testCase.expected.every(category => categories.has(category)), [...categories]);
++  add('no_incompatible_scope', !testCase.forbidden.test(description), description);
++  add('cost_uses_boq', near(cost.directCost, boq.summary?.totalCost, 1.5), { direct: cost.directCost, boq: boq.summary?.totalCost });
++  add('cost_components_reconcile', near(componentTotal, cost.totalCost, 1), { componentTotal, total: cost.totalCost });
++  add('explicit_zero_arithmetic_variance', cost.boqReconciliation?.arithmeticVariance === 0, cost.boqReconciliation);
++  add('model_cost_reconciliation', Number(cost.boqReconciliation?.modelVariancePercent) <= 1, cost.boqReconciliation?.modelVariancePercent);
++  add('plausible_cost_density', cost.costPerM2 >= 250 && cost.costPerM2 <= 35000, cost.costPerM2);
++  add('breakdown_percentages_reconcile', Object.values(cost.breakdown || {}).reduce((sum, entry) => sum + Number(entry.percentage || 0), 0) === 100, cost.breakdown);
++  add('schedule_has_network', (schedule.activities || []).length >= 6, (schedule.activities || []).length);
++  add('schedule_is_type_specific', testCase.schedule.test(scheduleNames), scheduleNames);
++  add('schedule_network_reconciles', durationSum >= schedule.totalDuration * 0.95 && durationSum <= schedule.totalDuration * 1.05, { durationSum, total: schedule.totalDuration });
++  add('risk_register_depth', (risks.risks || []).length >= 6, (risks.risks || []).length);
++  add('risk_is_type_specific', testCase.risk.test(riskText), riskText);
++  add('quality_plan_depth', (quality.defects || []).length >= 5, (quality.defects || []).length);
++  add('quality_is_type_specific', testCase.quality.test(qualityText), qualityText);
++  add('non_building_locations_are_contextual', !['linear', 'site', 'utility'].includes(boq.summary?.family) || !/Floor \d/i.test(qualityText), qualityText);
++  add('uncertainty_is_disclosed', cost.requiresHumanReview === true && cost.contractualUse === false, { review: cost.requiresHumanReview, contractual: cost.contractualUse });
++  add('procurement_is_gated', boq.summary?.suitableForProcurement === false && cost.suitableForProcurement === false, null);
++  add('scale_changes_quantities', scaled.boq.summary?.totalCost > boq.summary?.totalCost * 1.15, { base: boq.summary?.totalCost, scaled: scaled.boq.summary?.totalCost });
++  add('scale_changes_cost', scaled.cost.totalCost > cost.totalCost * 1.15, { base: cost.totalCost, scaled: scaled.cost.totalCost });
++  add('scale_changes_duration', scaled.schedule.totalDuration >= schedule.totalDuration, { base: schedule.totalDuration, scaled: scaled.schedule.totalDuration });
++  add('structured_geometry_preserved', params.grossBuiltArea === testCase.area && (!testCase.length || params.length === testCase.length), params);
++  return checks;
++}
++
++async function runBenchmark() {
++  await ai.initialize();
++  const cases = [];
++  let passed = 0;
++  let total = 0;
++  for (const testCase of CASES) {
++    const result = runEngines(testCase, 1);
++    const scaled = runEngines(testCase, 1.5);
++    const checks = scoreCase(testCase, result, scaled);
++    const casePassed = checks.filter(check => check.passed).length;
++    passed += casePassed;
++    total += checks.length;
++    cases.push({
++      id: testCase.id,
++      passed: casePassed,
++      total: checks.length,
++      score: Math.round(casePassed / checks.length * 10000) / 100,
++      failures: checks.filter(check => !check.passed)
++    });
++  }
++  return {
++    benchmark: 'ACEP engineering concept-analysis acceptance v1',
++    scope: 'Deterministic engineering coverage, arithmetic consistency, contextuality, uncertainty gating, and sensitivity; not empirical real-project accuracy.',
++    projectCases: CASES.length,
++    checks: total,
++    passed,
++    failed: total - passed,
++    score: Math.round(passed / total * 10000) / 100,
++    threshold: 98,
++    accepted: passed / total >= 0.98,
++    cases
++  };
++}
++
++if (require.main === module) {
++  runBenchmark().then(report => {
++    process.stdout.write(`ACEP_ENGINEERING_BENCHMARK ${JSON.stringify(report)}\n`);
++    if (!report.accepted && !process.argv.includes('--report-only')) process.exitCode = 1;
++  }).catch(error => {
++    console.error(error);
++    process.exitCode = 1;
++  });
++}
++
++module.exports = { CASES, briefFor, runBenchmark, runEngines, scoreCase };
+diff --git a/ACEP/scripts/http-engineering-matrix.js b/ACEP/scripts/http-engineering-matrix.js
+new file mode 100644
+index 0000000..88015d5
+--- /dev/null
++++ b/ACEP/scripts/http-engineering-matrix.js
+@@ -0,0 +1,175 @@
++'use strict';
++
++const { spawn } = require('child_process');
++const fs = require('fs');
++const os = require('os');
++const path = require('path');
++const archetypes = require('../packages/ai-engine/model-training/project-archetypes.json');
++
++const port = Number(process.env.ACEP_HTTP_TEST_PORT || 3199);
++const baseUrl = `http://127.0.0.1:${port}`;
++const apiKey = 'acep-http-engineering-matrix-key-2026-09-17';
++const runtimeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'acep-http-matrix-'));
++
++function projectFor(profile, index) {
++  const linear = profile.family === 'linear';
++  const utilityLine = ['water', 'telecom'].includes(profile.key);
++  const useLength = linear || utilityLine;
++  const area = Math.round(Math.sqrt(profile.area[0] * profile.area[1]));
++  const width = linear ? ({ bridge: 24, tunnel: 12, railway: 12 }[profile.key] || 28) : 2.5;
++  const length = useLength ? Math.max(1000, Math.round(area / width)) : undefined;
++  const floors = ['building', 'industrial', 'existing', 'other'].includes(profile.family)
++    ? Math.max(1, Math.round((profile.floors[0] + profile.floors[1]) / 2))
++    : 1;
++  return {
++    name: `HTTP engineering matrix ${profile.key}`,
++    description: `مشروع ${profile.key} لاختبار التحليل الهندسي المتكامل والكميات والتكلفة والمدة والمخاطر والجودة والسلامة والاستدامة والتوريد، مع نطاق واضح وبيانات كمية قابلة للتتبع والمراجعة.`,
++    type: profile.key,
++    typeLabel: profile.key,
++    subtype: 'اختبار قبول هندسي متعدد التخصصات',
++    nature: ['existing'].includes(profile.family) ? 'renovation' : 'new',
++    country: 'المملكة العربية السعودية',
++    city: index % 2 ? 'الرياض' : 'جدة',
++    stage: 'design',
++    delivery: 'design_build',
++    ...(useLength ? { length, width } : { area, landArea: Math.round(area * 1.4) }),
++    floors,
++    basements: profile.family === 'building' && floors > 4 ? 1 : 0,
++    buildings: 1,
++    capacity: Math.max(1, Math.round(area * profile.capacity)),
++    capacityUnit: ['renewable_energy', 'power', 'power_plant'].includes(profile.key) ? 'MW' : 'وحدة تشغيلية',
++    structure: linear ? 'linear_infrastructure' : 'project_specific',
++    foundation: 'وفق تقرير التربة والتحريات المعتمدة',
++    finishing: profile.family === 'building' || profile.family === 'existing' ? 'standard' : 'raw',
++    siteCondition: 'موقع تطوير قائم مع خدمات مجاورة وحركة تشغيلية تتطلب تنسيقًا مرحليًا.',
++    inclusions: 'الدراسات والتصميم والأعمال المدنية والإنشائية والكهربائية والميكانيكية والحريق والربط والاختبارات والتشغيل.',
++    exclusions: 'ثمن الأرض والتمويل والمعدات المتحركة خارج حدود النطاق.',
++    standards: 'كود البناء السعودي ومواصفات الجهات المنظمة المختصة.',
++    constraints: 'الخدمات القائمة والتصاريح وسلسلة التوريد واستمرار الوصول والتسليم المرحلي.',
++    budget: 100000000 + index * 5000000,
++    currency: 'SAR',
++    priceBasis: 'أساس بحثي معلمي مؤرخ سبتمبر 2026 وليس عرض مورد.',
++    startDate: '2027-01-01',
++    targetDate: '2030-01-01',
++    sustainability: 'خفض استهلاك الطاقة أو الوقود بنسبة 20% مقابل خط أساس معتمد.',
++    systems: ['architecture', 'structural', 'electrical', 'mechanical', 'plumbing', 'fire', 'infrastructure', 'ict'],
++    documents: ['brief', 'drawings', 'bim', 'specifications', 'boq', 'soil', 'survey', 'schedule', 'permits']
++  };
++}
++
++async function waitReady(logs) {
++  const deadline = Date.now() + 120000;
++  while (Date.now() < deadline) {
++    try {
++      const response = await fetch(`${baseUrl}/ready`, { signal: AbortSignal.timeout(3000) });
++      const body = await response.json();
++      if (response.ok && body.status === 'ready') return body;
++    } catch {}
++    await new Promise(resolve => setTimeout(resolve, 250));
++  }
++  throw new Error(`Server readiness timeout. Recent logs: ${logs.slice(-3000)}`);
++}
++
++function check(name, condition, evidence) {
++  return { name, passed: Boolean(condition), evidence };
++}
++
++async function analyze(profile, index) {
++  const response = await fetch(`${baseUrl}/api/v1/experiments/analyze`, {
++    method: 'POST',
++    headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
++    body: JSON.stringify({ project: projectFor(profile, index) }),
++    signal: AbortSignal.timeout(180000)
++  });
++  const body = await response.json();
++  const runs = Array.isArray(body.engineRuns) ? body.engineRuns : [];
++  const byCode = Object.fromEntries(runs.map(run => [run.code, run.output || {}]));
++  const boq = byCode.BOQ || {};
++  const cost = byCode.COST || {};
++  const schedule = byCode.TIME || {};
++  const risks = byCode.RISK || {};
++  const quality = byCode.QUALITY || {};
++  const checks = [
++    check('http_200', response.status === 200, response.status),
++    check('completed', body.status === 'completed', body.status),
++    check('ten_engines', runs.length === 10 && runs.every(run => run.executed && run.status !== 'failed'), runs.map(run => `${run.code}:${run.status}`)),
++    check('dynamic_boq', Array.isArray(boq.items) && boq.items.length >= 7 && boq.items.every(item => item.quantity > 0 && item.totalPrice > 0), boq.items?.length),
++    check('boq_cost_link', Math.abs(Number(boq.summary?.totalCost) - Number(cost.directCost)) <= 2, { boq: boq.summary?.totalCost, direct: cost.directCost }),
++    check('cost_reconciliation', cost.boqReconciliation?.arithmeticVariance === 0 && Number(cost.boqReconciliation?.modelVariancePercent) <= 1, cost.boqReconciliation),
++    check('schedule_network', Array.isArray(schedule.activities) && schedule.activities.length >= 6, schedule.activities?.length),
++    check('risk_depth', Array.isArray(risks.risks) && risks.risks.length >= 6, risks.risks?.length),
++    check('quality_depth', Array.isArray(quality.defects) && quality.defects.length >= 5, quality.defects?.length),
++    check('engineering_gates', cost.requiresHumanReview === true && cost.suitableForProcurement === false && cost.contractualUse === false, null)
++  ];
++  return { type: profile.key, projectId: body.projectId, durationMs: body.durationMs, checks };
++}
++
++async function main() {
++  let logs = '';
++  const server = spawn(process.execPath, ['server.js'], {
++    cwd: path.resolve(__dirname, '..'),
++    env: {
++      ...process.env,
++      PORT: String(port),
++      HOST: '127.0.0.1',
++      NODE_ENV: 'development',
++      ACEP_SERVICE_MODE: 'engineering',
++      ACEP_EXECUTION_MODE: 'development',
++      ACEP_DATA_PROVENANCE: 'synthetic',
++      ACEP_MILLION_MODEL_ENABLED: 'true',
++      ACEP_SUPPLIER_DATA_VERIFIED: 'false',
++      ACEP_AUTH_MODE: 'api-key',
++      ACEP_API_KEY: apiKey,
++      ACEP_API_KEY_SUBJECT: 'http-matrix',
++      ACEP_API_KEY_ROLE: 'engineer',
++      ACEP_API_KEY_TENANT: 'acep-http-test',
++      ACEP_RUNTIME_DATA_DIR: runtimeDir,
++      ACEP_BOOTSTRAP_DATA_MODE: 'readonly',
++      ACEP_ALLOW_MOCK_RESULTS: 'false',
++      ACEP_ENGINEERING_RELEASE_APPROVED: 'false',
++      ACEP_CORS_ORIGINS: 'http://127.0.0.1:8787'
++    },
++    stdio: ['ignore', 'pipe', 'pipe']
++  });
++  server.stdout.on('data', chunk => { logs += chunk.toString(); });
++  server.stderr.on('data', chunk => { logs += chunk.toString(); });
++  try {
++    const ready = await waitReady(logs);
++    const results = [];
++    for (const [index, profile] of archetypes.projectTypes.entries()) {
++      results.push(await analyze(profile, index));
++    }
++    const checks = results.flatMap(result => result.checks);
++    const passed = checks.filter(current => current.passed).length;
++    const report = {
++      benchmark: 'ACEP authenticated HTTP engineering matrix v1',
++      ready: ready.status,
++      projectTypes: results.length,
++      engineExecutions: results.length * 10,
++      checks: checks.length,
++      passed,
++      failed: checks.length - passed,
++      score: Math.round(passed / checks.length * 10000) / 100,
++      accepted: passed / checks.length >= 0.98,
++      failures: results.map(result => ({
++        type: result.type,
++        failures: result.checks.filter(current => !current.passed)
++      })).filter(result => result.failures.length),
++      maxDurationMs: Math.max(...results.map(result => result.durationMs || 0))
++    };
++    console.log(`ACEP_HTTP_ENGINEERING_MATRIX ${JSON.stringify(report)}`);
++    if (!report.accepted) process.exitCode = 1;
++  } finally {
++    server.kill('SIGTERM');
++    await new Promise(resolve => {
++      const timeout = setTimeout(resolve, 5000);
++      server.once('exit', () => { clearTimeout(timeout); resolve(); });
++    });
++    fs.rmSync(runtimeDir, { recursive: true, force: true });
++  }
++}
++
++main().catch(error => {
++  console.error(error.stack || error.message);
++  process.exitCode = 1;
++});
 diff --git a/ACEP/server.js b/ACEP/server.js
 index 405a792..eb7ffd6 100644
 --- a/ACEP/server.js
@@ -1129,8 +2473,8 @@ index 405a792..eb7ffd6 100644
 +        : ['No supplier is recommended until verified identities, specialities, and current quotations are configured.']
      }
    };
-
-@@ -4496,6 +4595,9 @@ const httpServer = app.listen(PORT, HOST, () => {
+ 
+@@ -4499,6 +4598,9 @@ const httpServer = app.listen(PORT, HOST, () => {
        decisionGraph: Boolean(decisionGraph),
        finalReport: Boolean(finalReport)
      },
@@ -1140,7 +2484,116 @@ index 405a792..eb7ffd6 100644
      note: 'Module registration does not constitute engineering, data, security, or regulatory approval.'
    }));
  });
-
+diff --git a/ACEP/tests/engineering-acceptance.test.js b/ACEP/tests/engineering-acceptance.test.js
+new file mode 100644
+index 0000000..23efae2
+--- /dev/null
++++ b/ACEP/tests/engineering-acceptance.test.js
+@@ -0,0 +1,19 @@
++'use strict';
++
++const { runBenchmark } = require('../scripts/engineering-acceptance-benchmark');
++
++jest.setTimeout(30000);
++
++describe('engineering concept-analysis acceptance benchmark', () => {
++  test('passes at least 98% of explicit engineering acceptance checks', async () => {
++    const report = await runBenchmark();
++    if (!report.accepted) {
++      const failures = report.cases.filter(testCase => testCase.failures.length > 0);
++      console.error(JSON.stringify({ score: report.score, failures }, null, 2));
++    }
++    expect(report.projectCases).toBe(12);
++    expect(report.checks).toBeGreaterThanOrEqual(300);
++    expect(report.score).toBeGreaterThanOrEqual(98);
++    expect(report.accepted).toBe(true);
++  });
++});
+diff --git a/ACEP/tests/engineering-type-matrix.test.js b/ACEP/tests/engineering-type-matrix.test.js
+new file mode 100644
+index 0000000..bd92dc0
+--- /dev/null
++++ b/ACEP/tests/engineering-type-matrix.test.js
+@@ -0,0 +1,57 @@
++'use strict';
++
++process.env.ACEP_MILLION_MODEL_ENABLED = 'true';
++process.env.ACEP_SUPPLIER_DATA_VERIFIED = 'false';
++
++const archetypes = require('../packages/ai-engine/model-training/project-archetypes.json');
++const ai = require('../packages/ai-engine');
++
++jest.setTimeout(30000);
++
++describe('35-type engineering matrix', () => {
++  beforeAll(async () => ai.initialize());
++
++  test.each(archetypes.projectTypes.map(profile => [profile.key, profile]))('%s has reconciled contextual outputs', (type, profile) => {
++    const grossBuiltArea = Math.sqrt(profile.area[0] * profile.area[1]);
++    const floors = Math.max(1, Math.round((profile.floors[0] + profile.floors[1]) / 2));
++    const footprintArea = ['building', 'industrial', 'existing', 'other'].includes(profile.family)
++      ? grossBuiltArea / floors
++      : grossBuiltArea;
++    const defaultWidth = { linear: 24, utility: 3 }[profile.family] || null;
++    const length = defaultWidth ? grossBuiltArea / defaultWidth : null;
++    const input = {
++      modelType: type,
++      grossBuiltArea,
++      footprintArea,
++      landArea: footprintArea * (['linear', 'site', 'utility'].includes(profile.family) ? 1.3 : 2),
++      length,
++      width: defaultWidth,
++      floors,
++      basements: profile.family === 'building' ? 1 : 0,
++      buildings: 1,
++      capacity: Math.max(1, grossBuiltArea * profile.capacity),
++      city: 'Riyadh',
++      method: 'design_build'
++    };
++    const engineType = profile.aliases[0] || type;
++    const area = footprintArea;
++    const boq = ai.quantityEstimator.estimateBOQ(engineType, area, floors, 'standard', 'Riyadh', input);
++    const cost = ai.costEstimator.estimateCost(boq.items, engineType, area, floors, 'standard', 'Riyadh', input);
++    const schedule = ai.scheduleOptimizer.generateSchedule(engineType, grossBuiltArea, floors, 'standard', 'Riyadh', 'design_build', input);
++    const risks = ai.riskAnalyzer.analyzeRisks(engineType, grossBuiltArea, floors, 'Riyadh', 'standard', input);
++    const quality = ai.qualityInspector.inspectProject(engineType, grossBuiltArea, floors, 'standard', input);
++
++    expect(boq.summary).toEqual(expect.objectContaining({ projectType: type, family: profile.family }));
++    expect(boq.items.length).toBeGreaterThanOrEqual(7);
++    expect(boq.items.every(item => item.quantity > 0 && item.unitPrice > 0 && item.totalPrice > 0)).toBe(true);
++    expect(Math.abs(boq.items.reduce((sum, item) => sum + item.totalPrice, 0) - boq.summary.totalCost)).toBeLessThanOrEqual(2);
++    expect(Math.abs(cost.directCost - boq.summary.totalCost)).toBeLessThanOrEqual(2);
++    expect(cost.directCost + cost.indirectCost + cost.contingency + cost.profit + cost.taxes).toBe(cost.totalCost);
++    expect(cost.boqReconciliation.modelVariancePercent).toBeLessThanOrEqual(1);
++    expect(schedule.activities.length).toBeGreaterThanOrEqual(6);
++    expect(schedule.totalDuration).toBeGreaterThanOrEqual(30);
++    expect(risks.risks.length).toBeGreaterThanOrEqual(6);
++    expect(quality.defects.length).toBeGreaterThanOrEqual(5);
++    expect(cost).toEqual(expect.objectContaining({ contractualUse: false, suitableForProcurement: false, requiresHumanReview: true }));
++  });
++});
+diff --git a/ACEP/tests/million-project-model.test.js b/ACEP/tests/million-project-model.test.js
+index 08b8f29..2a42a41 100644
+--- a/ACEP/tests/million-project-model.test.js
++++ b/ACEP/tests/million-project-model.test.js
+@@ -135,10 +135,13 @@ describe('million-project research candidate', () => {
+       modelType: 'road', grossBuiltArea: 120000, footprintArea: 120000,
+       landArea: 140000, method: 'traditional'
+     });
+-    expect(road.summary.status).toBe('experimental_conceptual_only');
+-    expect(road.summary.totalCost).toBeNull();
+-    expect(road.items.map(item => item.code)).toEqual(expect.arrayContaining(['SCP-001', 'CON-REF', 'STL-REF']));
+-    expect(road.items.some(item => /لياسة|دهان|بلاط داخلي/.test(item.description))).toBe(false);
++    expect(road.summary.status).toBe('experimental_concept_cost_plan');
++    expect(road.summary.totalCost).toBeGreaterThan(0);
++    expect(road.items.map(item => item.code)).toEqual(expect.arrayContaining([
++      'RD-EWK-001', 'RD-SUB-001', 'RD-SBB-001', 'RD-BAS-001', 'RD-ASB-001', 'RD-ASW-001', 'RD-DRN-001'
++    ]));
++    expect(road.items.every(item => item.unitPrice > 0 && item.totalPrice > 0)).toBe(true);
++    expect(road.items.some(item => /لياسة|دهانات جدران|بلاط داخلي/.test(item.description))).toBe(false);
+   });
+ 
+   test('connects the candidate to cost, schedule, risk, and quality without false certainty', () => {
 diff --git a/ACEP/tests/project-brief.test.js b/ACEP/tests/project-brief.test.js
 index 7dceda3..2fadd99 100644
 --- a/ACEP/tests/project-brief.test.js
