@@ -4,6 +4,9 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Opt-in research route. Disabled in normal platform operation.
+require('./research/tool-routing/routes').registerToolResearch(app);
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
