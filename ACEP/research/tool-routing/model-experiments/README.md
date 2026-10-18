@@ -66,3 +66,40 @@ and applies the same per-suite/per-tool/no-missing-call regression gates. The
 verified complete ZIP includes all four saved adapters and the original small
 dependencies used by preparation. Intermediate checkpoints' optimizer state is
 not included in that ZIP; Kaggle version output preserves available checkpoints.
+
+The finalizer writes `v6_experiment/selected_model.json` and the exact selected
+system prompt, including adapter/prompt/gate hashes. `predict_selected.py` verifies
+those identities and accepts JSON lines of the form `{"text":"original request"}`.
+It returns the raw model proposal plus its contract result. It never executes a
+tool and never declares its proposed values grounded in the source.
+
+## Measured v6 outcome and alternative bases
+
+The completed 120-case experiment measured v5/shared-prompt at 99 exact,
+v5/previous-prompt at 102, and v6 at steps 60, 90, and 117 at 108 each. The v6
+adapters regressed on net area, so they were **not** promoted as general
+replacements. A separate frozen 24-case authored probe measured the retained v5
+configuration at 21 exact and 24 contract-valid. These remain development data,
+not independently reviewed engineering accuracy.
+
+`prepare_frozen_probe_v6.py` freezes those 24 requests and verifies no normalized
+question overlap with training or the 120 comparison cases. `run_frozen_probe_v6.py`
+uses the actual selected-model CLI, applies the original scorer, preserves raw
+proposals, and makes a small results archive after selection. It does not change
+the selected weights based on the fresh probe.
+
+`prepare_qwen3_base.py` pins the official `Qwen/Qwen3-4B-Instruct-2507` revision,
+checks disk space, downloads to the standard cache, and hashes its weight shards.
+No fine-tuning is implied. `run_qwen3_base_comparison.py` first screens that base
+on the 32 development-validation cases with the existing shared prompt. The NF4
+zero-shot screen measured 7 exact / 12 contract-valid and was not advanced.
+
+Two further configurations are explicit rather than silently replacing that
+result: `run_qwen3_fp16_fewshot.py` freezes an English schema and eight synthetic
+few-shot pairs and evaluates unquantized FP16; `run_qwen3_nf4_fewshot.py` keeps
+that exact prompt and examples and changes only precision to NF4. Both screen
+32 cases, with advancement to the same 120 cases requiring >=26 exact,
+>=30 contract-valid, and no calls on missing-input requests. The FP16-vs-NF4
+few-shot pair isolates precision. Comparing either to the earlier Arabic
+zero-shot setup changes more than one factor and is not an isolated model or
+precision effect. Raw outputs and separate identities are retained throughout.
