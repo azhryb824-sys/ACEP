@@ -15,16 +15,16 @@ def target(tool=None,args=None,missing=None,invalid=False):
  return dict(action='invalid_input' if invalid else 'clarify' if missing else 'call',tool=None if missing or invalid else tool,arguments={} if missing or invalid else args,missing_fields=missing or [])
 def make(i,f,validation=False):
  # Disjoint values, with document IDs independent of every supplied tool number.
- j=i+(1000 if validation else 0);q=num(D('43.217')+D(j)*D('1.137'));p=num(D('18.625')+D(j)*D('.713'));g=num(D('92.731')+D(j)*D('1.419'));w=num(D('2.125')+D(j%31)*D('.125'))
+ j=i+(1000 if validation else 0);q=num(D('43.217')+D(j)*D('1.137'));p=num(D('18.625')+D(j)*D('.713'));g=num(D('92.731')+D(j)*D('1.419'));w=num(D('2.125')+D(j%31)*D('.125')+(D('.003') if validation else D('0')))
  L=num(D('421')+j*D('1.25'));W=num(D('213')+j*D('.75'));H=num(D('131')+j%53);doc=8000+j*7
  args=None;missing=None;invalid=False;tool=None
  # Clause ordering and labels vary independently of action validity.
  z=i%6
  costq=[f'الكمية النهائية {q} م²',f'حصر التوريد: {q} متر مربع',f'{q} م² هي كمية الشراء المعتمدة',f'سنورد بلاطًا بمساحة {q} م²',f'الطلب النهائي بعد الهدر {q} م²',f'كمية بند التوريد = {q} م²'][z]
- price=[f'سعر المتر {p} ريال',f'التسعير {p} ريال/م²',f'{p} ريال لكل متر مربع',f'وحدة التوريد بسعر {p} ريال/م²',f'المورد يعتمد {p} ريال للمتر المربع',f'سعر الوحدة = {p} ر.س/م²'][z]
+ price=[f'سعر المتر المربع {p} ريال',f'التسعير {p} ريال/م²',f'{p} ريال لكل متر مربع',f'وحدة التوريد بسعر {p} ريال/م²',f'المورد يعتمد {p} ريال للمتر المربع',f'سعر الوحدة = {p} ر.س/م²'][z]
  if f in ['zero_price','positive_price','negative_price']:
   tool='line_cost';v='0' if f=='zero_price' else p
-  if f=='zero_price':price=['سعر الوحدة صفر ريال/م²','التوريد هدية بسعر 0 ريال للمتر','المتر المربع مجانًا؛ سعره صفر','سعر المتر ٠ ريال','التسعير المعتمد 0 ر.س/م²','لا مقابل للتوريد؛ سعر الوحدة صفر'][z]
+  if f=='zero_price':price=['سعر الوحدة صفر ريال/م²','التوريد هدية بسعر 0 ريال للمتر','المتر المربع مجانًا؛ سعره صفر','سعر المتر المربع ٠ ريال','التسعير المعتمد 0 ر.س/م²','لا مقابل للتوريد؛ سعر الوحدة صفر'][z]
   if f=='negative_price':price=f'سعر الوحدة {"سالب" if i%2 else "ناقص"} {p} ريال/م²';invalid=True
   clauses=[costq,price];args=dict(quantity=q,unit_price=v,quantity_unit='m2',price_unit='SAR/m2');request='قيمة التوريد فقط دون إضافات أو هدر جديد.'
  elif f in ['equal_openings','less_openings','excess_openings']:
@@ -69,11 +69,17 @@ training=[dict(id=r.get('id',f'retained-{i}'),instruction=r['instruction'],input
 training +=[dict(id=r['id'],instruction=r['instruction'],input='',system=S,output=json.dumps(r['target'],ensure_ascii=False,sort_keys=True)) for r in supp]
 validation=[dict(id=r['id'],instruction=r['instruction'],input='',system=S,output=json.dumps(r['target'],ensure_ascii=False,sort_keys=True)) for r in val]
 assert len(training)==1704 and len(validation)==96
+assert all(gate(json.loads(r['output']))['status']!='blocked' for r in training+validation)
+def call_key(t):
+ if t['action']!='call':return None
+ a={k:num(v) if k not in {'unit','quantity_unit','price_unit'} else v for k,v in t['arguments'].items()}
+ return json.dumps([t['tool'],a],sort_keys=True)
+assert not {call_key(json.loads(r['output'])) for r in training if json.loads(r['output'])['action']=='call'} & {call_key(r['target']) for r in val if r['target']['action']=='call'}
 assert len({norm(r['instruction']) for r in training})==len(training)
 assert not {norm(r['instruction']) for r in training}&{norm(r['instruction']) for r in validation}
 # Old evaluation questions remain outside training.
 known=[]
-for p in [R/'v6_experiment/comparison_cases.jsonl',R/'v6_frozen_probe/cases.jsonl']:
+for p in [R/'v6_experiment/evaluation_cases.jsonl',R/'v6_frozen_probe/cases.jsonl']:
  if p.exists():known +=[json.loads(x) for x in p.read_text().splitlines()]
 assert not {norm(r['instruction']) for r in supp}&{norm(r.get('instruction',r.get('text',''))) for r in known}
 random.Random(7301).shuffle(training)
