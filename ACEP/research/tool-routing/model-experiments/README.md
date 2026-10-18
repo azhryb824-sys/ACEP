@@ -39,3 +39,30 @@ python -u run_v6_experiment.py
 
 Use Kaggle Save Version with output preservation after completion; a live
 session's working directory is not a durable backup.
+
+## Intermediate candidates and prompt control
+
+`evaluate_intermediate_v6.py` copies the adapters at steps 60 and 90 after their
+trainer state is saved, verifies each copied SHA, and evaluates both on GPU 1.
+It neither resumes nor modifies training. `run_intermediate_with_prompt_baseline.py`
+first measures the previously best v5 prompt on all 120 cases, then starts those
+intermediate evaluations. This separates a common-prompt causal comparison from
+the practical choice between the best prior and new configurations. The latter
+must also inspect regressions against the previous-prompt baseline.
+
+These optional results live outside the main experiment directory to avoid
+archiving an actively written intermediate log. Preserve them and the copied
+candidate adapter separately when making the final selected-candidate archive.
+The initial supervisor archive is not a substitute for a final selection report.
+
+`audit_existing_corpus.py` scans repository JSONL files without importing
+engineering generators or starting training. Its normalized conflicts and split
+matches are structural warnings, not independently established semantic errors.
+
+`run_finalization_v6.py` waits for all active comparisons to finish, then runs
+`finalize_v6.py`. The final report compares the intermediate and final adapters
+against the strongest measured v5 configuration, preserves all failure cases,
+and applies the same per-suite/per-tool/no-missing-call regression gates. The
+verified complete ZIP includes all four saved adapters and the original small
+dependencies used by preparation. Intermediate checkpoints' optimizer state is
+not included in that ZIP; Kaggle version output preserves available checkpoints.
