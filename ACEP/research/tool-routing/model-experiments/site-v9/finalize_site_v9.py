@@ -1,5 +1,5 @@
 from pathlib import Path
-import json,zipfile,hashlib,os
+import json,zipfile,hashlib,os,subprocess,sys
 from decimal import Decimal
 R=Path('/kaggle/working/acep-engineering-v1');D=R/'v9_site'
 assert (D/'pipeline_completed.json').exists()
@@ -14,6 +14,7 @@ for suite in ['development','published','frozen']:
 rs=[json.loads(x) for x in (D/'v9_regression_merged.jsonl').read_text().splitlines()]
 summary['regression_per_tool']={t:dict(total=len([r for r in rs if r['family']==t]),exact=sum(r['exact'] for r in rs if r['family']==t)) for t in sorted({r['family'] for r in rs})}
 summary['regression_failures']=[r for r in rs if not r['exact']]
+summary['training_distribution']=json.loads((D/'training_distribution_audit.json').read_text())
 summary['v7_default_development']=json.loads((D/'v7_development/report.json').read_text())
 summary['v7_comparison_note']='v7 uses its original retained prompt/contract; causal training comparison is v8 vs v9 with unchanged prompt v3 and contract v2'
 refs={c['id']:c for c in map(json.loads,(D/'published_cases.jsonl').read_text().splitlines())}
@@ -32,23 +33,42 @@ s=s.replace("p.add_argument('--candidate-v8',action='store_true');a=p.parse_args
 s=s.replace("version='v8' if a.candidate_v8 else selection['selected']","version='v9' if a.candidate_v9 else 'v8' if a.candidate_v8 else selection['selected']")
 s=s.replace("'qlora_units_v8' if version=='v8' else 'qlora_qwen3_v7'","'qlora_site_v9' if version=='v9' else 'qlora_units_v8' if version=='v8' else 'qlora_qwen3_v7'")
 s=s.replace("if version=='v8' else", "if version in ['v8','v9'] else")
-compile(s,'infer_acep_research.py','exec');(R/'infer_acep_research.py').write_text(s)
-readme='''ACEP v9 — تدريب بحثي على سياقات الموقع\nهذه محولات LoRA وليست نموذج أساس مستقلًا. يتطلب التشغيل Python وtorch وtransformers وpeft وGPU، وتنزيل Qwen3-4B بالنسخة المثبتة في identity.json.\nالنموذج العام الافتراضي يبقى v7. --candidate-v9 و--candidate-v8 مرشحان بحثيان، ولا ينفذ سكربت الاستدلال أدوات أو يعتمد حسابات هندسية.\nاختبار الموقع: 18 حالة تطوير +9 حالات مجمدة، مؤلفة تحاكي سياقات العمل، وليست مشروعات منفذة. توجد صياغتان متريتان لمثال بلاطة واحد منشور من QUIKRETE، وليستا مشروعين مستقلين. القوالب مترابطة ولا يوجد فصل دلالي مستقل أو تحكيم هندسي.\nالتدريب: 640 سجلًا (336 احتفاظ +240 حدود مساحة +64 معالجة سياق)، 16 تحقق، دورة واحدة،80 خطوة،LR1e-5. اختيرت أمثلة المعالجة بعد مراجعة التطوير، بينما لم تدخل أسئلة الاختبار أو المجمد إلى التدريب.\nتفاصيل النتائج الخام والاختيار داخل v9_site/final_report.json وملفات predictions.jsonl. لا تستنتج نسبة دقة هندسية شاملة من نجاح الاستخراج.\nمثال تشغيل: python infer_acep_research.py 'إجمالي وجه الدهان 80 م² والفتحات 12 م²؛ استخرج مدخلات الصافي' --candidate-v9\nالمثال المنشور: https://www.quikrete.com/dealers/training/presentations/3-mixing-placing-concrete-cement-mixes-training.pdf صفحات11–12؛ القياسات حُوّلت إلى المتر صراحة، ولم يُختبر تصميم البلاطة أو أكياس الخرسانة.\n'''
+compile(s,'infer_acep_research_v9.py','exec');(R/'infer_acep_research_v9.py').write_text(s)
+smoke=subprocess.run([sys.executable,str(R/'infer_acep_research_v9.py'),'إجمالي وجه الدهان 80 م² والفتحات 12 م²؛ استخرج مدخلات الصافي','--candidate-v9'],capture_output=True,text=True,env=dict(os.environ,HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1',CUDA_VISIBLE_DEVICES='0'))
+(D/'inference_smoke.stderr.txt').write_text(smoke.stderr)
+assert smoke.returncode==0,smoke.stderr[-2000:]
+smoke_result=json.loads(smoke.stdout);p=smoke_result.get('proposal',{});a=p.get('arguments',{})
+smoke_pass=smoke_result['model_version']=='v9' and smoke_result['tools_executed'] is False and p.get('tool')=='net_area' and p.get('action')=='call' and Decimal(str(a.get('gross_m2','NaN')))==80 and Decimal(str(a.get('openings_m2','NaN')))==12
+smoke_record=dict(passed=smoke_pass,result=smoke_result,scope='packaged CLI generation smoke only, not a benchmark or UI test')
+(D/'inference_smoke.json').write_text(json.dumps(smoke_record,ensure_ascii=False,indent=2));summary['inference_smoke']=smoke_record
+policy=json.loads((D/'training_policy.json').read_text());assert sha(D/'frozen_cases.jsonl')==policy['frozen_sha256']
+assert all((D/'selection_before_frozen.json').stat().st_mtime<=(D/(v+'_frozen')/'metadata.json').stat().st_mtime for v in ['v8','v9'])
+summary['frozen_order_verified']=True
+(D/'final_report.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2))
+readme='''ACEP v9 — تدريب بحثي على سياقات الموقع\nهذه محولات LoRA وليست نموذج أساس مستقلًا. يتطلب التشغيل Python وtorch وtransformers وpeft وGPU، وتنزيل Qwen3-4B بالنسخة المثبتة في identity.json.\nالنموذج العام الافتراضي يبقى v7. --candidate-v9 و--candidate-v8 مرشحان بحثيان، ولا ينفذ سكربت الاستدلال أدوات أو يعتمد حسابات هندسية.\nاختبار الموقع: 18 حالة تطوير +9 حالات مجمدة، مؤلفة تحاكي سياقات العمل، وليست مشروعات منفذة. توجد صياغتان متريتان لمثال بلاطة واحد منشور من QUIKRETE، وليستا مشروعين مستقلين. القوالب مترابطة ولا يوجد فصل دلالي مستقل أو تحكيم هندسي.\nالتدريب: 640 سجلًا (336 احتفاظ +240 حدود مساحة +64 معالجة سياق)، 16 تحقق، دورة واحدة،80 خطوة،LR1e-5. اختيرت أمثلة المعالجة بعد مراجعة التطوير، بينما لم تدخل أسئلة الاختبار أو المجمد إلى التدريب.\nتفاصيل النتائج الخام والاختيار داخل v9_site/final_report.json وملفات predictions.jsonl. لا تستنتج نسبة دقة هندسية شاملة من نجاح الاستخراج.\nمثال تشغيل: python infer_acep_research_v9.py 'إجمالي وجه الدهان 80 م² والفتحات 12 م²؛ استخرج مدخلات الصافي' --candidate-v9\nالمثال المنشور: https://www.quikrete.com/dealers/training/presentations/3-mixing-placing-concrete-cement-mixes-training.pdf صفحات11–12؛ القياسات حُوّلت إلى المتر صراحة، ولم يُختبر تصميم البلاطة أو أكياس الخرسانة.\n'''
+if not summary['selection']['research_candidate_passed_selection']:
+ readme+='\nقرار التقييم: لم يجتز v9 معايير اختيار المرشح؛ راجع selection_before_frozen.json والأخطاء الخام. وجود الأوزان في الحزمة لا يعني اعتمادها أو تحسنها في جميع المهام.\n'
 (R/'README_V9_AR.txt').write_text(readme)
 base=Path('/kaggle/working/ACEP_v8_units_research_complete.zip')
-with zipfile.ZipFile(base) as z:names=set(z.namelist())
+assert sha(base)=='f1eb631317f9519c84c2e3687d6decfb1f623cad631aa05e81d11d73a4133aae'
+with zipfile.ZipFile(base) as z:old_names=set(z.namelist())
+names=set(old_names)
 for folder in [D,R/'qlora_site_v9/adapter']:
  for p in folder.rglob('*'):
   if p.is_file() and '__pycache__' not in p.parts:names.add(str(p.relative_to(R)))
-for name in ['train_site_v9.py','evaluate_site_v9.py','run_site_v9_pipeline.py','finalize_site_v9.py','prepare_site_v9.py','prepare_additional_v9.py','build_training_v9.py','README_V9_AR.txt']:names.add(name)
+for name in ['train_site_v9.py','evaluate_site_v9.py','run_site_v9_pipeline.py','finalize_site_v9.py','prepare_site_v9.py','prepare_additional_v9.py','build_training_v9.py','infer_acep_research_v9.py','README_V9_AR.txt']:names.add(name)
 # Completed training metrics included, optimizer checkpoints deliberately excluded.
 names.add('qlora_site_v9/completed.json')
 names.discard('V9_MANIFEST.json')
-manifest={name:sha(R/name) for name in sorted(names)}
+names.discard('v9_site/archive_receipt.json')
+with zipfile.ZipFile(base) as old:
+ manifest={name:hashlib.sha256(old.read(name)).hexdigest() if name in old_names else sha(R/name) for name in sorted(names)}
 (R/'V9_MANIFEST.json').write_text(json.dumps(manifest,indent=2))
 archive=Path('/kaggle/working/ACEP_v9_site_research_complete.zip')
-with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
- for name in sorted(names|{'V9_MANIFEST.json'}):z.write(R/name,name)
+with zipfile.ZipFile(base) as old,zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
+ for name in sorted(names|{'V9_MANIFEST.json'}):
+  if name in old_names:z.writestr(name,old.read(name))
+  else:z.write(R/name,name)
 with zipfile.ZipFile(archive) as z:
  assert z.testzip() is None
  for name,digest in manifest.items():assert hashlib.sha256(z.read(name)).hexdigest()==digest,name

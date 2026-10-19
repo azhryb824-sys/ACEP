@@ -24,3 +24,18 @@ Use the existing verified Kaggle v8 experiment root at `/kaggle/working/acep-eng
 7. Run `finalize_site_v9.py` after the pipeline completes to validate parent hashes, assemble the report and verified archive, and retain v7 as the general default. Candidate flags produce proposals only.
 
 The nine frozen cases use related templates and are not a semantically independent benchmark. Exact question disjointness is a limited leakage check. There are no actual project records or expert-reviewed ground truths in this experiment. No engineering deployment is authorized by the scripts, even if selection thresholds pass.
+
+## Completed result
+
+| Evaluation | v8 before continuation | v9 after continuation |
+| --- | ---: | ---: |
+| Authored site-style development | 15/18 | 17/18 |
+| Previous regression suite | 346/348 | 342/348 |
+| Frozen site-style cases | 8/9 | 8/9 |
+| Two metric requests from one published example | 2/2 | 2/2 |
+
+The v9 candidate is **rejected** under the predeclared research selection policy. It has one incorrect contract-valid call: a zero-price supply-cost request is routed to `add_waste`. It also regresses on three equal-openings cases and one kg/ton conversion. The old gross/openings swap becomes a clarification, which avoids that incorrect call but is still not the expected invalid-input answer. No tools were executed by the model evaluator.
+
+The v7 default and the previous v8 units research decision remain unchanged. This run completed 80 steps on 640 records in 1080.6514 seconds; validation loss was 0.0253461078. The v9 adapter SHA256 is `960140f06dbaa802535d30c2042397c8459e5d79e1d511faa90819564b7ac4fe`.
+
+The finalizer preserves the original v8 archive entries, adds a separate `infer_acep_research_v9.py` entry point, records a generation smoke check, verifies frozen-file identity and decision order, and validates the final ZIP CRC and SHA256 manifest. Model weights and experiment archives are not committed to Git.

@@ -1,0 +1,291 @@
+{
+  "scope": "bounded four-tool extraction; authored site workflows and two variants of one published manufacturer example; no real project records or expert certification",
+  "default_model": "v7",
+  "data": {
+    "development": 18,
+    "frozen": 9,
+    "train": 640,
+    "validation": 16,
+    "actual_projects": 0,
+    "scope": "realistic authored scenarios; not independent engineering validation",
+    "test_training_exact_overlap": 0,
+    "source_methods": [
+      "https://archive.nptel.ac.in/content/storage2/courses/105103023/module5/lec3/2.html"
+    ],
+    "source_numbers_used": false,
+    "engineering_deployment_allowed": false,
+    "remediation_after_development_review": 64
+  },
+  "selection": {
+    "policy": {
+      "version": "v9_site_research",
+      "development_must_not_regress": true,
+      "regression_exact_at_least": 346,
+      "incorrect_contract_valid_calls_allowed": 0,
+      "calls_on_missing_allowed": 0,
+      "frozen_not_for_selection": true,
+      "default_remains": "v7",
+      "engineering_deployment_allowed": false
+    },
+    "development_before": {
+      "total": 18,
+      "exact": 15,
+      "incorrect_contract_valid_calls": [],
+      "calls_on_missing": []
+    },
+    "development_after": {
+      "total": 18,
+      "exact": 17,
+      "incorrect_contract_valid_calls": [],
+      "calls_on_missing": []
+    },
+    "regression": {
+      "total": 348,
+      "exact": 342,
+      "contract_valid": 347,
+      "incorrect_contract_valid_calls": [
+        "qwen3-v7-val-zero_price-100"
+      ],
+      "calls_on_missing": []
+    },
+    "research_candidate_passed_selection": false,
+    "selected_general_model": "v7",
+    "reason": "candidate must remain research; no actual-project or expert review",
+    "frozen_test_used_for_selection": false
+  },
+  "comparisons": {
+    "development": {
+      "v8": {
+        "total": 18,
+        "exact": 15,
+        "contract_valid": 17,
+        "incorrect_contract_valid_calls": [],
+        "calls_on_missing": []
+      },
+      "v9": {
+        "total": 18,
+        "exact": 17,
+        "contract_valid": 18,
+        "incorrect_contract_valid_calls": [],
+        "calls_on_missing": []
+      }
+    },
+    "published": {
+      "v8": {
+        "total": 2,
+        "exact": 2,
+        "contract_valid": 2,
+        "incorrect_contract_valid_calls": [],
+        "calls_on_missing": []
+      },
+      "v9": {
+        "total": 2,
+        "exact": 2,
+        "contract_valid": 2,
+        "incorrect_contract_valid_calls": [],
+        "calls_on_missing": []
+      }
+    },
+    "frozen": {
+      "v8": {
+        "total": 9,
+        "exact": 8,
+        "contract_valid": 9,
+        "incorrect_contract_valid_calls": [],
+        "calls_on_missing": []
+      },
+      "v9": {
+        "total": 9,
+        "exact": 8,
+        "contract_valid": 9,
+        "incorrect_contract_valid_calls": [],
+        "calls_on_missing": []
+      }
+    }
+  },
+  "regression_per_tool": {
+    "add_waste": {
+      "total": 79,
+      "exact": 79
+    },
+    "line_cost": {
+      "total": 107,
+      "exact": 105
+    },
+    "net_area": {
+      "total": 72,
+      "exact": 68
+    },
+    "rectangular_volume": {
+      "total": 90,
+      "exact": 90
+    }
+  },
+  "training_distribution": {
+    "training_target_mix": {
+      "invalid_input": 158,
+      "net_area": 165,
+      "clarify": 162,
+      "line_cost": 81,
+      "rectangular_volume": 29,
+      "add_waste": 45
+    },
+    "zero_price_examples": 12,
+    "causal_explanation_proven": false
+  },
+  "frozen_order_verified": true,
+  "training": {
+    "adapter_sha256": "960140f06dbaa802535d30c2042397c8459e5d79e1d511faa90819564b7ac4fe",
+    "train_runtime": 1080.6514,
+    "train_records": 640,
+    "validation_records": 16,
+    "steps": 80,
+    "learning_rate": 1e-05,
+    "seed": 9301,
+    "eval_loss": 0.02534610778093338
+  },
+  "inference_smoke_passed": true,
+  "regression_failures": [
+    {
+      "id": "qwen3-v7-val-zero_price-100",
+      "family": "line_cost",
+      "target": {
+        "action": "call",
+        "tool": "line_cost",
+        "arguments": {
+          "quantity": "1293.917",
+          "unit_price": "0",
+          "quantity_unit": "m2",
+          "price_unit": "SAR/m2"
+        },
+        "missing_fields": []
+      },
+      "prediction": {
+        "action": "call",
+        "arguments": {
+          "net_quantity": "1293.917",
+          "unit": "m2",
+          "waste_percent": "0"
+        },
+        "missing_fields": [],
+        "tool": "add_waste"
+      },
+      "contract_valid": true
+    },
+    {
+      "id": "qwen3-v7-val-equal_openings-100",
+      "family": "net_area",
+      "target": {
+        "action": "call",
+        "tool": "net_area",
+        "arguments": {
+          "gross_m2": "1653.631",
+          "openings_m2": "1653.631"
+        },
+        "missing_fields": []
+      },
+      "prediction": {
+        "action": "clarify",
+        "arguments": {},
+        "missing_fields": [
+          "openings_m2"
+        ],
+        "tool": null
+      },
+      "contract_valid": true
+    },
+    {
+      "id": "qwen3-v7-val-equal_openings-102",
+      "family": "net_area",
+      "target": {
+        "action": "call",
+        "tool": "net_area",
+        "arguments": {
+          "gross_m2": "1656.469",
+          "openings_m2": "1656.469"
+        },
+        "missing_fields": []
+      },
+      "prediction": {
+        "action": "invalid_input",
+        "arguments": {},
+        "missing_fields": [],
+        "tool": null
+      },
+      "contract_valid": true
+    },
+    {
+      "id": "qwen3-v7-val-equal_openings-104",
+      "family": "net_area",
+      "target": {
+        "action": "call",
+        "tool": "net_area",
+        "arguments": {
+          "gross_m2": "1659.307",
+          "openings_m2": "1659.307"
+        },
+        "missing_fields": []
+      },
+      "prediction": {
+        "action": "invalid_input",
+        "arguments": {},
+        "missing_fields": [],
+        "tool": null
+      },
+      "contract_valid": true
+    },
+    {
+      "id": "v8-units-val-ton_to_kg-0",
+      "family": "line_cost",
+      "target": {
+        "action": "call",
+        "tool": "line_cost",
+        "arguments": {
+          "quantity": "1174219.000",
+          "unit_price": "734.573",
+          "quantity_unit": "kg",
+          "price_unit": "SAR/kg"
+        },
+        "missing_fields": []
+      },
+      "prediction": {
+        "action": "call",
+        "arguments": {
+          "price_unit": "SAR/kg",
+          "quantity": "1174.219",
+          "quantity_unit": "ton",
+          "unit_price": "734.573"
+        },
+        "missing_fields": [],
+        "tool": "line_cost"
+      },
+      "contract_valid": false
+    },
+    {
+      "id": "v6-validation-0021",
+      "family": "net_area",
+      "target": {
+        "action": "invalid_input",
+        "tool": null,
+        "arguments": {},
+        "missing_fields": []
+      },
+      "prediction": {
+        "action": "clarify",
+        "tool": null,
+        "arguments": {},
+        "missing_fields": [
+          "gross_m2",
+          "openings_m2"
+        ]
+      },
+      "contract_valid": true
+    }
+  ],
+  "archive": {
+    "file": "ACEP_v9_site_research_complete.zip",
+    "bytes": 373080435,
+    "sha256": "f83c5c0b8d65412899cf24bba33ae83f2c3af42e732fc2c792bcb14a55c5eb53",
+    "files": 233
+  }
+}
