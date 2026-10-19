@@ -1,0 +1,911 @@
+{
+  "boundary": "Direct production model calls, existing internal CSV fitting, authored 100-project matrix and input probes; no independent field accuracy or browser/neural evaluation",
+  "summary": {
+    "matrixProjects": 100,
+    "modelsFitted": 7,
+    "matrixModelCalls": 600,
+    "successfulFiniteCalls": 600,
+    "invalidProbes": 36,
+    "invalidAcceptedWithoutReview": 18
+  },
+  "diagnostics": {
+    "risk_type_sensitivity": {
+      "types": [
+        "Residential_Compound",
+        "Villa",
+        "Hospital",
+        "Parking",
+        "Factory",
+        "University"
+      ],
+      "distinctNumericOutputs": 1
+    },
+    "quality_type_sensitivity": {
+      "types": [
+        "Residential_Compound",
+        "Villa",
+        "Hospital",
+        "Parking",
+        "Factory",
+        "University"
+      ],
+      "distinctOutputs": 1
+    },
+    "quality_database_duplication": {
+      "originalExpected": 157,
+      "doubledHistoricalCountsExpected": 314,
+      "note": "Diagnostic count perturbation in temporary memory; same project, no new physical evidence"
+    },
+    "suppliers": [
+      {
+        "category": "Concrete",
+        "candidates": [
+          {
+            "supplier": "Southern Province Cement - 59",
+            "city": "Riyadh",
+            "speciality": "Finishing",
+            "rating": 4.4,
+            "deliveryDays": 16,
+            "compliance": 95,
+            "totalDeals": 342,
+            "scores": {
+              "price": 50,
+              "rating": 88,
+              "delivery": 94,
+              "compliance": 95,
+              "experience": 100,
+              "volume": 100,
+              "overall": 83
+            }
+          },
+          {
+            "supplier": "Kone Saudi - 48",
+            "city": "Riyadh",
+            "speciality": "Concrete",
+            "rating": 4.6,
+            "deliveryDays": 14,
+            "compliance": 93,
+            "totalDeals": 235,
+            "scores": {
+              "price": 50,
+              "rating": 92,
+              "delivery": 100,
+              "compliance": 93,
+              "experience": 70,
+              "volume": 100,
+              "overall": 80
+            }
+          },
+          {
+            "supplier": "Saudi Ceramics - 108",
+            "city": "Buraydah",
+            "speciality": "Concrete",
+            "rating": 3.3,
+            "deliveryDays": 3,
+            "compliance": 94,
+            "totalDeals": 113,
+            "scores": {
+              "price": 50,
+              "rating": 66,
+              "delivery": 100,
+              "compliance": 94,
+              "experience": 100,
+              "volume": 100,
+              "overall": 80
+            }
+          },
+          {
+            "supplier": "Safwa Cement - 25",
+            "city": "Makkah",
+            "speciality": "Concrete",
+            "rating": 3.6,
+            "deliveryDays": 10,
+            "compliance": 83,
+            "totalDeals": 173,
+            "scores": {
+              "price": 50,
+              "rating": 72,
+              "delivery": 100,
+              "compliance": 83,
+              "experience": 100,
+              "volume": 100,
+              "overall": 79
+            }
+          },
+          {
+            "supplier": "Saudi Technical Supply - 103",
+            "city": "Tabuk",
+            "speciality": "Concrete",
+            "rating": 3.9,
+            "deliveryDays": 14,
+            "compliance": 98,
+            "totalDeals": 91,
+            "scores": {
+              "price": 50,
+              "rating": 78,
+              "delivery": 100,
+              "compliance": 98,
+              "experience": 80,
+              "volume": 91,
+              "overall": 79
+            }
+          },
+          {
+            "supplier": "Al-Babtain Group - 91",
+            "city": "Madinah",
+            "speciality": "Concrete",
+            "rating": 4.1,
+            "deliveryDays": 11,
+            "compliance": 81,
+            "totalDeals": 202,
+            "scores": {
+              "price": 50,
+              "rating": 82,
+              "delivery": 100,
+              "compliance": 81,
+              "experience": 70,
+              "volume": 100,
+              "overall": 77
+            }
+          },
+          {
+            "supplier": "Saudi Glass - 181",
+            "city": "Najran",
+            "speciality": "Concrete",
+            "rating": 4.6,
+            "deliveryDays": 7,
+            "compliance": 98,
+            "totalDeals": 208,
+            "scores": {
+              "price": 50,
+              "rating": 92,
+              "delivery": 100,
+              "compliance": 98,
+              "experience": 40,
+              "volume": 100,
+              "overall": 77
+            }
+          },
+          {
+            "supplier": "Al-Yamama Steel - 55",
+            "city": "Khamis Mushait",
+            "speciality": "Concrete",
+            "rating": 4.4,
+            "deliveryDays": 5,
+            "compliance": 84,
+            "totalDeals": 338,
+            "scores": {
+              "price": 50,
+              "rating": 88,
+              "delivery": 100,
+              "compliance": 84,
+              "experience": 50,
+              "volume": 100,
+              "overall": 75
+            }
+          },
+          {
+            "supplier": "Al-Wehaiby Co. - 30",
+            "city": "Abha",
+            "speciality": "Concrete",
+            "rating": 4.8,
+            "deliveryDays": 20,
+            "compliance": 78,
+            "totalDeals": 486,
+            "scores": {
+              "price": 50,
+              "rating": 96,
+              "delivery": 75,
+              "compliance": 78,
+              "experience": 60,
+              "volume": 100,
+              "overall": 74
+            }
+          },
+          {
+            "supplier": "National Ready Mix - 41",
+            "city": "Riyadh",
+            "speciality": "Steel",
+            "rating": 4.6,
+            "deliveryDays": 21,
+            "compliance": 86,
+            "totalDeals": 385,
+            "scores": {
+              "price": 50,
+              "rating": 92,
+              "delivery": 71,
+              "compliance": 86,
+              "experience": 60,
+              "volume": 100,
+              "overall": 74
+            }
+          }
+        ],
+        "marketAvgPrice": 0,
+        "priceRecords": 0
+      },
+      {
+        "category": "Steel",
+        "candidates": [
+          {
+            "supplier": "Southern Province Cement - 59",
+            "city": "Riyadh",
+            "speciality": "Finishing",
+            "rating": 4.4,
+            "deliveryDays": 16,
+            "compliance": 95,
+            "totalDeals": 342,
+            "scores": {
+              "price": 50,
+              "rating": 88,
+              "delivery": 94,
+              "compliance": 95,
+              "experience": 100,
+              "volume": 100,
+              "overall": 83
+            }
+          },
+          {
+            "supplier": "Saudi Glass - 128",
+            "city": "Madinah",
+            "speciality": "Steel",
+            "rating": 4.5,
+            "deliveryDays": 3,
+            "compliance": 86,
+            "totalDeals": 105,
+            "scores": {
+              "price": 50,
+              "rating": 90,
+              "delivery": 100,
+              "compliance": 86,
+              "experience": 90,
+              "volume": 100,
+              "overall": 82
+            }
+          },
+          {
+            "supplier": "Kone Saudi - 48",
+            "city": "Riyadh",
+            "speciality": "Concrete",
+            "rating": 4.6,
+            "deliveryDays": 14,
+            "compliance": 93,
+            "totalDeals": 235,
+            "scores": {
+              "price": 50,
+              "rating": 92,
+              "delivery": 100,
+              "compliance": 93,
+              "experience": 70,
+              "volume": 100,
+              "overall": 80
+            }
+          },
+          {
+            "supplier": "ABB Saudi - 5",
+            "city": "Madinah",
+            "speciality": "Steel",
+            "rating": 4.1,
+            "deliveryDays": 11,
+            "compliance": 96,
+            "totalDeals": 92,
+            "scores": {
+              "price": 50,
+              "rating": 82,
+              "delivery": 100,
+              "compliance": 96,
+              "experience": 60,
+              "volume": 92,
+              "overall": 77
+            }
+          },
+          {
+            "supplier": "Saudi Panel - 116",
+            "city": "Hail",
+            "speciality": "Steel",
+            "rating": 4,
+            "deliveryDays": 15,
+            "compliance": 88,
+            "totalDeals": 467,
+            "scores": {
+              "price": 50,
+              "rating": 80,
+              "delivery": 100,
+              "compliance": 88,
+              "experience": 60,
+              "volume": 100,
+              "overall": 76
+            }
+          },
+          {
+            "supplier": "National Ready Mix - 41",
+            "city": "Riyadh",
+            "speciality": "Steel",
+            "rating": 4.6,
+            "deliveryDays": 21,
+            "compliance": 86,
+            "totalDeals": 385,
+            "scores": {
+              "price": 50,
+              "rating": 92,
+              "delivery": 71,
+              "compliance": 86,
+              "experience": 60,
+              "volume": 100,
+              "overall": 74
+            }
+          },
+          {
+            "supplier": "Arabian Pipes - 138",
+            "city": "Hail",
+            "speciality": "Steel",
+            "rating": 3.9,
+            "deliveryDays": 19,
+            "compliance": 100,
+            "totalDeals": 420,
+            "scores": {
+              "price": 50,
+              "rating": 78,
+              "delivery": 79,
+              "compliance": 100,
+              "experience": 60,
+              "volume": 100,
+              "overall": 74
+            }
+          },
+          {
+            "supplier": "Siemens Saudi - 9",
+            "city": "Khamis Mushait",
+            "speciality": "Steel",
+            "rating": 4.1,
+            "deliveryDays": 13,
+            "compliance": 93,
+            "totalDeals": 94,
+            "scores": {
+              "price": 50,
+              "rating": 82,
+              "delivery": 100,
+              "compliance": 93,
+              "experience": 40,
+              "volume": 94,
+              "overall": 73
+            }
+          },
+          {
+            "supplier": "Al-Rajhi Steel - 17",
+            "city": "Jeddah",
+            "speciality": "Steel",
+            "rating": 4.4,
+            "deliveryDays": 20,
+            "compliance": 93,
+            "totalDeals": 417,
+            "scores": {
+              "price": 50,
+              "rating": 88,
+              "delivery": 75,
+              "compliance": 93,
+              "experience": 50,
+              "volume": 100,
+              "overall": 73
+            }
+          },
+          {
+            "supplier": "ABB Saudi - 36",
+            "city": "Riyadh",
+            "speciality": "Plumbing",
+            "rating": 4.3,
+            "deliveryDays": 6,
+            "compliance": 93,
+            "totalDeals": 174,
+            "scores": {
+              "price": 50,
+              "rating": 86,
+              "delivery": 100,
+              "compliance": 93,
+              "experience": 30,
+              "volume": 100,
+              "overall": 73
+            }
+          }
+        ],
+        "marketAvgPrice": 0,
+        "priceRecords": 0
+      },
+      {
+        "category": "Paint",
+        "candidates": [
+          {
+            "supplier": "Southern Province Cement - 59",
+            "city": "Riyadh",
+            "speciality": "Finishing",
+            "rating": 4.4,
+            "deliveryDays": 16,
+            "compliance": 95,
+            "totalDeals": 342,
+            "scores": {
+              "price": 50,
+              "rating": 88,
+              "delivery": 94,
+              "compliance": 95,
+              "experience": 100,
+              "volume": 100,
+              "overall": 83
+            }
+          },
+          {
+            "supplier": "Kone Saudi - 48",
+            "city": "Riyadh",
+            "speciality": "Concrete",
+            "rating": 4.6,
+            "deliveryDays": 14,
+            "compliance": 93,
+            "totalDeals": 235,
+            "scores": {
+              "price": 50,
+              "rating": 92,
+              "delivery": 100,
+              "compliance": 93,
+              "experience": 70,
+              "volume": 100,
+              "overall": 80
+            }
+          },
+          {
+            "supplier": "National Ready Mix - 41",
+            "city": "Riyadh",
+            "speciality": "Steel",
+            "rating": 4.6,
+            "deliveryDays": 21,
+            "compliance": 86,
+            "totalDeals": 385,
+            "scores": {
+              "price": 50,
+              "rating": 92,
+              "delivery": 71,
+              "compliance": 86,
+              "experience": 60,
+              "volume": 100,
+              "overall": 74
+            }
+          },
+          {
+            "supplier": "ABB Saudi - 36",
+            "city": "Riyadh",
+            "speciality": "Plumbing",
+            "rating": 4.3,
+            "deliveryDays": 6,
+            "compliance": 93,
+            "totalDeals": 174,
+            "scores": {
+              "price": 50,
+              "rating": 86,
+              "delivery": 100,
+              "compliance": 93,
+              "experience": 30,
+              "volume": 100,
+              "overall": 73
+            }
+          },
+          {
+            "supplier": "Saudi Building Materials Co. - 96",
+            "city": "Riyadh",
+            "speciality": "General Construction",
+            "rating": 4.5,
+            "deliveryDays": 16,
+            "compliance": 87,
+            "totalDeals": 339,
+            "scores": {
+              "price": 50,
+              "rating": 90,
+              "delivery": 94,
+              "compliance": 87,
+              "experience": 20,
+              "volume": 100,
+              "overall": 71
+            }
+          },
+          {
+            "supplier": "Qassim Cement - 6",
+            "city": "Riyadh",
+            "speciality": "General Construction",
+            "rating": 4.3,
+            "deliveryDays": 15,
+            "compliance": 96,
+            "totalDeals": 58,
+            "scores": {
+              "price": 50,
+              "rating": 86,
+              "delivery": 100,
+              "compliance": 96,
+              "experience": 0,
+              "volume": 58,
+              "overall": 65
+            }
+          }
+        ],
+        "marketAvgPrice": 58,
+        "priceRecords": 27
+      },
+      {
+        "category": "NOT_A_REAL_CATEGORY",
+        "candidates": [
+          {
+            "supplier": "Southern Province Cement - 59",
+            "city": "Riyadh",
+            "speciality": "Finishing",
+            "rating": 4.4,
+            "deliveryDays": 16,
+            "compliance": 95,
+            "totalDeals": 342,
+            "scores": {
+              "price": 50,
+              "rating": 88,
+              "delivery": 94,
+              "compliance": 95,
+              "experience": 100,
+              "volume": 100,
+              "overall": 83
+            }
+          },
+          {
+            "supplier": "Kone Saudi - 48",
+            "city": "Riyadh",
+            "speciality": "Concrete",
+            "rating": 4.6,
+            "deliveryDays": 14,
+            "compliance": 93,
+            "totalDeals": 235,
+            "scores": {
+              "price": 50,
+              "rating": 92,
+              "delivery": 100,
+              "compliance": 93,
+              "experience": 70,
+              "volume": 100,
+              "overall": 80
+            }
+          },
+          {
+            "supplier": "National Ready Mix - 41",
+            "city": "Riyadh",
+            "speciality": "Steel",
+            "rating": 4.6,
+            "deliveryDays": 21,
+            "compliance": 86,
+            "totalDeals": 385,
+            "scores": {
+              "price": 50,
+              "rating": 92,
+              "delivery": 71,
+              "compliance": 86,
+              "experience": 60,
+              "volume": 100,
+              "overall": 74
+            }
+          },
+          {
+            "supplier": "ABB Saudi - 36",
+            "city": "Riyadh",
+            "speciality": "Plumbing",
+            "rating": 4.3,
+            "deliveryDays": 6,
+            "compliance": 93,
+            "totalDeals": 174,
+            "scores": {
+              "price": 50,
+              "rating": 86,
+              "delivery": 100,
+              "compliance": 93,
+              "experience": 30,
+              "volume": 100,
+              "overall": 73
+            }
+          },
+          {
+            "supplier": "Saudi Building Materials Co. - 96",
+            "city": "Riyadh",
+            "speciality": "General Construction",
+            "rating": 4.5,
+            "deliveryDays": 16,
+            "compliance": 87,
+            "totalDeals": 339,
+            "scores": {
+              "price": 50,
+              "rating": 90,
+              "delivery": 94,
+              "compliance": 87,
+              "experience": 20,
+              "volume": 100,
+              "overall": 71
+            }
+          },
+          {
+            "supplier": "Qassim Cement - 6",
+            "city": "Riyadh",
+            "speciality": "General Construction",
+            "rating": 4.3,
+            "deliveryDays": 15,
+            "compliance": 96,
+            "totalDeals": 58,
+            "scores": {
+              "price": 50,
+              "rating": 86,
+              "delivery": 100,
+              "compliance": 96,
+              "experience": 0,
+              "volume": 58,
+              "overall": 65
+            }
+          }
+        ],
+        "marketAvgPrice": 0,
+        "priceRecords": 0
+      }
+    ]
+  },
+  "invalid": [
+    {
+      "model": "project-analyzer",
+      "input": "missing",
+      "rejected": false,
+      "review": true,
+      "finite": true,
+      "acceptedWithoutReview": false
+    },
+    {
+      "model": "project-analyzer",
+      "input": "negative",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "project-analyzer",
+      "input": "zero",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "project-analyzer",
+      "input": "fractional_floors",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "project-analyzer",
+      "input": "NaN",
+      "rejected": false,
+      "review": false,
+      "finite": false,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "project-analyzer",
+      "input": "Infinity",
+      "rejected": false,
+      "review": false,
+      "finite": false,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "missing",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "negative",
+      "rejected": true,
+      "error": "area must be a positive finite number in m2"
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "zero",
+      "rejected": true,
+      "error": "area must be a positive finite number in m2"
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "fractional_floors",
+      "rejected": true,
+      "error": "floors must be a positive integer"
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "NaN",
+      "rejected": true,
+      "error": "area must be a positive finite number in m2"
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "Infinity",
+      "rejected": true,
+      "error": "area must be a positive finite number in m2"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "missing",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "negative",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "zero",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "fractional_floors",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "NaN",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "Infinity",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "missing",
+      "rejected": false,
+      "review": false,
+      "finite": false,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "negative",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "zero",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "fractional_floors",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "NaN",
+      "rejected": false,
+      "review": false,
+      "finite": false,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "Infinity",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "quality-inspector",
+      "input": "missing",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "quality-inspector",
+      "input": "negative",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "quality-inspector",
+      "input": "zero",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "quality-inspector",
+      "input": "fractional_floors",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "quality-inspector",
+      "input": "NaN",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "quality-inspector",
+      "input": "Infinity",
+      "rejected": false,
+      "review": false,
+      "finite": true,
+      "acceptedWithoutReview": true
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "missing",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "negative",
+      "rejected": true,
+      "error": "Floors must be a positive safe integer"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "zero",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "fractional_floors",
+      "rejected": true,
+      "error": "Floors must be a positive safe integer"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "NaN",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "Infinity",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    }
+  ],
+  "sourceSHA256": {
+    "project-analyzer": "4ffb8c5047cba992e5d792eb7d0e57c1b11b99e1701e5eb9d0cf55932b764a21",
+    "quantity-estimator": "b980ebd707143f899d103cd6df8d1f2d492b04e13076d9d1f2eac27baa4afeec",
+    "cost-estimator": "07c7144cce608a78cfdcdceecd1e8ba578672a769456a86f9362481239651d56",
+    "risk-analyzer": "274e00f5003e7db0a3b25cc3213d77e7957bde07e24a40ca841c8c287357fe31",
+    "quality-inspector": "add45094798e49aeca0ee43394d45ef55e8285a9b7decbea8c76ed23650af8c8",
+    "schedule-optimizer": "c4bdf8fac59f9fca4c089a2bd0dcb8011b89fc74b594e54c6332e218f74208e0",
+    "supplier-intelligence": "bc7700ed6500df0f2d80b662ed247503510f609ffc72646598c505968dc86282"
+  }
+}

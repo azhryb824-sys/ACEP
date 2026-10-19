@@ -1,0 +1,347 @@
+{
+  "boundary": "Authored direct model, CSV, workflow and EDL regression tests; no field accuracy measurement",
+  "passed": 85,
+  "total": 85,
+  "tests": [
+    {
+      "name": "analyzer: reject negative",
+      "pass": true
+    },
+    {
+      "name": "analyzer: reject zero",
+      "pass": true
+    },
+    {
+      "name": "analyzer: reject nan",
+      "pass": true
+    },
+    {
+      "name": "analyzer: reject infinity",
+      "pass": true
+    },
+    {
+      "name": "analyzer: reject numeric_string",
+      "pass": true
+    },
+    {
+      "name": "analyzer: reject fractional_floors",
+      "pass": true
+    },
+    {
+      "name": "analyzer: reject zero_floors",
+      "pass": true
+    },
+    {
+      "name": "analyzer: reject negative_floors",
+      "pass": true
+    },
+    {
+      "name": "analyzer: reject nan_floors",
+      "pass": true
+    },
+    {
+      "name": "analyzer: reject infinite_floors",
+      "pass": true
+    },
+    {
+      "name": "analyzer: missing geometry is reviewable",
+      "pass": true
+    },
+    {
+      "name": "analyzer: missing type is reviewable",
+      "pass": true
+    },
+    {
+      "name": "analyzer: blank type is rejected",
+      "pass": true
+    },
+    {
+      "name": "quantity: reject negative",
+      "pass": true
+    },
+    {
+      "name": "quantity: reject zero",
+      "pass": true
+    },
+    {
+      "name": "quantity: reject nan",
+      "pass": true
+    },
+    {
+      "name": "quantity: reject infinity",
+      "pass": true
+    },
+    {
+      "name": "quantity: reject numeric_string",
+      "pass": true
+    },
+    {
+      "name": "quantity: reject fractional_floors",
+      "pass": true
+    },
+    {
+      "name": "quantity: reject zero_floors",
+      "pass": true
+    },
+    {
+      "name": "quantity: reject negative_floors",
+      "pass": true
+    },
+    {
+      "name": "quantity: reject nan_floors",
+      "pass": true
+    },
+    {
+      "name": "quantity: reject infinite_floors",
+      "pass": true
+    },
+    {
+      "name": "quantity: missing geometry is reviewable",
+      "pass": true
+    },
+    {
+      "name": "quantity: missing type is reviewable",
+      "pass": true
+    },
+    {
+      "name": "quantity: blank type is rejected",
+      "pass": true
+    },
+    {
+      "name": "risk: reject negative",
+      "pass": true
+    },
+    {
+      "name": "risk: reject zero",
+      "pass": true
+    },
+    {
+      "name": "risk: reject nan",
+      "pass": true
+    },
+    {
+      "name": "risk: reject infinity",
+      "pass": true
+    },
+    {
+      "name": "risk: reject numeric_string",
+      "pass": true
+    },
+    {
+      "name": "risk: reject fractional_floors",
+      "pass": true
+    },
+    {
+      "name": "risk: reject zero_floors",
+      "pass": true
+    },
+    {
+      "name": "risk: reject negative_floors",
+      "pass": true
+    },
+    {
+      "name": "risk: reject nan_floors",
+      "pass": true
+    },
+    {
+      "name": "risk: reject infinite_floors",
+      "pass": true
+    },
+    {
+      "name": "risk: missing geometry is reviewable",
+      "pass": true
+    },
+    {
+      "name": "risk: missing type is reviewable",
+      "pass": true
+    },
+    {
+      "name": "risk: blank type is rejected",
+      "pass": true
+    },
+    {
+      "name": "quality: reject negative",
+      "pass": true
+    },
+    {
+      "name": "quality: reject zero",
+      "pass": true
+    },
+    {
+      "name": "quality: reject nan",
+      "pass": true
+    },
+    {
+      "name": "quality: reject infinity",
+      "pass": true
+    },
+    {
+      "name": "quality: reject numeric_string",
+      "pass": true
+    },
+    {
+      "name": "quality: reject fractional_floors",
+      "pass": true
+    },
+    {
+      "name": "quality: reject zero_floors",
+      "pass": true
+    },
+    {
+      "name": "quality: reject negative_floors",
+      "pass": true
+    },
+    {
+      "name": "quality: reject nan_floors",
+      "pass": true
+    },
+    {
+      "name": "quality: reject infinite_floors",
+      "pass": true
+    },
+    {
+      "name": "quality: missing geometry is reviewable",
+      "pass": true
+    },
+    {
+      "name": "quality: missing type is reviewable",
+      "pass": true
+    },
+    {
+      "name": "quality: blank type is rejected",
+      "pass": true
+    },
+    {
+      "name": "analyzer preserves decimal geometry",
+      "pass": true
+    },
+    {
+      "name": "quantity abstains without dimensions",
+      "pass": true
+    },
+    {
+      "name": "quantity retains explicit assumption review API",
+      "pass": true
+    },
+    {
+      "name": "quantity surfaces remaining assumptions",
+      "pass": true
+    },
+    {
+      "name": "risk uses project type and category",
+      "pass": true
+    },
+    {
+      "name": "risk CSV preserves commas and newlines",
+      "pass": true
+    },
+    {
+      "name": "risk repeat invocation is deterministic",
+      "pass": true
+    },
+    {
+      "name": "risk fallback is explicit for unseen type",
+      "pass": true
+    },
+    {
+      "name": "risk aggregate is mean paired score",
+      "pass": true
+    },
+    {
+      "name": "risk CSV rejects invalid rating instead of coercing",
+      "pass": true
+    },
+    {
+      "name": "risk output independent of input row order",
+      "pass": true
+    },
+    {
+      "name": "quality describes only matching project type",
+      "pass": true
+    },
+    {
+      "name": "quality does not invent incidence or grade",
+      "pass": true
+    },
+    {
+      "name": "duplicating all quality records cannot double predicted defects",
+      "pass": true
+    },
+    {
+      "name": "quality unseen type has no fabricated profile",
+      "pass": true
+    },
+    {
+      "name": "supplier strict specialty AND city",
+      "pass": true
+    },
+    {
+      "name": "supplier does not substitute unrelated specialties",
+      "pass": true
+    },
+    {
+      "name": "supplier does not silently substitute another city",
+      "pass": true
+    },
+    {
+      "name": "supplier missing price stays null",
+      "pass": true
+    },
+    {
+      "name": "supplier categories map to material data",
+      "pass": true
+    },
+    {
+      "name": "supplier incompatible prices remain separate",
+      "pass": true
+    },
+    {
+      "name": "comparison preserves city, unit, grade, material and date",
+      "pass": true
+    },
+    {
+      "name": "single comparable group has numeric historical mean",
+      "pass": true
+    },
+    {
+      "name": "supplier honors numeric requirements",
+      "pass": true
+    },
+    {
+      "name": "supplier honors material requirements",
+      "pass": true
+    },
+    {
+      "name": "supplier rejects unsupported requirement",
+      "pass": true
+    },
+    {
+      "name": "supplier rejects invalid request fields",
+      "pass": true
+    },
+    {
+      "name": "supplier invalid CSV rating excluded and audited",
+      "pass": true
+    },
+    {
+      "name": "supplier absent price file is explicit",
+      "pass": true
+    },
+    {
+      "name": "workflow does not invent a missing floor",
+      "pass": true
+    },
+    {
+      "name": "workflow re-run halts after insufficient analysis",
+      "pass": true
+    },
+    {
+      "name": "workflow rejects zero floors without substituting one",
+      "pass": true
+    },
+    {
+      "name": "EDL round trip preserves review, nulls and historical basis",
+      "pass": true
+    }
+  ]
+}

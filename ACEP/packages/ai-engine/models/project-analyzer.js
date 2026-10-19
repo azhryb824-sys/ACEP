@@ -6,6 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const kb = require('../knowledge-base');
+const input = require('./model-input');
 
 class ProjectAnalyzer {
   constructor() {
@@ -15,6 +16,8 @@ class ProjectAnalyzer {
   }
 
   async train(csvPath) {
+    this.trained = false;
+    this.trainingStats.projectTypeStats = {};
     const content = fs.readFileSync(csvPath || path.join(__dirname, '..', '..', '..', 'packages', 'databases', 'training', 'csv', 'projects.csv'), 'utf8');
     const lines = content.trim().split('\n').slice(1);
     this.projects = lines.map(l => {
@@ -59,8 +62,12 @@ class ProjectAnalyzer {
   }
 
   analyzeProject(description, options = {}) {
+    const requestedType = options.type ?? kb.detectProjectType(description);
+    const missing = input.geometry(requestedType, options.area, options.floors, { perFloor: true });
+    if (missing.length) return { ...input.incomplete(missing), description, projectType: requestedType,
+      message: 'يلزم استكمال نوع المشروع والمساحة وعدد الأدوار' };
     if (!this.trained) return { error: 'Model not trained', trained: false };
-    let type = options.type || kb.detectProjectType(description);
+    let type = requestedType;
     const pt = kb.getProjectType(type);
     let stats = this.trainingStats.projectTypeStats[type];
 
@@ -74,22 +81,6 @@ class ProjectAnalyzer {
         type = fallback;
         stats = this.trainingStats.projectTypeStats[fallback];
       }
-    }
-
-    const missing = [];
-    if (options.area === null || options.area === undefined) missing.push('area');
-    if (options.floors === null || options.floors === undefined) missing.push('floors');
-
-    if (missing.length > 0) {
-      const msgs = { area: 'مساحة المشروع', floors: 'عدد الأدوار' };
-      return {
-        insufficientData: true,
-        message: 'لا يمكن استنتاج ' + missing.map(m => msgs[m] || m).join('، ') + ' من الوصف الحالي',
-        missing,
-        description,
-        projectType: type,
-        typeConfidence: options.typeConfidence || 0.5
-      };
     }
 
     const area = options.area;
@@ -117,14 +108,16 @@ class ProjectAnalyzer {
       };
     }
 
+    for (const value of [estimatedCost, concreteM3, steelTon, duration]) {
+      if (!Number.isFinite(value) || value < 0 || value > Number.MAX_SAFE_INTEGER / 100) throw new RangeError('Prediction exceeds supported numeric range');
+    }
     const spaces = kb.estimateSpaces(type, area, floors);
-    const confidence = stats ? Math.min(0.5 + stats.count * 0.005, 0.95) : 0.5;
 
     return {
       projectType: type,
-      totalArea: Math.round(area * floors),
-      areaPerFloor: Math.round(area),
-      floors: Math.round(floors),
+      totalArea: area * floors,
+      areaPerFloor: area,
+      floors,
       finishing,
       region,
       estimatedCost: Math.round(estimatedCost),
@@ -132,7 +125,10 @@ class ProjectAnalyzer {
       steelTon: Math.round(steelTon * 100) / 100,
       durationMonths: Math.round(duration),
       spaces,
-      confidence: Math.round(confidence * 100) / 100,
+      confidence: 0,
+      confidenceCalibrated: false,
+      estimateStatus: 'heuristic_estimate',
+      requiresEngineeringReview: true,
       trainingDataPoints: stats ? stats.count : 0,
       insufficientData: false
     };

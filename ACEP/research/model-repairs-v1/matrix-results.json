@@ -1,0 +1,6651 @@
+{
+  "boundary": "Direct production model calls, existing internal CSV fitting, authored 100-project matrix and input probes; no independent field accuracy or browser/neural evaluation",
+  "fit": {
+    "project-analyzer": {
+      "ok": true,
+      "data": {
+        "projectCount": 10000,
+        "typeCount": 21
+      }
+    },
+    "quantity-estimator": {
+      "ok": true,
+      "data": {
+        "items": 85062,
+        "categories": 16,
+        "itemUnitGroups": 87,
+        "audit": {
+          "rows": 85062,
+          "accepted": 85062,
+          "rejected": 0,
+          "provenance": "unverified_csv",
+          "accuracyValidated": false
+        }
+      }
+    },
+    "cost-estimator": {
+      "ok": true,
+      "data": {
+        "materials": 380,
+        "labor": 234,
+        "equipment": 156,
+        "suppliers": 124,
+        "audit": {
+          "materials": {
+            "rows": 380,
+            "accepted": 380,
+            "rejected": 0
+          },
+          "labor": {
+            "rows": 234,
+            "accepted": 234,
+            "rejected": 0
+          },
+          "equipment": {
+            "rows": 156,
+            "accepted": 156,
+            "rejected": 0
+          },
+          "suppliers": {
+            "rows": 124,
+            "accepted": 124,
+            "rejected": 0
+          },
+          "provenance": "unverified_csv",
+          "accuracyValidated": false
+        }
+      }
+    },
+    "risk-analyzer": {
+      "ok": true,
+      "data": {
+        "total": 40140,
+        "categories": 6,
+        "audit": {
+          "rows": 40140,
+          "accepted": 40140,
+          "rejected": 0,
+          "unmatchedProjects": 0,
+          "provenance": "unverified_csv",
+          "accuracyValidated": false
+        }
+      }
+    },
+    "quality-inspector": {
+      "ok": true,
+      "data": {
+        "total": 14984,
+        "types": 6,
+        "audit": {
+          "rows": 14984,
+          "accepted": 14984,
+          "rejected": 0,
+          "unmatchedProjects": 0,
+          "provenance": "unverified_csv",
+          "accuracyValidated": false,
+          "inspectionExposureAvailable": false
+        }
+      }
+    },
+    "schedule-optimizer": {
+      "ok": true,
+      "data": {
+        "total": 10000,
+        "types": 21
+      }
+    },
+    "supplier-intelligence": {
+      "ok": true,
+      "data": {
+        "suppliers": 123,
+        "priceRecords": 380,
+        "audit": {
+          "suppliers": {
+            "rows": 124,
+            "accepted": 123,
+            "rejected": 1
+          },
+          "prices": {
+            "rows": 380,
+            "accepted": 380,
+            "rejected": 0
+          },
+          "provenance": "unverified_csv",
+          "accuracyValidated": false
+        }
+      }
+    }
+  },
+  "matrix": [
+    {
+      "i": 0,
+      "type": "Residential_Compound",
+      "area": 150,
+      "floors": 1,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Residential_Compound",
+            "totalArea": 150,
+            "cost": 378207
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 51,
+            "cost": 439991.67
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.37
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 951,
+            "networkDays": 951
+          }
+        }
+      }
+    },
+    {
+      "i": 1,
+      "type": "Villa",
+      "area": 300,
+      "floors": 1,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Villa",
+            "totalArea": 300,
+            "cost": 1282618
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 40,
+            "cost": 335570.35
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.37
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 210,
+            "networkDays": 210
+          }
+        }
+      }
+    },
+    {
+      "i": 2,
+      "type": "Hospital",
+      "area": 1200,
+      "floors": 1,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Hospital",
+            "totalArea": 1200,
+            "cost": 9627626
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 47,
+            "cost": 4070830.73
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.43
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1239,
+            "networkDays": 1239
+          }
+        }
+      }
+    },
+    {
+      "i": 3,
+      "type": "Parking",
+      "area": 5000,
+      "floors": 1,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Parking",
+            "totalArea": 5000,
+            "cost": 52849803
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 1227589.15
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.51
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1077,
+            "networkDays": 1077
+          }
+        }
+      }
+    },
+    {
+      "i": 4,
+      "type": "Factory",
+      "area": 10000,
+      "floors": 1,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Factory",
+            "totalArea": 10000,
+            "cost": 26247275
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 41,
+            "cost": 6480842.36
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.54
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 912,
+            "networkDays": 912
+          }
+        }
+      }
+    },
+    {
+      "i": 5,
+      "type": "University",
+      "area": 150,
+      "floors": 2,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "University",
+            "totalArea": 300,
+            "cost": 1245752
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 61800
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.38
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1369,
+            "networkDays": 1369
+          }
+        }
+      }
+    },
+    {
+      "i": 6,
+      "type": "School",
+      "area": 300,
+      "floors": 2,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "School",
+            "totalArea": 600,
+            "cost": 4772266
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 47,
+            "cost": 1763283.26
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.43
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 779,
+            "networkDays": 779
+          }
+        }
+      }
+    },
+    {
+      "i": 7,
+      "type": "Bridge",
+      "area": 1200,
+      "floors": 2,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Bridge",
+            "totalArea": 2400,
+            "cost": 0
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 662036.25
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.49
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 580,
+            "networkDays": 580
+          }
+        }
+      }
+    },
+    {
+      "i": 8,
+      "type": "Road",
+      "area": 5000,
+      "floors": 2,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Road",
+            "totalArea": 10000,
+            "cost": 0
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 574734.94
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.56
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 313,
+            "networkDays": 313
+          }
+        }
+      }
+    },
+    {
+      "i": 9,
+      "type": "Luxury_Villa",
+      "area": 10000,
+      "floors": 2,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Luxury_Villa",
+            "totalArea": 20000,
+            "cost": 75891326
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 44,
+            "cost": 12942636.62
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.73
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 587,
+            "networkDays": 587
+          }
+        }
+      }
+    },
+    {
+      "i": 10,
+      "type": "Mall",
+      "area": 150,
+      "floors": 5,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Mall",
+            "totalArea": 750,
+            "cost": 5633284
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 50,
+            "cost": 3991369.8
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.47
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 3699,
+            "networkDays": 3699
+          }
+        }
+      }
+    },
+    {
+      "i": 11,
+      "type": "Apartment_Building",
+      "area": 300,
+      "floors": 5,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Apartment_Building",
+            "totalArea": 1500,
+            "cost": 17263546
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 36,
+            "cost": 3299952.87
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.51
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 985,
+            "networkDays": 985
+          }
+        }
+      }
+    },
+    {
+      "i": 12,
+      "type": "Government_Building",
+      "area": 1200,
+      "floors": 5,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Government_Building",
+            "totalArea": 6000,
+            "cost": 15461538
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 375549.55
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.5
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1035,
+            "networkDays": 1035
+          }
+        }
+      }
+    },
+    {
+      "i": 13,
+      "type": "DataCenter",
+      "area": 5000,
+      "floors": 5,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "DataCenter",
+            "totalArea": 25000,
+            "cost": 106265928
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 2358608.73
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.86
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1087,
+            "networkDays": 1087
+          }
+        }
+      }
+    },
+    {
+      "i": 14,
+      "type": "Townhouse_Project",
+      "area": 10000,
+      "floors": 5,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Townhouse_Project",
+            "totalArea": 50000,
+            "cost": 391188811
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 8273532.26
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2081,
+            "networkDays": 2081
+          }
+        }
+      }
+    },
+    {
+      "i": 15,
+      "type": "Mosque",
+      "area": 150,
+      "floors": 10,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Mosque",
+            "totalArea": 1500,
+            "cost": 16248872
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 50,
+            "cost": 6113627.85
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.57
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1417,
+            "networkDays": 1417
+          }
+        }
+      }
+    },
+    {
+      "i": 16,
+      "type": "Office_Building",
+      "area": 300,
+      "floors": 10,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Office_Building",
+            "totalArea": 3000,
+            "cost": 8802731
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 55,
+            "cost": 3379325.85
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.52
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 887,
+            "networkDays": 887
+          }
+        }
+      }
+    },
+    {
+      "i": 17,
+      "type": "Hotel",
+      "area": 1200,
+      "floors": 10,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Hotel",
+            "totalArea": 12000,
+            "cost": 48421007
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 62,
+            "cost": 18598635.05
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.71
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 120,
+            "networkDays": 120
+          }
+        }
+      }
+    },
+    {
+      "i": 18,
+      "type": "Residential_Tower",
+      "area": 5000,
+      "floors": 10,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Residential_Tower",
+            "totalArea": 50000,
+            "cost": 385946473
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 50,
+            "cost": 117127948.03
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 120,
+            "networkDays": 120
+          }
+        }
+      }
+    },
+    {
+      "i": 19,
+      "type": "Warehouse",
+      "area": 10000,
+      "floors": 10,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Warehouse",
+            "totalArea": 100000,
+            "cost": 1008341560
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 48,
+            "cost": 121139799.18
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 3519,
+            "networkDays": 3519
+          }
+        }
+      }
+    },
+    {
+      "i": 20,
+      "type": "CommercialComplex",
+      "area": 150,
+      "floors": 20,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "CommercialComplex",
+            "totalArea": 3000,
+            "cost": 7595566
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 240318
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.68
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 3121,
+            "networkDays": 3121
+          }
+        }
+      }
+    },
+    {
+      "i": 21,
+      "type": "Residential_Compound",
+      "area": 300,
+      "floors": 20,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Residential_Compound",
+            "totalArea": 6000,
+            "cost": 25213830
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 55,
+            "cost": 9409152.65
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.72
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 7183,
+            "networkDays": 7183
+          }
+        }
+      }
+    },
+    {
+      "i": 22,
+      "type": "Villa",
+      "area": 1200,
+      "floors": 20,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Villa",
+            "totalArea": 24000,
+            "cost": 184696991
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 41,
+            "cost": 17976829.19
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2526,
+            "networkDays": 2526
+          }
+        }
+      }
+    },
+    {
+      "i": 23,
+      "type": "Hospital",
+      "area": 5000,
+      "floors": 20,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Hospital",
+            "totalArea": 100000,
+            "cost": 1114308541
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 50,
+            "cost": 301822687.92
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 19229,
+            "networkDays": 19229
+          }
+        }
+      }
+    },
+    {
+      "i": 24,
+      "type": "Parking",
+      "area": 10000,
+      "floors": 20,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Parking",
+            "totalArea": 200000,
+            "cost": 507358110
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 10987582.28
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 4583,
+            "networkDays": 4583
+          }
+        }
+      }
+    },
+    {
+      "i": 25,
+      "type": "Factory",
+      "area": 150,
+      "floors": 1,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Factory",
+            "totalArea": 150,
+            "cost": 656182
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 38,
+            "cost": 191135.29
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.38
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1301,
+            "networkDays": 1301
+          }
+        }
+      }
+    },
+    {
+      "i": 26,
+      "type": "University",
+      "area": 300,
+      "floors": 1,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "University",
+            "totalArea": 300,
+            "cost": 2242354
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 105045.44
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.41
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1515,
+            "networkDays": 1515
+          }
+        }
+      }
+    },
+    {
+      "i": 27,
+      "type": "School",
+      "area": 1200,
+      "floors": 1,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "School",
+            "totalArea": 1200,
+            "cost": 13256295
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 47,
+            "cost": 5068534.08
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.45
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 785,
+            "networkDays": 785
+          }
+        }
+      }
+    },
+    {
+      "i": 28,
+      "type": "Bridge",
+      "area": 5000,
+      "floors": 1,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Bridge",
+            "totalArea": 5000,
+            "cost": 0
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 294621.4
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.46
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 239,
+            "networkDays": 239
+          }
+        }
+      }
+    },
+    {
+      "i": 29,
+      "type": "Road",
+      "area": 10000,
+      "floors": 1,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Road",
+            "totalArea": 10000,
+            "cost": 0
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 938595.29
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.55
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 389,
+            "networkDays": 389
+          }
+        }
+      }
+    },
+    {
+      "i": 30,
+      "type": "Luxury_Villa",
+      "area": 150,
+      "floors": 2,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Luxury_Villa",
+            "totalArea": 300,
+            "cost": 2049066
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 43,
+            "cost": 960130.28
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.42
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 503,
+            "networkDays": 503
+          }
+        }
+      }
+    },
+    {
+      "i": 31,
+      "type": "Mall",
+      "area": 300,
+      "floors": 2,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Mall",
+            "totalArea": 600,
+            "cost": 6259204
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 50,
+            "cost": 4021013.78
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.45
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2882,
+            "networkDays": 2882
+          }
+        }
+      }
+    },
+    {
+      "i": 32,
+      "type": "Apartment_Building",
+      "area": 1200,
+      "floors": 2,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Apartment_Building",
+            "totalArea": 2400,
+            "cost": 6629202
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 36,
+            "cost": 996135.03
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.43
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 274,
+            "networkDays": 274
+          }
+        }
+      }
+    },
+    {
+      "i": 33,
+      "type": "Government_Building",
+      "area": 5000,
+      "floors": 2,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Government_Building",
+            "totalArea": 10000,
+            "cost": 42948717
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 957891.57
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.53
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 933,
+            "networkDays": 933
+          }
+        }
+      }
+    },
+    {
+      "i": 34,
+      "type": "DataCenter",
+      "area": 10000,
+      "floors": 2,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "DataCenter",
+            "totalArea": 20000,
+            "cost": 153022937
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 3335419.37
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.79
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 952,
+            "networkDays": 952
+          }
+        }
+      }
+    },
+    {
+      "i": 35,
+      "type": "Townhouse_Project",
+      "area": 150,
+      "floors": 5,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Townhouse_Project",
+            "totalArea": 750,
+            "cost": 8149767
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 295950
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.49
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1734,
+            "networkDays": 1734
+          }
+        }
+      }
+    },
+    {
+      "i": 36,
+      "type": "Mosque",
+      "area": 300,
+      "floors": 5,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Mosque",
+            "totalArea": 1500,
+            "cost": 3899729
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 51,
+            "cost": 1342341.25
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.43
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 411,
+            "networkDays": 411
+          }
+        }
+      }
+    },
+    {
+      "i": 37,
+      "type": "Office_Building",
+      "area": 1200,
+      "floors": 5,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Office_Building",
+            "totalArea": 6000,
+            "cost": 29342436
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 56,
+            "cost": 8787412.06
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.51
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 561,
+            "networkDays": 561
+          }
+        }
+      }
+    },
+    {
+      "i": 38,
+      "type": "Hotel",
+      "area": 5000,
+      "floors": 5,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Hotel",
+            "totalArea": 25000,
+            "cost": 181578775
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 62,
+            "cost": 59290663.69
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.89
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 99,
+            "networkDays": 99
+          }
+        }
+      }
+    },
+    {
+      "i": 39,
+      "type": "Residential_Tower",
+      "area": 10000,
+      "floors": 5,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Residential_Tower",
+            "totalArea": 50000,
+            "cost": 536036768
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 50,
+            "cost": 169034262.67
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 99,
+            "networkDays": 99
+          }
+        }
+      }
+    },
+    {
+      "i": 40,
+      "type": "Warehouse",
+      "area": 150,
+      "floors": 10,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Warehouse",
+            "totalArea": 1500,
+            "cost": 3630030
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 44,
+            "cost": 817083.21
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.51
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1100,
+            "networkDays": 1100
+          }
+        }
+      }
+    },
+    {
+      "i": 41,
+      "type": "CommercialComplex",
+      "area": 300,
+      "floors": 10,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "CommercialComplex",
+            "totalArea": 3000,
+            "cost": 12659277
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 366115.91
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.54
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2022,
+            "networkDays": 2022
+          }
+        }
+      }
+    },
+    {
+      "i": 42,
+      "type": "Residential_Compound",
+      "area": 1200,
+      "floors": 10,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Residential_Compound",
+            "totalArea": 12000,
+            "cost": 90769789
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 55,
+            "cost": 28188715.52
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.75
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 4634,
+            "networkDays": 4634
+          }
+        }
+      }
+    },
+    {
+      "i": 43,
+      "type": "Villa",
+      "area": 5000,
+      "floors": 10,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Villa",
+            "totalArea": 50000,
+            "cost": 534424163
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 41,
+            "cost": 52867520.78
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1577,
+            "networkDays": 1577
+          }
+        }
+      }
+    },
+    {
+      "i": 44,
+      "type": "Hospital",
+      "area": 10000,
+      "floors": 10,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Hospital",
+            "totalArea": 100000,
+            "cost": 267434050
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 50,
+            "cost": 73469088.19
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 3752,
+            "networkDays": 3752
+          }
+        }
+      }
+    },
+    {
+      "i": 45,
+      "type": "Parking",
+      "area": 150,
+      "floors": 20,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Parking",
+            "totalArea": 3000,
+            "cost": 12683953
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 400530
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.66
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 4022,
+            "networkDays": 4022
+          }
+        }
+      }
+    },
+    {
+      "i": 46,
+      "type": "Factory",
+      "area": 300,
+      "floors": 20,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Factory",
+            "totalArea": 6000,
+            "cost": 47245095
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 40,
+            "cost": 4378846.08
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.8
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 9013,
+            "networkDays": 9013
+          }
+        }
+      }
+    },
+    {
+      "i": 47,
+      "type": "University",
+      "area": 1200,
+      "floors": 20,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "University",
+            "totalArea": 24000,
+            "cost": 249150491
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 6076683.93
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 11329,
+            "networkDays": 11329
+          }
+        }
+      }
+    },
+    {
+      "i": 48,
+      "type": "School",
+      "area": 5000,
+      "floors": 20,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "School",
+            "totalArea": 100000,
+            "cost": 265125908
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 48,
+            "cost": 68026136.22
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 3263,
+            "networkDays": 3263
+          }
+        }
+      }
+    },
+    {
+      "i": 49,
+      "type": "Bridge",
+      "area": 10000,
+      "floors": 20,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Bridge",
+            "totalArea": 200000,
+            "cost": 0
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 18312637.13
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 3072,
+            "networkDays": 3072
+          }
+        }
+      }
+    },
+    {
+      "i": 50,
+      "type": "Road",
+      "area": 150,
+      "floors": 1,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Road",
+            "totalArea": 150,
+            "cost": 0
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 77382
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.42
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 440,
+            "networkDays": 440
+          }
+        }
+      }
+    },
+    {
+      "i": 51,
+      "type": "Luxury_Villa",
+      "area": 300,
+      "floors": 1,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Luxury_Villa",
+            "totalArea": 300,
+            "cost": 2845925
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 43,
+            "cost": 1513912.13
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.43
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 504,
+            "networkDays": 504
+          }
+        }
+      }
+    },
+    {
+      "i": 52,
+      "type": "Mall",
+      "area": 1200,
+      "floors": 1,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Mall",
+            "totalArea": 1200,
+            "cost": 3004418
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 51,
+            "cost": 1871780.06
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.38
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1156,
+            "networkDays": 1156
+          }
+        }
+      }
+    },
+    {
+      "i": 53,
+      "type": "Apartment_Building",
+      "area": 5000,
+      "floors": 1,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Apartment_Building",
+            "totalArea": 5000,
+            "cost": 23018061
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 35,
+            "cost": 3877126.73
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.46
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 315,
+            "networkDays": 315
+          }
+        }
+      }
+    },
+    {
+      "i": 54,
+      "type": "Government_Building",
+      "area": 10000,
+      "floors": 1,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Government_Building",
+            "totalArea": 10000,
+            "cost": 77307690
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 1689471.52
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.57
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1009,
+            "networkDays": 1009
+          }
+        }
+      }
+    },
+    {
+      "i": 55,
+      "type": "DataCenter",
+      "area": 150,
+      "floors": 2,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "DataCenter",
+            "totalArea": 300,
+            "cost": 3187978
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 154500
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.43
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 770,
+            "networkDays": 770
+          }
+        }
+      }
+    },
+    {
+      "i": 56,
+      "type": "Townhouse_Project",
+      "area": 300,
+      "floors": 2,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Townhouse_Project",
+            "totalArea": 600,
+            "cost": 1564755
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 55522.3
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.39
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 560,
+            "networkDays": 560
+          }
+        }
+      }
+    },
+    {
+      "i": 57,
+      "type": "Mosque",
+      "area": 1200,
+      "floors": 2,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Mosque",
+            "totalArea": 2400,
+            "cost": 10399278
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 49,
+            "cost": 3406409.97
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.41
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 411,
+            "networkDays": 411
+          }
+        }
+      }
+    },
+    {
+      "i": 58,
+      "type": "Office_Building",
+      "area": 5000,
+      "floors": 2,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Office_Building",
+            "totalArea": 10000,
+            "cost": 88027308
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 54,
+            "cost": 27122020.54
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.59
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 303,
+            "networkDays": 303
+          }
+        }
+      }
+    },
+    {
+      "i": 59,
+      "type": "Hotel",
+      "area": 10000,
+      "floors": 2,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Hotel",
+            "totalArea": 20000,
+            "cost": 201754195
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 60,
+            "cost": 71065861.21
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.82
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 85,
+            "networkDays": 85
+          }
+        }
+      }
+    },
+    {
+      "i": 60,
+      "type": "Residential_Tower",
+      "area": 150,
+      "floors": 5,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Residential_Tower",
+            "totalArea": 750,
+            "cost": 1929732
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 49,
+            "cost": 1519908.09
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.43
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 99,
+            "networkDays": 99
+          }
+        }
+      }
+    },
+    {
+      "i": 61,
+      "type": "Warehouse",
+      "area": 300,
+      "floors": 5,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Warehouse",
+            "totalArea": 1500,
+            "cost": 6050049
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 47,
+            "cost": 1194084.39
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.45
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 985,
+            "networkDays": 985
+          }
+        }
+      }
+    },
+    {
+      "i": 62,
+      "type": "CommercialComplex",
+      "area": 1200,
+      "floors": 5,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "CommercialComplex",
+            "totalArea": 6000,
+            "cost": 45573399
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 1126648.64
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.58
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1489,
+            "networkDays": 1489
+          }
+        }
+      }
+    },
+    {
+      "i": 63,
+      "type": "Residential_Compound",
+      "area": 5000,
+      "floors": 5,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Residential_Compound",
+            "totalArea": 25000,
+            "cost": 262644065
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 56,
+            "cost": 78744065.77
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.89
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 3322,
+            "networkDays": 3322
+          }
+        }
+      }
+    },
+    {
+      "i": 64,
+      "type": "Villa",
+      "area": 10000,
+      "floors": 5,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Villa",
+            "totalArea": 50000,
+            "cost": 128261799
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 41,
+            "cost": 14281829.65
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 458,
+            "networkDays": 458
+          }
+        }
+      }
+    },
+    {
+      "i": 65,
+      "type": "Hospital",
+      "area": 150,
+      "floors": 10,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Hospital",
+            "totalArea": 1500,
+            "cost": 6685851
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 48,
+            "cost": 3033358.76
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.51
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 4480,
+            "networkDays": 4480
+          }
+        }
+      }
+    },
+    {
+      "i": 66,
+      "type": "Parking",
+      "area": 300,
+      "floors": 10,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Parking",
+            "totalArea": 3000,
+            "cost": 22831115
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 659008.64
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.57
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2550,
+            "networkDays": 2550
+          }
+        }
+      }
+    },
+    {
+      "i": 67,
+      "type": "Factory",
+      "area": 1200,
+      "floors": 10,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Factory",
+            "totalArea": 12000,
+            "cost": 131236374
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 41,
+            "cost": 12276978.45
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.79
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 5145,
+            "networkDays": 5145
+          }
+        }
+      }
+    },
+    {
+      "i": 68,
+      "type": "University",
+      "area": 5000,
+      "floors": 10,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "University",
+            "totalArea": 50000,
+            "cost": 124575246
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 2815732.63
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2477,
+            "networkDays": 2477
+          }
+        }
+      }
+    },
+    {
+      "i": 69,
+      "type": "School",
+      "area": 10000,
+      "floors": 10,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "School",
+            "totalArea": 100000,
+            "cost": 441876513
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 48,
+            "cost": 115254336.21
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2291,
+            "networkDays": 2291
+          }
+        }
+      }
+    },
+    {
+      "i": 70,
+      "type": "Bridge",
+      "area": 150,
+      "floors": 20,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Bridge",
+            "totalArea": 3000,
+            "cost": 0
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 720954
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.74
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2223,
+            "networkDays": 2223
+          }
+        }
+      }
+    },
+    {
+      "i": 71,
+      "type": "Road",
+      "area": 300,
+      "floors": 20,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Road",
+            "totalArea": 6000,
+            "cost": 0
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 1769754.55
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.82
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2664,
+            "networkDays": 2664
+          }
+        }
+      }
+    },
+    {
+      "i": 72,
+      "type": "Luxury_Villa",
+      "area": 1200,
+      "floors": 20,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Luxury_Villa",
+            "totalArea": 24000,
+            "cost": 54641755
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 44,
+            "cost": 6837146.77
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2052,
+            "networkDays": 2052
+          }
+        }
+      }
+    },
+    {
+      "i": 73,
+      "type": "Mall",
+      "area": 5000,
+      "floors": 20,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Mall",
+            "totalArea": 100000,
+            "cost": 417280286
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 54,
+            "cost": 121761567.99
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 11327,
+            "networkDays": 11327
+          }
+        }
+      }
+    },
+    {
+      "i": 74,
+      "type": "Apartment_Building",
+      "area": 10000,
+      "floors": 20,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Apartment_Building",
+            "totalArea": 200000,
+            "cost": 1657300410
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 36,
+            "cost": 139584733.07
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 6578,
+            "networkDays": 6578
+          }
+        }
+      }
+    },
+    {
+      "i": 75,
+      "type": "Government_Building",
+      "area": 150,
+      "floors": 1,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Government_Building",
+            "totalArea": 150,
+            "cost": 1610577
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 107475
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.42
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1163,
+            "networkDays": 1163
+          }
+        }
+      }
+    },
+    {
+      "i": 76,
+      "type": "DataCenter",
+      "area": 300,
+      "floors": 1,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "DataCenter",
+            "totalArea": 300,
+            "cost": 765115
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 35015.15
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.37
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 314,
+            "networkDays": 314
+          }
+        }
+      }
+    },
+    {
+      "i": 77,
+      "type": "Townhouse_Project",
+      "area": 1200,
+      "floors": 1,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Townhouse_Project",
+            "totalArea": 1200,
+            "cost": 5215851
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 144497.16
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.38
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 692,
+            "networkDays": 692
+          }
+        }
+      }
+    },
+    {
+      "i": 78,
+      "type": "Mosque",
+      "area": 5000,
+      "floors": 1,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Mosque",
+            "totalArea": 5000,
+            "cost": 38997292
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 48,
+            "cost": 14960625.96
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.49
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 531,
+            "networkDays": 531
+          }
+        }
+      }
+    },
+    {
+      "i": 79,
+      "type": "Office_Building",
+      "area": 10000,
+      "floors": 1,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Office_Building",
+            "totalArea": 10000,
+            "cost": 122260150
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 53,
+            "cost": 46050685.68
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.61
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 210,
+            "networkDays": 210
+          }
+        }
+      }
+    },
+    {
+      "i": 80,
+      "type": "Hotel",
+      "area": 150,
+      "floors": 2,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Hotel",
+            "totalArea": 300,
+            "cost": 726315
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 54,
+            "cost": 831719.94
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.39
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 85,
+            "networkDays": 85
+          }
+        }
+      }
+    },
+    {
+      "i": 81,
+      "type": "Residential_Tower",
+      "area": 300,
+      "floors": 2,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Residential_Tower",
+            "totalArea": 600,
+            "cost": 2572976
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 48,
+            "cost": 1645767.36
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.4
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 85,
+            "networkDays": 85
+          }
+        }
+      }
+    },
+    {
+      "i": 82,
+      "type": "Warehouse",
+      "area": 1200,
+      "floors": 2,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Warehouse",
+            "totalArea": 2400,
+            "cost": 17424142
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 46,
+            "cost": 3525987.91
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.47
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 904,
+            "networkDays": 904
+          }
+        }
+      }
+    },
+    {
+      "i": 83,
+      "type": "CommercialComplex",
+      "area": 5000,
+      "floors": 2,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "CommercialComplex",
+            "totalArea": 10000,
+            "cost": 105493978
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 2394728.93
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.64
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1088,
+            "networkDays": 1088
+          }
+        }
+      }
+    },
+    {
+      "i": 84,
+      "type": "Residential_Compound",
+      "area": 10000,
+      "floors": 2,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Residential_Compound",
+            "totalArea": 20000,
+            "cost": 50427660
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 54,
+            "cost": 16627689.17
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.73
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1088,
+            "networkDays": 1088
+          }
+        }
+      }
+    },
+    {
+      "i": 85,
+      "type": "Villa",
+      "area": 150,
+      "floors": 5,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Villa",
+            "totalArea": 750,
+            "cost": 3206545
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 40,
+            "cost": 481024.07
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.42
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 343,
+            "networkDays": 343
+          }
+        }
+      }
+    },
+    {
+      "i": 86,
+      "type": "Hospital",
+      "area": 300,
+      "floors": 5,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Hospital",
+            "totalArea": 1500,
+            "cost": 12034532
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 49,
+            "cost": 5496670.58
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.49
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2960,
+            "networkDays": 2960
+          }
+        }
+      }
+    },
+    {
+      "i": 87,
+      "type": "Parking",
+      "area": 1200,
+      "floors": 5,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Parking",
+            "totalArea": 6000,
+            "cost": 63419764
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 1564789.78
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.58
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1797,
+            "networkDays": 1797
+          }
+        }
+      }
+    },
+    {
+      "i": 88,
+      "type": "Factory",
+      "area": 5000,
+      "floors": 5,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Factory",
+            "totalArea": 25000,
+            "cost": 65618187
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 41,
+            "cost": 7029372.45
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.89
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1490,
+            "networkDays": 1490
+          }
+        }
+      }
+    },
+    {
+      "i": 89,
+      "type": "University",
+      "area": 10000,
+      "floors": 5,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "University",
+            "totalArea": 50000,
+            "cost": 207625410
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 4596406.81
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 2078,
+            "networkDays": 2078
+          }
+        }
+      }
+    },
+    {
+      "i": 90,
+      "type": "School",
+      "area": 150,
+      "floors": 10,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "School",
+            "totalArea": 1500,
+            "cost": 11930666
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 46,
+            "cost": 3651643.15
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.55
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1824,
+            "networkDays": 1824
+          }
+        }
+      }
+    },
+    {
+      "i": 91,
+      "type": "Bridge",
+      "area": 300,
+      "floors": 10,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Bridge",
+            "totalArea": 3000,
+            "cost": 0
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 915289.78
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.62
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1290,
+            "networkDays": 1290
+          }
+        }
+      }
+    },
+    {
+      "i": 92,
+      "type": "Road",
+      "area": 1200,
+      "floors": 10,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Road",
+            "totalArea": 12000,
+            "cost": 0
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 736501.09
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.71
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 718,
+            "networkDays": 718
+          }
+        }
+      }
+    },
+    {
+      "i": 93,
+      "type": "Luxury_Villa",
+      "area": 5000,
+      "floors": 10,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Luxury_Villa",
+            "totalArea": 50000,
+            "cost": 189728316
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 44,
+            "cost": 22193836.71
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 1575,
+            "networkDays": 1575
+          }
+        }
+      }
+    },
+    {
+      "i": 94,
+      "type": "Mall",
+      "area": 10000,
+      "floors": 10,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Mall",
+            "totalArea": 100000,
+            "cost": 751104515
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 54,
+            "cost": 217723753.91
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 7034,
+            "networkDays": 7034
+          }
+        }
+      }
+    },
+    {
+      "i": 95,
+      "type": "Apartment_Building",
+      "area": 150,
+      "floors": 20,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Apartment_Building",
+            "totalArea": 3000,
+            "cost": 34527092
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 36,
+            "cost": 6778751.27
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.78
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 4203,
+            "networkDays": 4203
+          }
+        }
+      }
+    },
+    {
+      "i": 96,
+      "type": "Government_Building",
+      "area": 300,
+      "floors": 20,
+      "finishing": "Raw",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Government_Building",
+            "totalArea": 6000,
+            "cost": 15461538
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 424741.09
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.71
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 4047,
+            "networkDays": 4047
+          }
+        }
+      }
+    },
+    {
+      "i": 97,
+      "type": "DataCenter",
+      "area": 1200,
+      "floors": 20,
+      "finishing": "Standard",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "DataCenter",
+            "totalArea": 24000,
+            "cost": 102015291
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 2430673.57
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 3575,
+            "networkDays": 3575
+          }
+        }
+      }
+    },
+    {
+      "i": 98,
+      "type": "Townhouse_Project",
+      "area": 5000,
+      "floors": 20,
+      "finishing": "Premium",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Townhouse_Project",
+            "totalArea": 100000,
+            "cost": 782377622
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 15,
+            "cost": 16850601.43
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 7755,
+            "networkDays": 7755
+          }
+        }
+      }
+    },
+    {
+      "i": 99,
+      "type": "Mosque",
+      "area": 10000,
+      "floors": 20,
+      "finishing": "Luxury",
+      "models": {
+        "project-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "type": "Mosque",
+            "totalArea": 200000,
+            "cost": 2166516245
+          }
+        },
+        "quantity-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "items": 51,
+            "cost": 563686918.7
+          }
+        },
+        "cost-estimator": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "total": 1000
+          }
+        },
+        "risk-analyzer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": 0.9
+          }
+        },
+        "quality-inspector": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "score": null,
+            "defects": null
+          }
+        },
+        "schedule-optimizer": {
+          "ok": true,
+          "finite": true,
+          "insufficient": false,
+          "summary": {
+            "days": 5541,
+            "networkDays": 5541
+          }
+        }
+      }
+    }
+  ],
+  "invalid": [
+    {
+      "model": "project-analyzer",
+      "input": "missing",
+      "rejected": false,
+      "review": true,
+      "finite": true,
+      "acceptedWithoutReview": false
+    },
+    {
+      "model": "project-analyzer",
+      "input": "negative",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "project-analyzer",
+      "input": "zero",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "project-analyzer",
+      "input": "fractional_floors",
+      "rejected": true,
+      "error": "Invalid floors"
+    },
+    {
+      "model": "project-analyzer",
+      "input": "NaN",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "project-analyzer",
+      "input": "Infinity",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "missing",
+      "rejected": false,
+      "review": true,
+      "finite": true,
+      "acceptedWithoutReview": false
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "negative",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "zero",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "fractional_floors",
+      "rejected": true,
+      "error": "Invalid floors"
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "NaN",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "quantity-estimator",
+      "input": "Infinity",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "missing",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "negative",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "zero",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "fractional_floors",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "NaN",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "cost-estimator",
+      "input": "Infinity",
+      "rejected": true,
+      "error": "area and floors must be positive finite project dimensions"
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "missing",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "negative",
+      "rejected": true,
+      "error": "Invalid floors"
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "zero",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "fractional_floors",
+      "rejected": true,
+      "error": "Invalid floors"
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "NaN",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "risk-analyzer",
+      "input": "Infinity",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "quality-inspector",
+      "input": "missing",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "quality-inspector",
+      "input": "negative",
+      "rejected": true,
+      "error": "Invalid floors"
+    },
+    {
+      "model": "quality-inspector",
+      "input": "zero",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "quality-inspector",
+      "input": "fractional_floors",
+      "rejected": true,
+      "error": "Invalid floors"
+    },
+    {
+      "model": "quality-inspector",
+      "input": "NaN",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "quality-inspector",
+      "input": "Infinity",
+      "rejected": true,
+      "error": "Invalid area"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "missing",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "negative",
+      "rejected": true,
+      "error": "Floors must be a positive safe integer"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "zero",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "fractional_floors",
+      "rejected": true,
+      "error": "Floors must be a positive safe integer"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "NaN",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    },
+    {
+      "model": "schedule-optimizer",
+      "input": "Infinity",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    }
+  ],
+  "diagnostics": {
+    "risk_type_sensitivity": {
+      "types": [
+        "Residential_Compound",
+        "Villa",
+        "Hospital",
+        "Parking",
+        "Factory",
+        "University"
+      ],
+      "distinctNumericOutputs": 6
+    },
+    "quality_type_sensitivity": {
+      "types": [
+        "Residential_Compound",
+        "Villa",
+        "Hospital",
+        "Parking",
+        "Factory",
+        "University"
+      ],
+      "distinctOutputs": 6
+    },
+    "qualityPredictionAbstentions": 100,
+    "suppliers": [
+      {
+        "category": "Concrete",
+        "candidates": [
+          {
+            "supplier": "Kone Saudi - 48",
+            "city": "Riyadh",
+            "speciality": "Concrete",
+            "rating": 4.6,
+            "deliveryDays": 14,
+            "compliance": 93,
+            "totalDeals": 235,
+            "priceRecords": 0,
+            "scores": {
+              "price": null,
+              "rating": 92,
+              "delivery": 100,
+              "compliance": 93,
+              "experience": 70,
+              "volume": 100,
+              "overall": 90
+            }
+          }
+        ],
+        "marketAvgPrice": 325.13,
+        "priceRecords": 1
+      },
+      {
+        "category": "Steel",
+        "candidates": [
+          {
+            "supplier": "National Ready Mix - 41",
+            "city": "Riyadh",
+            "speciality": "Steel",
+            "rating": 4.6,
+            "deliveryDays": 21,
+            "compliance": 86,
+            "totalDeals": 385,
+            "priceRecords": 0,
+            "scores": {
+              "price": null,
+              "rating": 92,
+              "delivery": 71,
+              "compliance": 86,
+              "experience": 60,
+              "volume": 100,
+              "overall": 81
+            }
+          }
+        ],
+        "marketAvgPrice": null,
+        "priceRecords": 4
+      },
+      {
+        "category": "Paint",
+        "candidates": [],
+        "marketAvgPrice": null,
+        "priceRecords": 2
+      },
+      {
+        "category": "NOT_A_REAL_CATEGORY",
+        "candidates": [],
+        "marketAvgPrice": null,
+        "priceRecords": 0
+      }
+    ]
+  },
+  "sourceSHA256": {
+    "project-analyzer": "bf6b2214076fc50b16e0cc5cbd28c72d75bed378b06f55874af049a8ae26d368",
+    "quantity-estimator": "81a8ab50720d1099f471850262f84acb9d78c50c5691e959c237b4894adc7f13",
+    "cost-estimator": "07c7144cce608a78cfdcdceecd1e8ba578672a769456a86f9362481239651d56",
+    "risk-analyzer": "0458df2d2293d24e7ffadb8b9c5c797ec693d6bdb7a48161facc4f012204e3f6",
+    "quality-inspector": "d637d1910c2fadcb5387b3b364681b5f76d2516b1db77de729b15c6d3ebd3099",
+    "schedule-optimizer": "c4bdf8fac59f9fca4c089a2bd0dcb8011b89fc74b594e54c6332e218f74208e0",
+    "supplier-intelligence": "0f155c2a33a022563d01d54144530b17a5a440558b51b1f532aad5cd46fe4ed9"
+  },
+  "summary": {
+    "matrixProjects": 100,
+    "modelsFitted": 7,
+    "matrixModelCalls": 600,
+    "successfulFiniteCalls": 600,
+    "invalidProbes": 36,
+    "invalidAcceptedWithoutReview": 0
+  }
+}

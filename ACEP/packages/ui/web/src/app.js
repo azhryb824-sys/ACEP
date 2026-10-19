@@ -343,9 +343,9 @@
 
       // Update quality & risks (legacy selectors)
       const qText = document.querySelector('#page-analysis .card-stat-value');
-      if (qText && data.quality) qText.textContent = (data.quality.qualityScore || 0) + '%';
+      if (qText && data.quality) qText.textContent = (data.quality.requiresQualityReview || !Number.isFinite(data.quality.qualityScore ?? data.quality.score)) ? 'تحتاج فحصاً' : (data.quality.qualityScore ?? data.quality.score) + '%';
       const rText = document.querySelectorAll('#page-analysis .card-stat-value')[1];
-      if (rText && data.risks) rText.textContent = data.risks.level || 'Medium';
+      if (rText && data.risks) rText.textContent = data.risks.level ?? data.risks.riskLevel ?? 'تحتاج مراجعة';
 
       // Update analysis timeline
       if (data.analysis && Array.isArray(data.analysis)) {
@@ -1047,7 +1047,7 @@
     showToast('جاري مطابقة الموردين...', 'info');
     try {
       const data = await apiCall('/api/v1/cmpep/match-supplier', 'POST', { category: 'خرسانة' });
-      showToast('تم العثور على ' + data.totalCompanies + ' مورد', 'success');
+      showToast(data.status === 'no_match' ? 'لا يوجد مورد مطابق للتخصص والمدينة' : 'تم العثور على ' + data.totalSuppliers + ' مورد؛ يلزم التحقق من بياناته وأسعاره', data.status === 'no_match' ? 'warning' : 'success');
     } catch (e) {
       showToast('خطأ: ' + e.message, 'error');
     }
@@ -1060,7 +1060,7 @@
     showToast('جاري فحص الجودة بالذكاء الاصطناعي...', 'info');
     try {
       const data = await apiCall('/api/v1/projects/' + pid + '/quality/inspect', 'POST');
-      showToast('درجة الجودة: ' + data.qualityScore + '% - ' + data.qualityGrade + ' - ' + data.estimatedDefects + ' عيب متوقع', 'success');
+      showToast(data.message || 'تقييم الجودة يتطلب نتائج فحص المشروع؛ المعروض سجل عيوب تاريخي.', 'warning');
     } catch (e) {
       showToast('خطأ: ' + e.message, 'error');
     }
@@ -1618,8 +1618,9 @@
     // ─── Quality page ───
     document.querySelector('#page-quality .btn-primary')?.addEventListener('click', function() {
       showToast('جاري فحص الجودة بنموذج AI...', 'info');
-      apiCall('/api/v1/qaiip/inspection', 'POST', {}).then(d => {
-        showToast('فحص الجودة: ' + d.qualityIndex + '% نجاح - ' + d.inspections.length + ' تفتيش', 'success');
+      if (!state.currentProject) { showToast('يرجى اختيار مشروع أولاً', 'warning'); return; }
+      apiCall('/api/v1/qaiip/inspection', 'POST', { projectId: state.currentProject }).then(d => {
+        showToast(d.message || 'تقييم الجودة يتطلب نتائج فحص المشروع.', 'warning');
       }).catch(() => inspectQuality());
     });
     document.querySelector('#page-quality .btn-outline')?.addEventListener('click', inspectQuality);

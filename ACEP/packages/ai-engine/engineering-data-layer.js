@@ -156,15 +156,15 @@ class ProjectModel {
     // Risks
     this.risks = {
       risks: [],
-      overallRiskScore: 0,
-      riskLevel: 'Low',
+      overallRiskScore: null,
+      riskLevel: null,
       riskCount: 0
     };
 
     // Quality
     this.quality = {
-      qualityScore: 0, qualityGrade: '',
-      estimatedDefects: 0,
+      qualityScore: null, qualityGrade: null,
+      estimatedDefects: null, requiresQualityReview: true,
       defects: []
     };
 
@@ -274,6 +274,7 @@ class ProjectModel {
   // ─── Set BOQ Data ───────────────────────
   setBOQ(boqResult) {
     this.boq = {
+      ...boqResult,
       items: boqResult.items || [],
       suggestedItems: boqResult.suggestedItems || [],
       phase: boqResult.phase || 'Unknown',
@@ -312,25 +313,28 @@ class ProjectModel {
   // ─── Set Risk Data ──────────────────────
   setRisks(riskData) {
     this.risks = {
+      ...riskData,
       risks: riskData.risks || [],
-      overallRiskScore: riskData.overallRiskScore || 0,
-      riskLevel: riskData.riskLevel || 'Low',
+      overallRiskScore: riskData.overallRiskScore ?? null,
+      riskLevel: riskData.riskLevel ?? null,
       riskCount: (riskData.risks || []).length
     };
     this.metadata.updated = new Date().toISOString();
-    this.metadata.workflowStep = 'risks_analyzed';
+    this.metadata.workflowStep = riskData.requiresInputReview ? 'risks_require_review' : 'risks_analyzed';
     this.traceEvent('risk_analysis', 'riskAnalyzer', { riskData });
   }
 
   // ─── Set Quality Data ───────────────────
   setQuality(qualityData) {
     this.quality = {
-      qualityScore: qualityData.qualityScore || 0,
-      qualityGrade: qualityData.qualityGrade || '',
-      estimatedDefects: qualityData.estimatedDefects || 0,
+      ...qualityData,
+      qualityScore: qualityData.qualityScore ?? null,
+      qualityGrade: qualityData.qualityGrade ?? null,
+      estimatedDefects: qualityData.estimatedDefects ?? null,
       defects: qualityData.defects || []
     };
     this.metadata.updated = new Date().toISOString();
+    this.metadata.workflowStep = qualityData.requiresQualityReview ? 'quality_requires_review' : 'quality_analyzed';
     this.traceEvent('quality', 'qualityInspector', { qualityData });
   }
 

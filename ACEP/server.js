@@ -359,9 +359,9 @@ function parseDescription(desc) {
 
 function getProjectParams(p) {
   if (!p) return { type: null, area: null, floors: null, totalArea: null, finishing: null, region: null };
-  const geometryInput = normalizeGeometry({ area: p.area || null, floors: p.floors || null, areaBasis: p.areaBasis });
+  const geometryInput = normalizeGeometry({ area: p.area ?? null, floors: p.floors ?? null, areaBasis: p.areaBasis });
   return {
-    type: p.type || null, area: geometryInput.params.area, floors: p.floors || null,
+    type: p.type || null, area: geometryInput.params.area, floors: p.floors ?? null,
     totalArea: geometryInput.geometry.totalBuiltUpAreaM2,
     areaBasis: 'per_floor', areaDefinition: geometryInput.geometry,
     finishing: p.finishing || null, region: p.region || null
@@ -517,14 +517,14 @@ app.post('/api/v1/analyze', waitForAI(async (req, res) => {
         result: cost.totalCost === null ? 'يلزم توضيح نطاق الأسعار أو استكمال بيانات التسعير' : `${cost.totalCost.toLocaleString()} SAR estimated (${cost.costPerM2.toLocaleString()} SAR/m²)` },
       { step: 'schedule-generation', status: 'completed', result: `${schedule.totalMonths} months (${schedule.totalDuration} days)` },
       { step: 'risk-analysis', status: 'completed', result: `${risks.riskCount} risks identified, level: ${risks.riskLevel}` },
-      { step: 'quality-inspection', status: 'completed', result: `Quality score: ${quality.qualityScore}% (${quality.qualityGrade})` }
+      { step: 'quality-inspection', status: quality.requiresQualityReview ? 'requires_review' : 'completed', result: quality.message || 'يلزم فحص المشروع لتقييم الجودة' }
     ],
     boq: { items: boq.items, suggestedItems: boq.suggestedItems, summary: boq.summary, phase: boq.phase },
     cost: { ...cost, source: 'EDL: costEstimator' },
     duration: schedule.totalMonths,
     schedule: { totalDays: schedule.totalDuration, totalMonths: schedule.totalMonths, activities: schedule.activities.length, criticalPath: schedule.criticalPath, optimization: schedule.optimization, source: 'EDL: scheduleOptimizer' },
     risks: { count: risks.riskCount, items: risks.risks.slice(0, 10), overallScore: risks.overallRiskScore, level: risks.riskLevel, source: 'EDL: riskAnalyzer' },
-    quality: { score: quality.qualityScore, grade: quality.qualityGrade, estimatedDefects: quality.estimatedDefects, source: 'EDL: qualityInspector' },
+    quality: { ...quality, score: quality.qualityScore, grade: quality.qualityGrade, estimatedDefects: quality.estimatedDefects, source: 'EDL: qualityInspector' },
     building: { spaces: project.building.spaces.slice(0, 10), systems: project.building.systems, totalHeight: project.building.totalHeight, hasBasement: project.building.hasBasement },
     traceability: project.trace.slice(-15).map(t => ({ time: t.timestamp, action: t.action, module: t.module })),
     validation: v,
@@ -575,6 +575,7 @@ app.post('/api/v1/digital-twin', waitForAI(async (req, res) => {
   const { projectId } = req.body || {};
   if (!projectId) return res.status(400).json({ error: 'projectId is required' });
   const p = projects.find(x => x.id === projectId);
+  if (!p) return res.status(404).json({ error: 'Project not found' });
   const params = getProjectParams(p);
   const quality = ai.qualityInspector.inspectProject(params.type, params.totalArea, params.floors, params.finishing);
   const risks = ai.riskAnalyzer.analyzeRisks(params.type, params.totalArea, params.floors);
@@ -586,12 +587,12 @@ app.post('/api/v1/digital-twin', waitForAI(async (req, res) => {
       timestamp: new Date().toISOString(),
       completionPercentage: p ? (p.progress || Math.random() * 0.3) : Math.random() * 0.3,
       resourceUtilization: { labor: 0.6 + Math.random() * 0.3, equipment: 0.5 + Math.random() * 0.3, materials: 0.7 + Math.random() * 0.2 },
-      qualityScore: quality.qualityScore / 100, safetyScore: 0.9 + Math.random() * 0.1
+      qualityScore: quality.qualityScore == null ? null : quality.qualityScore / 100, safetyScore: 0.9 + Math.random() * 0.1
     },
     performanceMetrics: {
       schedulePerformanceIndex: Math.round((1 - (schedule.totalDuration / (schedule.totalDuration * 1.1))) * 100) / 100,
       costPerformanceIndex: 1.0,
-      qualityIndex: Math.round(quality.qualityScore / 100 * 100) / 100,
+      qualityIndex: quality.qualityScore == null ? null : Math.round(quality.qualityScore) / 100,
       safetyIndex: 0.98, productivityIndex: 0.85 + Math.random() * 0.1,
       resourceEfficiency: 0.75 + Math.random() * 0.15
     },
@@ -707,7 +708,7 @@ app.post('/api/v1/projects', (req, res) => {
         cost: cost.totalCost, aiAnalysis: analysis, boq: boq.summary,
         schedule: { totalDuration: sched.totalDuration, totalMonths: sched.totalMonths },
         risks: { level: risks.riskLevel, score: risks.overallRiskScore },
-        quality: { score: quality.qualityScore, grade: quality.qualityGrade }
+        quality: { ...quality, score: quality.qualityScore, grade: quality.qualityGrade }
       };
     } catch (e) {
       if (e.code === 'INCOMPLETE_GEOMETRY') {
@@ -736,7 +737,7 @@ app.post('/api/v1/projects', (req, res) => {
     cost: cost ? { ...cost } : null,
     schedule: sched ? { totalDays: sched.totalDuration, totalMonths: sched.totalMonths } : null,
     risks: risks ? { score: risks.overallRiskScore, level: risks.riskLevel } : null,
-    quality: quality ? { score: quality.qualityScore, grade: quality.qualityGrade } : null
+    quality: quality ? { ...quality, score: quality.qualityScore, grade: quality.qualityGrade } : null
   };
   
   res.status(201).json({ project: responseProject, message: 'تم إنشاء المشروع بنجاح' });
@@ -765,7 +766,7 @@ app.get('/api/v1/projects/:id', (req, res) => {
     cost: cost ? { ...cost } : null,
     schedule: sched ? { totalDays: sched.totalDuration, totalMonths: sched.totalMonths } : null,
     risks: risks ? { score: risks.overallRiskScore, level: risks.riskLevel } : null,
-    quality: quality ? { score: quality.qualityScore, grade: quality.qualityGrade } : null
+    quality: quality ? { ...quality, score: quality.qualityScore, grade: quality.qualityGrade } : null
   });
 });
 
@@ -1275,17 +1276,20 @@ app.post('/api/v1/projects/:id/quality/inspect', waitForAI(async (req, res) => {
 
 // ─── Supplier Match ────────────────────
 app.post('/api/v1/cmpep/match-supplier', waitForAI(async (req, res) => {
-  const { category, city } = req.body || {};
-  const result = ai.supplierIntelligence.findBestSupplier(category || 'General', city);
-  res.json({ platform: 'CMPEP', status: 'matched', ...result });
+  const { category, city, requirements } = req.body || {};
+  try {
+    const result = ai.supplierIntelligence.findBestSupplier(category, city, requirements);
+    res.json({ platform: 'CMPEP', ...result });
+  } catch (e) { res.status(400).json({ error: e.message }); }
 }));
 
 // ─── Supplier Price Comparison ─────────
 app.post('/api/v1/cmpep/compare-prices', waitForAI(async (req, res) => {
-  const { category } = req.body || {};
-  if (!category) return res.status(400).json({ error: 'category is required' });
-  const comparison = ai.supplierIntelligence.comparePrices(category);
-  res.json({ platform: 'CMPEP', status: 'analyzed', category, comparison });
+  const { category, city, requirements } = req.body || {};
+  try {
+    const comparison = ai.supplierIntelligence.comparePrices(category, city, requirements);
+    res.json({ platform: 'CMPEP', status: 'analyzed', category, comparison, requiresPriceReview: true, priceBasis: 'historical_csv_not_live_quote' });
+  } catch (e) { res.status(400).json({ error: e.message }); }
 }));
 
 // ─── Supplier Market Analysis ──────────
@@ -1396,17 +1400,19 @@ app.post('/api/v1/secip/carbon-footprint', waitForAI(async (req, res) => {
 app.post('/api/v1/qaiip/inspection', waitForAI(async (req, res) => {
   const { projectId } = req.body || {};
   const p = projects.find(x => x.id === projectId);
+  if (!p) return res.status(404).json({ error: 'Project not found' });
   const pp = getProjectParams(p);
   const quality = ai.qualityInspector.inspectProject(pp.type, pp.totalArea, pp.floors, pp.finishing);
   const inspections = quality.defects.slice(0, 5).map((d, i) => ({
     id: `INS-${String(i + 1).padStart(3, '0')}`,
     defectType: d.type, severity: d.severity,
-    status: d.severity === 'Critical' ? 'Failed' : d.severity === 'High' ? 'Conditional' : 'Passed',
+    status: 'RequiresInspection',
     expectedCount: d.expectedCount, confidence: d.confidence
   }));
   res.json({
-    platform: 'QAIIP', status: 'completed', inspections,
-    qualityIndex: quality.qualityScore, passRate: Math.round((quality.qualityScore / 100) * 100) / 100,
+    platform: 'QAIIP', status: 'requires_review', inspections,
+    requiresQualityReview: quality.requiresQualityReview, estimateStatus: quality.estimateStatus, message: quality.message,
+    qualityIndex: quality.qualityScore, passRate: null,
     totalTrainingDefects: quality.totalTrainingDefects
   });
 }));
@@ -1902,70 +1908,9 @@ app.get('/api/v1/vision-jobs', (req, res) => {
 });
 
 // ─── Full Analysis Endpoint ──
-app.post('/api/v1/full-analysis', async (req, res) => {
-  const { description, projectId } = req.body || {};
-  console.log('[FullAnalysis] Called with:', JSON.stringify({ description, projectId }));
-  if (!description && !projectId) return res.status(400).json({ error: 'description or projectId required' });
-  genLog('?', 'API', `POST /api/v1/full-analysis projectId=${projectId}`);
-  const project = store.findProject(projectId);
-  const parsed = description ? parseDescription(description) : null;
-  const type = parsed?.type || project?.type || null;
-  const floors = parsed?.floors ?? project?.floors ?? null;
-  const area = parsed?.area ?? project?.area ?? null;
-  const name = project?.name || description || 'مشروع';
-  const response = {
-    projectId: projectId || 'proj-' + Date.now(),
-    facts: {
-      projectType: { value: type, confidence: 0.85 },
-      floors, hasBasement: false,
-      spaces: [], region: project?.city || 'الرياض', finishing: 'Standard'
-    },
-    extracted: { type, area, floors, rooms: null, bathrooms: null, hasKitchen: false, halls: null, city: project?.city || 'الرياض' },
-    building: { id: 'bld-' + Date.now(), projectType: type, skeleton: { numFloors: floors, hasBasement: false, totalHeight: floors ? floors * 3.2 : null }, spaces: [], systems: [], structuralElements: [] },
-    boq: { id: 'boq-' + Date.now(), items: [], suggestedItems: [], phase: 'Site', summary: { totalItems: 0, averageConfidence: 0.85 } },
-    cost: { totalDirectCost: 25000000, totalIndirectCost: 5000000, riskContingency: 3000000, profit: 5000000, taxes: 7000000, totalCost: project?.cost || 45000000, currency: 'SAR', costPerM2: area ? (project?.cost || 45000000) / area : null, confidence: 0.85, breakdown: [], dataPoints: 0 },
-    schedule: { activities: [], totalDuration: 365, totalMonths: 12, criticalPath: [], optimization: {} },
-    risks: { riskLevel: project?.status === 'Delayed' ? 'High' : 'Medium', description: 'تحليل أولي' },
-    quality: { qualityScore: project?.progress || 75, description: 'جودة متوقعة' },
-    descriptions: { raw: description || name },
-    workflow: [{ name: 'extraction', status: 'completed' }, { name: 'boq', status: 'completed' }, { name: 'cost', status: 'completed' }, { name: 'schedule', status: 'completed' }, { name: 'risks', status: 'completed' }, { name: 'quality', status: 'completed' }],
-    validation: { passed: true, errors: 0, warnings: 0, report: [] },
-    traceability: [],
-    reasoning: [{ ruleId: (type || 'unknown').toLowerCase().replace(/[^a-z]/g, '-') + '-standard', matched: true, confidence: 0.85 }],
-    metadata: { timestamp: new Date().toISOString(), duration: 800, confidence: 0.85, aiTrained: true, modelsUsed: 7, edlVersion: '1.0' }
-  };
-  try {
-    const boqResult = edl.getProject(projectId)?.boq || { items: [] };
-    const projectParams = { name, type, area, floors, description: description || '' };
-    if (typeof engineeringOrchestrator.runFullAnalysis === 'function') {
-      const analysis = engineeringOrchestrator.runFullAnalysis(boqResult, projectParams);
-      if (analysis) {
-        if (analysis.cost) { response.cost = { ...response.cost, ...analysis.cost }; response.cost.totalCost = analysis.cost.totalCost || response.cost.totalCost; }
-        if (analysis.schedule) response.schedule = { ...response.schedule, ...analysis.schedule };
-        if (analysis.boq) response.boq = { ...response.boq, ...analysis.boq };
-        if (analysis.risks) response.risks = { ...response.risks, ...analysis.risks };
-        if (analysis.quality) response.quality = { ...response.quality, ...analysis.quality };
-      }
-    }
-  } catch (innerE) { genLog('?', 'WARN', `Analysis engine fallback: ${innerE.message}`); }
-  // Attach digital profile if available
-  try {
-    let proj = null;
-    if (projectId) proj = edl.getProject(projectId);
-    if (!proj) {
-      proj = edl.createProject('__tmp_profile__', { name, description: description || name });
-      proj.rawInput.description = description || name;
-      proj.setExtracted({ type, typeConfidence: 0.7, area, floors, city: (typeof project === 'object' && project?.city) || null });
-    }
-    if (!proj.digitalProfile) {
-      const p = ai.projectProfiler.buildProfile(proj);
-      proj.setDigitalProfile(p);
-    }
-    response.digitalProfile = proj.digitalProfile;
-    if (!projectId) edl.deleteProject('__tmp_profile__');
-  } catch (e) { genLog('?', 'PROFILE_ERR', e.message); }
-  res.json(response);
-});
+app.post('/api/v1/full-analysis', waitForAI(require('./packages/ai-engine/full-analysis-handler')({
+  store, edl, workflow, validator, parseDescription
+})));
 
 // ─── Knowledge Base (Phase 8) ──
 app.get('/api/v1/knowledge-base/stats', (req, res) => {

@@ -30,4 +30,17 @@ function load(file,required,map){const {records,audit}=readCSV(file,required);co
  if(!data.length)throw Error('No valid records: '+file);return {data,audit};
 }
 function unit(value){const s=String(value||'').trim().toLowerCase();return ({'م²':'m2','م³':'m3','طن':'ton','م':'m','وحدة':'no','واحدة':'no','باب':'no','مصعد':'no'})[s]||s;}
-module.exports={readCSV,number,load,unit};
+function projectTypes(fp) {
+    try {
+      const map = Object.create(null);
+      const fit = load(fp, ['project_id','project_type'], r => r);
+      for (const r of fit.data) {
+        if (map[r.project_id] && map[r.project_id] !== r.project_type) throw Error('Conflicting project types');
+        map[r.project_id] = r.project_type;
+      }
+      return map;
+    } catch (e) { if (e.code === 'ENOENT') return Object.create(null); throw e; }
+  }
+
+
+module.exports={readCSV,number,load,unit,projectTypes};

@@ -11,6 +11,7 @@ const csv = require('./training-csv');
 const path = require('path');
 const kb = require('../knowledge-base');
 const boqRules = require('./boq-rules');
+const input = require('./model-input');
 
 class QuantityEstimator {
   constructor() {
@@ -54,6 +55,9 @@ class QuantityEstimator {
    * @returns {{ items: object[], summary: object }}
    */
   estimateBOQ(projectType, area, floors, finishing = 'Standard', region = 'Riyadh', extraParams = {}) {
+    const missing = input.geometry(projectType, area, floors, { perFloor: extraParams.areaBasis !== 'total_built_up' });
+    if (missing.length) return { ...input.incomplete(missing), items: [], suggestedItems: [], assumptions: [],
+      summary: { totalItems: 0, totalCost: null, totalSuggestedCost: null, averageConfidence: 0 } };
     if (!this.trained) return { items: [], summary: { totalItems: 0, totalCost: 0, averageConfidence: 0 } };
 
     const params = {
@@ -89,6 +93,8 @@ class QuantityEstimator {
     result.summary.totalCost=Math.round(result.items.reduce((s,i)=>s+(i.totalPrice||0),0)*100)/100;
     result.summary.totalSuggestedCost=Math.round((result.suggestedItems||[]).reduce((s,i)=>s+(i.totalPrice||0),0)*100)/100;
     return {
+      requiresInputReview: (result.assumptions || []).length > 0,
+      estimateStatus: (result.assumptions || []).length ? 'assumptions_require_review' : 'rule_estimate',
       items: result.items,
       suggestedItems: result.suggestedItems,
       assumptions: result.assumptions,

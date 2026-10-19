@@ -1,0 +1,290 @@
+[
+  {
+    "suite": "research/schedule-consistency-v1/checks.cjs",
+    "exitCode": 0,
+    "results": {
+      "passed": 22,
+      "total": 22,
+      "boundary": "authored unit and actual workflow/EDL tests; no browser or field accuracy claim"
+    }
+  },
+  {
+    "suite": "research/cost-scope-v3/checks.cjs",
+    "exitCode": 0,
+    "results": {
+      "tests": [
+        {
+          "name": "installed price counted once without extra labor or equipment",
+          "pass": true
+        },
+        {
+          "name": "supply price uses explicit installation totals once",
+          "pass": true
+        },
+        {
+          "name": "mixed scopes sum without whole-project heuristic additions",
+          "pass": true
+        },
+        {
+          "name": "unknown scope blocks total but retains quoted subtotal",
+          "pass": true
+        },
+        {
+          "name": "missing installation cannot imply free installation",
+          "pass": true
+        },
+        {
+          "name": "installed plus separate installation is a conflict",
+          "pass": true
+        },
+        {
+          "name": "all-in or tax-inclusive quotes are not marked up again",
+          "pass": true
+        },
+        {
+          "name": "zero scoped price and explicit zero installation stay zero",
+          "pass": true
+        },
+        {
+          "name": "invalid installation amounts or currency block total",
+          "pass": true
+        },
+        {
+          "name": "explicit default scope allows item overrides",
+          "pass": true
+        },
+        {
+          "name": "unrecognized default scope rejected",
+          "pass": true
+        },
+        {
+          "name": "invalid markup never silently falls back",
+          "pass": true
+        },
+        {
+          "name": "explicit markup arithmetic reconciles",
+          "pass": true
+        },
+        {
+          "name": "incomplete EDL cost stays null with scope issues",
+          "pass": true
+        },
+        {
+          "name": "non-SAR price is not silently treated as SAR",
+          "pass": true
+        },
+        {
+          "name": "unsafe financial arithmetic is rejected",
+          "pass": true
+        }
+      ],
+      "passed": 16,
+      "total": 16
+    }
+  },
+  {
+    "suite": "research/cost-scope-v3/integration.cjs",
+    "exitCode": 0,
+    "results": {
+      "boundary": "real_workflow_EDL_validator_cost_and_route_handler; no full server or browser",
+      "tests": [
+        {
+          "name": "new EDL project has unknown cost rather than a zero estimate",
+          "pass": true
+        },
+        {
+          "name": "tiny areas cannot produce infinite per-area cost",
+          "pass": true
+        },
+        {
+          "name": "workflow keeps unknown scope unresolved in EDL",
+          "pass": true
+        },
+        {
+          "name": "validator explains review without a false zero-cost warning",
+          "pass": true
+        },
+        {
+          "name": "workflow records explicit scope and does not add installation again",
+          "pass": true
+        },
+        {
+          "name": "re-estimation preserves reviewed pricing options",
+          "pass": true
+        },
+        {
+          "name": "EDL JSON round-trip preserves missing cost and review details",
+          "pass": true
+        },
+        {
+          "name": "actual cost route returns scope evidence and reviewed totals",
+          "pass": true
+        },
+        {
+          "name": "cost route rejects invalid pricing before changing review settings",
+          "pass": true
+        },
+        {
+          "name": "cost route without options reuses prior explicit settings",
+          "pass": true
+        }
+      ],
+      "passed": 10,
+      "total": 10
+    }
+  },
+  {
+    "suite": "research/quantity-geometry-v2/checks.cjs",
+    "exitCode": 0,
+    "results": {
+      "checks": [
+        {
+          "name": "same footprint excavation does not shrink as floors increase",
+          "pass": true
+        },
+        {
+          "name": "transport relates to the same excavation volume",
+          "pass": true
+        },
+        {
+          "name": "explicit total built-up area and per-floor input agree for every BOQ item",
+          "pass": true
+        },
+        {
+          "name": "cost area basis agrees with quantity input semantics",
+          "pass": true
+        },
+        {
+          "name": "default area basis is visible as an assumption",
+          "pass": true
+        },
+        {
+          "name": "unsupported area basis is rejected",
+          "pass": true
+        },
+        {
+          "name": "total area requires explicit valid floors",
+          "pass": true
+        },
+        {
+          "name": "invalid negative or nonfinite area cannot produce a BOQ",
+          "pass": true
+        },
+        {
+          "name": "Arabic shell request is scoped to Shell",
+          "pass": true
+        },
+        {
+          "name": "finished shell followed by requested finishing stays Finishing",
+          "pass": true
+        }
+      ],
+      "passed": 10,
+      "total": 10
+    }
+  },
+  {
+    "suite": "research/quantity-geometry-v2/api-checks.cjs",
+    "exitCode": 0,
+    "results": {
+      "testBoundary": "actual_route_handlers_real_three_models_stub_other_services_and_store",
+      "tests": [
+        {
+          "name": "explicit project type is respected by analyzer",
+          "pass": true
+        },
+        {
+          "name": "POST stores per-floor area and GET preserves cost",
+          "pass": true
+        },
+        {
+          "name": "POST total-built-up input is normalized once",
+          "pass": true
+        },
+        {
+          "name": "explicit decimal area is not rounded through analyzer output",
+          "pass": true
+        },
+        {
+          "name": "stored finishing and region survive GET recomputation",
+          "pass": true
+        },
+        {
+          "name": "invalid explicit area and unsupported basis return 400 without persistence",
+          "pass": true
+        },
+        {
+          "name": "offline create still normalizes explicit total area",
+          "pass": true
+        },
+        {
+          "name": "online missing dimensions do not produce assumed BOQ or price",
+          "pass": true
+        },
+        {
+          "name": "partial geometry keeps missing floors unknown through create and read",
+          "pass": true
+        },
+        {
+          "name": "name-only creation remains available without AI data",
+          "pass": true
+        },
+        {
+          "name": "GET handles explicitly marked legacy total area without changing stored record",
+          "pass": true
+        },
+        {
+          "name": "unlabelled legacy area retains its previous per-floor interpretation",
+          "pass": true
+        }
+      ],
+      "passed": 12,
+      "total": 12
+    }
+  },
+  {
+    "suite": "research/cost-scope-v3/ui-checks.cjs",
+    "exitCode": 0,
+    "results": {
+      "boundary": "actual_browser_handler_source_with_DOM_and_API_stubs_not_full_browser",
+      "tests": [
+        {
+          "name": "unknown total displays review instead of zero",
+          "pass": true
+        },
+        {
+          "name": "legacy zero with pending review is not a completed zero estimate",
+          "pass": true
+        },
+        {
+          "name": "explicit completed zero remains a valid zero",
+          "pass": true
+        },
+        {
+          "name": "breakdown uses actual component names and amounts",
+          "pass": true
+        },
+        {
+          "name": "full analysis card preserves review and does not invent confidence interval",
+          "pass": true
+        },
+        {
+          "name": "nonfinite or negative totals cannot render as valid costs",
+          "pass": true
+        }
+      ],
+      "passed": 6,
+      "total": 6
+    }
+  },
+  {
+    "suite": "research/model-repairs-v1/checks.cjs",
+    "exitCode": 0,
+    "results": null
+  },
+  {
+    "suite": "packages/ai-engine/tests/test-full-analysis-handler.cjs",
+    "exitCode": 0,
+    "results": null
+  }
+]
