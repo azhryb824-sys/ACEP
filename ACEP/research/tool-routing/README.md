@@ -16,7 +16,7 @@ previously contract-valid swapped proposal `v6-validation-0021`. This does not
 change raw model accuracy (346/348) or promote v8 over the retained v7 default.
 The retained v7 replay is included alongside v8 for comparison.
 
-Validation: 18 Python methods, five real HTTP/Node integration tests (the UI
+Validation: 19 Python methods, five real HTTP/Node integration tests (the UI
 handler uses a DOM stub), and 600 metamorphic checks on labelled measurements.
 Reports are in `source-review-results/`. These are authored development checks,
 not independent engineering certification. The complete platform UI was not

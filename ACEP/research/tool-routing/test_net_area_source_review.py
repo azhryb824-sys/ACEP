@@ -12,6 +12,14 @@ def call(gross, openings):
 
 
 class SourceReviewTests(unittest.TestCase):
+    def test_long_whitespace_is_bounded(self):
+        request = dict(text='Gross:'+(' '*3000)+'missing; openings: 1 m2.', prediction=json.dumps(call('2','1')))
+        process = subprocess.run([sys.executable,str(Path(__file__).with_name('run_bridge.py'))],
+                                 input=json.dumps(request),text=True,capture_output=True,check=True,timeout=2)
+        result=json.loads(process.stdout)
+        self.assertEqual(result['status'],'review_required')
+        self.assertFalse(result['calculation_executed'])
+
     def test_bridge_veto_and_no_partial_evidence_bypass(self):
         from grounded_dispatch import dispatch
         text = 'الكشف الإجمالي لوجه الدهان 510.306 م²؛ قياس فتحاته 510.431 م². استخرج مدخلات الصافي.'

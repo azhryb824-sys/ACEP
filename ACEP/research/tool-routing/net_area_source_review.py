@@ -15,7 +15,7 @@ LABELS = {
 }
 # Closed neutral vocabulary between a role label and its measurement. Never
 # cross another role, a numeric identifier, a clause separator, or a negation.
-BRIDGE = r'(?:(?:\s+|[:=])|(?:مساحة|المساحة|مساحته|مساحتها|لوجه|وجه|الوجه|الجدار|الحائط|الدهان|المطلوب|خصمها|للخصم|نحتاج|المراد|المسجلة|المسجل|قياس|قبل|الخصم|يثبت|تسجل|نفسها|مجتمعة|wall|face|area|is|equals|totalling)\b){0,16}'
+BRIDGE = r'(?:\s|[:=]|(?:مساحة|المساحة|مساحته|مساحتها|لوجه|وجه|الوجه|الجدار|الحائط|الدهان|المطلوب|خصمها|للخصم|نحتاج|المراد|المسجلة|المسجل|قياس|قبل|الخصم|يثبت|تسجل|نفسها|مجتمعة|wall|face|area|is|equals|totalling)\b){0,128}'
 VALUE = r'(?P<value>صفر|(?:سالب\s+)?[-+]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+))'
 UNIT = r'(?P<unit>م²|م2|متر\s+مربع|m²|m2|square\s+met(?:er|re)s?)'
 CAUTION = re.compile(r'(?<!\w)(?:ليس|ليست|غير|تصحيح|الصحيح|عدل|عدّل|اعتمد|تجاهل|افترض|مثال|مثلاً|إذا|لو|أو|بين|تقريب|ignore|not|instead|revised|correction|example|if|assume|or|between)(?!\w)', re.I)
