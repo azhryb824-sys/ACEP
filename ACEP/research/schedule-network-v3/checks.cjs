@@ -36,7 +36,8 @@ for (const [name, input] of [
 ]) check(`reject ${name}`, () => assert.throws(()=>run(input)));
 check('unusual ids are safe',()=>assert.equal(run([a('__proto__',1),a('constructor',2,['__proto__'])]).totalDuration,3));
 check('existing generated schedule remains internally consistent',()=>{
-  const s=engine.generateSchedule('Residential',1000,2), n=run(s.activities);
+  const s=engine.generateTemplateSchedule(1000,2), n=run(s.activities);
   assert.equal(s.totalDuration,n.totalDuration); assert.deepEqual(s.criticalPath,n.criticalActivities);
 });
 console.log(JSON.stringify({passed:checks,failed:0,scope:'network calculations and input contracts; not field accuracy'}));
+

@@ -127,13 +127,16 @@ class SupplierIntelligence {
     const avgRating = suppliers.reduce((s, sup) => s + sup.rating, 0) / Math.max(1, suppliers.length);
     return {
       totalSuppliers: suppliers.length,
-      averageRating: Math.round(avgRating * 10) / 10,
+      status: suppliers.length ? 'historical_observations' : 'no_data',
+      requiresSupplierReview: true,
+      averageRating: suppliers.length ? Math.round(avgRating * 10) / 10 : null,
       topSpecialities: Object.entries(specialities).sort((a, b) => b[1] - a[1]).slice(0, 5).map(x => ({ speciality: x[0], count: x[1] })),
-      averageDelivery: Math.round(suppliers.reduce((s, sup) => s + sup.deliverySpeed, 0) / Math.max(1, suppliers.length)),
-      averageCompliance: Math.round(suppliers.reduce((s, sup) => s + sup.compliance, 0) / Math.max(1, suppliers.length)),
+      averageDelivery: suppliers.length ? Math.round(suppliers.reduce((s, sup) => s + sup.deliverySpeed, 0) / suppliers.length) : null,
+      averageCompliance: suppliers.length ? Math.round(suppliers.reduce((s, sup) => s + sup.compliance, 0) / suppliers.length) : null,
       region: region || 'All Saudi Arabia'
     };
   }
 }
 
 module.exports = new SupplierIntelligence();
+

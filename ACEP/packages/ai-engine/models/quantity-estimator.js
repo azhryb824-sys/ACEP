@@ -58,7 +58,9 @@ class QuantityEstimator {
     const missing = input.geometry(projectType, area, floors, { perFloor: extraParams.areaBasis !== 'total_built_up' });
     if (missing.length) return { ...input.incomplete(missing), items: [], suggestedItems: [], assumptions: [],
       summary: { totalItems: 0, totalCost: null, totalSuggestedCost: null, averageConfidence: 0 } };
-    if (!this.trained) return { items: [], summary: { totalItems: 0, totalCost: 0, averageConfidence: 0 } };
+    if (!this.trained) return { ...input.incomplete(['trained_quantity_profile']), estimateStatus: 'not_trained',
+      items: [], suggestedItems: [], assumptions: [],
+      summary: { totalItems: 0, totalCost: null, totalSuggestedCost: null, averageConfidence: 0 } };
 
     const params = {
       type: projectType,
@@ -157,3 +159,4 @@ class QuantityEstimator {
 }
 
 module.exports = new QuantityEstimator();
+

@@ -69,7 +69,8 @@ class QualityInspector {
   inspectProject(projectType, totalArea, floors, finishing) {
     const missing = input.geometry(projectType, totalArea, floors);
     if (missing.length) return { ...input.incomplete(missing), defects: [], qualityScore: null, qualityGrade: null, estimatedDefects: null, requiresQualityReview: true };
-    if (!this.trained) return { error: 'Not trained', defects: [] };
+    if (!this.trained) return { ...input.incomplete(['trained_quality_profile']), estimateStatus: 'not_trained',
+      defects: [], qualityScore: null, qualityGrade: null, estimatedDefects: null, requiresQualityReview: true };
     // Defect-only records omit inspected exposure and projects with no defects.
     // They support historical descriptions, not incidence or a project quality grade.
     const rows = this.byProjectType[projectType] || [];
@@ -119,3 +120,4 @@ class QualityInspector {
 }
 
 module.exports = new QualityInspector();
+

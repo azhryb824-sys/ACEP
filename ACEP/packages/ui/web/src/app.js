@@ -109,7 +109,7 @@
       if (data) {
         if (vals[0]) vals[0].textContent = project.status === 'Active' ? 'نشط' : project.status || '-';
         if (vals[1]) vals[1].textContent = data.cost?.confidence ? `${Math.round(data.cost.confidence * 100)}%` : `${Math.round(project.progress || 0)}%`;
-        if (rows[2]) { const v = rows[2].querySelector('.font-semibold'); if (v && data.schedule?.totalDuration) v.textContent = data.schedule.totalDuration + ' يوم'; }
+        if (rows[2]) { const v = rows[2].querySelector('.font-semibold'); if (v) v.textContent = data.schedule?.totalDuration == null ? 'يلزم استكمال الجدول' : data.schedule.totalDuration + ' يوم'; }
         if (rows[3]) { const v = rows[3].querySelector('.font-semibold'); if (v && data.boq?.items?.length) v.textContent = `ACEP-${project.type?.substring(0,3) || 'Vis'}-v1`; }
       } else {
         if (vals[0]) vals[0].textContent = project.status === 'Active' ? 'نشط' : project.status || '-';
@@ -337,7 +337,7 @@
 
       // Update duration stat card
       const durVal = document.getElementById('analysis-duration-value');
-      if (durVal && data.schedule) durVal.textContent = data.schedule.totalMonths + ' شهر';
+      if (durVal && data.schedule) durVal.textContent = data.schedule.totalMonths == null ? (data.schedule.totalDuration == null ? 'يلزم استكمال الجدول' : data.schedule.totalDuration + ' يوم') : data.schedule.totalMonths + ' شهر';
       const durConf = document.getElementById('analysis-duration-confidence');
       if (durConf && data.schedule) durConf.textContent = 'المسار الحاسم: ' + (data.schedule.criticalPath ? data.schedule.criticalPath.length : '—') + ' نشاط';
 
@@ -1023,7 +1023,7 @@
     showToast('جاري إنشاء الجدول الزمني...', 'info');
     try {
       const data = await apiCall('/api/v1/projects/' + pid + '/schedule/generate', 'POST');
-      showToast('تم إنشاء جدول زمني بـ ' + data.totalDuration + ' يوماً', 'success');
+      showToast(data.totalDuration == null ? 'يلزم سجل مدة بأساس مساحة واضح أو شبكة أنشطة ومدد صريحة.' : 'مدة الجدول ' + data.totalDuration + ' يوماً؛ يلزم مراجعة الموارد والتقويم.', 'warning');
     } catch (e) {
       showToast('خطأ: ' + e.message, 'error');
     }
@@ -1033,10 +1033,10 @@
   async function analyzeRisks() {
     if (!state.currentProject) { showToast('⚠️ يرجى اختيار مشروع أولاً', 'warning'); return; }
     const pid = state.currentProject;
-    showToast('جاري تحليل المخاطر بنموذج AI (40,140 سجل)...', 'info');
+    showToast('جاري مراجعة بيانات المخاطر...', 'info');
     try {
       const data = await apiCall('/api/v1/projects/' + pid + '/risks/analyze', 'POST');
-      showToast('تم تحليل المخاطر: ' + data.risks.length + ' خطراً - المستوى: ' + data.riskLevel, 'success');
+      showToast(data.message || 'لا تكفي البيانات لتقدير احتمال وقوع المخاطر؛ يلزم تقييم المشروع.', 'warning');
     } catch (e) {
       showToast('خطأ: ' + e.message, 'error');
     }
@@ -1629,9 +1629,10 @@
     // ─── Safety page ───
     document.querySelector('#page-safety .btn-primary')?.addEventListener('click', function() {
       showToast('جاري تقييم المخاطر...', 'info');
-      apiCall('/api/v1/siapp/risk-assessment', 'POST', {}).then(d => {
-        showToast('تم التقييم: درجة المخاطر ' + d.riskScore + ' - ' + d.alerts + ' تنبيهات', 'success');
-      }).catch(() => showToast('تم تقييم المخاطر', 'success'));
+      if (!state.currentProject) { showToast('يرجى اختيار مشروع أولاً', 'warning'); return; }
+      apiCall('/api/v1/siapp/risk-assessment', 'POST', { projectId: state.currentProject }).then(d => {
+        showToast(d.message || 'يلزم فحص سلامة الموقع.', 'warning');
+      }).catch(e => showToast('خطأ: ' + e.message, 'error'));
     });
 
     // ─── Marketplace page ───
@@ -1976,3 +1977,4 @@
   window.openProject = openProject;
   window.refreshBOQPage = refreshBOQPage;
 })();
+

@@ -48,6 +48,9 @@ class ProjectAnalyzer {
         count: items.length,
         avgCost: items.reduce((s, p) => s + p.estimatedCost, 0) / items.length,
         avgArea: items.reduce((s, p) => s + p.buildingArea, 0) / items.length,
+        // Mean of per-project products, not product of independent means.
+        avgTotalBuiltUpArea: items.reduce((s, p) => s + p.buildingArea * p.floors / items.length, 0),
+        areaBasis: 'assumed_per_floor',
         avgFloors: items.reduce((s, p) => s + p.floors, 0) / items.length,
         avgConcrete: items.reduce((s, p) => s + p.concrete, 0) / items.length,
         avgSteel: items.reduce((s, p) => s + p.steel, 0) / items.length,
@@ -71,18 +74,6 @@ class ProjectAnalyzer {
     const pt = kb.getProjectType(type);
     let stats = this.trainingStats.projectTypeStats[type];
 
-    // Fallback mapping for types not in training data
-    if (!stats || stats.count <= 5) {
-      const fallbackMap = {
-        'Apartment_Finishing': 'Apartment_Building',
-      };
-      const fallback = fallbackMap[type];
-      if (fallback && this.trainingStats.projectTypeStats[fallback]) {
-        type = fallback;
-        stats = this.trainingStats.projectTypeStats[fallback];
-      }
-    }
-
     const area = options.area;
     const floors = options.floors;
     const finishing = options.finishing || null;
@@ -91,20 +82,21 @@ class ProjectAnalyzer {
     const regionIndex = region ? kb.getRegionIndex(region) : 1.0;
 
     let estimatedCost, concreteM3, steelTon, duration;
-    if (stats && stats.count > 5) {
-      const scaleFactor = (area * floors) / (stats.avgArea * stats.avgFloors || 1);
+    if (stats && stats.count > 5 && Number.isFinite(stats.avgTotalBuiltUpArea) && stats.avgTotalBuiltUpArea > 0 &&
+        Number.isFinite(stats.avgFloors) && stats.avgFloors > 0) {
+      const scaleFactor = (area * floors) / stats.avgTotalBuiltUpArea;
       estimatedCost = stats.avgCost * scaleFactor * multiplier * regionIndex;
       concreteM3 = stats.avgConcrete * scaleFactor;
       steelTon = stats.avgSteel * scaleFactor;
       duration = stats.avgDuration * Math.sqrt(scaleFactor) * (floors / (stats.avgFloors || 1));
     } else {
       return {
-        insufficientData: true,
+        ...input.incomplete(['comparable_project_history_with_total_area']),
+        requiresEngineeringReview: true,
         message: 'لا توجد بيانات تدريب كافية لنوع المشروع "' + type + '". يرجى توفير تفاصيل إضافية.',
-        missing: ['training_data'],
         description,
         projectType: type,
-        typeConfidence: 0.5
+        typeConfidence: null
       };
     }
 
@@ -130,6 +122,7 @@ class ProjectAnalyzer {
       estimateStatus: 'heuristic_estimate',
       requiresEngineeringReview: true,
       trainingDataPoints: stats ? stats.count : 0,
+      historicalReference: { totalBuiltUpArea: stats.avgTotalBuiltUpArea, areaBasis: stats.areaBasis || 'unverified', sourceVerified: false },
       insufficientData: false
     };
   }
@@ -138,4 +131,5 @@ class ProjectAnalyzer {
 }
 
 module.exports = new ProjectAnalyzer();
+
 

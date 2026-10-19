@@ -148,7 +148,8 @@ class ProjectModel {
     // Schedule
     this.schedule = {
       activities: [],
-      totalDuration: 0, totalMonths: 0,
+      totalDuration: null, totalMonths: null,
+      estimateStatus: 'not_estimated', requiresScheduleReview: true,
       criticalPath: [],
       optimization: null
     };
@@ -306,7 +307,7 @@ class ProjectModel {
       optimization: scheduleData.optimization || null
     };
     this.metadata.updated = new Date().toISOString();
-    this.metadata.workflowStep = scheduleData.estimateStatus === 'incomplete' ? 'schedule_requires_review' : 'scheduled';
+    this.metadata.workflowStep = scheduleData.requiresScheduleReview ? 'schedule_requires_review' : 'scheduled';
     this.traceEvent('schedule', 'scheduleOptimizer', { scheduleData });
   }
 
@@ -320,7 +321,7 @@ class ProjectModel {
       riskCount: (riskData.risks || []).length
     };
     this.metadata.updated = new Date().toISOString();
-    this.metadata.workflowStep = riskData.requiresInputReview ? 'risks_require_review' : 'risks_analyzed';
+    this.metadata.workflowStep = riskData.requiresRiskReview || riskData.requiresInputReview ? 'risks_require_review' : 'risks_analyzed';
     this.traceEvent('risk_analysis', 'riskAnalyzer', { riskData });
   }
 
@@ -593,7 +594,16 @@ class ProjectModel {
     if (data.boq) this.boq = data.boq;
     if (data.cost) this.cost = data.cost;
     if (data.schedule) this.schedule = data.schedule;
-    if (data.risks) this.risks = data.risks;
+    if (data.risks) this.risks = data.risks.inferenceVersion === 10 ? data.risks : {
+      risks: [], overallRiskScore: null, riskLevel: null, riskCount: 0, confidence: null,
+      estimateStatus: 'legacy_output_requires_recalculation', requiresRiskReview: true,
+      message: 'يلزم إعادة مراجعة سجل المخاطر القديم قبل عرضه.'
+    };
+    if (data.schedule && data.schedule.inferenceVersion !== 10) this.schedule = {
+      activities: data.schedule.activities || [], totalDuration: null, totalMonths: null, criticalPath: [],
+      estimateStatus: 'legacy_output_requires_recalculation', requiresScheduleReview: true,
+      message: 'الأنشطة المحفوظة متاحة؛ يلزم إعادة حساب المدة مع تحديد وحدتها.'
+    };
     if (data.quality) this.quality = data.quality;
     if (data.procurement) this.procurement = data.procurement;
     if (data.validation) this.validation = data.validation;
@@ -606,3 +616,4 @@ class ProjectModel {
 }
 
 module.exports = { EngineeringDataLayer, ProjectModel };
+

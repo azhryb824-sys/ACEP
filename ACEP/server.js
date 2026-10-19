@@ -529,15 +529,15 @@ app.post('/api/v1/analyze', waitForAI(async (req, res) => {
       { step: 'boq-generation', status: 'completed', result: `${boq.items.length} BOQ items (${boq.suggestedItems.length} suggested) phase: ${boq.phase}` },
       { step: 'cost-estimation', status: cost.status === 'incomplete' ? 'requires_review' : 'completed',
         result: cost.totalCost === null ? 'يلزم توضيح نطاق الأسعار أو استكمال بيانات التسعير' : `${cost.totalCost.toLocaleString()} SAR estimated (${cost.costPerM2.toLocaleString()} SAR/m²)` },
-      { step: 'schedule-generation', status: 'completed', result: `${schedule.totalMonths} months (${schedule.totalDuration} days)` },
-      { step: 'risk-analysis', status: 'completed', result: `${risks.riskCount} risks identified, level: ${risks.riskLevel}` },
+      { step: 'schedule-generation', status: schedule.requiresScheduleReview ? 'requires_review' : 'completed', result: schedule.totalDuration == null ? 'يلزم استكمال بيانات الجدول الزمني' : `${schedule.totalDuration} days; requires schedule review` },
+      { step: 'risk-analysis', status: 'requires_review', result: risks.message || 'يلزم تقييم مخاطر المشروع' },
       { step: 'quality-inspection', status: quality.requiresQualityReview ? 'requires_review' : 'completed', result: quality.message || 'يلزم فحص المشروع لتقييم الجودة' }
     ],
     boq: { items: boq.items, suggestedItems: boq.suggestedItems, summary: boq.summary, phase: boq.phase },
     cost: { ...cost, source: 'EDL: costEstimator' },
     duration: schedule.totalMonths,
-    schedule: { totalDays: schedule.totalDuration, totalMonths: schedule.totalMonths, activities: schedule.activities.length, criticalPath: schedule.criticalPath, optimization: schedule.optimization, source: 'EDL: scheduleOptimizer' },
-    risks: { count: risks.riskCount, items: risks.risks.slice(0, 10), overallScore: risks.overallRiskScore, level: risks.riskLevel, source: 'EDL: riskAnalyzer' },
+    schedule: { ...schedule, totalDays: schedule.totalDuration, totalMonths: schedule.totalMonths, activities: schedule.activities.length, criticalPath: schedule.criticalPath, optimization: schedule.optimization, source: 'EDL: scheduleOptimizer' },
+    risks: { ...risks, count: risks.riskCount, items: risks.risks.slice(0, 10), overallScore: risks.overallRiskScore, level: risks.riskLevel, source: 'EDL: riskAnalyzer' },
     quality: { ...quality, score: quality.qualityScore, grade: quality.qualityGrade, estimatedDefects: quality.estimatedDefects, source: 'EDL: qualityInspector' },
     building: { spaces: project.building.spaces.slice(0, 10), systems: project.building.systems, totalHeight: project.building.totalHeight, hasBasement: project.building.hasBasement },
     traceability: project.trace.slice(-15).map(t => ({ time: t.timestamp, action: t.action, module: t.module })),
@@ -593,70 +593,45 @@ app.post('/api/v1/digital-twin', waitForAI(async (req, res) => {
   const params = getProjectParams(p);
   const quality = ai.qualityInspector.inspectProject(params.type, params.totalArea, params.floors, params.finishing);
   const risks = ai.riskAnalyzer.analyzeRisks(params.type, params.totalArea, params.floors);
-  const schedule = ai.scheduleOptimizer.generateSchedule(params.type, params.totalArea, params.floors, params.finishing);
-
+  const project = edl.getProject(p.id);
+  const schedule = project?.schedule || ai.scheduleOptimizer.generateSchedule(params.type, params.totalArea, params.floors, params.finishing);
   res.json({
-    twinId: `twin-${projectId}`, projectId,
-    currentState: {
-      timestamp: new Date().toISOString(),
-      completionPercentage: p ? (p.progress || Math.random() * 0.3) : Math.random() * 0.3,
-      resourceUtilization: { labor: 0.6 + Math.random() * 0.3, equipment: 0.5 + Math.random() * 0.3, materials: 0.7 + Math.random() * 0.2 },
-      qualityScore: quality.qualityScore == null ? null : quality.qualityScore / 100, safetyScore: 0.9 + Math.random() * 0.1
-    },
-    performanceMetrics: {
-      schedulePerformanceIndex: Math.round((1 - (schedule.totalDuration / (schedule.totalDuration * 1.1))) * 100) / 100,
-      costPerformanceIndex: 1.0,
-      qualityIndex: quality.qualityScore == null ? null : Math.round(quality.qualityScore) / 100,
-      safetyIndex: 0.98, productivityIndex: 0.85 + Math.random() * 0.1,
-      resourceEfficiency: 0.75 + Math.random() * 0.15
-    },
-    predictedCompletion: new Date(Date.now() + schedule.totalDuration * 86400000).toISOString(),
-    riskLevel: risks.riskLevel
+    twinId: `twin-${projectId}`, projectId, status: 'requires_observations',
+    currentState: { timestamp: new Date().toISOString(), completionPercentage: null,
+      resourceUtilization: { labor: null, equipment: null, materials: null },
+      qualityScore: quality.qualityScore ?? null, safetyScore: null },
+    performanceMetrics: { schedulePerformanceIndex: null, costPerformanceIndex: null, qualityIndex: null,
+      safetyIndex: null, productivityIndex: null, resourceEfficiency: null },
+    predictedCompletion: null, riskLevel: risks.riskLevel, schedule,
+    requiresInputReview: true,
+    missing: ['dated_progress_observations', 'earned_value_baseline', 'resource_utilization', 'site_safety_observations', 'start_date_and_work_calendar']
   });
 }));
 
-// ─── Simulation ─────────────────────────
+// Scenario effects require two explicit activity networks in the same time unit.
 app.post('/api/v1/simulation', waitForAI(async (req, res) => {
   const { scenario } = req.body || {};
-  if (!scenario) return res.status(400).json({ error: 'scenario is required' });
-  const { projectType, area, floors, finishing, region } = scenario;
-  const totalArea = (area ?? 500) * (floors ?? 2);
-  const baseSchedule = ai.scheduleOptimizer.generateSchedule(projectType || null, totalArea, floors ?? 2, finishing || null, region || null);
-  const baseRisks = ai.riskAnalyzer.analyzeRisks(projectType || null, totalArea, floors ?? 2);
-  const pt = ai.kb.getProjectType(projectType || null);
-  const mult = ai.kb.getMaterialPriceMultiplier(finishing || null);
-  const regionIdx = ai.kb.getRegionIndex(region || null);
-  const baseCost = (pt ? pt.costPerM2 : 2800) * totalArea * mult * regionIdx;
-
-  const durationAdj = scenario.acceleration ? -15 + Math.random() * 10 : scenario.delay ? 20 + Math.random() * 20 : 0;
-  const costAdj = scenario.scopeChange ? 0.15 + Math.random() * 0.15 : (scenario.resourceOptimization ? -0.12 + Math.random() * 0.08 : (scenario.materialShortage ? 0.2 + Math.random() * 0.1 : 0));
-  const qualityAdj = scenario.laborShortage ? -0.25 + Math.random() * 0.1 : (scenario.acceleration ? -0.1 + Math.random() * 0.1 : 0.05);
-
-  const durationDays = Math.max(30, Math.round(baseSchedule.totalDuration * (1 + durationAdj / 100)));
-  const finalCost = Math.round(baseCost * (1 + costAdj));
-  const newRiskLevel = durationAdj > 10 || costAdj > 0.15 ? 'High' : (durationAdj > 0 || costAdj > 0 ? 'Medium' : 'Low');
-
-  const recs = [];
-  if (scenario.acceleration) recs.push('Add night shifts and weekend work', 'Fast-track critical path activities', 'Prefabricate key components off-site');
-  if (scenario.scopeChange) recs.push('Update BOQ and re-estimate costs', 'Conduct value engineering workshop', 'Negotiate change order with client');
-  if (scenario.laborShortage) recs.push('Arrange prefabrication to reduce site labor', 'Recruit from alternative labor markets', 'Cross-train existing workforce');
-  if (scenario.resourceOptimization) recs.push('Consolidate material procurement for bulk discounts', 'Optimize equipment fleet utilization', 'Implement just-in-time delivery');
-  if (scenario.materialShortage) recs.push('Identify alternative suppliers', 'Pre-order critical materials', 'Maintain 2-week safety stock');
-  if (recs.length === 0) recs.push('Monitor key performance indicators weekly', 'Maintain regular client communication', 'Document lessons learned');
-
+  if (!scenario || typeof scenario !== 'object' || Array.isArray(scenario)) return res.status(400).json({ error: 'scenario is required' });
+  let baseline = null, revised = null;
+  try {
+    if (Object.hasOwn(scenario, 'baselineActivities')) baseline = ai.scheduleOptimizer.scheduleFromActivities(scenario.baselineActivities, scenario.timeUnit);
+    if (Object.hasOwn(scenario, 'activities')) revised = ai.scheduleOptimizer.scheduleFromActivities(scenario.activities, scenario.timeUnit);
+  } catch (e) { return res.status(400).json({ error: e.message }); }
+  const complete = baseline !== null && revised !== null;
+  const delta = complete ? revised.totalDuration - baseline.totalDuration : null;
   res.json({
     scenarioId: 'sim-' + Date.now(), scenarioName: scenario.name || 'Custom Scenario',
-    projectParams: { type: projectType, area: totalArea, floors, finishing, region },
-    impacts: { duration: Math.round(durationAdj), cost: Math.round(costAdj * 100) / 100, quality: Math.round(qualityAdj * 100) / 100 },
-    predictions: {
-      estimatedCompletion: new Date(Date.now() + durationDays * 86400000).toISOString(),
-      durationDays, finalCost, riskLevel: newRiskLevel,
-      baselineDuration: baseSchedule.totalDuration,
-      baselineCost: Math.round(baseCost),
-      confidence: Math.min(0.85, 0.5 + ai.kb.getAllProjectTypes().length * 0.02)
-    },
-    recommendations: recs,
-    riskComparison: { before: baseRisks.riskLevel, after: newRiskLevel }
+    status: complete ? 'deterministic_network_comparison' : 'insufficient_scenario_data', requiresScheduleReview: true,
+    impacts: { duration: complete && baseline.totalDuration > 0 ? delta / baseline.totalDuration * 100 : null,
+      durationDays: delta, cost: null, quality: null },
+    predictions: { estimatedCompletion: null, durationDays: revised?.totalDuration ?? null,
+      finalCost: null, riskLevel: null, baselineDuration: baseline?.totalDuration ?? null,
+      baselineCost: null, confidence: null },
+    baseline, revised, timeUnit: complete ? scenario.timeUnit : null,
+    recommendations: [], riskComparison: { before: null, after: null },
+    missing: [...(!baseline ? ['baselineActivities'] : []), ...(!revised ? ['activities'] : []),
+      'priced_scope_changes', 'site_risk_and_quality_observations', 'start_date_and_work_calendar'],
+    message: 'تُحسب فروق المدة من تغييرات الأنشطة الصريحة؛ لا تُفترض وفورات أو آثار جودة ومخاطر من أسماء السيناريوهات.'
   });
 }));
 
@@ -1242,8 +1217,9 @@ app.post('/api/v1/projects/:id/schedule/generate', waitForAI(async (req, res) =>
     if (p.area) project.extracted.area = p.area;
     if (p.floors) project.extracted.floors = p.floors;
   }
-  if (!project.predicted?.totalArea) await workflow.stepAnalysis(project, p.description || '');
-  await workflow.stepSchedule(project);
+  try {
+    await workflow.stepSchedule(project, req.body || {});
+  } catch (e) { return res.status(400).json({ error: e.message }); }
   res.json({ projectId: p.id, ...project.schedule, edlSource: 'EDL: scheduleOptimizer' });
 }));
 
@@ -1253,7 +1229,8 @@ app.post('/api/v1/projects/:id/schedule/compare-methods', waitForAI(async (req, 
   if (!p) return res.status(404).json({ error: 'Project not found' });
   const pp = getProjectParams(p);
   const comparison = ai.scheduleOptimizer.compareMethods(pp.type, pp.totalArea, pp.floors);
-  res.json({ projectId: p.id, comparison, recommended: comparison[0]?.method || 'Traditional' });
+  res.json({ projectId: p.id, comparison, recommended: null, requiresScheduleReview: true,
+    message: 'عوامل الطرق غير معايرة؛ لا توجد توصية مثبتة بأفضل طريقة بناء.' });
 }));
 
 // ─── Risk Analysis (EDL-aware) ──────────
@@ -1435,15 +1412,15 @@ app.post('/api/v1/qaiip/inspection', waitForAI(async (req, res) => {
 app.post('/api/v1/siapp/risk-assessment', waitForAI(async (req, res) => {
   const { projectId } = req.body || {};
   const p = projects.find(x => x.id === projectId);
+  if (!p) return res.status(404).json({ error: 'Project not found' });
   const pp = getProjectParams(p);
   const risks = ai.riskAnalyzer.analyzeRisks(pp.type, pp.totalArea, pp.floors);
-  const alertCount = risks.risks.filter(r => r.score > 0.3).length;
   res.json({
-    platform: 'SIAPP', status: 'analyzed',
-    riskScore: risks.overallRiskScore, riskLevel: risks.riskLevel,
-    alerts: alertCount, ppeCompliance: Math.round((0.8 + Math.random() * 0.15) * 100) / 100,
-    safetyIndex: Math.round((70 + Math.random() * 20) * 10) / 10,
-    topRisks: risks.risks.slice(0, 3).map(r => r.risk)
+    platform: 'SIAPP', status: 'requires_review', estimateStatus: risks.estimateStatus,
+    riskScore: null, riskLevel: null, alerts: null, ppeCompliance: null, safetyIndex: null,
+    historicalRisks: risks.risks, topRisks: risks.risks.slice(0,3).map(r => r.risk),
+    requiresRiskReview: true, missing: [...(risks.missing || []), 'site_safety_inspections', 'ppe_observations'],
+    message: 'لا توجد قياسات موقع موثقة لحساب الامتثال أو مؤشر السلامة؛ السجلات التاريخية مراجع للمراجعة فقط.'
   });
 }));
 
@@ -4223,5 +4200,6 @@ app.listen(PORT, () => {
   console.log(`  Final Report:      ${finalReport ? '✓' : '✗'}   /api/v1/final-report/`);
   console.log('═══════════════════════════════════════════════════\n');
 });
+
 
 

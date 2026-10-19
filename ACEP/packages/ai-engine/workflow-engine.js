@@ -134,15 +134,18 @@ class WorkflowEngine {
   /**
    * Step 6: Generate Schedule (uses analysis data)
    */
-  async stepSchedule(project) {
+  async stepSchedule(project, options = {}) {
+    if (!options || typeof options !== 'object' || Array.isArray(options)) throw new TypeError('Invalid schedule options');
+    if (Object.keys(options).some(k => !['activities', 'timeUnit'].includes(k))) throw new TypeError('Unsupported schedule option');
+    if (Object.hasOwn(options, 'timeUnit') && !Object.hasOwn(options, 'activities')) throw new TypeError('timeUnit requires activities');
+    if (Object.hasOwn(options, 'activities')) {
+      const result = this.ai.scheduleOptimizer.scheduleFromActivities(options.activities, options.timeUnit);
+      project.setSchedule(result);
+      return result;
+    }
     const effective = this._getEffectiveParams(project);
     const totalArea = effective.area == null || effective.floors == null ? null : effective.area * effective.floors;
     const floors = effective.floors;
-    if (!Number.isFinite(totalArea) || totalArea <= 0 || !Number.isSafeInteger(floors) || floors < 1 || !effective.type) {
-      const incomplete = { activities: [], totalDuration: null, totalMonths: null, criticalPath: [], estimateStatus: 'incomplete', requiresInputReview: true, requiresScheduleReview: true, confidence: 0, confidenceCalibrated: false };
-      project.setSchedule(incomplete);
-      return incomplete;
-    }
     const scheduleData = this.ai.scheduleOptimizer.generateSchedule(
       effective.type, totalArea, floors,
       project.approved.finishing || project.extracted.finishing || 'Standard',
@@ -333,3 +336,4 @@ class WorkflowEngine {
 }
 
 module.exports = WorkflowEngine;
+

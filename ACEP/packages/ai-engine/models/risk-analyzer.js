@@ -66,53 +66,39 @@ class RiskAnalyzer {
 
   analyzeRisks(projectType, totalArea, floors, region, finishing) {
     const missing = input.geometry(projectType, totalArea, floors);
-    if (missing.length) return { ...input.incomplete(missing), risks: [], overallRiskScore: null, riskLevel: null };
-    if (!this.trained) return { error: 'Not trained', risks: [] };
-
-    const ptStats = this.byProjectType[projectType];
-    const allCategories = Object.keys(this.byCategory);
-    const scaleFactor = Math.max(0.5, Math.min(2, 1 + (totalArea / 10000) * 0.2 + (floors / 10) * 0.15));
-
-    const risks = [];
-    for (const cat of allCategories) {
-      const catStats = this.byCategory[cat];
-      const stats = (ptStats && ptStats.categories && ptStats.categories[cat]) ? ptStats.categories[cat] : catStats;
-      if (!stats) continue;
-
-      const baseProb = stats.probMean;
-      const baseImpact = stats.impactMean;
-      const prob = Math.min(0.95, baseProb * scaleFactor * (1 + (finishing === 'Luxury' ? 0.15 : finishing === 'Premium' ? 0.1 : 0)));
-      const impact = Math.min(0.95, baseImpact * scaleFactor * (1 + (totalArea > 50000 ? 0.15 : 0)));
-      const score = prob * impact;
-      const desc = stats.descriptions[0] || `${cat} risk`;
-      const mitigation = stats.mitigations[0] || 'Regular monitoring';
-
-      risks.push({
-        category: cat, risk: desc,
-        probability: Math.round(prob * 100) / 100,
-        impact: Math.round(impact * 100) / 100,
-        score: Math.round(score * 100) / 100,
-        mitigation,
-        trainingSamples: stats.count,
-        dataBasis: ptStats?.categories?.[cat] ? 'project_type_category' : 'global_category_fallback'
-      });
+    const empty = { inferenceVersion: 10, risks: [], overallRiskScore: null, riskLevel: null, eventProbability: null,
+      confidence: null, confidenceCalibrated: false, requiresRiskReview: true,
+      probabilityBasis: 'unavailable_without_event_outcomes_and_exposure',
+      dataBasis: 'historical_ordinal_ratings', historicalOrdinalRiskIndex: null };
+    if (missing.length) return { ...input.incomplete(missing), ...empty };
+    if (!this.trained) return { ...input.incomplete(['trained_risk_profile']), ...empty, estimateStatus: 'not_trained' };
+    const stats = Object.hasOwn(this.byProjectType, projectType) ? this.byProjectType[projectType] : null;
+    // Never substitute another project type's ratings for the requested type.
+    if (!stats || !stats.categories) return { ...input.incomplete(['project_type_risk_history']), ...empty,
+      estimateStatus: 'unsupported_project_type', projectType };
+    const valid = s => s && Number.isSafeInteger(s.count) && s.count > 0 &&
+      [s.probMean, s.impactMean, s.riskScoreMean].every(n => typeof n === 'number' && Number.isFinite(n) && n >= 0 && n <= 1 + 1e-12) && s.probMean >= 0.2 - 1e-12 && s.impactMean >= 0.2 - 1e-12 && s.riskScoreMean >= 0.04 - 1e-12 &&
+      Array.isArray(s.descriptions) && Array.isArray(s.mitigations);
+    if (!valid(stats) || Object.values(stats.categories).some(s => !valid(s))) {
+      return { ...input.incomplete(['valid_risk_profile']), ...empty, estimateStatus: 'invalid_training_profile' };
     }
-
-    risks.sort((a, b) => b.score - a.score || a.category.localeCompare(b.category));
-    if (!risks.length) return { ...input.incomplete(['risk_history']), risks: [], overallRiskScore: null, riskLevel: null };
-    const overallScore = risks.reduce((s, r) => s + r.score, 0) / risks.length;
-    const riskLevel = overallScore > 0.5 ? 'High' : overallScore > 0.25 ? 'Medium' : 'Low';
-
-    return {
-      estimateStatus: 'heuristic_estimate', requiresRiskReview: true,
-      probabilityBasis: 'normalized_ordinal_rating_not_calibrated_event_probability',
-      confidence: 0, confidenceCalibrated: false,
-      risks: risks.slice(0, 10),
-      overallRiskScore: Math.round(overallScore * 100) / 100,
-      riskLevel,
-      totalRisksInTraining: this.risks.length,
-      projectSpecificData: ptStats ? ptStats.count : 0
-    };
+    const risks = Object.entries(stats.categories).map(([category, s]) => ({
+      category, risk: s.descriptions[0] || category,
+      probability: null, eventProbability: null, impact: null, score: null,
+      ordinalLikelihoodMean: s.probMean * 5, ordinalImpactMean: s.impactMean * 5,
+      ordinalRiskProductMean: s.riskScoreMean * 25,
+      historicalPriorityIndex: s.riskScoreMean,
+      ratingScale: { likelihood: [1, 5], impact: [1, 5] },
+      mitigation: s.mitigations[0] || null, trainingSamples: s.count,
+      dataBasis: 'project_type_category_historical_ratings', requiresRiskReview: true
+    })).sort((a,b) => b.historicalPriorityIndex-a.historicalPriorityIndex || a.category.localeCompare(b.category));
+    if (!risks.length) return { ...input.incomplete(['project_type_risk_history']), ...empty };
+    return { ...empty, risks, historicalOrdinalRiskIndex: stats.riskScoreMean,
+      estimateStatus: 'historical_risk_profile', projectType,
+      missing: ['observed_event_outcomes', 'at_risk_project_denominators', 'event_time_horizon'],
+      totalRisksInTraining: this.risks.length, projectSpecificData: stats.count,
+      geometryAdjustmentApplied: false, finishingAdjustmentApplied: false,
+      message: 'هذه تقييمات مخاطر تاريخية لترتيب المراجعة، وليست احتمالات وقوع أو تصنيف سلامة للمشروع الحالي.' };
   }
 
   getRiskTrends(projectId) {
@@ -132,3 +118,4 @@ class RiskAnalyzer {
 }
 
 module.exports = new RiskAnalyzer();
+

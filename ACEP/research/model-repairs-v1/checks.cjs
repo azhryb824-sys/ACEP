@@ -29,10 +29,10 @@ const mh=['material_name','category','unit','city','supplier_name','avg_price_sa
  const pp=fixture('projects.csv',ph,[['A','Villa'],['B','Hospital']]);
  const riskRows=[['A','Safety','Alpha, quoted\nobservation',1,1,'Review, plans','true'],['B','Safety','Beta',5,5,'Inspect','false']];
  const rp=fixture('risks.csv',rh,riskRows),rr=fresh('risk-analyzer');await rr.train(rp,pp);
- await test('risk uses project type and category',()=>{const a=rr.analyzeRisks('Villa',100,1),b=rr.analyzeRisks('Hospital',100,1);assert.equal(a.risks[0].probability,.2);assert.equal(b.risks[0].probability,.95);assert(a.overallRiskScore<b.overallRiskScore);assert.equal(a.risks[0].trainingSamples,1);assert.equal(a.risks[0].dataBasis,'project_type_category');});
+ await test('risk uses project type and category',()=>{const a=rr.analyzeRisks('Villa',100,1),b=rr.analyzeRisks('Hospital',100,1);assert.equal(a.risks[0].probability,null);assert.equal(b.risks[0].probability,null);assert.equal(a.risks[0].ordinalLikelihoodMean,1);assert.equal(b.risks[0].ordinalLikelihoodMean,5);assert(a.historicalOrdinalRiskIndex<b.historicalOrdinalRiskIndex);assert.equal(a.risks[0].trainingSamples,1);assert.equal(a.risks[0].dataBasis,'project_type_category_historical_ratings');});
  await test('risk CSV preserves commas and newlines',()=>assert.equal(rr.analyzeRisks('Villa',100,1).risks[0].risk,riskRows[0][2]));
  await test('risk repeat invocation is deterministic',()=>assert.deepEqual(rr.analyzeRisks('Villa',100,1),rr.analyzeRisks('Villa',100,1)));
- await test('risk fallback is explicit for unseen type',()=>assert.equal(rr.analyzeRisks('Unseen',100,1).risks[0].dataBasis,'global_category_fallback'));
+ await test('risk abstains for unseen type',()=>assert.equal(rr.analyzeRisks('Unseen',100,1).estimateStatus,'unsupported_project_type'));
  await test('risk aggregate is mean paired score',()=>{assert.equal(rr.byCategory.Safety.riskScoreMean,.52);});
  await test('risk CSV rejects invalid rating instead of coercing',async()=>{const bad=fixture('bad-risks.csv',rh,[...riskRows,['A','Safety','Bad',9,1,'x','true'],['A','Safety','Bad','1x',1,'x','true']]);const r=await rr.train(bad,pp);assert.equal(r.total,2);assert.equal(r.audit.rejected,2);});
  await test('risk output independent of input row order',async()=>{const before=rr.analyzeRisks('Unseen',100,1);await rr.train(fixture('reverse-risks.csv',rh,[...riskRows].reverse()),pp);assert.deepEqual(rr.analyzeRisks('Unseen',100,1),before);});
@@ -69,3 +69,4 @@ const mh=['material_name','category','unit','city','supplier_name','avg_price_sa
  const result={boundary:'Authored direct model, CSV, workflow and EDL regression tests; no field accuracy measurement',passed:tests.filter(t=>t.pass).length,total:tests.length,tests};
  fs.writeFileSync(path.join(__dirname,'results.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));process.exitCode=tests.every(t=>t.pass)?0:1;
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>fs.rmSync(tmp,{recursive:true,force:true}));
+
