@@ -7,6 +7,7 @@
 const csv = require('./training-csv');
 const path = require('path');
 const kb = require('../knowledge-base');
+const { normalizeGeometry } = require('../engineering-ke/project-geometry');
 
 class CostEstimator {
   constructor() {
@@ -97,15 +98,18 @@ class CostEstimator {
     };
   }
 
-  estimateCost(boqItems, projectType, area, floors, finishing = 'Standard', region = 'Riyadh') {
+  estimateCost(boqItems, projectType, area, floors, finishing = 'Standard', region = 'Riyadh', options = {}) {
     if (!Number.isFinite(area) || area <= 0 || !Number.isInteger(floors) || floors <= 0 || !Number.isFinite(area * floors)) throw new RangeError('area and floors must be positive finite project dimensions');
+    const geometryInput = normalizeGeometry({ area, floors, areaBasis: options.areaBasis });
+    area = geometryInput.params.area;
+    const geometry = geometryInput.geometry;
     const multiplier = kb.getMaterialPriceMultiplier(finishing);
     const regionIndex = kb.getRegionIndex(region);
     const totalArea = area * floors;
     const pt = kb.getProjectType(projectType);
 
     if ((!this.trained || this.materialPrices.length === 0) && !(Array.isArray(boqItems) && boqItems.length)) {
-      return this._fallbackEstimate(totalArea, projectType, finishing, region);
+      return { ...this._fallbackEstimate(totalArea, projectType, finishing, region), geometry };
     }
 
     // Explicit BOQ prices are authoritative, including zero. Supply rates must
@@ -187,6 +191,7 @@ class CostEstimator {
       contingency: Math.round(contingency),
       profit: Math.round(profit),
       taxes: Math.round(taxes),
+      geometry,
       status: pricingIssues.length ? 'incomplete' : 'heuristic_estimate',
       pricingIssues,
       pricedMaterialSubtotal: Math.round(materialCost),

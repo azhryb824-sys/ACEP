@@ -60,7 +60,7 @@ class ProjectAnalyzer {
 
   analyzeProject(description, options = {}) {
     if (!this.trained) return { error: 'Model not trained', trained: false };
-    let type = kb.detectProjectType(description);
+    let type = options.type || kb.detectProjectType(description);
     const pt = kb.getProjectType(type);
     let stats = this.trainingStats.projectTypeStats[type];
 
@@ -142,3 +142,4 @@ class ProjectAnalyzer {
 }
 
 module.exports = new ProjectAnalyzer();
+

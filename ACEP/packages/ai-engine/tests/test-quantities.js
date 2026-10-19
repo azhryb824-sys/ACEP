@@ -22,7 +22,7 @@ const scenarios = [
     name: 'فيلا صغيرة 300م²',
     params: { type: 'Villa', area: 300, floors: 2, rooms: 4, bathrooms: 3, hasKitchen: true },
     checks: [
-      { code: 'EXC-001', min: 50, max: 400, desc: 'حفر أساسات' },
+      { code: 'EXC-001', expected: 450, desc: 'حفر أساسات' },
       { code: 'FND-001', min: 10, max: 100, desc: 'قواعد أساسات' },
       { code: 'STR-001', min: 10, max: 100, desc: 'أعمدة خرسانية' },
       { code: 'MSN-001', min: 100, max: 3000, desc: 'بلوك الجدران' },
@@ -40,7 +40,7 @@ const scenarios = [
     name: 'فيلا كبيرة 500م² دورين',
     params: { type: 'Villa', area: 500, floors: 2, rooms: 6, bathrooms: 4, hasKitchen: true },
     checks: [
-      { code: 'EXC-001', min: 100, max: 600, desc: 'حفر' },
+      { code: 'EXC-001', expected: 750, desc: 'حفر' },
       { code: 'FND-001', min: 20, max: 200, desc: 'قواعد' },
       { code: 'MSN-001', min: 200, max: 5000, desc: 'بلوك' },
       { code: 'PLS-001', min: 200, max: 5000, desc: 'لياسة' },
@@ -66,7 +66,7 @@ const scenarios = [
     name: 'مدرسة 2000م²',
     params: { type: 'School', area: 2000, floors: 2, rooms: 20, bathrooms: 15 },
     checks: [
-      { code: 'EXC-001', min: 200, max: 2000, desc: 'حفر' },
+      { code: 'EXC-001', expected: 3000, desc: 'حفر' },
       { code: 'FND-001', min: 50, max: 1000, desc: 'قواعد' },
       { code: 'MSN-001', min: 300, max: 10000, desc: 'بلوك' },
       { code: 'PLS-001', min: 300, max: 10000, desc: 'لياسة' },
@@ -81,7 +81,7 @@ const scenarios = [
     name: 'مستشفى 5000م²',
     params: { type: 'Hospital', area: 5000, floors: 5, rooms: 100, bathrooms: 50 },
     checks: [
-      { code: 'EXC-001', min: 500, max: 2500, desc: 'حفر' },
+      { code: 'EXC-001', expected: 7500, desc: 'حفر' },
       { code: 'STR-004', min: 10, max: 1000, desc: 'جدران قص' },
       { code: 'ELC-001', min: 100, max: 3000, desc: 'كهرباء' },
       { code: 'NET-001', min: 50, max: 2000, desc: 'شبكة بيانات' },
@@ -138,7 +138,8 @@ for (const scenario of scenarios) {
   console.log(`Scenario: ${scenario.name}`);
   console.log(`  Params: ${JSON.stringify(scenario.params)}`);
 
-  const result = engine.generate(scenario.params, {});
+  // Fixture areas denote one floor; excavation depth remains a heuristic 1.5 m.
+  const result = engine.generate({ ...scenario.params, areaBasis: 'per_floor' }, {});
   const items = result.items.filter(i => !i.insufficient);
   // Also search suggested items for low-confidence items
   const searchItems = [...items, ...result.suggestedItems];
@@ -168,10 +169,13 @@ for (const scenario of scenarios) {
       scenarioFailed++; failed++;
       continue;
     }
-    if (qty >= check.min && qty <= check.max) {
+    const matches = check.expected !== undefined
+      ? qty === check.expected
+      : qty >= check.min && qty <= check.max;
+    if (matches) {
       scenarioPassed++; passed++;
     } else {
-      console.error(`  ✗ ${check.code}: ${qty} not in range [${check.min}, ${check.max}] (${check.desc})`);
+      console.error(`  ✗ ${check.code}: ${qty} differs from ${check.expected !== undefined ? 'expected ' + check.expected : 'range [' + check.min + ', ' + check.max + ']'} (${check.desc})`);
       scenarioFailed++; failed++;
     }
   }

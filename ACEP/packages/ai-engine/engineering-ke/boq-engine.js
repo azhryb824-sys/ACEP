@@ -16,6 +16,7 @@ const kb = require('./boq-knowledge-base');
 const AssumptionManager = require('./assumption-manager');
 const PriceLearner = require('./price-learner');
 const { unit } = require('../models/training-csv');
+const { normalizeGeometry } = require('./project-geometry');
 // Deliberately narrow semantic matches. Do not share concrete rates with lifts
 // merely because the KB reuses a price category. Scope/grade remain unverified.
 const CSV_ITEM_MATCHES = {
@@ -51,12 +52,14 @@ class BOQEngine {
    * @returns {object} - { items, suggestedItems, assumptions, phase, summary }
    */
   generate(params, trainingStats) {
+    const geometryInput = normalizeGeometry(params);
+    params = geometryInput.params;
     const projectType = params.type || 'Unknown';
     const userPhase = params.phase || kb.detectPhase(projectType, params.description || '');
 
     // First, check for missing params and generate assumptions
     const assumptionResult = this.assumptionManager.generateAssumptions(params);
-    const enrichedParams = { ...params };
+    const enrichedParams = { ...params, phase: userPhase };
 
     // Apply learning-based defaults for missing parameters
     for (const assumption of assumptionResult.assumptions) {
@@ -64,6 +67,15 @@ class BOQEngine {
         enrichedParams[assumption.field] = assumption.proposedValue;
       }
     }
+
+    const effectiveGeometry = normalizeGeometry(enrichedParams).geometry;
+    const geometry = { ...geometryInput.geometry,
+      perFloorAreaM2: effectiveGeometry.perFloorAreaM2,
+      totalBuiltUpAreaM2: effectiveGeometry.totalBuiltUpAreaM2,
+      floors: effectiveGeometry.floors,
+      dimensionsInferred: assumptionResult.assumptions.some(a =>
+        a.type === 'missing_parameter' && ['area', 'floors'].includes(a.field)),
+    };
 
     // Determine which lifecycle phases apply to this project
     const lifecyclePhases = kb.getApplicablePhases(projectType, userPhase);
@@ -181,7 +193,8 @@ class BOQEngine {
         totalSuggestedCost: Math.round(totalSuggested * 100) / 100,
         averageConfidence: avgConf,
         phasesUsed: lifecyclePhases.length,
-        engineVersion: '3.0-ke',
+        geometry,
+        engineVersion: '3.1-geometry',
         generatedAt: new Date().toISOString(),
         dataSource: 'engineering_knowledge_base',
       },
@@ -204,6 +217,8 @@ class BOQEngine {
    * Get assumptions for review (before finalizing BOQ).
    */
   getAssumptions(params) {
+    const geometryInput = normalizeGeometry(params);
+    params = geometryInput.params;
     const projectType = params.type || 'Unknown';
     const userPhase = params.phase || kb.detectPhase(projectType, params.description || '');
     const lifecyclePhases = kb.getApplicablePhases(projectType, userPhase);
@@ -223,6 +238,7 @@ class BOQEngine {
 
     return {
       projectType,
+      geometry: geometryInput.geometry,
       phase: userPhase,
       lifecyclePhases: lifecyclePhases.map(pid => {
         const p = kb.PHASES.find(x => x.id === pid);
@@ -256,6 +272,7 @@ class BOQEngine {
    * Get explanation for a specific BOQ item code.
    */
   getItemExplanation(code, params) {
+    params = normalizeGeometry(params).params;
     for (const item of kb.ALL_ITEMS) {
       if (item.code === code) {
         const calcResult = item.calc(params);

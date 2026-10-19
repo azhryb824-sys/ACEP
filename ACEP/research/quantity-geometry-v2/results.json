@@ -1,0 +1,1287 @@
+{
+  "parentCommit": "a14e4a746c497146eac06133d20790c97de793eb",
+  "geometryBefore": {
+    "checks": [
+      {
+        "name": "same footprint excavation does not shrink as floors increase",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n225 !== 450\n"
+      },
+      {
+        "name": "transport relates to the same excavation volume",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n315 !== 157.5\n"
+      },
+      {
+        "name": "explicit total built-up area and per-floor input agree for every BOQ item",
+        "pass": false,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    [\n      'EXC-001',\n+     225\n-     450\n    ],\n    [\n      'EXC-002',\n+     315\n-     630\n    ],\n    [\n      'EXC-003',\n+     150\n-     300\n    ],\n    [\n      'EXC-004',\n+     240\n-     480\n    ],\n    [\n      'FND-001',\n+     30\n-     60\n    ],\n    [\n      'FND-002',\n+     75\n-     150\n    ],\n    [\n      'FND-003',\n+     45\n-     90\n    ],\n    [\n      'FND-004',\n+     75\n-     150\n    ],\n    [\n      'STR-001',\n+     36\n-     72\n    ],\n    [\n      'STR-002',\n+     24\n-     48\n    ],\n    [\n      'STR-003',\n+     108\n-     216\n    ],\n    [\n      'STR-005',\n+     26.28\n-     52.56\n    ],\n    [\n      'STR-006',\n      3.5\n    ],\n    [\n      'MSN-001',\n+     424.26\n-     600\n    ],\n    [\n      'MSN-002',\n+     148.49\n-     210\n    ],\n    [\n      'MSN-003',\n+     90\n-     180\n    ]\n  ]\n"
+      },
+      {
+        "name": "cost area basis agrees with quantity input semantics",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 2100000\n- 4200000\n"
+      },
+      {
+        "name": "default area basis is visible as an assumption",
+        "pass": false,
+        "error": "Cannot read properties of undefined (reading 'inputAreaBasis')"
+      },
+      {
+        "name": "unsupported area basis is rejected",
+        "pass": false,
+        "error": "Missing expected exception."
+      },
+      {
+        "name": "total area requires explicit valid floors",
+        "pass": false,
+        "error": "Missing expected exception."
+      },
+      {
+        "name": "invalid negative or nonfinite area cannot produce a BOQ",
+        "pass": false,
+        "error": "Missing expected exception."
+      },
+      {
+        "name": "Arabic shell request is scoped to Shell",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'Full_Construction'\n- 'Shell'\n"
+      },
+      {
+        "name": "finished shell followed by requested finishing stays Finishing",
+        "pass": true
+      }
+    ],
+    "passed": 1,
+    "total": 10
+  },
+  "geometryAfter": {
+    "checks": [
+      {
+        "name": "same footprint excavation does not shrink as floors increase",
+        "pass": true
+      },
+      {
+        "name": "transport relates to the same excavation volume",
+        "pass": true
+      },
+      {
+        "name": "explicit total built-up area and per-floor input agree for every BOQ item",
+        "pass": true
+      },
+      {
+        "name": "cost area basis agrees with quantity input semantics",
+        "pass": true
+      },
+      {
+        "name": "default area basis is visible as an assumption",
+        "pass": true
+      },
+      {
+        "name": "unsupported area basis is rejected",
+        "pass": true
+      },
+      {
+        "name": "total area requires explicit valid floors",
+        "pass": true
+      },
+      {
+        "name": "invalid negative or nonfinite area cannot produce a BOQ",
+        "pass": true
+      },
+      {
+        "name": "Arabic shell request is scoped to Shell",
+        "pass": true
+      },
+      {
+        "name": "finished shell followed by requested finishing stays Finishing",
+        "pass": true
+      }
+    ],
+    "passed": 10,
+    "total": 10
+  },
+  "routesBefore": {
+    "testBoundary": "actual_route_handlers_real_three_models_stub_other_services_and_store",
+    "tests": [
+      {
+        "name": "explicit project type is respected by analyzer",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'Villa'\n- 'Hospital'\n"
+      },
+      {
+        "name": "POST stores per-floor area and GET preserves cost",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n600 !== 300\n"
+      },
+      {
+        "name": "POST total-built-up input is normalized once",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n1200 !== 300\n"
+      },
+      {
+        "name": "explicit decimal area is not rounded through analyzer output",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n475 !== 237.53\n"
+      },
+      {
+        "name": "stored finishing and region survive GET recomputation",
+        "pass": true
+      },
+      {
+        "name": "invalid explicit area and unsupported basis return 400 without persistence",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n201 !== 400\n"
+      },
+      {
+        "name": "offline create still normalizes explicit total area",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n600 !== 300\n"
+      },
+      {
+        "name": "online missing dimensions do not produce assumed BOQ or price",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ {\n+   items: [\n+     {\n+       additionReason: 'المتوسط الهندسي لأعماق الأساسات في المباني السكنية والتجارية',\n+       calculationMethod: 'حجم الحفر = مساحة البصمة (400) × 1.5م عمق',\n+       code: 'EXC-001',\n+       confidence: 0.85,\n+       confidenceExplanation: 'يُحسب حجم الحفر بضرب مساحة الأرض في عمق حفر متوسط (1.5م) للأساسات المسلحة.',\n+       dataSource: 'المتوسط الهندسي لأعماق الأساسات في المباني السكنية والتجارية',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'حفر أساسات',\n+       editable: true,\n+       element: 'أساسات',\n+       formula: 'حجم الحفر = مساحة البصمة (400) × 1.5م عمق',\n+       insufficient: false,\n+       material: 'تربة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'EXCAVATION',\n+       phaseName: 'مرحلة الحفر',\n+       phaseOrder: 1,\n+       priceCat: 'EXC',\n+       priceSource: 'unverified_csv_reference',\n+       quantity: 600,\n+       quantityFormula: 'حجم الحفر = مساحة البصمة (400) × 1.5م عمق',\n+       quantityReason: 'حجم الحفر = مساحة البصمة (400) × 1.5م عمق',\n+       totalPrice: 13142.95,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 21.904921630094005\n+     },\n+     {\n+       additionReason: 'نسبة متوسطة من حجم الحفر',\n+       calculationMethod: 'نقل ناتج الحفر = حجم الحفر × 0.7 (نسبة التربة الزائدة بعد الدمك)',\n+       code: 'EXC-002',\n+       confidence: 0.75,\n+       confidenceExplanation: 'نقل ناتج الحفر = 70% من حجم الحفر الكلي.\\n' +\n+         'يتم نقل التربة الزائدة بعد استعمال جزء منها للردم.',\n+       dataSource: 'نسبة متوسطة من حجم الحفر',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'نقل ناتج الحفر',\n+       editable: true,\n+       element: 'أساسات',\n+       formula: 'نقل ناتج الحفر = حجم الحفر × 0.7 (نسبة التربة الزائدة بعد الدمك)',\n+       insufficient: false,\n+       material: 'تربة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'EXCAVATION',\n+       phaseName: 'مرحلة الحفر',\n+       phaseOrder: 1,\n+       priceCat: 'EXC',\n+       priceSource: 'heuristic_default',\n+       quantity: 420,\n+       quantityFormula: 'نقل ناتج الحفر = حجم الحفر × 0.7 (نسبة التربة الزائدة بعد الدمك)',\n+       quantityReason: 'نقل ناتج الحفر = حجم الحفر × 0.7 (نسبة التربة الزائدة بعد الدمك)',\n+       totalPrice: 14700,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 35\n+     },\n+     {\n+       additionReason: 'شرط هندسي للمباني على تربة ضعيفة',\n+       calculationMethod: 'الإحلال = مساحة الأرض × 0.5م (سمك طبقة الإحلال)',\n+       code: 'EXC-003',\n+       confidence: 0.7,\n+       confidenceExplanation: 'إحلال التربة تحت الأساسات بطبقة من التربة المدموكة أو الرمل النظيف بسمك 0.5م.',\n+       dataSource: 'شرط هندسي للمباني على تربة ضعيفة',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'إحلال تربة',\n+       editable: true,\n+       element: 'أساسات',\n+       formula: 'الإحلال = مساحة الأرض × 0.5م (سمك طبقة الإحلال)',\n+       insufficient: false,\n+       material: 'تربة مدموكة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'EXCAVATION',\n+       phaseName: 'مرحلة الحفر',\n+       phaseOrder: 1,\n+       priceCat: 'EXC',\n+       priceSource: 'heuristic_default',\n+       quantity: 200,\n+       quantityFormula: 'الإحلال = مساحة الأرض × 0.5م (سمك طبقة الإحلال)',\n+       quantityReason: 'الإحلال = مساحة الأرض × 0.5م (سمك طبقة الإحلال)',\n+       totalPrice: 7000,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 35\n+     },\n+     {\n+       additionReason: 'متوسط أعماق الردم',\n+       calculationMethod: 'الردم = مساحة الأرض × 0.8م (عمق الردم)',\n+       code: 'EXC-004',\n+       confidence: 0.75,\n+       confidenceExplanation: 'الردم حول جدران الأساسات بعد الانتهاء من الخرسانة.\\nالعمق المتوسط 0.8م.',\n+       dataSource: 'متوسط أعماق الردم',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'ردم حول الأساسات',\n+       editable: true,\n+       element: 'أساسات',\n+       formula: 'الردم = مساحة الأرض × 0.8م (عمق الردم)',\n+       insufficient: false,\n+       material: 'تربة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'EXCAVATION',\n+       phaseName: 'مرحلة الحفر',\n+       phaseOrder: 1,\n+       priceCat: 'EXC',\n+       priceSource: 'heuristic_default',\n+       quantity: 320,\n+       quantityFormula: 'الردم = مساحة الأرض × 0.8م (عمق الردم)',\n+       quantityReason: 'الردم = مساحة الأرض × 0.8م (عمق الردم)',\n+       totalPrice: 11200,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 35\n+     },\n+     {\n+       additionReason: 'سمك قياسي حسب الكود السعودي',\n+       calculationMethod: 'خرسانة النظافة = المساحة × 0.1م (سمك طبقة النظافة)',\n+       code: 'FND-001',\n+       confidence: 0.8,\n+       confidenceExplanation: 'طبقة خرسانة عادية بسمك 10سم تحت القواعد لعزل الخرسانة المسلحة عن التربة.',\n+       dataSource: 'سمك قياسي حسب الكود السعودي',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'خرسانة نظافة',\n+       editable: true,\n+       element: 'قواعد',\n+       formula: 'خرسانة النظافة = المساحة × 0.1م (سمك طبقة النظافة)',\n+       insufficient: false,\n+       material: 'خرسانة عادية',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FOUNDATION',\n+       phaseName: 'مرحلة الأساسات',\n+       phaseOrder: 2,\n+       priceCat: 'FND',\n+       priceSource: 'unverified_csv_reference',\n+       quantity: 40,\n+       quantityFormula: 'خرسانة النظافة = المساحة × 0.1م (سمك طبقة النظافة)',\n+       quantityReason: 'خرسانة النظافة = المساحة × 0.1م (سمك طبقة النظافة)',\n+       totalPrice: 15756.94,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 393.92338101430494\n+     },\n+     {\n+       additionReason: 'حساب إنشائي حسب نوع المبنى',\n+       calculationMethod: 'القواعد المسلحة = المساحة × 0.25م (سمك القواعد)',\n+       code: 'FND-002',\n+       confidence: 0.85,\n+       confidenceExplanation: 'حجم خرسانة القواعد المسلحة = مساحة الأرض × سمك القواعد.\\n' +\n+         'يتفاوت السمك حسب نوع المبنى.',\n+       dataSource: 'حساب إنشائي حسب نوع المبنى',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'قواعد خرسانية مسلحة',\n+       editable: true,\n+       element: 'قواعد',\n+       formula: 'القواعد المسلحة = المساحة × 0.25م (سمك القواعد)',\n+       insufficient: false,\n+       material: 'خرسانة مسلحة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FOUNDATION',\n+       phaseName: 'مرحلة الأساسات',\n+       phaseOrder: 2,\n+       priceCat: 'FND',\n+       priceSource: 'unverified_csv_reference',\n+       quantity: 100,\n+       quantityFormula: 'القواعد المسلحة = المساحة × 0.25م (سمك القواعد)',\n+       quantityReason: 'القواعد المسلحة = المساحة × 0.25م (سمك القواعد)',\n+       totalPrice: 39666.06,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 396.66060529634314\n+     },\n+     {\n+       additionReason: 'نسبة من مساحة المبنى',\n+       calculationMethod: 'الميدات = المساحة × 0.15م (سمك الميدات)',\n+       code: 'FND-003',\n+       confidence: 0.75,\n+       confidenceExplanation: 'الميدات تربط القواعد معاً وتوزع الأحمال.\\n' +\n+         'سمك تقديري 15سم من مساحة المبنى.',\n+       dataSource: 'نسبة من مساحة المبنى',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'ميدات أرضية',\n+       editable: true,\n+       element: 'ميدات',\n+       formula: 'الميدات = المساحة × 0.15م (سمك الميدات)',\n+       insufficient: false,\n+       material: 'خرسانة مسلحة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FOUNDATION',\n+       phaseName: 'مرحلة الأساسات',\n+       phaseOrder: 2,\n+       priceCat: 'FND',\n+       priceSource: 'heuristic_default',\n+       quantity: 60,\n+       quantityFormula: 'الميدات = المساحة × 0.15م (سمك الميدات)',\n+       quantityReason: 'الميدات = المساحة × 0.15م (سمك الميدات)',\n+       totalPrice: 25800,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 430\n+     },\n+     {\n+       additionReason: 'سمك قياسي للبشة المسلحة',\n+       calculationMethod: 'اللبشة = المساحة × 0.25م (سمك اللبشة)',\n+       code: 'FND-004',\n+       confidence: 0.8,\n+       confidenceExplanation: 'بلاطة أرضية مسلحة (Raft Foundation) بسمك 25 سم.\\n' +\n+         'تستخدم في الفلل والمصانع على التربة الضعيفة.',\n+       dataSource: 'سمك قياسي للبشة المسلحة',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'بلاطة أرضية (لبشة)',\n+       editable: true,\n+       element: 'بلاطة أرضية',\n+       formula: 'اللبشة = المساحة × 0.25م (سمك اللبشة)',\n+       insufficient: false,\n+       material: 'خرسانة مسلحة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FOUNDATION',\n+       phaseName: 'مرحلة الأساسات',\n+       phaseOrder: 2,\n+       priceCat: 'FND',\n+       priceSource: 'heuristic_default',\n+       quantity: 100,\n+       quantityFormula: 'اللبشة = المساحة × 0.25م (سمك اللبشة)',\n+       quantityReason: 'اللبشة = المساحة × 0.25م (سمك اللبشة)',\n+       totalPrice: 43000,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 430\n+     },\n+     {\n+       additionReason: 'نسبة إنشائية قياسية',\n+       calculationMethod: 'الأعمدة = المساحة × 0.06 (نسبة الأعمدة) × 1 أدوار',\n+       code: 'STR-001',\n+       confidence: 0.8,\n+       confidenceExplanation: 'حجم خرسانة الأعمدة = مساحة الدور × نسبة الأعمدة × عدد الأدوار.\\n' +\n+         'تختلف النسبة حسب نوع المبنى.',\n+       dataSource: 'نسبة إنشائية قياسية',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'أعمدة خرسانية مسلحة',\n+       editable: true,\n+       element: 'أعمدة',\n+       formula: 'الأعمدة = المساحة × 0.06 (نسبة الأعمدة) × 1 أدوار',\n+       insufficient: false,\n+       material: 'خرسانة مسلحة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'STRUCTURE',\n+       phaseName: 'مرحلة الهيكل',\n+       phaseOrder: 3,\n+       priceCat: 'COL',\n+       priceSource: 'unverified_csv_reference',\n+       quantity: 24,\n+       quantityFormula: 'الأعمدة = المساحة × 0.06 (نسبة الأعمدة) × 1 أدوار',\n+       quantityReason: 'الأعمدة = المساحة × 0.06 (نسبة الأعمدة) × 1 أدوار',\n+       totalPrice: 9411.41,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 392.1419379844958\n+     },\n+     {\n+       additionReason: 'نسبة إنشائية تقديرية',\n+       calculationMethod: 'الكمرات = المساحة × 0.04 × الأدوار',\n+       code: 'STR-002',\n+       confidence: 0.75,\n+       confidenceExplanation: 'الكمرات تربط الأعمدة وتحمل البلاطات.\\nنسبة تقديرية 4% من مساحة الدور.',\n+       dataSource: 'نسبة إنشائية تقديرية',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'كمرات خرسانية مسلحة',\n+       editable: true,\n+       element: 'كمرات',\n+       formula: 'الكمرات = المساحة × 0.04 × الأدوار',\n+       insufficient: false,\n+       material: 'خرسانة مسلحة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'high',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'STRUCTURE',\n+       phaseName: 'مرحلة الهيكل',\n+       phaseOrder: 3,\n+       priceCat: 'COL',\n+       priceSource: 'unverified_csv_reference',\n+       quantity: 16,\n+       quantityFormula: 'الكمرات = المساحة × 0.04 × الأدوار',\n+       quantityReason: 'الكمرات = المساحة × 0.04 × الأدوار',\n+       totalPrice: 6290.25,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 393.14074358974324\n+     },\n+     {\n+       additionReason: 'الكود الإنشائي - سمك البلاطات',\n+       calculationMethod: 'البلاطات = المساحة × 0.18م (سمك) × 1 أدوار',\n+       code: 'STR-003',\n+       confidence: 0.8,\n+       confidenceExplanation: 'البلاطات الخرسانية المسلحة للأسقف والأرضيات.\\n' +\n+         'السمك يتراوح بين 18-22سم حسب نوع المبنى.',\n+       dataSource: 'الكود الإنشائي - سمك البلاطات',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'بلاطات أسقف خرسانية',\n+       editable: true,\n+       element: 'أسقف',\n+       formula: 'البلاطات = المساحة × 0.18م (سمك) × 1 أدوار',\n+       insufficient: false,\n+       material: 'خرسانة مسلحة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'STRUCTURE',\n+       phaseName: 'مرحلة الهيكل',\n+       phaseOrder: 3,\n+       priceCat: 'SLB',\n+       priceSource: 'unverified_csv_reference',\n+       quantity: 72,\n+       quantityFormula: 'البلاطات = المساحة × 0.18م (سمك) × 1 أدوار',\n+       quantityReason: 'البلاطات = المساحة × 0.18م (سمك) × 1 أدوار',\n+       totalPrice: 28260.89,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م³',\n+       unitPrice: 392.5124193548383\n+     },\n+     {\n+       additionReason: 'نسبة حديد قياسية من حجم الخرسانة',\n+       calculationMethod: 'الحديد = 196م³ خرسانة × 0.12 (نسبة الحديد)',\n+       code: 'STR-005',\n+       confidence: 0.8,\n+       confidenceExplanation: 'وزن حديد التسليح = إجمالي حجم الخرسانة المسلحة × نسبة الحديد.\\n' +\n+         'نسبة الحديد 12-15% حسب نوع المبنى.',\n+       dataSource: 'نسبة حديد قياسية من حجم الخرسانة',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'حديد تسليح',\n+       editable: true,\n+       element: 'تسليح',\n+       formula: 'الحديد = 196م³ خرسانة × 0.12 (نسبة الحديد)',\n+       insufficient: false,\n+       material: 'حديد',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'STRUCTURE',\n+       phaseName: 'مرحلة الهيكل',\n+       phaseOrder: 3,\n+       priceCat: 'REB',\n+       priceSource: 'heuristic_default',\n+       quantity: 23.52,\n+       quantityFormula: 'الحديد = 196م³ خرسانة × 0.12 (نسبة الحديد)',\n+       quantityReason: 'الحديد = 196م³ خرسانة × 0.12 (نسبة الحديد)',\n+       totalPrice: 82320,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'طن',\n+       unitPrice: 3500\n+     },\n+     {\n+       additionReason: 'مساحة الجدران الفعلية',\n+       calculationMethod: 'البلوك = محيط المبنى × 3م × 1 أدوار',\n+       code: 'MSN-001',\n+       confidence: 0.85,\n+       confidenceExplanation: 'مساحة البلوك = محيط المبنى × ارتفاع الجدار × عدد الأدوار.\\n' +\n+         'الجدران الداخلية والخارجية.',\n+       dataSource: 'مساحة الجدران الفعلية',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'بلوك أسمنتي للجدران',\n+       editable: true,\n+       element: 'جدران',\n+       formula: 'البلوك = محيط المبنى × 3م × 1 أدوار',\n+       insufficient: false,\n+       material: 'بلوك أسمنتي',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'MASONRY',\n+       phaseName: 'مرحلة المباني',\n+       phaseOrder: 4,\n+       priceCat: 'BLK',\n+       priceSource: 'heuristic_default',\n+       quantity: 244.95,\n+       quantityFormula: 'البلوك = محيط المبنى × 3م × 1 أدوار',\n+       quantityReason: 'البلوك = محيط المبنى × 3م × 1 أدوار',\n+       totalPrice: 9798,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م²',\n+       unitPrice: 40\n+     },\n+     {\n+       additionReason: 'نسبة الجدران الخارجية من الكلية',\n+       calculationMethod: 'العزل الحراري = 35% من مساحة الجدران (الجدران الخارجية)',\n+       code: 'MSN-002',\n+       confidence: 0.7,\n+       confidenceExplanation: 'عزل حراري للجدران الخارجية فقط.\\nنسبة 35% من إجمالي مساحة الجدران.',\n+       dataSource: 'نسبة الجدران الخارجية من الكلية',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'عزل حراري للجدران',\n+       editable: true,\n+       element: 'جدران',\n+       formula: 'العزل الحراري = 35% من مساحة الجدران (الجدران الخارجية)',\n+       insufficient: false,\n+       material: 'عزل حراري',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'MASONRY',\n+       phaseName: 'مرحلة المباني',\n+       phaseOrder: 4,\n+       priceCat: 'BLK',\n+       priceSource: 'heuristic_default',\n+       quantity: 85.73,\n+       quantityFormula: 'العزل الحراري = 35% من مساحة الجدران (الجدران الخارجية)',\n+       quantityReason: 'العزل الحراري = 35% من مساحة الجدران (الجدران الخارجية)',\n+       totalPrice: 3429.2,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م²',\n+       unitPrice: 40\n+     },\n+     {\n+       additionReason: 'تقدير هندسي',\n+       calculationMethod: 'العزل المائي = المساحة × 0.15 × الأدوار للحمامات',\n+       code: 'MSN-003',\n+       confidence: 0.7,\n+       confidenceExplanation: 'عزل مائي للحمامات والأسطح.\\nنسبة 15% من مساحة كل دور للحمامات.',\n+       dataSource: 'تقدير هندسي',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'عزل مائي للأسطح والحمامات',\n+       editable: true,\n+       element: 'عزل',\n+       formula: 'العزل المائي = المساحة × 0.15 × الأدوار للحمامات',\n+       insufficient: false,\n+       material: 'عزل مائي',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'high',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'MASONRY',\n+       phaseName: 'مرحلة المباني',\n+       phaseOrder: 4,\n+       priceCat: 'WPR',\n+       priceSource: 'heuristic_default',\n+       quantity: 60,\n+       quantityFormula: 'العزل المائي = المساحة × 0.15 × الأدوار للحمامات',\n+       quantityReason: 'العزل المائي = المساحة × 0.15 × الأدوار للحمامات',\n+       totalPrice: 6000,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م²',\n+       unitPrice: 100\n+     },\n+     {\n+       additionReason: 'مساحة الجدران الداخلية',\n+       calculationMethod: 'لياسة داخلية = محيط الجدران × 3م × الأدوار × 0.9 (خصم الفتحات)',\n+       code: 'PLS-001',\n+       confidence: 0.85,\n+       confidenceExplanation: 'لياسة الجدران الداخلية بالإسمنت الأبيض.\\n' +\n+         'خصم 10% للفتحات (أبواب وشبابيك).',\n+       dataSource: 'مساحة الجدران الداخلية',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'لياسة جدران داخلية',\n+       editable: true,\n+       element: 'جدران',\n+       formula: 'لياسة داخلية = محيط الجدران × 3م × الأدوار × 0.9 (خصم الفتحات)',\n+       insufficient: false,\n+       material: 'لياسة إسمنتية',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'high',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'PLASTERING',\n+       phaseName: 'مرحلة اللياسة',\n+       phaseOrder: 5,\n+       priceCat: 'PLS',\n+       priceSource: 'heuristic_default',\n+       quantity: 220.45,\n+       quantityFormula: 'لياسة داخلية = محيط الجدران × 3م × الأدوار × 0.9 (خصم الفتحات)',\n+       quantityReason: 'لياسة داخلية = محيط الجدران × 3م × الأدوار × 0.9 (خصم الفتحات)',\n+       totalPrice: 5511.25,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 25\n+     },\n+     {\n+       additionReason: 'نسبة واجهات المبنى',\n+       calculationMethod: 'لياسة خارجية = محيط المبني × 3م × الأدوار × 0.35',\n+       code: 'PLS-002',\n+       confidence: 0.8,\n+       confidenceExplanation: 'لياسة الواجهات الخارجية.\\nنسبة 35% من مساحة الجدران (الواجهات فقط).',\n+       dataSource: 'نسبة واجهات المبنى',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'لياسة جدران خارجية',\n+       editable: true,\n+       element: 'واجهات',\n+       formula: 'لياسة خارجية = محيط المبني × 3م × الأدوار × 0.35',\n+       insufficient: false,\n+       material: 'لياسة إسمنتية',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'high',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'PLASTERING',\n+       phaseName: 'مرحلة اللياسة',\n+       phaseOrder: 5,\n+       priceCat: 'PLS',\n+       priceSource: 'heuristic_default',\n+       quantity: 85.73,\n+       quantityFormula: 'لياسة خارجية = محيط المبني × 3م × الأدوار × 0.35',\n+       quantityReason: 'لياسة خارجية = محيط المبني × 3م × الأدوار × 0.35',\n+       totalPrice: 2143.25,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 25\n+     },\n+     {\n+       additionReason: 'نفس مساحة اللياسة الخارجية',\n+       calculationMethod: 'الطرطشة = مساحة اللياسة الخارجية',\n+       code: 'PLS-003',\n+       confidence: 0.7,\n+       confidenceExplanation: 'طبقة طرطشة أسمنتية للواجهات قبل اللياسة الناعمة.',\n+       dataSource: 'نفس مساحة اللياسة الخارجية',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'طرطشة أسمنتية للواجهات',\n+       editable: true,\n+       element: 'واجهات',\n+       formula: 'الطرطشة = مساحة اللياسة الخارجية',\n+       insufficient: false,\n+       material: 'طرطشة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'PLASTERING',\n+       phaseName: 'مرحلة اللياسة',\n+       phaseOrder: 5,\n+       priceCat: 'PLS',\n+       priceSource: 'heuristic_default',\n+       quantity: 85.73,\n+       quantityFormula: 'الطرطشة = مساحة اللياسة الخارجية',\n+       quantityReason: 'الطرطشة = مساحة اللياسة الخارجية',\n+       totalPrice: 2143.25,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 25\n+     },\n+     {\n+       additionReason: 'مساحة اللياسة الداخلية',\n+       calculationMethod: 'الدهانات = محيط الجدران × 3م × الأدوار × 0.85',\n+       code: 'PNT-001',\n+       confidence: 0.85,\n+       confidenceExplanation: 'دهانات الجدران الداخلية بدهان أكريليك قابل للغسل.\\n' +\n+         'نفس مساحة اللياسة تقريباً.',\n+       dataSource: 'مساحة اللياسة الداخلية',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'دهانات جدران داخلية',\n+       editable: true,\n+       element: 'جدران',\n+       formula: 'الدهانات = محيط الجدران × 3م × الأدوار × 0.85',\n+       insufficient: false,\n+       material: 'دهان أكريليك',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'high',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       phaseOrder: 6,\n+       priceCat: 'PNT',\n+       priceSource: 'heuristic_default',\n+       quantity: 208.21,\n+       quantityFormula: 'الدهانات = محيط الجدران × 3م × الأدوار × 0.85',\n+       quantityReason: 'الدهانات = محيط الجدران × 3م × الأدوار × 0.85',\n+       totalPrice: 3747.78,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 18\n+     },\n+     {\n+       additionReason: 'نسبة مساحة الواجهات',\n+       calculationMethod: 'الدهانات الخارجية = 35% من مساحة الجدران',\n+       code: 'PNT-002',\n+       confidence: 0.8,\n+       confidenceExplanation: 'دهانات خارجية مقاومة للعوامل الجوية.',\n+       dataSource: 'نسبة مساحة الواجهات',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'دهانات جدران خارجية',\n+       editable: true,\n+       element: 'واجهات',\n+       formula: 'الدهانات الخارجية = 35% من مساحة الجدران',\n+       insufficient: false,\n+       material: 'دهان خارجي',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       phaseOrder: 6,\n+       priceCat: 'PNT',\n+       priceSource: 'heuristic_default',\n+       quantity: 85.73,\n+       quantityFormula: 'الدهانات الخارجية = 35% من مساحة الجدران',\n+       quantityReason: 'الدهانات الخارجية = 35% من مساحة الجدران',\n+       totalPrice: 1543.14,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 18\n+     },\n+     {\n+       additionReason: 'مساحة الأسقف',\n+       calculationMethod: 'دهان الأسقف = المساحة × الأدوار',\n+       code: 'PNT-003',\n+       confidence: 0.85,\n+       confidenceExplanation: 'دهان أسقف المبنى باللون الأبيض.',\n+       dataSource: 'مساحة الأسقف',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'دهانات أسقف',\n+       editable: true,\n+       element: 'أسقف',\n+       formula: 'دهان الأسقف = المساحة × الأدوار',\n+       insufficient: false,\n+       material: 'دهان أسقف',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'high',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       phaseOrder: 6,\n+       priceCat: 'PNT',\n+       priceSource: 'heuristic_default',\n+       quantity: 400,\n+       quantityFormula: 'دهان الأسقف = المساحة × الأدوار',\n+       quantityReason: 'دهان الأسقف = المساحة × الأدوار',\n+       totalPrice: 7200,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 18\n+     },\n+     {\n+       additionReason: 'مساحة الأرضيات بعد خصم الحمامات',\n+       calculationMethod: 'بلاط داخلي = المساحة × الأدوار × 0.8 - مساحة السيراميك (54م²)',\n+       code: 'TLF-001',\n+       confidence: 0.85,\n+       confidenceExplanation: 'بلاط السيراميك للأرضيات الداخلية (غرف + صالات + ممرات).\\n' +\n+         'خصم مساحة الحمامات المغطاة بالسيراميك.',\n+       dataSource: 'مساحة الأرضيات بعد خصم الحمامات',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'بلاط أرضيات داخلي',\n+       editable: true,\n+       element: 'أرضيات',\n+       formula: 'بلاط داخلي = المساحة × الأدوار × 0.8 - مساحة السيراميك (54م²)',\n+       insufficient: false,\n+       material: 'بلاط سيراميك',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'high',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       phaseOrder: 6,\n+       priceCat: 'TLF',\n+       priceSource: 'heuristic_default',\n+       quantity: 266,\n+       quantityFormula: 'بلاط داخلي = المساحة × الأدوار × 0.8 - مساحة السيراميك (54م²)',\n+       quantityReason: 'بلاط داخلي = المساحة × الأدوار × 0.8 - مساحة السيراميك (54م²)',\n+       totalPrice: 17290,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 65\n+     },\n+     {\n+       additionReason: 'نسبة من مساحة الموقع',\n+       calculationMethod: 'بلاط خارجي = المساحة × 0.15 (الممرات والمواقف)',\n+       code: 'TLF-002',\n+       confidence: 0.7,\n+       confidenceExplanation: 'بلاط للأرصفة والممرات الخارجية.\\nنسبة من مساحة الأرض حسب نوع المبنى.',\n+       dataSource: 'نسبة من مساحة الموقع',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'بلاط أرضيات خارجي',\n+       editable: true,\n+       element: 'ممرات خارجية',\n+       formula: 'بلاط خارجي = المساحة × 0.15 (الممرات والمواقف)',\n+       insufficient: false,\n+       material: 'بلاط خارجي',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       phaseOrder: 6,\n+       priceCat: 'TLF',\n+       priceSource: 'heuristic_default',\n+       quantity: 60,\n+       quantityFormula: 'بلاط خارجي = المساحة × 0.15 (الممرات والمواقف)',\n+       quantityReason: 'بلاط خارجي = المساحة × 0.15 (الممرات والمواقف)',\n+       totalPrice: 3900,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 65\n+     },\n+     {\n+       additionReason: 'متوسط مساحة الحمامات',\n+       calculationMethod: 'سيراميك الحمامات = 3 حمام × 20م² لكل حمام',\n+       code: 'TLF-003',\n+       confidence: 0.8,\n+       confidenceExplanation: 'سيراميك أرضيات وجدران الحمامات.\\nكل حمام يحتاج 20-25م² سيراميك.',\n+       dataSource: 'متوسط مساحة الحمامات',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'سيراميك حمامات',\n+       editable: true,\n+       element: 'حمامات',\n+       formula: 'سيراميك الحمامات = 3 حمام × 20م² لكل حمام',\n+       insufficient: false,\n+       material: 'سيراميك',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       phaseOrder: 6,\n+       priceCat: 'CRM',\n+       priceSource: 'heuristic_default',\n+       quantity: 60,\n+       quantityFormula: 'سيراميك الحمامات = 3 حمام × 20م² لكل حمام',\n+       quantityReason: 'سيراميك الحمامات = 3 حمام × 20م² لكل حمام',\n+       totalPrice: 3300,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 55\n+     },\n+     {\n+       additionReason: 'بيانات ناقصة',\n+       calculationMethod: 'قيد الانتظار — تتطلب بيانات إضافية',\n+       code: 'TLF-004',\n+       confidence: 0,\n+       dataSource: 'متوسط مساحة المطابخ',\n+       description: 'سيراميك مطابخ',\n+       editable: true,\n+       element: 'مطبخ',\n+       formula: null,\n+       insufficient: true,\n+       insufficientReason: 'لم يتم تحديد وجود مطبخ.',\n+       material: 'سيراميك',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [],\n+       needsReview: true,\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         city: 'Riyadh',\n+         description: '',\n+         floors: 1,\n+         halls: null,\n+         hasKitchen: false,\n+         phase: null,\n+         rooms: 5,\n+         type: 'Villa'\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       quantity: 0,\n+       quantityFormula: '',\n+       quantityReason: 'بيانات ناقصة - يتطلب تحليل إضافي',\n+       totalPrice: 0,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 180\n+     },\n+     {\n+       additionReason: 'نسبة من مساحة الأسقف',\n+       calculationMethod: 'أسقف جبس = المساحة × الأدوار × 0.5',\n+       code: 'GPS-001',\n+       confidence: 0.75,\n+       confidenceExplanation: 'أسقف جبس معلقة ديكورية.\\nتغطي نسبة من مساحة الأسقف حسب نوع المبنى.',\n+       dataSource: 'نسبة من مساحة الأسقف',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'أسقف جبس معلقة',\n+       editable: true,\n+       element: 'أسقف',\n+       formula: 'أسقف جبس = المساحة × الأدوار × 0.5',\n+       insufficient: false,\n+       material: 'جبس',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'high',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       phaseOrder: 6,\n+       priceCat: 'GPS',\n+       priceSource: 'heuristic_default',\n+       quantity: 200,\n+       quantityFormula: 'أسقف جبس = المساحة × الأدوار × 0.5',\n+       quantityReason: 'أسقف جبس = المساحة × الأدوار × 0.5',\n+       totalPrice: 12000,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'م²',\n+       unitPrice: 60\n+     },\n+     {\n+       additionReason: 'عدد الفراغات في المبنى',\n+       calculationMethod: 'أبواب = 5 غرف + 3 حمامات + 1 صالة + 1 مدخل',\n+       code: 'DR-001',\n+       confidence: 0.8,\n+       confidenceExplanation: 'أبواب خشبية داخلية = عدد الغرف + عدد الحمامات + عدد الصالات + باب مدخل.',\n+       dataSource: 'عدد الفراغات في المبنى',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'أبواب خشبية داخلية',\n+       editable: true,\n+       element: 'أبواب',\n+       formula: 'أبواب = 5 غرف + 3 حمامات + 1 صالة + 1 مدخل',\n+       insufficient: false,\n+       material: 'خشب',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       phaseOrder: 6,\n+       priceCat: 'DR',\n+       priceSource: 'heuristic_default',\n+       quantity: 10,\n+       quantityFormula: 'أبواب = 5 غرف + 3 حمامات + 1 صالة + 1 مدخل',\n+       quantityReason: 'أبواب = 5 غرف + 3 حمامات + 1 صالة + 1 مدخل',\n+       totalPrice: 8000,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'باب',\n+       unitPrice: 800\n+     },\n+     {\n+       additionReason: 'باب واحد لكل مبنى',\n+       calculationMethod: 'باب حماية رئيسي واحد للمبنى',\n+       code: 'DR-002',\n+       confidence: 0.85,\n+       confidenceExplanation: 'باب حماية خارجي (حديد أو ألمنيوم) للمدخل الرئيسي.',\n+       dataSource: 'باب واحد لكل مبنى',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'باب حماية خارجي (رئيسي)',\n+       editable: true,\n+       element: 'أبواب',\n+       formula: 'باب حماية رئيسي واحد للمبنى',\n+       insufficient: false,\n+       material: 'حديد',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       phaseOrder: 6,\n+       priceCat: 'DR',\n+       priceSource: 'heuristic_default',\n+       quantity: 1,\n+       quantityFormula: 'باب حماية رئيسي واحد للمبنى',\n+       quantityReason: 'باب حماية رئيسي واحد للمبنى',\n+       totalPrice: 800,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'باب',\n+       unitPrice: 800\n+     },\n+     {\n+       additionReason: 'تقدير حسب عدد الغرف',\n+       calculationMethod: 'شبابيك = 5 غرف × 1.5 + شباك صالة',\n+       code: 'WN-001',\n+       confidence: 0.7,\n+       confidenceExplanation: 'شبابيك ألمنيوم زجاجية.\\nغرفة نوم = شباك واحد، صالة = شباكين.',\n+       dataSource: 'تقدير حسب عدد الغرف',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'شبابيك ألمنيوم',\n+       editable: true,\n+       element: 'شبابيك',\n+       formula: 'شبابيك = 5 غرف × 1.5 + شباك صالة',\n+       insufficient: false,\n+       material: 'ألمنيوم',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'FINISHING',\n+       phaseName: 'مرحلة التشطيبات',\n+       phaseOrder: 6,\n+       priceCat: 'WN',\n+       priceSource: 'heuristic_default',\n+       quantity: 8,\n+       quantityFormula: 'شبابيك = 5 غرف × 1.5 + شباك صالة',\n+       quantityReason: 'شبابيك = 5 غرف × 1.5 + شباك صالة',\n+       totalPrice: 2800,\n+       trade: 'ARCH',\n+       tradeName: 'أعمال معمارية',\n+       unit: 'شباك',\n+       unitPrice: 350\n+     },\n+     {\n+       additionReason: 'تقدير حسب عدد الفراغات',\n+       calculationMethod: 'تمديدات كهرباء = (5 غرف × 10) + (3 حمامات × 4) + 10 نقاط أساسية',\n+       code: 'ELC-001',\n+       confidence: 0.8,\n+       confidenceExplanation: 'تمديدات الأسلاك والمواسير في الجدران والأسقف.\\n' +\n+         'كل غرفة تحتاج 8-10 نقاط حسب نوع المبنى.',\n+       dataSource: 'تقدير حسب عدد الفراغات',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'تمديدات أسلاك كهربائية',\n+       editable: true,\n+       element: 'أسلاك',\n+       formula: 'تمديدات كهرباء = (5 غرف × 10) + (3 حمامات × 4) + 10 نقاط أساسية',\n+       insufficient: false,\n+       material: 'نحاس',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'ELECTRICAL',\n+       phaseName: 'مرحلة الكهرباء',\n+       phaseOrder: 7,\n+       priceCat: 'ELC',\n+       priceSource: 'heuristic_default',\n+       quantity: 72,\n+       quantityFormula: 'تمديدات كهرباء = (5 غرف × 10) + (3 حمامات × 4) + 10 نقاط أساسية',\n+       quantityReason: 'تمديدات كهرباء = (5 غرف × 10) + (3 حمامات × 4) + 10 نقاط أساسية',\n+       totalPrice: 8640,\n+       trade: 'ELECTRO',\n+       tradeName: 'أعمال كهربائية',\n+       unit: 'نقطة',\n+       unitPrice: 120\n+     },\n+     {\n+       additionReason: 'لوحة رئيسية + لوحة لكل دور',\n+       calculationMethod: 'لوحة رئيسية + 0 لوحة فرعية',\n+       code: 'ELC-002',\n+       confidence: 0.85,\n+       confidenceExplanation: 'لوحة توزيع رئيسية + لوحات فرعية لكل دور إضافي.',\n+       dataSource: 'لوحة رئيسية + لوحة لكل دور',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'لوحة توزيع كهربائية رئيسية',\n+       editable: true,\n+       element: 'لوحات',\n+       formula: 'لوحة رئيسية + 0 لوحة فرعية',\n+       insufficient: false,\n+       material: 'كهرباء',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'ELECTRICAL',\n+       phaseName: 'مرحلة الكهرباء',\n+       phaseOrder: 7,\n+       priceCat: 'ELC',\n+       priceSource: 'heuristic_default',\n+       quantity: 1,\n+       quantityFormula: 'لوحة رئيسية + 0 لوحة فرعية',\n+       quantityReason: 'لوحة رئيسية + 0 لوحة فرعية',\n+       totalPrice: 120,\n+       trade: 'ELECTRO',\n+       tradeName: 'أعمال كهربائية',\n+       unit: 'لوحة',\n+       unitPrice: 120\n+     },\n+     {\n+       additionReason: 'كثافة الإنارة حسب نوع المبنى',\n+       calculationMethod: 'نقاط إنارة = المساحة × الأدوار × 0.08',\n+       code: 'ELC-003',\n+       confidence: 0.8,\n+       confidenceExplanation: 'نقاط الإنارة (LED) في الأسقف والجدران.\\nكثافة 8-12 نقطة لكل 100م².',\n+       dataSource: 'كثافة الإنارة حسب نوع المبنى',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'نقاط إنارة',\n+       editable: true,\n+       element: 'إنارة',\n+       formula: 'نقاط إنارة = المساحة × الأدوار × 0.08',\n+       insufficient: false,\n+       material: 'لمبات LED',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'high',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'ELECTRICAL',\n+       phaseName: 'مرحلة الكهرباء',\n+       phaseOrder: 7,\n+       priceCat: 'ELC',\n+       priceSource: 'heuristic_default',\n+       quantity: 32,\n+       quantityFormula: 'نقاط إنارة = المساحة × الأدوار × 0.08',\n+       quantityReason: 'نقاط إنارة = المساحة × الأدوار × 0.08',\n+       totalPrice: 3840,\n+       trade: 'ELECTRO',\n+       tradeName: 'أعمال كهربائية',\n+       unit: 'نقطة',\n+       unitPrice: 120\n+     },\n+     {\n+       additionReason: 'متوسط كثافة المقابس',\n+       calculationMethod: 'بريزات = المساحة × الأدوار × 0.06',\n+       code: 'ELC-004',\n+       confidence: 0.75,\n+       confidenceExplanation: 'مقابس كهربائية (بريزات) في الجدران.\\nكثافة 6 مقابس لكل 100م².',\n+       dataSource: 'متوسط كثافة المقابس',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'نقاط بريزة (مقابس)',\n+       editable: true,\n+       element: 'مقابس',\n+       formula: 'بريزات = المساحة × الأدوار × 0.06',\n+       insufficient: false,\n+       material: 'كهرباء',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'high',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'ELECTRICAL',\n+       phaseName: 'مرحلة الكهرباء',\n+       phaseOrder: 7,\n+       priceCat: 'ELC',\n+       priceSource: 'heuristic_default',\n+       quantity: 24,\n+       quantityFormula: 'بريزات = المساحة × الأدوار × 0.06',\n+       quantityReason: 'بريزات = المساحة × الأدوار × 0.06',\n+       totalPrice: 2880,\n+       trade: 'ELECTRO',\n+       tradeName: 'أعمال كهربائية',\n+       unit: 'نقطة',\n+       unitPrice: 120\n+     },\n+     {\n+       additionReason: 'تقدير حسب عدد الحمامات',\n+       calculationMethod: 'تمديدات مياه = (3 حمامات × 6) + 0 نقاط مطبخ',\n+       code: 'PLB-001',\n+       confidence: 0.8,\n+       confidenceExplanation: 'تمديدات مواسير المياه الباردة والساخنة.\\n' +\n+         'كل حمام يحتاج 6 نقاط (مغسلة + مرحاض + دش + ماء حار/بارد).',\n+       dataSource: 'تقدير حسب عدد الحمامات',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'تمديدات مواسير مياه',\n+       editable: true,\n+       element: 'مواسير',\n+       formula: 'تمديدات مياه = (3 حمامات × 6) + 0 نقاط مطبخ',\n+       insufficient: false,\n+       material: 'بلاستيك/نحاس',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'PLUMBING',\n+       phaseName: 'مرحلة السباكة',\n+       phaseOrder: 8,\n+       priceCat: 'PLB',\n+       priceSource: 'heuristic_default',\n+       quantity: 18,\n+       quantityFormula: 'تمديدات مياه = (3 حمامات × 6) + 0 نقاط مطبخ',\n+       quantityReason: 'تمديدات مياه = (3 حمامات × 6) + 0 نقاط مطبخ',\n+       totalPrice: 2700,\n+       trade: 'SANITARY',\n+       tradeName: 'أعمال صحية',\n+       unit: 'نقطة',\n+       unitPrice: 150\n+     },\n+     {\n+       additionReason: 'تقدير حسب عدد الحمامات',\n+       calculationMethod: 'صرف = 3 حمامات × 3 + 2 نقاط أساسية',\n+       code: 'PLB-002',\n+       confidence: 0.8,\n+       confidenceExplanation: 'نقاط الصرف الصحي.\\nكل حمام 3 نقاط (مغسلة + مرحاض + دش).',\n+       dataSource: 'تقدير حسب عدد الحمامات',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'تمديدات مواسير صرف صحي',\n+       editable: true,\n+       element: 'صرف',\n+       formula: 'صرف = 3 حمامات × 3 + 2 نقاط أساسية',\n+       insufficient: false,\n+       material: 'بلاستيك',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'PLUMBING',\n+       phaseName: 'مرحلة السباكة',\n+       phaseOrder: 8,\n+       priceCat: 'PLB',\n+       priceSource: 'heuristic_default',\n+       quantity: 11,\n+       quantityFormula: 'صرف = 3 حمامات × 3 + 2 نقاط أساسية',\n+       quantityReason: 'صرف = 3 حمامات × 3 + 2 نقاط أساسية',\n+       totalPrice: 1650,\n+       trade: 'SANITARY',\n+       tradeName: 'أعمال صحية',\n+       unit: 'نقطة',\n+       unitPrice: 150\n+     },\n+     {\n+       additionReason: 'خزان لكل مبنى',\n+       calculationMethod: '1 خزان مياه علوي',\n+       code: 'PLB-003',\n+       confidence: 0.85,\n+       confidenceExplanation: 'خزان مياه علوي لتغذية المبنى.\\nخزان إضافي للمباني التي تزيد عن 3 أدوار.',\n+       dataSource: 'خزان لكل مبنى',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'خزان مياه علوي',\n+       editable: true,\n+       element: 'خزانات',\n+       formula: '1 خزان مياه علوي',\n+       insufficient: false,\n+       material: 'بلاستيك/خرسانة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'PLUMBING',\n+       phaseName: 'مرحلة السباكة',\n+       phaseOrder: 8,\n+       priceCat: 'PLB',\n+       priceSource: 'heuristic_default',\n+       quantity: 1,\n+       quantityFormula: '1 خزان مياه علوي',\n+       quantityReason: '1 خزان مياه علوي',\n+       totalPrice: 150,\n+       trade: 'SANITARY',\n+       tradeName: 'أعمال صحية',\n+       unit: 'خزان',\n+       unitPrice: 150\n+     },\n+     {\n+       additionReason: 'عدد الحمامات',\n+       calculationMethod: 'أدوات صحية: 3 طقم (مرحاض + مغسلة + دش لكل حمام)',\n+       code: 'PLB-004',\n+       confidence: 0.85,\n+       confidenceExplanation: 'طقم أدوات صحية لكل حمام (مرحاض + مغسلة + دش).',\n+       dataSource: 'عدد الحمامات',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'أدوات صحية',\n+       editable: true,\n+       element: 'أدوات صحية',\n+       formula: 'أدوات صحية: 3 طقم (مرحاض + مغسلة + دش لكل حمام)',\n+       insufficient: false,\n+       material: 'سيراميك',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'PLUMBING',\n+       phaseName: 'مرحلة السباكة',\n+       phaseOrder: 8,\n+       priceCat: 'PLB',\n+       priceSource: 'heuristic_default',\n+       quantity: 3,\n+       quantityFormula: 'أدوات صحية: 3 طقم (مرحاض + مغسلة + دش لكل حمام)',\n+       quantityReason: 'أدوات صحية: 3 طقم (مرحاض + مغسلة + دش لكل حمام)',\n+       totalPrice: 450,\n+       trade: 'SANITARY',\n+       tradeName: 'أعمال صحية',\n+       unit: 'طقم',\n+       unitPrice: 150\n+     },\n+     {\n+       additionReason: 'متطلبات المباني السكنية',\n+       calculationMethod: '2 خزانات (سفلي + علوي + حريق)',\n+       code: 'APT-005',\n+       confidence: 0.8,\n+       confidenceExplanation: 'خزانات مياه سفلية وعلوية للمبنى + خزان حريق.',\n+       dataSource: 'متطلبات المباني السكنية',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'خزانات مياه علوية وسفلية',\n+       editable: true,\n+       element: 'خزانات',\n+       formula: '2 خزانات (سفلي + علوي + حريق)',\n+       insufficient: false,\n+       material: 'خرسانة/GRP',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'PLUMBING',\n+       phaseName: 'مرحلة السباكة',\n+       phaseOrder: 8,\n+       priceCat: 'PLB',\n+       priceSource: 'heuristic_default',\n+       quantity: 2,\n+       quantityFormula: '2 خزانات (سفلي + علوي + حريق)',\n+       quantityReason: '2 خزانات (سفلي + علوي + حريق)',\n+       totalPrice: 300,\n+       trade: 'MECH',\n+       tradeName: 'أعمال ميكانيكية',\n+       unit: 'خزان',\n+       unitPrice: 150\n+     },\n+     {\n+       additionReason: 'تقدير حسب عدد الغرف',\n+       calculationMethod: 'سبليت = (5 غرف × 0.6) + 1 للصالة',\n+       code: 'HVAC-001',\n+       confidence: 0.7,\n+       confidenceExplanation: 'مكيفات سبليت (مفصلة) لكل غرفة رئيسية.\\nغرفة نوم صغيرة قد تشارك مكيف.',\n+       dataSource: 'تقدير حسب عدد الغرف',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'مكيفات سبليت',\n+       editable: true,\n+       element: 'تكييف',\n+       formula: 'سبليت = (5 غرف × 0.6) + 1 للصالة',\n+       insufficient: false,\n+       material: 'مكيف',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'low',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'HVAC',\n+       phaseName: 'مرحلة التكييف',\n+       phaseOrder: 9,\n+       priceCat: 'HVAC',\n+       priceSource: 'heuristic_default',\n+       quantity: 4,\n+       quantityFormula: 'سبليت = (5 غرف × 0.6) + 1 للصالة',\n+       quantityReason: 'سبليت = (5 غرف × 0.6) + 1 للصالة',\n+       totalPrice: 18000,\n+       trade: 'MECH',\n+       tradeName: 'أعمال ميكانيكية',\n+       unit: 'وحدة',\n+       unitPrice: 4500\n+     },\n+     {\n+       additionReason: 'محيط قطعة الأرض',\n+       calculationMethod: 'طول السور = محيط الأرض = 4 × √المساحة',\n+       code: 'EXT-001',\n+       confidence: 0.7,\n+       confidenceExplanation: 'سور المبنى الخارجي.\\nمحيط الأرض = 4 × √المساحة.',\n+       dataSource: 'محيط قطعة الأرض',\n+       dependents: [],\n+       dependsOn: undefined,\n+       description: 'سور المبنى الخارجي',\n+       editable: true,\n+       element: 'سور',\n+       formula: 'طول السور = محيط الأرض = 4 × √المساحة',\n+       insufficient: false,\n+       material: 'بلوك/خرسانة',\n+       modelsThatCreated: [\n+         'BOQEngine'\n+       ],\n+       modelsThatReviewed: [\n+         'CostValidation',\n+         'QuantityCalculation'\n+       ],\n+       needsReview: false,\n+       parameterSensitivity: {\n+         area: 'high',\n+         floors: 'low',\n+         rooms: 'low'\n+       },\n+       params: {\n+         area: 400,\n+         bathrooms: 3,\n+         floors: 1,\n+         rooms: 5\n+       },\n+       phase: 'EXTERNAL',\n+       phaseName: 'مرحلة الأعمال الخارجية',\n+       phaseOrder: 11,\n+       priceCat: 'BLK',\n+       priceSource: 'heuristic_default',\n+       quantity: 80,\n+       quantityFormula: 'طول السور = محيط الأرض = 4 × √المساحة',\n+       quantityReason: 'طول السور = محيط الأرض = 4 × √المساحة',\n+       totalPrice: 3200,\n+       trade: 'CIVIL',\n+       tradeName: 'أعمال مدنية',\n+       unit: 'م طولي',\n+       unitPrice: 40\n+     }\n+   ],\n+   summary: {\n+     averageConfidence: 0.77,\n+     dataSource: 'engineering_knowledge_base',\n+     engineVersion: '3.0-ke',\n+     finishing: 'Standard',\n+     generatedAt: '2026-10-19T11:35:49.705Z',\n+     insufficientCount: 1,\n+     phasesUsed: 10,\n+     priceDataPoints: 16,\n+     region: 'Riyadh',\n+     suggestedCount: 5,\n+     totalCost: 428084.37,\n+     totalItems: 39,\n+     totalSuggestedCost: 33940,\n+     trainingDataAvailable: 85062\n+   },\n+   totalCost: 428084.37\n+ }\n- null\n"
+      },
+      {
+        "name": "partial geometry keeps missing floors unknown through create and read",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n1 !== null\n"
+      },
+      {
+        "name": "name-only creation remains available without AI data",
+        "pass": true
+      },
+      {
+        "name": "GET handles explicitly marked legacy total area without changing stored record",
+        "pass": false,
+        "error": "Cannot read properties of undefined (reading 'perFloorAreaM2')"
+      },
+      {
+        "name": "unlabelled legacy area retains its previous per-floor interpretation",
+        "pass": false,
+        "error": "Cannot read properties of undefined (reading 'perFloorAreaM2')"
+      }
+    ],
+    "passed": 2,
+    "total": 12
+  },
+  "routesAfter": {
+    "testBoundary": "actual_route_handlers_real_three_models_stub_other_services_and_store",
+    "tests": [
+      {
+        "name": "explicit project type is respected by analyzer",
+        "pass": true
+      },
+      {
+        "name": "POST stores per-floor area and GET preserves cost",
+        "pass": true
+      },
+      {
+        "name": "POST total-built-up input is normalized once",
+        "pass": true
+      },
+      {
+        "name": "explicit decimal area is not rounded through analyzer output",
+        "pass": true
+      },
+      {
+        "name": "stored finishing and region survive GET recomputation",
+        "pass": true
+      },
+      {
+        "name": "invalid explicit area and unsupported basis return 400 without persistence",
+        "pass": true
+      },
+      {
+        "name": "offline create still normalizes explicit total area",
+        "pass": true
+      },
+      {
+        "name": "online missing dimensions do not produce assumed BOQ or price",
+        "pass": true
+      },
+      {
+        "name": "partial geometry keeps missing floors unknown through create and read",
+        "pass": true
+      },
+      {
+        "name": "name-only creation remains available without AI data",
+        "pass": true
+      },
+      {
+        "name": "GET handles explicitly marked legacy total area without changing stored record",
+        "pass": true
+      },
+      {
+        "name": "unlabelled legacy area retains its previous per-floor interpretation",
+        "pass": true
+      }
+    ],
+    "passed": 12,
+    "total": 12
+  },
+  "priceRegression": {
+    "targeted": {
+      "checks": [
+        {
+          "name": "labor city follows CSV header",
+          "pass": true
+        },
+        {
+          "name": "supplier city follows CSV header",
+          "pass": true
+        },
+        {
+          "name": "equipment has city and operator flag",
+          "pass": true
+        },
+        {
+          "name": "explicit zero paint price is preserved",
+          "pass": true
+        },
+        {
+          "name": "explicit paint price does not mix SAR/gal with SAR/m2",
+          "pass": true
+        },
+        {
+          "name": "missing paint coverage returns incomplete total",
+          "pass": true
+        },
+        {
+          "name": "insufficient BOQ item prevents complete total",
+          "pass": true
+        },
+        {
+          "name": "invalid project dimensions rejected",
+          "pass": true
+        },
+        {
+          "name": "quantity prices grouped by description and unit",
+          "pass": true
+        },
+        {
+          "name": "fallback cost per area agrees with total",
+          "pass": true
+        }
+      ],
+      "passed": 10,
+      "total": 10
+    },
+    "extended": {
+      "tests": [
+        {
+          "name": "CSV supports BOM, reordered headers, quoted commas, escaped quotes and newlines",
+          "pass": true
+        },
+        {
+          "name": "CSV rejects truncated quotes and duplicate/missing headers",
+          "pass": true
+        },
+        {
+          "name": "numeric parser rejects blanks, suffixes, infinity and negatives; retains zero",
+          "pass": true
+        },
+        {
+          "name": "quantity fit rejects malformed rows and retains audit counts",
+          "pass": true
+        },
+        {
+          "name": "quantity fit resets old groups and preserves zero prices",
+          "pass": true
+        },
+        {
+          "name": "failed quantity fit preserves previous valid state",
+          "pass": true
+        },
+        {
+          "name": "BOQ lookup requires matching item and unit, never reused price category",
+          "pass": true
+        },
+        {
+          "name": "finishing and region applied once; summaries reconcile for primary/suggested items",
+          "pass": true
+        },
+        {
+          "name": "cost fit clears old groups on successful refit",
+          "pass": true
+        },
+        {
+          "name": "failed cost fit preserves valid snapshot",
+          "pass": true
+        },
+        {
+          "name": "material lookup requires same name, unit, city and grade",
+          "pass": true
+        },
+        {
+          "name": "negative, NaN, textual price and quantity cannot form complete estimates",
+          "pass": true
+        }
+      ],
+      "passed": 12,
+      "total": 12
+    }
+  },
+  "arithmeticScenarios": {
+    "kind": "authored_arithmetic_and_metamorphic_scenarios_not_actual_projects",
+    "passed": 100,
+    "total": 100,
+    "results": [
+      {
+        "id": "geometry-001",
+        "type": "Villa",
+        "perFloorAreaM2": 120,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 180,
+        "expectedSlabM3": 21.6
+      },
+      {
+        "id": "geometry-002",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 257.37,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 386.06,
+        "expectedSlabM3": 92.65
+      },
+      {
+        "id": "geometry-003",
+        "type": "School",
+        "perFloorAreaM2": 394.74,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 592.11,
+        "expectedSlabM3": 213.16
+      },
+      {
+        "id": "geometry-004",
+        "type": "Hospital",
+        "perFloorAreaM2": 532.11,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 798.17,
+        "expectedSlabM3": 425.69
+      },
+      {
+        "id": "geometry-005",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 669.48,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 1004.22,
+        "expectedSlabM3": 736.43
+      },
+      {
+        "id": "geometry-006",
+        "type": "Factory",
+        "perFloorAreaM2": 806.85,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 1210.28,
+        "expectedSlabM3": 871.4
+      },
+      {
+        "id": "geometry-007",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 944.22,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 1416.33,
+        "expectedSlabM3": 1189.72
+      },
+      {
+        "id": "geometry-008",
+        "type": "Mosque",
+        "perFloorAreaM2": 1081.59,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 1622.38,
+        "expectedSlabM3": 1557.49
+      },
+      {
+        "id": "geometry-009",
+        "type": "Warehouse",
+        "perFloorAreaM2": 1218.96,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 1828.44,
+        "expectedSlabM3": 1974.72
+      },
+      {
+        "id": "geometry-010",
+        "type": "Hotel",
+        "perFloorAreaM2": 1356.33,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 2034.5,
+        "expectedSlabM3": 2441.39
+      },
+      {
+        "id": "geometry-011",
+        "type": "Mall",
+        "perFloorAreaM2": 1493.7,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 2240.55,
+        "expectedSlabM3": 2957.53
+      },
+      {
+        "id": "geometry-012",
+        "type": "Office_Building",
+        "perFloorAreaM2": 1631.07,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 2446.61,
+        "expectedSlabM3": 3523.11
+      },
+      {
+        "id": "geometry-013",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 1768.44,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 2652.66,
+        "expectedSlabM3": 4138.15
+      },
+      {
+        "id": "geometry-014",
+        "type": "Villa",
+        "perFloorAreaM2": 1905.81,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 2858.72,
+        "expectedSlabM3": 4802.64
+      },
+      {
+        "id": "geometry-015",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 2043.18,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 3064.77,
+        "expectedSlabM3": 5516.59
+      },
+      {
+        "id": "geometry-016",
+        "type": "School",
+        "perFloorAreaM2": 2180.55,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 3270.83,
+        "expectedSlabM3": 392.5
+      },
+      {
+        "id": "geometry-017",
+        "type": "Hospital",
+        "perFloorAreaM2": 2317.92,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 3476.88,
+        "expectedSlabM3": 927.17
+      },
+      {
+        "id": "geometry-018",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 2455.29,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 3682.94,
+        "expectedSlabM3": 1620.49
+      },
+      {
+        "id": "geometry-019",
+        "type": "Factory",
+        "perFloorAreaM2": 2592.66,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 3888.99,
+        "expectedSlabM3": 1866.72
+      },
+      {
+        "id": "geometry-020",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 2730.03,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 4095.05,
+        "expectedSlabM3": 2457.03
+      },
+      {
+        "id": "geometry-021",
+        "type": "Mosque",
+        "perFloorAreaM2": 2867.4,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 4301.1,
+        "expectedSlabM3": 3096.79
+      },
+      {
+        "id": "geometry-022",
+        "type": "Warehouse",
+        "perFloorAreaM2": 3004.77,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 4507.16,
+        "expectedSlabM3": 3786.01
+      },
+      {
+        "id": "geometry-023",
+        "type": "Hotel",
+        "perFloorAreaM2": 3142.14,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 4713.21,
+        "expectedSlabM3": 4524.68
+      },
+      {
+        "id": "geometry-024",
+        "type": "Mall",
+        "perFloorAreaM2": 3279.51,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 4919.27,
+        "expectedSlabM3": 5312.81
+      },
+      {
+        "id": "geometry-025",
+        "type": "Office_Building",
+        "perFloorAreaM2": 3416.88,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 5125.32,
+        "expectedSlabM3": 6150.38
+      },
+      {
+        "id": "geometry-026",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 3554.25,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 5331.38,
+        "expectedSlabM3": 7037.42
+      },
+      {
+        "id": "geometry-027",
+        "type": "Villa",
+        "perFloorAreaM2": 3691.62,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 5537.43,
+        "expectedSlabM3": 7973.9
+      },
+      {
+        "id": "geometry-028",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 3828.99,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 5743.49,
+        "expectedSlabM3": 8959.84
+      },
+      {
+        "id": "geometry-029",
+        "type": "School",
+        "perFloorAreaM2": 3966.36,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 5949.54,
+        "expectedSlabM3": 9995.23
+      },
+      {
+        "id": "geometry-030",
+        "type": "Hospital",
+        "perFloorAreaM2": 4103.73,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 6155.59,
+        "expectedSlabM3": 12311.19
+      },
+      {
+        "id": "geometry-031",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 4241.1,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 6361.65,
+        "expectedSlabM3": 933.04
+      },
+      {
+        "id": "geometry-032",
+        "type": "Factory",
+        "perFloorAreaM2": 4378.47,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 6567.71,
+        "expectedSlabM3": 1576.25
+      },
+      {
+        "id": "geometry-033",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 4515.84,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 6773.76,
+        "expectedSlabM3": 2438.55
+      },
+      {
+        "id": "geometry-034",
+        "type": "Mosque",
+        "perFloorAreaM2": 4653.21,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 6979.82,
+        "expectedSlabM3": 3350.31
+      },
+      {
+        "id": "geometry-035",
+        "type": "Warehouse",
+        "perFloorAreaM2": 4790.58,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 7185.87,
+        "expectedSlabM3": 4311.52
+      },
+      {
+        "id": "geometry-036",
+        "type": "Hotel",
+        "perFloorAreaM2": 4927.95,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 7391.92,
+        "expectedSlabM3": 5322.19
+      },
+      {
+        "id": "geometry-037",
+        "type": "Mall",
+        "perFloorAreaM2": 5065.32,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 7597.98,
+        "expectedSlabM3": 6382.3
+      },
+      {
+        "id": "geometry-038",
+        "type": "Office_Building",
+        "perFloorAreaM2": 5202.69,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 7804.04,
+        "expectedSlabM3": 7491.87
+      },
+      {
+        "id": "geometry-039",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 5340.06,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 8010.09,
+        "expectedSlabM3": 8650.9
+      },
+      {
+        "id": "geometry-040",
+        "type": "Villa",
+        "perFloorAreaM2": 5477.43,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 8216.15,
+        "expectedSlabM3": 9859.37
+      },
+      {
+        "id": "geometry-041",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 5614.8,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 8422.2,
+        "expectedSlabM3": 11117.3
+      },
+      {
+        "id": "geometry-042",
+        "type": "School",
+        "perFloorAreaM2": 5752.17,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 8628.26,
+        "expectedSlabM3": 12424.69
+      },
+      {
+        "id": "geometry-043",
+        "type": "Hospital",
+        "perFloorAreaM2": 5889.54,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 8834.31,
+        "expectedSlabM3": 15312.8
+      },
+      {
+        "id": "geometry-044",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 6026.91,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 9040.37,
+        "expectedSlabM3": 18562.88
+      },
+      {
+        "id": "geometry-045",
+        "type": "Factory",
+        "perFloorAreaM2": 164.28,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 246.42,
+        "expectedSlabM3": 443.56
+      },
+      {
+        "id": "geometry-046",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 301.65,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 452.48,
+        "expectedSlabM3": 54.3
+      },
+      {
+        "id": "geometry-047",
+        "type": "Mosque",
+        "perFloorAreaM2": 439.02,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 658.53,
+        "expectedSlabM3": 158.05
+      },
+      {
+        "id": "geometry-048",
+        "type": "Warehouse",
+        "perFloorAreaM2": 576.39,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 864.59,
+        "expectedSlabM3": 311.25
+      },
+      {
+        "id": "geometry-049",
+        "type": "Hotel",
+        "perFloorAreaM2": 713.76,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 1070.64,
+        "expectedSlabM3": 513.91
+      },
+      {
+        "id": "geometry-050",
+        "type": "Mall",
+        "perFloorAreaM2": 851.13,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 1276.7,
+        "expectedSlabM3": 766.02
+      },
+      {
+        "id": "geometry-051",
+        "type": "Office_Building",
+        "perFloorAreaM2": 988.5,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 1482.75,
+        "expectedSlabM3": 1067.58
+      },
+      {
+        "id": "geometry-052",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 1125.87,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 1688.8,
+        "expectedSlabM3": 1418.6
+      },
+      {
+        "id": "geometry-053",
+        "type": "Villa",
+        "perFloorAreaM2": 1263.24,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 1894.86,
+        "expectedSlabM3": 1819.07
+      },
+      {
+        "id": "geometry-054",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 1400.61,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 2100.92,
+        "expectedSlabM3": 2268.99
+      },
+      {
+        "id": "geometry-055",
+        "type": "School",
+        "perFloorAreaM2": 1537.98,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 2306.97,
+        "expectedSlabM3": 2768.36
+      },
+      {
+        "id": "geometry-056",
+        "type": "Hospital",
+        "perFloorAreaM2": 1675.35,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 2513.02,
+        "expectedSlabM3": 3685.77
+      },
+      {
+        "id": "geometry-057",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 1812.72,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 2719.08,
+        "expectedSlabM3": 4785.58
+      },
+      {
+        "id": "geometry-058",
+        "type": "Factory",
+        "perFloorAreaM2": 1950.09,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 2925.14,
+        "expectedSlabM3": 4563.21
+      },
+      {
+        "id": "geometry-059",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 2087.46,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 3131.19,
+        "expectedSlabM3": 5260.4
+      },
+      {
+        "id": "geometry-060",
+        "type": "Mosque",
+        "perFloorAreaM2": 2224.83,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 3337.25,
+        "expectedSlabM3": 6007.04
+      },
+      {
+        "id": "geometry-061",
+        "type": "Warehouse",
+        "perFloorAreaM2": 2362.2,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 3543.3,
+        "expectedSlabM3": 425.2
+      },
+      {
+        "id": "geometry-062",
+        "type": "Hotel",
+        "perFloorAreaM2": 2499.57,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 3749.36,
+        "expectedSlabM3": 899.85
+      },
+      {
+        "id": "geometry-063",
+        "type": "Mall",
+        "perFloorAreaM2": 2636.94,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 3955.41,
+        "expectedSlabM3": 1423.95
+      },
+      {
+        "id": "geometry-064",
+        "type": "Office_Building",
+        "perFloorAreaM2": 2774.31,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 4161.47,
+        "expectedSlabM3": 1997.5
+      },
+      {
+        "id": "geometry-065",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 2911.68,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 4367.52,
+        "expectedSlabM3": 2620.51
+      },
+      {
+        "id": "geometry-066",
+        "type": "Villa",
+        "perFloorAreaM2": 3049.05,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 4573.58,
+        "expectedSlabM3": 3292.97
+      },
+      {
+        "id": "geometry-067",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 3186.42,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 4779.63,
+        "expectedSlabM3": 4014.89
+      },
+      {
+        "id": "geometry-068",
+        "type": "School",
+        "perFloorAreaM2": 3323.79,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 4985.68,
+        "expectedSlabM3": 4786.26
+      },
+      {
+        "id": "geometry-069",
+        "type": "Hospital",
+        "perFloorAreaM2": 3461.16,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 5191.74,
+        "expectedSlabM3": 6230.09
+      },
+      {
+        "id": "geometry-070",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 3598.53,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 5397.8,
+        "expectedSlabM3": 7916.77
+      },
+      {
+        "id": "geometry-071",
+        "type": "Factory",
+        "perFloorAreaM2": 3735.9,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 5603.85,
+        "expectedSlabM3": 7397.08
+      },
+      {
+        "id": "geometry-072",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 3873.27,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 5809.91,
+        "expectedSlabM3": 8366.26
+      },
+      {
+        "id": "geometry-073",
+        "type": "Mosque",
+        "perFloorAreaM2": 4010.64,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 6015.96,
+        "expectedSlabM3": 9384.9
+      },
+      {
+        "id": "geometry-074",
+        "type": "Warehouse",
+        "perFloorAreaM2": 4148.01,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 6222.02,
+        "expectedSlabM3": 10452.99
+      },
+      {
+        "id": "geometry-075",
+        "type": "Hotel",
+        "perFloorAreaM2": 4285.38,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 6428.07,
+        "expectedSlabM3": 11570.53
+      },
+      {
+        "id": "geometry-076",
+        "type": "Mall",
+        "perFloorAreaM2": 4422.75,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 6634.13,
+        "expectedSlabM3": 796.1
+      },
+      {
+        "id": "geometry-077",
+        "type": "Office_Building",
+        "perFloorAreaM2": 4560.12,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 6840.18,
+        "expectedSlabM3": 1641.64
+      },
+      {
+        "id": "geometry-078",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 4697.49,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 7046.24,
+        "expectedSlabM3": 2536.64
+      },
+      {
+        "id": "geometry-079",
+        "type": "Villa",
+        "perFloorAreaM2": 4834.86,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 7252.29,
+        "expectedSlabM3": 3481.1
+      },
+      {
+        "id": "geometry-080",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 4972.23,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 7458.34,
+        "expectedSlabM3": 4475.01
+      },
+      {
+        "id": "geometry-081",
+        "type": "School",
+        "perFloorAreaM2": 5109.6,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 7664.4,
+        "expectedSlabM3": 5518.37
+      },
+      {
+        "id": "geometry-082",
+        "type": "Hospital",
+        "perFloorAreaM2": 5246.97,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 7870.46,
+        "expectedSlabM3": 7345.76
+      },
+      {
+        "id": "geometry-083",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 5384.34,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 8076.51,
+        "expectedSlabM3": 9476.44
+      },
+      {
+        "id": "geometry-084",
+        "type": "Factory",
+        "perFloorAreaM2": 5521.71,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 8282.57,
+        "expectedSlabM3": 8945.17
+      },
+      {
+        "id": "geometry-085",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 5659.08,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 8488.62,
+        "expectedSlabM3": 10186.34
+      },
+      {
+        "id": "geometry-086",
+        "type": "Mosque",
+        "perFloorAreaM2": 5796.45,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 8694.67,
+        "expectedSlabM3": 11476.97
+      },
+      {
+        "id": "geometry-087",
+        "type": "Warehouse",
+        "perFloorAreaM2": 5933.82,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 8900.73,
+        "expectedSlabM3": 12817.05
+      },
+      {
+        "id": "geometry-088",
+        "type": "Hotel",
+        "perFloorAreaM2": 6071.19,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 9106.79,
+        "expectedSlabM3": 14206.58
+      },
+      {
+        "id": "geometry-089",
+        "type": "Mall",
+        "perFloorAreaM2": 208.56,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 312.84,
+        "expectedSlabM3": 525.57
+      },
+      {
+        "id": "geometry-090",
+        "type": "Office_Building",
+        "perFloorAreaM2": 345.93,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 518.9,
+        "expectedSlabM3": 934.01
+      },
+      {
+        "id": "geometry-091",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 483.3,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 724.95,
+        "expectedSlabM3": 86.99
+      },
+      {
+        "id": "geometry-092",
+        "type": "Villa",
+        "perFloorAreaM2": 620.67,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 931,
+        "expectedSlabM3": 223.44
+      },
+      {
+        "id": "geometry-093",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 758.04,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 1137.06,
+        "expectedSlabM3": 409.34
+      },
+      {
+        "id": "geometry-094",
+        "type": "School",
+        "perFloorAreaM2": 895.41,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 1343.12,
+        "expectedSlabM3": 644.7
+      },
+      {
+        "id": "geometry-095",
+        "type": "Hospital",
+        "perFloorAreaM2": 1032.78,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 1549.17,
+        "expectedSlabM3": 1032.78
+      },
+      {
+        "id": "geometry-096",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 1170.15,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 1755.23,
+        "expectedSlabM3": 1544.6
+      },
+      {
+        "id": "geometry-097",
+        "type": "Factory",
+        "perFloorAreaM2": 1307.52,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 1961.28,
+        "expectedSlabM3": 1647.48
+      },
+      {
+        "id": "geometry-098",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 1444.89,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 2167.34,
+        "expectedSlabM3": 2080.64
+      },
+      {
+        "id": "geometry-099",
+        "type": "Mosque",
+        "perFloorAreaM2": 1582.26,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 2373.39,
+        "expectedSlabM3": 2563.26
+      },
+      {
+        "id": "geometry-100",
+        "type": "Warehouse",
+        "perFloorAreaM2": 1719.63,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 2579.45,
+        "expectedSlabM3": 3095.33
+      }
+    ]
+  },
+  "existingBOQ": {
+    "parentPassed": 161,
+    "parentFailed": 1,
+    "revisedPassed": 162,
+    "revisedFailed": 0
+  },
+  "legacyQuantityBounds": {
+    "parentPassed": 55,
+    "parentFailed": 0,
+    "unchangedTestAfterFixPassed": 51,
+    "unchangedTestAfterFixFailed": 4,
+    "reason": "Four excavation ranges encoded divided-by-floor bug; replaced by explicit per-floor fixture arithmetic expected values, not widened tolerances",
+    "revisedTestPassed": 55,
+    "revisedTestFailed": 0
+  },
+  "existingPhases": {
+    "revisedPassed": 76,
+    "revisedFailed": 0,
+    "fixture": "Existing remote data/kb-projects.json restored; no fabricated project added",
+    "initialMinimalEnvironment": {
+      "parentPassed": 75,
+      "parentFailed": 1,
+      "revisedPassed": 75,
+      "revisedFailed": 1,
+      "sameFailure": "knowledgeSources.recordedProjects > 0 because versioned runtime fixture was absent"
+    },
+    "parentPassed": 76,
+    "parentFailed": 0
+  },
+  "limitations": [
+    "Authored arithmetic and metamorphic cases, not actual projects or structural approval",
+    "Uniform floor-area assumption; land area unsupported",
+    "Remaining quantity formulas, prices and cost staffing/overheads are heuristic",
+    "Route handlers use real three models, stub other services and in-memory storage; not a full browser or full-platform HTTP test",
+    "No new neural training, deployment, merge or claimed real-world accuracy"
+  ],
+  "sourceSHA256": {
+    "server.js": "28f17f6a2c1224ddcfe114d0ebf43f0a06fcb52ad9fed2d7d6052e04e2d7d1d8",
+    "packages/ai-engine/engineering-ke/project-geometry.js": "9fa0bb0d75c2075571738c943f9d3c1050bf82ce93c167096cbb277a0f27567c",
+    "packages/ai-engine/engineering-ke/boq-engine.js": "c5f666083d5e3dce678ca7e32b2d297d1f10c22a1b260acf78058b035ddb11a3",
+    "packages/ai-engine/engineering-ke/boq-knowledge-base.js": "0c3b5c4f52c0cc681992bcb87a0aa81853f672e74149b1da149103d12e99e830",
+    "packages/ai-engine/models/quantity-estimator.js": "b980ebd707143f899d103cd6df8d1f2d492b04e13076d9d1f2eac27baa4afeec",
+    "packages/ai-engine/models/cost-estimator.js": "a0d23768f122a0802cb60d3d188e887df091584c01cca95ae897943ccc3e3393",
+    "packages/ai-engine/models/project-analyzer.js": "4ffb8c5047cba992e5d792eb7d0e57c1b11b99e1701e5eb9d0cf55932b764a21",
+    "packages/ai-engine/tests/test-quantities.js": "db71de4705b15d5347e2fd23da8a600d36cb27fc85b61844bd60933ad6b03650"
+  },
+  "inputsSHA256": {
+    "boq_items": "75dcbe4301b2014eb75c0368de751b918578698566674f3b1e66621b3d34dfbf",
+    "material_prices": "b2460928f13b69bbe260c6ee37554e2d4c864e7869946f913519679833b3de47",
+    "labor_rates": "249d4c3885c150aaed0f1f966abb860377b76fe7f61f9ff309e5d9b308d79803",
+    "equipment_rates": "695a94451a9cfd69952f0e7419e643274855be5bfe4fe57417b6ab4dda5ee142",
+    "suppliers": "f9dbc4af8bcd1125622f0dc336a11af92b3c7367b283110b712eba3551b95663",
+    "projects": "4f72167c2580862dc5d1097ad6fa7d24c56614d8f0f1675c116861698602d9d0"
+  }
+}

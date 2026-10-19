@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const { normalizeGeometry } = require('./packages/ai-engine/engineering-ke/project-geometry');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -357,9 +358,11 @@ function parseDescription(desc) {
 
 function getProjectParams(p) {
   if (!p) return { type: null, area: null, floors: null, totalArea: null, finishing: null, region: null };
+  const geometryInput = normalizeGeometry({ area: p.area || null, floors: p.floors || null, areaBasis: p.areaBasis });
   return {
-    type: p.type || null, area: p.area || null, floors: p.floors || null,
-    totalArea: (p.area && p.floors) ? p.area * p.floors : null,
+    type: p.type || null, area: geometryInput.params.area, floors: p.floors || null,
+    totalArea: geometryInput.geometry.totalBuiltUpAreaM2,
+    areaBasis: 'per_floor', areaDefinition: geometryInput.geometry,
     finishing: p.finishing || null, region: p.region || null
   };
 }
@@ -659,37 +662,67 @@ app.post('/api/v1/projects', (req, res) => {
   const { name, description, type, area, floors, region, finishing } = req.body || {};
   if (!name) return res.status(400).json({ error: 'name is required' });
 
+  let requestGeometry;
+  try {
+    requestGeometry = normalizeGeometry({ area, floors, areaBasis: req.body.areaBasis });
+  } catch (e) {
+    if (e instanceof RangeError) return res.status(400).json({ error: e.message });
+    throw e;
+  }
+
   let aiResult = {};
   let boq = null, cost = null, sched = null, risks = null, quality = null;
   if (aiReady) {
     try {
       const desc = description || `مشروع ${name}`;
       const params = parseDescription(desc);
-      const analysis = ai.projectAnalyzer.analyzeProject(desc, { ...params, area: area || params.area, floors: floors || params.floors });
-      boq = ai.quantityEstimator.estimateBOQ(params.type, analysis.totalArea, analysis.floors);
-      cost = ai.costEstimator.estimateCost(boq.items, params.type, analysis.totalArea, analysis.floors);
-      sched = ai.scheduleOptimizer.generateSchedule(params.type, analysis.totalArea, analysis.floors);
-      risks = ai.riskAnalyzer.analyzeRisks(params.type, analysis.totalArea, analysis.floors);
-      quality = ai.qualityInspector.inspectProject(params.type, analysis.totalArea, analysis.floors);
+      const geometryInput = normalizeGeometry({
+        area: area ?? params.area,
+        floors: floors ?? params.floors,
+        areaBasis: req.body.areaBasis,
+      });
+      const projectType = type || params.type;
+      const effectiveArea = geometryInput.params.area;
+      const effectiveFloors = geometryInput.params.floors;
+      if (effectiveArea == null || effectiveFloors == null) {
+        const error = new Error('Explicit area and floors are required for geometry analysis');
+        error.code = 'INCOMPLETE_GEOMETRY';
+        error.missingFields = [effectiveArea == null ? 'area' : null, effectiveFloors == null ? 'floors' : null].filter(Boolean);
+        throw error;
+      }
+      const analysis = ai.projectAnalyzer.analyzeProject(desc, { ...params, type: projectType, area: effectiveArea, floors: effectiveFloors });
+      boq = ai.quantityEstimator.estimateBOQ(projectType, effectiveArea, effectiveFloors,
+        finishing || 'Standard', region || 'Riyadh', { areaBasis: 'per_floor' });
+      cost = ai.costEstimator.estimateCost(boq.items, projectType, effectiveArea, effectiveFloors,
+        finishing || 'Standard', region || 'Riyadh', { areaBasis: 'per_floor' });
+      sched = ai.scheduleOptimizer.generateSchedule(projectType, analysis.totalArea, analysis.floors);
+      risks = ai.riskAnalyzer.analyzeRisks(projectType, analysis.totalArea, analysis.floors);
+      quality = ai.qualityInspector.inspectProject(projectType, analysis.totalArea, analysis.floors);
       aiResult = {
-        type: params.type, area: analysis.totalArea, floors: analysis.floors,
+        type: projectType, area: effectiveArea, floors: effectiveFloors,
+        areaBasis: 'per_floor', areaDefinition: geometryInput.geometry,
         cost: cost.totalCost, aiAnalysis: analysis, boq: boq.summary,
         schedule: { totalDuration: sched.totalDuration, totalMonths: sched.totalMonths },
         risks: { level: risks.riskLevel, score: risks.overallRiskScore },
         quality: { score: quality.qualityScore, grade: quality.qualityGrade }
       };
     } catch (e) {
-      console.error('[Project Creation] AI processing error:', e.message);
+      if (e.code === 'INCOMPLETE_GEOMETRY') {
+        aiResult = { analysisStatus: 'insufficient_data', missingFields: e.missingFields };
+      } else {
+        console.error('[Project Creation] AI processing error:', e.message);
+      }
     }
   }
 
   const project = store.createProject({
     name, description: description || '',
     type: type || aiResult.type || 'Building',
-    area: area || aiResult.area || 0,
-    floors: floors || aiResult.floors || 1,
+    area: aiResult.area ?? requestGeometry.params.area ?? null,
+    floors: aiResult.floors ?? floors ?? null,
+    areaBasis: 'per_floor', areaDefinition: aiResult.areaDefinition || requestGeometry.geometry,
     region: region || 'Riyadh', finishing: finishing || 'Standard',
-    cost: aiResult.cost || 0, ...aiResult
+    cost: aiResult.cost ?? null, ...aiResult
   });
   projects = store.getProjects();
   
@@ -697,7 +730,7 @@ app.post('/api/v1/projects', (req, res) => {
   const responseProject = {
     ...project,
     boq: (boq && boq.items) ? { items: boq.items, totalCost: boq.summary?.totalCost || 0, summary: boq.summary } : null,
-    cost: cost ? { totalCost: cost.totalCost, costPerM2: cost.costPerM2 } : null,
+    cost: cost ? { totalCost: cost.totalCost, costPerM2: cost.costPerM2, status: cost.status, pricingIssues: cost.pricingIssues, geometry: cost.geometry, confidenceCalibrated: cost.confidenceCalibrated } : null,
     schedule: sched ? { totalDays: sched.totalDuration, totalMonths: sched.totalMonths } : null,
     risks: risks ? { score: risks.overallRiskScore, level: risks.riskLevel } : null,
     quality: quality ? { score: quality.qualityScore, grade: quality.qualityGrade } : null
@@ -713,8 +746,11 @@ app.get('/api/v1/projects/:id', (req, res) => {
   if (aiReady) {
     try {
       const pp = getProjectParams(p);
-      boq = ai.quantityEstimator.estimateBOQ(pp.type, pp.area, pp.floors);
-      cost = ai.costEstimator.estimateCost(boq.items, pp.type, pp.area, pp.floors);
+      if (pp.area == null || pp.floors == null) throw new Error('Missing explicit project geometry');
+      boq = ai.quantityEstimator.estimateBOQ(pp.type, pp.area, pp.floors,
+        pp.finishing || 'Standard', pp.region || 'Riyadh', { areaBasis: pp.areaBasis });
+      cost = ai.costEstimator.estimateCost(boq.items, pp.type, pp.area, pp.floors,
+        pp.finishing || 'Standard', pp.region || 'Riyadh', { areaBasis: pp.areaBasis });
       sched = ai.scheduleOptimizer.generateSchedule(pp.type, pp.totalArea, pp.floors);
       risks = ai.riskAnalyzer.analyzeRisks(pp.type, pp.totalArea, pp.floors);
       quality = ai.qualityInspector.inspectProject(pp.type, pp.totalArea, pp.floors);
@@ -723,7 +759,7 @@ app.get('/api/v1/projects/:id', (req, res) => {
   res.json({
     ...p,
     boq: boq ? { items: boq.items.length, totalCost: boq.summary.totalCost, confidence: boq.summary.averageConfidence } : null,
-    cost: cost ? { totalCost: cost.totalCost, costPerM2: cost.costPerM2 } : null,
+    cost: cost ? { totalCost: cost.totalCost, costPerM2: cost.costPerM2, status: cost.status, pricingIssues: cost.pricingIssues, geometry: cost.geometry, confidenceCalibrated: cost.confidenceCalibrated } : null,
     schedule: sched ? { totalDays: sched.totalDuration, totalMonths: sched.totalMonths } : null,
     risks: risks ? { score: risks.overallRiskScore, level: risks.riskLevel } : null,
     quality: quality ? { score: quality.qualityScore, grade: quality.qualityGrade } : null
@@ -4213,3 +4249,4 @@ app.listen(PORT, () => {
   console.log(`  Final Report:      ${finalReport ? '✓' : '✗'}   /api/v1/final-report/`);
   console.log('═══════════════════════════════════════════════════\n');
 });
+

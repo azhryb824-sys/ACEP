@@ -46,7 +46,7 @@ class QuantityEstimator {
    * Generate BOQ for a project.
    *
    * @param {string} projectType - e.g. 'Apartment_Finishing', 'Villa', etc.
-   * @param {number} area - land/building area in m²
+   * @param {number} area - area of one floor in m² by default; extraParams.areaBasis can be total_built_up
    * @param {number} floors - number of floors
    * @param {string} finishing - finishing level (Standard, Premium, etc.)
    * @param {string} region - region/city name
@@ -58,8 +58,9 @@ class QuantityEstimator {
 
     const params = {
       type: projectType,
-      area: area || 0,
-      floors: floors || 1,
+      areaBasis: extraParams.areaBasis,
+      area: area ?? null,
+      floors: floors ?? null,
       rooms: extraParams.rooms || null,
       bathrooms: extraParams.bathrooms || null,
       hasKitchen: extraParams.hasKitchen || false,
@@ -109,8 +110,9 @@ class QuantityEstimator {
   getBOQAssumptions(projectType, area, floors, finishing = 'Standard', region = 'Riyadh', extraParams = {}) {
     const params = {
       type: projectType,
-      area: area || 0,
-      floors: floors || 1,
+      areaBasis: extraParams.areaBasis,
+      area: area ?? null,
+      floors: floors ?? null,
       rooms: extraParams.rooms || null,
       bathrooms: extraParams.bathrooms || null,
       hasKitchen: extraParams.hasKitchen || false,

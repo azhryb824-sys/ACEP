@@ -85,7 +85,7 @@ const EXCAVATION_ITEMS = [
     appliesTo: { types: ['Villa', 'School', 'Hospital', 'Residential_Tower', 'Factory', 'Apartment_Building', 'Mosque', 'Warehouse', 'Hotel', 'Mall', 'Office_Building', 'Residential_Compound'], phases: ['Full_Construction', 'Shell'], minFloors: 1 },
     calc: (p) => {
       if (!has(p, 'area')) return insufficient('المساحة مطلوبة لحساب الحفر.');
-      const footprint = p.area / (p.floors || 1);
+      const footprint = p.area; // Public engines normalize area to one floor / footprint.
       return ok(footprint * 1.5, `حجم الحفر = مساحة البصمة (${Math.round(footprint)}) × 1.5م عمق`, 0.85);
     },
     explanation: 'يُحسب حجم الحفر بضرب مساحة الأرض في عمق حفر متوسط (1.5م) للأساسات المسلحة.',
@@ -1852,6 +1852,14 @@ const PHASE_MAP = {
 // ═══════════════════════════════════════════════════════════════
 function detectPhase(projectType, description) {
   if (!description && !projectType) return 'Full_Construction';
+  // Shell is an explicit requested scope, not every Construction-stage project.
+  // A completed shell mentioned in a finishing request must not select Shell.
+  const text = String(description || '').toLowerCase().replace(/[\u064b-\u065f\u0670\u0640]/g, '');
+  const scopeText = text.replace(/(?:بدون|دون)\s+(?:ال)?تشطيب(?:ات)?/gu, '');
+  const shell = /(?:^|[\s،,.])(?:ال)?عظم(?=$|[\s،,.])/u.test(scopeText) || /\bshell\b/u.test(scopeText);
+  const finishing = /تشطيب|finishing|fit[ -]?out/u.test(scopeText);
+  const negatedShell = /(?:ليس|ليست|لا|بدون|دون)\s+(?:ال)?عظم|\b(?:not|no|without)\s+(?:a\s+)?shell\b/u.test(scopeText);
+  if (shell && !finishing && !negatedShell) return 'Shell';
   const result = StageClassifier.analyze({ type: projectType, description: description || '' });
   const primary = result.primary_stage;
   if (primary === 'Finishing') return 'Finishing';
