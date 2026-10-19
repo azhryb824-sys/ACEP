@@ -2,6 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 class ScheduleOptimizer {
+  analyzeActivityNetwork(activities) {
+    return require('./activity-network').analyzeActivityNetwork(activities);
+  }
+
   constructor() {
     this.trained = false;
     this.projects = [];
@@ -170,3 +174,4 @@ class ScheduleOptimizer {
 }
 
 module.exports = new ScheduleOptimizer();
+
