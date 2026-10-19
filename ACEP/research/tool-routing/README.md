@@ -1,5 +1,33 @@
 # Grounded four-tool research path
 
+## Source review update — 2026-10-19
+
+`net_area_source_review.py` adds a veto before dispatch. It compares labelled
+gross/openings measurements with the original proposal, retains original text
+offsets, and rejects invalid source measurements or changed/swapped values.
+It never repairs proposals. Ambiguous, duplicated, revised, negated, or
+unsupported expressions require review. `consistent_evidence` does not verify
+intent or grant execution: the original full-field grammar remains mandatory.
+
+Replay on saved v8 output: 72 net-area cases, 40 call proposals, including 38
+correct calls. Evidence matched 29 correct calls; nine still required review;
+zero correct calls were vetoed. Both wrong calls were blocked, including the
+previously contract-valid swapped proposal `v6-validation-0021`. This does not
+change raw model accuracy (346/348) or promote v8 over the retained v7 default.
+The retained v7 replay is included alongside v8 for comparison.
+
+Validation: 18 Python methods, five real HTTP/Node integration tests (the UI
+handler uses a DOM stub), and 600 metamorphic checks on labelled measurements.
+Reports are in `source-review-results/`. These are authored development checks,
+not independent engineering certification. The complete platform UI was not
+tested or deployed in this update.
+
+Run from this directory:
+`python3 -m unittest test_net_area_source_review test_grounded_dispatch test_calculator`
+and `node --test test_routes.js` after installing Express. Replay takes the
+previous verified `ACEP_v8_units_research_complete.zip` as its positional input:
+`python3 evaluate_source_review.py ARCHIVE --out source-review-results/replay_report.json`.
+
 This opt-in path calculates rectangular volume, net area, quantity after supplied
 waste, and line cost at a supplied price. It has no model or external API calls.
 The frozen v5 model is unchanged. It does not infer structural design or prices.

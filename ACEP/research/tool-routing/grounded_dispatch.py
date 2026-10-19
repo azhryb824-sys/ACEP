@@ -7,6 +7,7 @@ import re
 from decimal import Decimal, localcontext
 from calculator import calculate_explicit_inputs, parse_prediction
 from contract_gate import SPECS, gate, number
+from net_area_source_review import review as review_area_proposal
 
 INTENTS = {
     'حجم مستطيل': 'rectangular_volume',
@@ -113,6 +114,15 @@ def dispatch(text, prediction=None):
     Omitting prediction calculates a direct explicit-field user request without
     an LLM. Supplying prediction checks both intent and every required value.
     """
+    # Veto evidence must run even when the full execution grammar is not
+    # supported. A matching or unknown partial review NEVER grants execution;
+    # the existing independent, full-segment grammar below remains required.
+    if prediction is not None:
+        reviewed = review_area_proposal(text, prediction)
+        if reviewed['status'] == 'veto':
+            if reviewed['reason'] == 'invalid_prediction_json':
+                return stopped('blocked', 'invalid_prediction_json')
+            return stopped('blocked', 'source_review_veto', source_review=reviewed)
     source = extract_source(text)
     if source['status'] != 'ready':
         return source

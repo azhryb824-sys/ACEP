@@ -1,0 +1,56 @@
+{
+  "v8": {
+    "total_net_area_cases": 72,
+    "calls_reviewed": 40,
+    "statuses": {
+      "consistent_evidence": 29,
+      "review_required": 9,
+      "not_applicable": 32,
+      "veto": 2
+    },
+    "correct_calls": 38,
+    "correct_calls_with_matching_evidence": 29,
+    "correct_calls_requiring_review": 9,
+    "false_veto_ids": [],
+    "originally_wrong_contract_valid_calls": [
+      "v6-validation-0021"
+    ],
+    "newly_vetoed_wrong_contract_valid_calls": [
+      "v6-validation-0021"
+    ]
+  },
+  "retained_v7_original_prompt": {
+    "total_net_area_cases": 72,
+    "calls_reviewed": 41,
+    "statuses": {
+      "consistent_evidence": 29,
+      "review_required": 9,
+      "not_applicable": 31,
+      "veto": 3
+    },
+    "correct_calls": 38,
+    "correct_calls_with_matching_evidence": 29,
+    "correct_calls_requiring_review": 9,
+    "false_veto_ids": [],
+    "originally_wrong_contract_valid_calls": [],
+    "newly_vetoed_wrong_contract_valid_calls": []
+  },
+  "input_archive_sha256": "f1eb631317f9519c84c2e3687d6decfb1f623cad631aa05e81d11d73a4133aae",
+  "reviewer_sha256": "4719f0f09ee450c87cd78cc70c6a18c3aa22d041ea0f47330bc344c62c115ddd",
+  "weights_changed": false,
+  "model_raw_accuracy_changed": false,
+  "authorization_granted": false,
+  "tools_executed": false,
+  "engineering_deployment_allowed": false,
+  "limitations": [
+    "Labelled measurements only; unsupported context requires review",
+    "Matching evidence is not verified intent or complete semantic grounding",
+    "Saved authored development cases; not independent engineering evaluation"
+  ],
+  "validation": {
+    "python_methods_passed": 18,
+    "http_node_methods_passed": 5,
+    "metamorphic_checks_passed": 600,
+    "full_platform_ui_tested": false
+  }
+}

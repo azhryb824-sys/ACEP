@@ -34,6 +34,7 @@ button.addEventListener('click',async()=>{
   if(data.status==='calculated')message.textContent='النتيجة: '+data.value+' '+({m3:'م³',m2:'م²',SAR:'ريال'}[data.unit]||data.unit);
   else if(data.status==='clarify'){message.textContent='نحتاج بيانات إضافية';questions.textContent=(data.missing_fields||[]).map(field=>'يرجى تحديد '+(labels[field]||field)).join('، ');}
   else if(data.status==='invalid_input')message.textContent='راجع القيم: يوجد مدخل غير صالح.';
+  else if(data.reason==='source_review_veto')message.textContent='راجع قياسات الإجمالي والفتحات؛ لم يُنفّذ الحساب بسبب تعارض في بيانات المصدر.';
   else message.textContent='لم يُنفّذ الحساب. راجع الصيغة أو القيم المقترحة.';
  }catch{message.textContent='تعذر الاتصال بالحاسبة. حاول مجددًا.';}
  finally{button.disabled=false;}

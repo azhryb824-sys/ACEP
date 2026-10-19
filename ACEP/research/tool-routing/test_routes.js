@@ -115,5 +115,13 @@ test('demo event handlers connect all four tools and clarification to real HTTP'
     element('prediction').value = '{"action":"invalid_input","tool":null,"arguments":{},"missing_fields":[]}';
     await element('calculate').events.click();
     assert.equal(JSON.parse(element('result').textContent).reason, 'prediction_intent_mismatch');
+    element('source').value = 'الكشف الإجمالي لوجه الدهان 510.306 م²؛ قياس فتحاته 510.431 م². استخرج مدخلات الصافي.';
+    element('prediction').value = JSON.stringify({action:'call',tool:'net_area',arguments:{gross_m2:'510.431',openings_m2:'510.306'},missing_fields:[]});
+    await element('calculate').events.click();
+    const veto = JSON.parse(element('result').textContent);
+    assert.equal(veto.reason, 'source_review_veto');
+    assert.equal(veto.calculation_executed, false);
+    assert.equal(veto.source_review.authorization_granted, false);
+    assert.match(element('message').textContent, /تعارض في بيانات المصدر/);
   });
 });
