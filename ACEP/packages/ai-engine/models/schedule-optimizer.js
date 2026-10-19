@@ -70,6 +70,9 @@ class ScheduleOptimizer {
   }
 
   generateSchedule(projectType, totalArea, floors, finishing = 'Standard', region = 'Riyadh', method = 'Traditional') {
+    if (typeof projectType !== 'string' || !projectType.trim()) throw new TypeError('Project type is required');
+    if (typeof totalArea !== 'number' || !Number.isFinite(totalArea) || totalArea <= 0) throw new RangeError('Total built-up area must be a finite positive number');
+    if (!Number.isSafeInteger(floors) || floors < 1) throw new RangeError('Floors must be a positive safe integer');
     if (!this.trained) return this._fallbackSchedule(totalArea, floors, finishing);
 
     const stats = this.byType[projectType];
@@ -103,7 +106,7 @@ class ScheduleOptimizer {
       compressionPotential: totalDays > 365 ? 'Medium' : totalDays > 180 ? 'Low' : 'Minimal'
     };
 
-    return {
+    return this._finalize({
       activities,
       totalDuration: totalDays,
       totalMonths: Math.round(totalDays / 22 * 10) / 10,
@@ -112,6 +115,34 @@ class ScheduleOptimizer {
       parameters: { baseDuration, areaFactor: Math.round(areaFactor * 100) / 100, floorsFactor: Math.round(floorsFactor * 100) / 100, finishingFactor, methodFactor },
       trainingData: stats ? stats.count : 0,
       confidence: stats ? Math.min(0.9, 0.5 + stats.count * 0.0002) : 0.6
+    });
+  }
+
+  // Generated templates are sequential. Their explicit network owns the duration;
+  // the old statistical/area estimate is retained separately for review.
+  _finalize(schedule) {
+    let finish = 0;
+    for (const activity of schedule.activities) {
+      if (!Number.isSafeInteger(activity.duration) || activity.duration < 0) throw new RangeError('Unsafe activity duration');
+      activity.startDay = finish;
+      finish += activity.duration;
+      if (!Number.isSafeInteger(finish)) throw new RangeError('Unsafe project duration');
+      activity.finishDay = finish;
+    }
+    if (!Number.isSafeInteger(schedule.totalDuration) || schedule.totalDuration < 0) throw new RangeError('Unsafe duration estimate');
+    return {
+      ...schedule,
+      heuristicDurationEstimate: schedule.totalDuration,
+      totalDuration: finish,
+      totalMonths: Math.round(finish / 22 * 10) / 10,
+      criticalPath: schedule.activities.map(a => a.id),
+      optimization: { parallelExecution: 0, compressionPotential: null },
+      calendar: { workingDaysPerMonth: 22, assumed: true },
+      schedulingBasis: 'sequential_template',
+      estimateStatus: 'heuristic_estimate',
+      requiresScheduleReview: true,
+      confidence: 0,
+      confidenceCalibrated: false
     };
   }
 
@@ -126,7 +157,7 @@ class ScheduleOptimizer {
       { id: 'A4', name: 'Finishing', duration: Math.round(30 + totalArea * 0.005), predecessors: ['A3'] },
       { id: 'A5', name: 'Handover', duration: 10, predecessors: ['A4'] }
     ];
-    return { activities, totalDuration: totalDays, criticalPath: activities.map(a => a.id), confidence: 0.6 };
+    return this._finalize({ activities, totalDuration: totalDays });
   }
 
   compareMethods(projectType, totalArea, floors) {

@@ -138,8 +138,16 @@ class WorkflowEngine {
     const effective = this._getEffectiveParams(project);
     const totalArea = project.predicted.totalArea || effective.area * effective.floors;
     const floors = project.predicted.floors || effective.floors;
+    if (!Number.isFinite(totalArea) || totalArea <= 0 || !Number.isSafeInteger(floors) || floors < 1 || !effective.type) {
+      const incomplete = { activities: [], totalDuration: null, totalMonths: null, criticalPath: [], estimateStatus: 'incomplete', requiresInputReview: true, requiresScheduleReview: true, confidence: 0, confidenceCalibrated: false };
+      project.setSchedule(incomplete);
+      return incomplete;
+    }
     const scheduleData = this.ai.scheduleOptimizer.generateSchedule(
-      effective.type, totalArea, floors
+      effective.type, totalArea, floors,
+      project.approved.finishing || project.extracted.finishing || 'Standard',
+      project.approved.region || project.extracted.region || 'Riyadh',
+      project.approved.method || project.extracted.method || 'Traditional'
     );
     project.setSchedule(scheduleData);
     return scheduleData;

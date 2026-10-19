@@ -297,14 +297,15 @@ class ProjectModel {
   // ─── Set Schedule Data ──────────────────
   setSchedule(scheduleData) {
     this.schedule = {
+      ...scheduleData,
       activities: scheduleData.activities || [],
-      totalDuration: scheduleData.totalDuration || 0,
-      totalMonths: scheduleData.totalMonths || 0,
+      totalDuration: scheduleData.totalDuration ?? null,
+      totalMonths: scheduleData.totalMonths ?? null,
       criticalPath: scheduleData.criticalPath || [],
       optimization: scheduleData.optimization || null
     };
     this.metadata.updated = new Date().toISOString();
-    this.metadata.workflowStep = 'scheduled';
+    this.metadata.workflowStep = scheduleData.estimateStatus === 'incomplete' ? 'schedule_requires_review' : 'scheduled';
     this.traceEvent('schedule', 'scheduleOptimizer', { scheduleData });
   }
 

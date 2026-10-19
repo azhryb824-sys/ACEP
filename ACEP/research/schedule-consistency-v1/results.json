@@ -1,0 +1,188 @@
+{
+  "scope": "Production model invocation; authored diagnostic inputs, not real-project prediction scores",
+  "modelSHA256": "c4bdf8fac59f9fca4c089a2bd0dcb8011b89fc74b594e54c6332e218f74208e0",
+  "productionCSVParser": {
+    "rows": 3661,
+    "columnCountRejected": 0
+  },
+  "fit": {
+    "total": 10000,
+    "types": 21,
+    "note": "Existing internal CSV only; no real-project data or neural weights trained"
+  },
+  "networkChecks": [
+    {
+      "mode": "untrained_fallback_authored_input",
+      "input": [
+        "Villa",
+        300,
+        2
+      ],
+      "totalDuration": 98,
+      "networkDays": 98,
+      "consistent": true,
+      "criticalPath": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "confidence": 0
+    },
+    {
+      "mode": "untrained_fallback_authored_input",
+      "input": [
+        "Building",
+        3000,
+        5
+      ],
+      "totalDuration": 132,
+      "networkDays": 132,
+      "consistent": true,
+      "criticalPath": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "confidence": 0
+    },
+    {
+      "mode": "untrained_fallback_authored_input",
+      "input": [
+        "Tower",
+        20000,
+        20
+      ],
+      "totalDuration": 322,
+      "networkDays": 322,
+      "consistent": true,
+      "criticalPath": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "confidence": 0
+    },
+    {
+      "mode": "existing_csv_statistical_fit_authored_input",
+      "input": [
+        "Villa",
+        300,
+        2
+      ],
+      "totalDuration": 239,
+      "networkDays": 239,
+      "consistent": true,
+      "criticalPath": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "A9",
+        "A10",
+        "A11",
+        "A12"
+      ],
+      "confidence": 0
+    },
+    {
+      "mode": "existing_csv_statistical_fit_authored_input",
+      "input": [
+        "Building",
+        3000,
+        5
+      ],
+      "totalDuration": 265,
+      "networkDays": 265,
+      "consistent": true,
+      "criticalPath": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "A9",
+        "A10",
+        "A11",
+        "A12"
+      ],
+      "confidence": 0
+    },
+    {
+      "mode": "existing_csv_statistical_fit_authored_input",
+      "input": [
+        "Tower",
+        20000,
+        20
+      ],
+      "totalDuration": 1116,
+      "networkDays": 1116,
+      "consistent": true,
+      "criticalPath": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "A9",
+        "A10",
+        "A11",
+        "A12"
+      ],
+      "confidence": 0
+    }
+  ],
+  "invalidInputChecks": [
+    {
+      "name": "missing",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    },
+    {
+      "name": "negative",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    },
+    {
+      "name": "NaN",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    },
+    {
+      "name": "infinite",
+      "rejected": true,
+      "error": "Total built-up area must be a finite positive number"
+    }
+  ],
+  "passedNetworkChecks": 6,
+  "totalNetworkChecks": 6,
+  "regression_checks": {
+    "schedule_workflow_edl": {
+      "passed": 22,
+      "total": 22
+    },
+    "phases": {
+      "passed": 76,
+      "total": 76
+    },
+    "cost_integration": {
+      "passed": 10,
+      "total": 10
+    }
+  }
+}
