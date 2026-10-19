@@ -1,0 +1,26 @@
+'use strict';
+const assert = require('node:assert/strict');
+const engine = require('../../packages/ai-engine/models/quality-inspector');
+const run = rows => engine.summarizeInspectionOutcomes('P1', rows);
+const row = (id, result='Approved', extras={}) => ({inspectionId:id,projectId:'P1',inspectionType:'Foundation',inspectionDate:'2024-02-29',result,source:'official-inspection-export',...extras});
+let passed=0;
+const check=(name,f)=>{f();passed++;console.log(`PASS ${name}`);};
+check('explicit denominators and administrative outcomes',()=>{
+ const r=run([row('1'),row('2','Corrections Issued'),row('3','Partial Approval'),row('4','Insp Scheduled'),row('5','Permit Finaled')]);
+ assert.equal(r.observedApprovalRate,.5);assert.equal(r.explicitOutcomeCoverage,.4);assert.equal(r.otherOutcomes,3);assert.equal(r.qualityScore,null);assert.equal(r.predictiveAccuracy,null);assert.equal(r.evidenceVerified,false);
+});
+check('missing outcomes remain unknown',()=>{const r=run([]);assert.equal(r.observedApprovalRate,null);assert.equal(r.explicitOutcomeCoverage,null);assert.equal(r.latestInspectionDate,null);});
+check('scheduled-only is not 100 percent approved',()=>{const r=run([row('1','Insp Scheduled')]);assert.equal(r.observedApprovalRate,null);assert.equal(r.explicitOutcomeCoverage,0);});
+check('identical duplicates do not inflate exposure',()=>{const r=run([row('1'),row('1')]);assert.equal(r.uniqueInspections,1);assert.equal(r.duplicateRecordsIgnored,1);});
+check('conflicting identifiers reject',()=>assert.throws(()=>run([row('1'),row('1','Corrections Issued')]),/Conflicting/));
+check('mixed projects reject',()=>assert.throws(()=>run([row('1','Approved',{projectId:'P2'})]),/different project/));
+check('missing provenance rejects',()=>assert.throws(()=>run([row('1','Approved',{source:''})]),/source/));
+check('invalid calendar date rejects',()=>assert.throws(()=>run([row('1','Approved',{inspectionDate:'2024-02-30'})]),/date/));
+check('date timestamps require explicit normalization',()=>assert.throws(()=>run([row('1','Approved',{inspectionDate:'2024-02-29T12:00:00Z'})]),/YYYY/));
+check('unknown result is preserved and excluded',()=>{const r=run([row('1','UNKNOWN')]);assert.deepEqual(r.outcomes,[{result:'UNKNOWN',count:1}]);assert.equal(r.observedApprovalRate,null);});
+check('no input mutation and unusual type is safe',()=>{const rows=[row('1','Approved',{inspectionType:'__proto__'})],before=JSON.stringify(rows);const r=run(rows);assert.equal(JSON.stringify(rows),before);assert.equal(r.byInspectionType[0].approved,1);});
+check('new evidence method requires no synthetic training',()=>{assert.equal(engine.trained,false);assert.equal(run([row('1')]).approved,1);});
+check('latest date is independent of input order',()=>assert.equal(run([row('1','Approved',{inspectionDate:'2024-05-01'}),row('2')]).latestInspectionDate,'2024-05-01'));
+check('array contract rejects',()=>assert.throws(()=>run({}),/array/));
+check('missing inspection type rejects',()=>assert.throws(()=>run([row('1','Approved',{inspectionType:null})]),/inspectionType/));
+console.log(JSON.stringify({passed,failed:0,scope:'evidence aggregation and input contracts; not predictive accuracy'}));

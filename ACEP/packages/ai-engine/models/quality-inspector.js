@@ -1,6 +1,7 @@
 const path = require('path');
 const csv = require('./training-csv');
 const input = require('./model-input');
+const { summarizeInspectionOutcomes } = require('./inspection-outcomes');
 
 class QualityInspector {
   constructor() {
@@ -96,6 +97,10 @@ class QualityInspector {
       totalTrainingDefects: this.defects.length,
       defectTypes: defects.length
     };
+  }
+
+  summarizeInspectionOutcomes(projectId, records) {
+    return summarizeInspectionOutcomes(projectId, records);
   }
 
   getCommonDefects(elementType) {
