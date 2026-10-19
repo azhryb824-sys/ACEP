@@ -18,6 +18,8 @@ const VisualLinkage = require('./knowledge-engine/visual-linkage');
 const AgentPipeline = require('./agents/agent-pipeline');
 
 let initialized = false;
+let initializationResult = null;
+let initializationPromise = null;
 const projectProfiler = new ProjectProfiler(kb);
 const knowledgeEngine = new KnowledgeBaseEngine();
 const knowledgeGraph = new KnowledgeGraph();
@@ -28,7 +30,14 @@ let visualLinkage = null;
 let agentPipeline = null;
 
 async function initialize() {
-  if (initialized) return { totalRecords: 0 };
+  if (initialized) return initializationResult;
+  if (initializationPromise) return initializationPromise;
+  initializationPromise = initializeOnce();
+  try { return await initializationPromise; }
+  finally { initializationPromise = null; }
+}
+
+async function initializeOnce() {
   kb.initialize();
   const result = await trainer.trainAllModels();
   const { EngineeringDataLayer } = require('./engineering-data-layer');
@@ -42,12 +51,20 @@ async function initialize() {
   qualityIndicators = new QualityIndicators(kb);
   visualLinkage = new VisualLinkage({}, kb);
   initialized = true;
+  initializationResult = result;
   return result;
 }
 
 function getStatus() {
+  const models = { projectAnalyzer, quantityEstimator, costEstimator, riskAnalyzer,
+    qualityInspector, scheduleOptimizer, supplierIntelligence };
   return {
     initialized,
+    operationalReady: initialized && Object.values(models).every(m => m.trained === true),
+    accuracyValidated: false,
+    initializationStatus: initializationResult?.status || (initializationPromise ? 'initializing' : 'not_started'),
+    initializationSuccessfulModels: initializationResult?.successfulModels ?? null,
+    initializationFailedModels: initializationResult?.failedModels ?? null,
     knowledgeBase: kb.initialized,
     projectAnalyzer: projectAnalyzer.trained,
     quantityEstimator: quantityEstimator.trained,
@@ -75,3 +92,4 @@ module.exports = {
 
 module.exports.detectProjectType = kb.detectProjectType.bind(kb);
 module.exports.detectProjectTypeConfidence = kb.detectProjectTypeConfidence.bind(kb);
+

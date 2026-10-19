@@ -43,13 +43,14 @@
   <h1>🏗️ ACEP — برنامج المراحل العشر <small id="ts"></small></h1>
 
   <div class="grid" id="summary"></div>
+  <section id="model-evidence" aria-label="نتائج اختبار المحركات" aria-live="polite"></section>
 
   <div class="actions" id="actions-bar">
-    <button class="primary" onclick="runBenchmark()">🏃 تشغيل Benchmark</button>
-    <button class="success" onclick="runEvaluation()">📊 تشغيل تقييم</button>
-    <button class="primary" onclick="runRetraining()">🎯 تحليل إعادة التدريب</button>
-    <button class="success" onclick="runDecision()">🧠 تقييم قرار</button>
-    <button onclick="saveState()">💾 حفظ الحالة</button>
+    <button class="primary" onclick="runBenchmark().catch(showActionError)">🏃 مقارنة وصفية بالمتوسطات</button>
+    <button class="success" onclick="runEvaluation().catch(showActionError)">📊 تشغيل تقييم</button>
+    <button class="primary" onclick="runRetraining().catch(showActionError)">🎯 تحليل إعادة التدريب</button>
+    <button class="success" onclick="runDecision().catch(showActionError)">🧠 تقييم قرار</button>
+    <button onclick="saveState().catch(showActionError)">💾 حفظ الحالة</button>
     <button onclick="refreshAll()">🔄 تحديث</button>
   </div>
 
@@ -69,6 +70,7 @@
   </div>
 </div>
 
+<script src="/src/model-evidence-view.js"></script>
 <script>
 const BASE = '';
 let state = {};
@@ -77,15 +79,23 @@ async function api(method, url, body) {
   const opts = { method, headers: { 'Accept': 'application/json' } };
   if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
   const r = await fetch(BASE + url, opts);
-  return r.json();
+  const result = await r.json();
+  if (!r.ok) throw new Error(result.message || result.error || 'تعذر إكمال الطلب');
+  return result;
 }
 
 async function refreshAll() {
-  state = await api('GET', '/api/v1/phases/status');
-  render();
+  try {
+    state = await api('GET', '/api/v1/phases/status');
+    render();
+  } catch (e) {
+    document.getElementById('model-evidence').innerHTML = ACEPModelEvidenceView.render(null);
+    showActionError(e);
+  }
 }
 
 function render() {
+  document.getElementById('model-evidence').innerHTML = ACEPModelEvidenceView.render(state.modelEvidence);
   document.getElementById('ts').textContent = new Date(state.timestamp).toLocaleString('ar-SA');
 
   const phases = [
@@ -124,9 +134,9 @@ function render() {
 }
 
 async function runBenchmark() {
-  showResult('🏃 تشغيل Benchmark...');
+  showResult('🏃 تشغيل مقارنة وصفية بالمتوسطات...');
   const r = await api('POST', '/api/v1/benchmark-library/run');
-  showResult(`✅ Benchmark: ${r.projectTypesTested || 0} مشروع، دقة ${r.passed || 0}%`);
+  showResult(r.ok ? `اكتملت المقارنة الوصفية: ${r.projectTypesTested || 0} أنواع مشاريع؛ ${r.scored || 0}/${r.totalTests || 0} مقارنات متاحة. هذه ليست دقة اختبار مستقل.` : 'تعذر إجراء المقارنة: المراجع أو البيانات غير متاحة.');
   updateLog('benchmark', JSON.stringify(r, null, 2).slice(0, 2000));
   refreshAll();
 }
@@ -143,7 +153,7 @@ async function runEvaluation() {
 async function runRetraining() {
   showResult('🎯 تحليل إعادة التدريب...');
   const r = await api('POST', '/api/v1/retraining/analyze');
-  showResult(`✅ تحليل: ${r.totalWeakAreas || 0} نقاط ضعف، الأولوية: ${r.priority || 'none'}`);
+  showResult(`تحليل: ${r.totalWeakAreas || 0} نقاط ضعف، ${r.evidenceGaps?.length || 0} فجوات أدلة، الأولوية: ${r.priority || 'none'}`);
   updateLog('health', JSON.stringify(r, null, 2).slice(0, 2000));
   refreshAll();
 }
@@ -151,7 +161,7 @@ async function runRetraining() {
 async function runDecision() {
   showResult('🧠 تقييم قرار...');
   const r = await api('POST', '/api/v1/decisions/evaluate', { type: 'Villa', area: 500, floors: 2, decisionType: 'system_health' });
-  showResult(`✅ قرار: ثقة ${r.confidence || 0}%، مطبق: ${r.applied}`);
+  showResult(Number.isFinite(r.confidence) ? `قرار: درجة الثقة ${r.confidence}%، مطبق: ${r.applied}` : 'تحتاج حالة النماذج إلى اختبار مستقل؛ درجة الثقة غير متاحة.');
   updateLog('decisions', JSON.stringify(r, null, 2).slice(0, 2000));
   refreshAll();
 }
@@ -165,6 +175,8 @@ function showResult(msg) {
   document.getElementById('results').textContent = msg;
   setTimeout(() => document.getElementById('results').textContent = '', 5000);
 }
+
+function showActionError(error) { showResult('تعذر إكمال العملية: ' + (error?.message || 'خطأ غير معروف')); }
 
 function updateLog(tab, content) {
   document.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
@@ -197,3 +209,4 @@ refreshAll();
 </script>
 </body>
 </html>
+

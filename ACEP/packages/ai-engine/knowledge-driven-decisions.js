@@ -122,17 +122,19 @@ class KnowledgeDrivenDecisions {
         const evalStats = this.evaluator.getStats();
         const qualityCheck = this.quality.runFullCheck();
         const qScore = qualityCheck.overall?.qualityScore || 0;
-        const healthScore = ((bench?.passed || 0) + qScore + (evalStats.totalEvaluations > 0 ? 80 : 30)) / 3;
         conclusion = {
-          healthScore: Math.round(healthScore * 100) / 100,
-          benchmarkPassRate: bench?.passed,
+          healthScore: null,
+          benchmarkPassRate: null,
+          accuracyValidated: false,
+          status: 'requires_independent_evaluation',
+          diagnosticKind: bench?.evaluationKind || 'unavailable',
           dataQualityScore: qScore,
           evaluationsRun: evalStats.totalEvaluations,
           projectTypesLoaded: growth?.projectTypes?.length,
           autoEvaluation: evalStats.autoRunning,
         };
-        confidence = healthScore / 100;
-        logEntry.sources.push({ name: 'system_health_check', healthScore });
+        confidence = null;
+        logEntry.sources.push({ name: 'system_health_check', healthScore: null });
         break;
       }
 
@@ -142,8 +144,8 @@ class KnowledgeDrivenDecisions {
     }
 
     logEntry.conclusion = conclusion;
-    logEntry.confidence = Math.round(confidence * 10000) / 100;
-    logEntry.applied = confidence >= this._config.confidenceThreshold;
+    logEntry.confidence = Number.isFinite(confidence) ? Math.round(confidence * 10000) / 100 : null;
+    logEntry.applied = Number.isFinite(confidence) && confidence >= this._config.confidenceThreshold;
     logEntry.duration = Date.now() - startTime;
     this._decisionLog.push(logEntry);
     return logEntry;
@@ -156,15 +158,18 @@ class KnowledgeDrivenDecisions {
   getStats() {
     const total = this._decisionLog.length;
     const applied = this._decisionLog.filter(d => d.applied).length;
-    const avgConfidence = total > 0 ? this._decisionLog.reduce((s, d) => s + d.confidence, 0) / total : 0;
+    const scored = this._decisionLog.filter(d => Number.isFinite(d.confidence));
+    const avgConfidence = scored.length ? scored.reduce((s, d) => s + d.confidence / scored.length, 0) : null;
     return {
       totalDecisions: total,
       appliedDecisions: applied,
       applicationRate: total > 0 ? Math.round(applied / total * 10000) / 100 : 0,
-      avgConfidence: Math.round(avgConfidence * 100) / 100,
+      avgConfidence: avgConfidence === null ? null : Math.round(avgConfidence * 100) / 100,
+      confidenceCoverage: total ? scored.length / total : 0,
       config: { ...this._config },
     };
   }
 }
 
 module.exports = KnowledgeDrivenDecisions;
+

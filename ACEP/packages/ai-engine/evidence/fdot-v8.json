@@ -1,0 +1,2305 @@
+{
+  "schemaVersion": 1,
+  "cycle": "FDOT-v8",
+  "date": "2026-10-19",
+  "evaluationRole": "archived_research_holdout",
+  "currentTestState": "exposed",
+  "trainingLocation": "Kaggle CPU",
+  "kaggleVersion": 12,
+  "runUrl": "https://www.kaggle.com/code/aaabbb2026/acep-engines-real-projects-v1/log?scriptVersionId=360178385",
+  "researchCommit": "40a6e3e25879ca8b18d3cae253be3644137d0545",
+  "sourceUrl": "https://www.fdot.gov/construction/constadm/reports",
+  "fiveIds": [
+    "E1V05",
+    "T1847",
+    "T2890",
+    "T2880",
+    "T2902"
+  ],
+  "expectedIds": [
+    "E1U22",
+    "E1V07",
+    "E1V20",
+    "T2880",
+    "T2881",
+    "T2883",
+    "T2887",
+    "T2892",
+    "T2895",
+    "T2902",
+    "T2923",
+    "E20T7",
+    "E20W8",
+    "T3816",
+    "T3817",
+    "T3818",
+    "T3819",
+    "T3833",
+    "T3836",
+    "E3V50",
+    "T4629",
+    "E4V81",
+    "E4V84",
+    "T5750",
+    "T5763",
+    "T5765",
+    "T5766",
+    "T5771",
+    "T5774",
+    "E50B4",
+    "E53B6",
+    "E55B1",
+    "E55B2",
+    "E55B3",
+    "E55B4",
+    "E55B9",
+    "E56B2",
+    "E58B2",
+    "T6543",
+    "T6545",
+    "T6546",
+    "T6563",
+    "E6M36",
+    "E6N09",
+    "E6O02",
+    "E6O04",
+    "T7484",
+    "E8T76",
+    "E8T86",
+    "E8T87",
+    "T1847",
+    "T1848",
+    "T1860",
+    "E1V61",
+    "T2896",
+    "T2897",
+    "T2928",
+    "T2933",
+    "T3767",
+    "T3774",
+    "T3826",
+    "T3834",
+    "T3842",
+    "E3W27",
+    "T4625",
+    "E4V50",
+    "E4V97",
+    "T5764",
+    "T5767",
+    "T5769",
+    "T5772",
+    "T5775",
+    "T5776",
+    "E50B9",
+    "E52B5",
+    "E55B6",
+    "T7481",
+    "T7497",
+    "E8T82",
+    "E8T94",
+    "E8T95",
+    "T1843",
+    "E1V05",
+    "E1V51",
+    "T2865",
+    "T2886",
+    "T2889",
+    "T2890",
+    "T2894",
+    "T2934",
+    "T3837",
+    "E3U65",
+    "E3W01",
+    "E4V62",
+    "E4W05",
+    "E7P68",
+    "E7R24",
+    "E8T83"
+  ],
+  "selected": {
+    "cost": "base::extra_30",
+    "duration": "unchanged",
+    "risk": "prevalence"
+  },
+  "policy": {
+    "regression_within10": 0.9,
+    "all_five": true,
+    "coverage": 1.0,
+    "risk_balanced_accuracy": 0.9,
+    "risk_recall": 0.9,
+    "risk_each_class_min": 10
+  },
+  "limitations": [
+    "Historical reports, not prospective observation or a newly collected external dataset.",
+    "Development ends June2021; new contract letting begins July2022. Complete historical release/version history remains unverified.",
+    "Only primary financial family is available; complete contractor/site independence is not established.",
+    "Additional fields explicitly named DOT Original Estimate and Innovative Contract Type; snapshot version histories are unavailable.",
+    "Extreme source records are flagged, not silently repaired or removed.",
+    "Source costs are Florida transport-contract USD and Days Used, not Saudi prices or resource-feasible scheduling.",
+    "No independent seven-engine acceptance follows from these scoped tasks."
+  ],
+  "sourceHashes": {
+    "kaggle-output/results/heldout_predictions.csv": "8977dcbb75cf5817d1a23bad265495867c9e3a46c9a2ccb7228aba689779ada9",
+    "kaggle-output/results/evaluation.json": "7f40cc0af9caada78f87fa0692702d874e8af8d72056842b69209257e90d212e",
+    "data/contract.json": "fa308dbfc407bef0fb5afd3ae5af744677de44f0b31a40e87e7d66c99d5c6017",
+    "independent_verification.json": "95ebbb6bcc0512313882242f543b764341db0dac4dc51d06ad03694002eae966"
+  },
+  "rows": [
+    {
+      "id": "E1U22",
+      "group": "441983",
+      "letDate": "2022-07-21",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 39,
+      "cost": {
+        "actual": 2091701.0,
+        "predicted": 2192833.4409139166,
+        "baseline": 2187528.0
+      },
+      "duration": {
+        "actual": 187.0,
+        "predicted": 170.0,
+        "baseline": 170.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E1V07",
+      "group": "440231",
+      "letDate": "2022-09-15",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 42,
+      "cost": {
+        "actual": 315649.0,
+        "predicted": 270169.8749246067,
+        "baseline": 289419.0
+      },
+      "duration": {
+        "actual": 72.0,
+        "predicted": 75.0,
+        "baseline": 75.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E1V20",
+      "group": "446203",
+      "letDate": "2022-11-03",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 46,
+      "cost": {
+        "actual": 3972960.0,
+        "predicted": 3900716.3586133476,
+        "baseline": 3919123.0
+      },
+      "duration": {
+        "actual": 212.0,
+        "predicted": 185.0,
+        "baseline": 185.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2880",
+      "group": "212934",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 87,
+      "cost": {
+        "actual": 439109.0,
+        "predicted": 596725.6181395302,
+        "baseline": 621970.0
+      },
+      "duration": {
+        "actual": 265.0,
+        "predicted": 150.0,
+        "baseline": 150.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2881",
+      "group": "445540",
+      "letDate": "2022-11-16",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 88,
+      "cost": {
+        "actual": 1943700.0,
+        "predicted": 1954235.7592338242,
+        "baseline": 1959156.0
+      },
+      "duration": {
+        "actual": 293.0,
+        "predicted": 150.0,
+        "baseline": 150.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2883",
+      "group": "449129",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 89,
+      "cost": {
+        "actual": 1926696.0,
+        "predicted": 2168555.8998069214,
+        "baseline": 2185964.0
+      },
+      "duration": {
+        "actual": 188.0,
+        "predicted": 80.0,
+        "baseline": 80.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2887",
+      "group": "447290",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 90,
+      "cost": {
+        "actual": 743960.0,
+        "predicted": 750630.4798223259,
+        "baseline": 782704.0
+      },
+      "duration": {
+        "actual": 126.0,
+        "predicted": 119.0,
+        "baseline": 119.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2892",
+      "group": "210719",
+      "letDate": "2022-10-05",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 92,
+      "cost": {
+        "actual": 9713317.0,
+        "predicted": 9775860.672459483,
+        "baseline": 9775622.0
+      },
+      "duration": {
+        "actual": 291.0,
+        "predicted": 180.0,
+        "baseline": 180.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2895",
+      "group": "441259",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 93,
+      "cost": {
+        "actual": 6832975.0,
+        "predicted": 6672729.28039671,
+        "baseline": 6674091.0
+      },
+      "duration": {
+        "actual": 326.0,
+        "predicted": 200.0,
+        "baseline": 200.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2902",
+      "group": "439280",
+      "letDate": "2022-11-16",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 95,
+      "cost": {
+        "actual": 4179179.0,
+        "predicted": 3616020.3607058753,
+        "baseline": 3588897.0
+      },
+      "duration": {
+        "actual": 331.0,
+        "predicted": 250.0,
+        "baseline": 250.0
+      },
+      "risk": {
+        "actual": 1,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2923",
+      "group": "445426",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 97,
+      "cost": {
+        "actual": 198096.0,
+        "predicted": 199690.43092235518,
+        "baseline": 212969.0
+      },
+      "duration": {
+        "actual": 94.0,
+        "predicted": 74.0,
+        "baseline": 74.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E20T7",
+      "group": "430897",
+      "letDate": "2022-09-14",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 104,
+      "cost": {
+        "actual": 4591894.0,
+        "predicted": 4202098.966143618,
+        "baseline": 4193000.0
+      },
+      "duration": {
+        "actual": 341.0,
+        "predicted": 240.0,
+        "baseline": 240.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E20W8",
+      "group": "442779",
+      "letDate": "2022-11-30",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 106,
+      "cost": {
+        "actual": 1791366.0,
+        "predicted": 1769759.7436646237,
+        "baseline": 1761000.0
+      },
+      "duration": {
+        "actual": 181.0,
+        "predicted": 120.0,
+        "baseline": 120.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3816",
+      "group": "445632",
+      "letDate": "2022-10-05",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 143,
+      "cost": {
+        "actual": 3523880.0,
+        "predicted": 3464737.0021318044,
+        "baseline": 3430508.0
+      },
+      "duration": {
+        "actual": 257.0,
+        "predicted": 125.0,
+        "baseline": 125.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3817",
+      "group": "443875",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 144,
+      "cost": {
+        "actual": 580604.0,
+        "predicted": 535769.6552706712,
+        "baseline": 535084.0
+      },
+      "duration": {
+        "actual": 246.0,
+        "predicted": 60.0,
+        "baseline": 60.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3818",
+      "group": "443876",
+      "letDate": "2022-10-05",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 145,
+      "cost": {
+        "actual": 255356.0,
+        "predicted": 271242.72651825985,
+        "baseline": 287504.0
+      },
+      "duration": {
+        "actual": 150.0,
+        "predicted": 75.0,
+        "baseline": 75.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3819",
+      "group": "444043",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 146,
+      "cost": {
+        "actual": 2391790.0,
+        "predicted": 2238473.514940381,
+        "baseline": 2236764.0
+      },
+      "duration": {
+        "actual": 251.0,
+        "predicted": 110.0,
+        "baseline": 110.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3833",
+      "group": "445603",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 151,
+      "cost": {
+        "actual": 176477.0,
+        "predicted": 184955.93941671657,
+        "baseline": 192351.0
+      },
+      "duration": {
+        "actual": 45.0,
+        "predicted": 44.0,
+        "baseline": 44.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3836",
+      "group": "439744",
+      "letDate": "2022-10-05",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 152,
+      "cost": {
+        "actual": 3952664.0,
+        "predicted": 4540745.782248187,
+        "baseline": 4469056.0
+      },
+      "duration": {
+        "actual": 238.0,
+        "predicted": 169.0,
+        "baseline": 169.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E3V50",
+      "group": "425436",
+      "letDate": "2022-08-18",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 170,
+      "cost": {
+        "actual": 2860191.0,
+        "predicted": 3284960.5254847766,
+        "baseline": 3247610.0
+      },
+      "duration": {
+        "actual": 218.0,
+        "predicted": 250.0,
+        "baseline": 250.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T4629",
+      "group": "445623",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 199,
+      "cost": {
+        "actual": 985015.0,
+        "predicted": 1003536.0735205873,
+        "baseline": 1050673.0
+      },
+      "duration": {
+        "actual": 107.0,
+        "predicted": 122.0,
+        "baseline": 122.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E4V81",
+      "group": "446101",
+      "letDate": "2022-10-07",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 210,
+      "cost": {
+        "actual": 3942412.0,
+        "predicted": 3840498.1807987937,
+        "baseline": 3843000.0
+      },
+      "duration": {
+        "actual": 247.0,
+        "predicted": 148.0,
+        "baseline": 148.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E4V84",
+      "group": "446097",
+      "letDate": "2022-09-02",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 211,
+      "cost": {
+        "actual": 2896248.0,
+        "predicted": 3137487.85702998,
+        "baseline": 3147147.0
+      },
+      "duration": {
+        "actual": 179.0,
+        "predicted": 133.0,
+        "baseline": 133.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5750",
+      "group": "445684",
+      "letDate": "2022-07-27",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 227,
+      "cost": {
+        "actual": 930236.0,
+        "predicted": 917781.3167042076,
+        "baseline": 966460.0
+      },
+      "duration": {
+        "actual": 168.0,
+        "predicted": 130.0,
+        "baseline": 130.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5763",
+      "group": "445690",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 228,
+      "cost": {
+        "actual": 1601935.0,
+        "predicted": 1663748.9124425428,
+        "baseline": 1690095.0
+      },
+      "duration": {
+        "actual": 176.0,
+        "predicted": 139.0,
+        "baseline": 139.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5765",
+      "group": "437596",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 229,
+      "cost": {
+        "actual": 1003807.0,
+        "predicted": 1026803.3625133698,
+        "baseline": 1068776.0
+      },
+      "duration": {
+        "actual": 198.0,
+        "predicted": 190.0,
+        "baseline": 190.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5766",
+      "group": "445695",
+      "letDate": "2022-10-05",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 230,
+      "cost": {
+        "actual": 1188314.0,
+        "predicted": 1349428.9934707694,
+        "baseline": 1397100.0
+      },
+      "duration": {
+        "actual": 188.0,
+        "predicted": 170.0,
+        "baseline": 170.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5771",
+      "group": "443166",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 231,
+      "cost": {
+        "actual": 3828346.0,
+        "predicted": 3896313.671210961,
+        "baseline": 3891608.0
+      },
+      "duration": {
+        "actual": 226.0,
+        "predicted": 190.0,
+        "baseline": 190.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5774",
+      "group": "445688",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 232,
+      "cost": {
+        "actual": 634157.0,
+        "predicted": 616360.5987529181,
+        "baseline": 662662.0
+      },
+      "duration": {
+        "actual": 192.0,
+        "predicted": 160.0,
+        "baseline": 160.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E50B4",
+      "group": "442906",
+      "letDate": "2022-07-06",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 240,
+      "cost": {
+        "actual": 3130395.0,
+        "predicted": 3079565.3755389387,
+        "baseline": 3079406.0
+      },
+      "duration": {
+        "actual": 317.0,
+        "predicted": 200.0,
+        "baseline": 200.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E53B6",
+      "group": "439017",
+      "letDate": "2022-09-07",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 243,
+      "cost": {
+        "actual": 1539808.0,
+        "predicted": 1630860.4063951198,
+        "baseline": 1640053.0
+      },
+      "duration": {
+        "actual": 166.0,
+        "predicted": 220.0,
+        "baseline": 220.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E55B1",
+      "group": "439142",
+      "letDate": "2022-12-06",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 245,
+      "cost": {
+        "actual": 5745517.0,
+        "predicted": 6277382.26271428,
+        "baseline": 6255758.0
+      },
+      "duration": {
+        "actual": 384.0,
+        "predicted": 280.0,
+        "baseline": 280.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E55B2",
+      "group": "444175",
+      "letDate": "2022-09-07",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 246,
+      "cost": {
+        "actual": 2854258.0,
+        "predicted": 2864174.133100327,
+        "baseline": 2868033.0
+      },
+      "duration": {
+        "actual": 228.0,
+        "predicted": 190.0,
+        "baseline": 190.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E55B3",
+      "group": "449424",
+      "letDate": "2022-12-06",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 247,
+      "cost": {
+        "actual": 969481.0,
+        "predicted": 909689.385297578,
+        "baseline": 950694.0
+      },
+      "duration": {
+        "actual": 187.0,
+        "predicted": 150.0,
+        "baseline": 150.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E55B4",
+      "group": "449425",
+      "letDate": "2022-11-01",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 248,
+      "cost": {
+        "actual": 851002.0,
+        "predicted": 909004.6926079086,
+        "baseline": 967737.0
+      },
+      "duration": {
+        "actual": 149.0,
+        "predicted": 170.0,
+        "baseline": 170.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E55B9",
+      "group": "446558",
+      "letDate": "2022-10-11",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 249,
+      "cost": {
+        "actual": 1216754.0,
+        "predicted": 1115946.8327580288,
+        "baseline": 1178485.0
+      },
+      "duration": {
+        "actual": 243.0,
+        "predicted": 130.0,
+        "baseline": 130.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E56B2",
+      "group": "443816",
+      "letDate": "2022-11-01",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 250,
+      "cost": {
+        "actual": 3338650.0,
+        "predicted": 3444429.574188895,
+        "baseline": 3435770.0
+      },
+      "duration": {
+        "actual": 321.0,
+        "predicted": 270.0,
+        "baseline": 270.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E58B2",
+      "group": "445294",
+      "letDate": "2022-11-01",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 256,
+      "cost": {
+        "actual": 8093983.0,
+        "predicted": 8141262.261355025,
+        "baseline": 8096921.0
+      },
+      "duration": {
+        "actual": 325.0,
+        "predicted": 300.0,
+        "baseline": 300.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T6543",
+      "group": "441836",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 270,
+      "cost": {
+        "actual": 2810967.0,
+        "predicted": 2796002.9144928567,
+        "baseline": 2810000.0
+      },
+      "duration": {
+        "actual": 227.0,
+        "predicted": 250.0,
+        "baseline": 250.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T6545",
+      "group": "445745",
+      "letDate": "2022-10-05",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 271,
+      "cost": {
+        "actual": 903865.0,
+        "predicted": 856674.2914517357,
+        "baseline": 915762.0
+      },
+      "duration": {
+        "actual": 218.0,
+        "predicted": 160.0,
+        "baseline": 160.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T6546",
+      "group": "445747",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 272,
+      "cost": {
+        "actual": 607521.0,
+        "predicted": 594311.3339727176,
+        "baseline": 636402.0
+      },
+      "duration": {
+        "actual": 172.0,
+        "predicted": 140.0,
+        "baseline": 140.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T6563",
+      "group": "448829",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 274,
+      "cost": {
+        "actual": 490972.0,
+        "predicted": 533029.0801981936,
+        "baseline": 565000.0
+      },
+      "duration": {
+        "actual": 159.0,
+        "predicted": 120.0,
+        "baseline": 120.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E6M36",
+      "group": "443432",
+      "letDate": "2022-08-25",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 279,
+      "cost": {
+        "actual": 1101281.0,
+        "predicted": 871043.6182320873,
+        "baseline": 935010.0
+      },
+      "duration": {
+        "actual": 303.0,
+        "predicted": 160.0,
+        "baseline": 160.0
+      },
+      "risk": {
+        "actual": 1,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E6N09",
+      "group": "444805",
+      "letDate": "2022-07-28",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 281,
+      "cost": {
+        "actual": 706126.0,
+        "predicted": 737547.3701524591,
+        "baseline": 797552.0
+      },
+      "duration": {
+        "actual": 172.0,
+        "predicted": 240.0,
+        "baseline": 240.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E6O02",
+      "group": "444799",
+      "letDate": "2022-10-06",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 284,
+      "cost": {
+        "actual": 733765.0,
+        "predicted": 736094.0787903235,
+        "baseline": 779455.0
+      },
+      "duration": {
+        "actual": 206.0,
+        "predicted": 200.0,
+        "baseline": 200.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E6O04",
+      "group": "441965",
+      "letDate": "2022-11-17",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 285,
+      "cost": {
+        "actual": 1381923.0,
+        "predicted": 1410139.1014587248,
+        "baseline": 1446162.0
+      },
+      "duration": {
+        "actual": 307.0,
+        "predicted": 380.0,
+        "baseline": 380.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T7484",
+      "group": "437807",
+      "letDate": "2022-07-27",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 296,
+      "cost": {
+        "actual": 2426876.0,
+        "predicted": 2673737.8983589103,
+        "baseline": 2689020.0
+      },
+      "duration": {
+        "actual": 341.0,
+        "predicted": 290.0,
+        "baseline": 290.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E8T76",
+      "group": "442061",
+      "letDate": "2022-08-16",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 345,
+      "cost": {
+        "actual": 13262271.0,
+        "predicted": 15528385.660051823,
+        "baseline": 15249859.0
+      },
+      "duration": {
+        "actual": 410.0,
+        "predicted": 342.0,
+        "baseline": 342.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E8T86",
+      "group": "438551",
+      "letDate": "2022-08-16",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 346,
+      "cost": {
+        "actual": 607225.0,
+        "predicted": 555047.6754862946,
+        "baseline": 597627.0
+      },
+      "duration": {
+        "actual": 142.0,
+        "predicted": 136.0,
+        "baseline": 136.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E8T87",
+      "group": "438550",
+      "letDate": "2022-08-16",
+      "sourceFile": "FDOT_FY2024_Q4.xlsx",
+      "sourceRow": 347,
+      "cost": {
+        "actual": 705154.0,
+        "predicted": 708913.3830674705,
+        "baseline": 767354.0
+      },
+      "duration": {
+        "actual": 84.0,
+        "predicted": 199.0,
+        "baseline": 199.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T1847",
+      "group": "438057",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 6,
+      "cost": {
+        "actual": 1205156.0,
+        "predicted": 1144588.5513208748,
+        "baseline": 1159034.0
+      },
+      "duration": {
+        "actual": 247.0,
+        "predicted": 130.0,
+        "baseline": 130.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T1848",
+      "group": "445932",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 7,
+      "cost": {
+        "actual": 12823061.0,
+        "predicted": 13331928.70025147,
+        "baseline": 13310586.0
+      },
+      "duration": {
+        "actual": 382.0,
+        "predicted": 300.0,
+        "baseline": 300.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T1860",
+      "group": "437096",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 8,
+      "cost": {
+        "actual": 4493121.0,
+        "predicted": 4318012.7324350355,
+        "baseline": 4325722.0
+      },
+      "duration": {
+        "actual": 398.0,
+        "predicted": 250.0,
+        "baseline": 250.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E1V61",
+      "group": "446228",
+      "letDate": "2022-10-10",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 19,
+      "cost": {
+        "actual": 5707872.0,
+        "predicted": 5297102.387664534,
+        "baseline": 5258695.0
+      },
+      "duration": {
+        "actual": 531.0,
+        "predicted": 400.0,
+        "baseline": 400.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2896",
+      "group": "442848",
+      "letDate": "2022-11-16",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 36,
+      "cost": {
+        "actual": 3666172.0,
+        "predicted": 3813958.2979241167,
+        "baseline": 3802716.0
+      },
+      "duration": {
+        "actual": 348.0,
+        "predicted": 300.0,
+        "baseline": 300.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2897",
+      "group": "445546",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 37,
+      "cost": {
+        "actual": 8193910.0,
+        "predicted": 7944762.691028467,
+        "baseline": 7947765.0
+      },
+      "duration": {
+        "actual": 424.0,
+        "predicted": 250.0,
+        "baseline": 250.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2928",
+      "group": "431955",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 46,
+      "cost": {
+        "actual": 1180315.0,
+        "predicted": 1039256.3378360288,
+        "baseline": 1070183.0
+      },
+      "duration": {
+        "actual": 307.0,
+        "predicted": 150.0,
+        "baseline": 150.0
+      },
+      "risk": {
+        "actual": 1,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2933",
+      "group": "441058",
+      "letDate": "2022-11-16",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 49,
+      "cost": {
+        "actual": 10297505.0,
+        "predicted": 10770807.147926668,
+        "baseline": 10782106.0
+      },
+      "duration": {
+        "actual": 475.0,
+        "predicted": 240.0,
+        "baseline": 240.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3767",
+      "group": "441881",
+      "letDate": "2022-10-05",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 70,
+      "cost": {
+        "actual": 1837783.0,
+        "predicted": 1821962.4765136365,
+        "baseline": 1798857.0
+      },
+      "duration": {
+        "actual": 261.0,
+        "predicted": 150.0,
+        "baseline": 150.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3774",
+      "group": "441156",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 71,
+      "cost": {
+        "actual": 2481516.0,
+        "predicted": 2400108.3527895417,
+        "baseline": 2352518.0
+      },
+      "duration": {
+        "actual": 519.0,
+        "predicted": 240.0,
+        "baseline": 240.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3826",
+      "group": "443877",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 80,
+      "cost": {
+        "actual": 927016.0,
+        "predicted": 900813.957193601,
+        "baseline": 942554.0
+      },
+      "duration": {
+        "actual": 322.0,
+        "predicted": 90.0,
+        "baseline": 90.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3834",
+      "group": "445635",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 84,
+      "cost": {
+        "actual": 21410083.0,
+        "predicted": 20414410.928251944,
+        "baseline": 19944475.0
+      },
+      "duration": {
+        "actual": 426.0,
+        "predicted": 270.0,
+        "baseline": 270.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3842",
+      "group": "444040",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 85,
+      "cost": {
+        "actual": 802521.0,
+        "predicted": 819297.7514328272,
+        "baseline": 851756.0
+      },
+      "duration": {
+        "actual": 424.0,
+        "predicted": 60.0,
+        "baseline": 60.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E3W27",
+      "group": "434645",
+      "letDate": "2022-12-15",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 107,
+      "cost": {
+        "actual": 4101914.0,
+        "predicted": 4018846.257949398,
+        "baseline": 3980189.0
+      },
+      "duration": {
+        "actual": 257.0,
+        "predicted": 150.0,
+        "baseline": 150.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T4625",
+      "group": "441755",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 130,
+      "cost": {
+        "actual": 3328234.0,
+        "predicted": 3570041.067133802,
+        "baseline": 3558974.0
+      },
+      "duration": {
+        "actual": 458.0,
+        "predicted": 234.0,
+        "baseline": 234.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E4V50",
+      "group": "439759",
+      "letDate": "2022-09-02",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 145,
+      "cost": {
+        "actual": 2469346.0,
+        "predicted": 2440222.8331633946,
+        "baseline": 2437437.0
+      },
+      "duration": {
+        "actual": 338.0,
+        "predicted": 246.0,
+        "baseline": 246.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E4V97",
+      "group": "441759",
+      "letDate": "2022-11-04",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 147,
+      "cost": {
+        "actual": 2884627.0,
+        "predicted": 3008424.516738463,
+        "baseline": 3019043.0
+      },
+      "duration": {
+        "actual": 323.0,
+        "predicted": 128.0,
+        "baseline": 128.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5764",
+      "group": "445813",
+      "letDate": "2022-10-05",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 168,
+      "cost": {
+        "actual": 2331897.0,
+        "predicted": 2415228.9264189424,
+        "baseline": 2470270.0
+      },
+      "duration": {
+        "actual": 434.0,
+        "predicted": 260.0,
+        "baseline": 260.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5767",
+      "group": "441016",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 169,
+      "cost": {
+        "actual": 11153083.0,
+        "predicted": 10950799.7786916,
+        "baseline": 10858007.0
+      },
+      "duration": {
+        "actual": 470.0,
+        "predicted": 500.0,
+        "baseline": 500.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5769",
+      "group": "445715",
+      "letDate": "2022-10-05",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 170,
+      "cost": {
+        "actual": 1797799.0,
+        "predicted": 1806504.257607474,
+        "baseline": 1830300.0
+      },
+      "duration": {
+        "actual": 307.0,
+        "predicted": 300.0,
+        "baseline": 300.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5772",
+      "group": "445693",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 171,
+      "cost": {
+        "actual": 2104981.0,
+        "predicted": 1835700.666860131,
+        "baseline": 1859536.0
+      },
+      "duration": {
+        "actual": 403.0,
+        "predicted": 260.0,
+        "baseline": 260.0
+      },
+      "risk": {
+        "actual": 1,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5775",
+      "group": "445707",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 172,
+      "cost": {
+        "actual": 953841.0,
+        "predicted": 889522.2789800847,
+        "baseline": 937052.0
+      },
+      "duration": {
+        "actual": 296.0,
+        "predicted": 250.0,
+        "baseline": 250.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T5776",
+      "group": "445771",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 173,
+      "cost": {
+        "actual": 1667048.0,
+        "predicted": 1809649.2239107047,
+        "baseline": 1821012.0
+      },
+      "duration": {
+        "actual": 237.0,
+        "predicted": 180.0,
+        "baseline": 180.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E50B9",
+      "group": "445304",
+      "letDate": "2022-11-01",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 182,
+      "cost": {
+        "actual": 8501569.0,
+        "predicted": 8306535.105967297,
+        "baseline": 8212061.0
+      },
+      "duration": {
+        "actual": 616.0,
+        "predicted": 360.0,
+        "baseline": 360.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E52B5",
+      "group": "448922",
+      "letDate": "2022-11-01",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 186,
+      "cost": {
+        "actual": 1929854.0,
+        "predicted": 1899582.699969908,
+        "baseline": 1894138.0
+      },
+      "duration": {
+        "actual": 438.0,
+        "predicted": 227.0,
+        "baseline": 227.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E55B6",
+      "group": "449359",
+      "letDate": "2022-12-06",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 188,
+      "cost": {
+        "actual": 1330056.0,
+        "predicted": 1160427.4246737647,
+        "baseline": 1222662.0
+      },
+      "duration": {
+        "actual": 263.0,
+        "predicted": 160.0,
+        "baseline": 160.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T7481",
+      "group": "440733",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 235,
+      "cost": {
+        "actual": 3174072.0,
+        "predicted": 3281607.0458143507,
+        "baseline": 3304021.0
+      },
+      "duration": {
+        "actual": 294.0,
+        "predicted": 225.0,
+        "baseline": 225.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T7497",
+      "group": "439401",
+      "letDate": "2022-08-31",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 238,
+      "cost": {
+        "actual": 7320296.0,
+        "predicted": 7200140.825547976,
+        "baseline": 7112946.0
+      },
+      "duration": {
+        "actual": 460.0,
+        "predicted": 375.0,
+        "baseline": 375.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E8T82",
+      "group": "428972",
+      "letDate": "2022-09-13",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 269,
+      "cost": {
+        "actual": 2639419.0,
+        "predicted": 2518689.0400060555,
+        "baseline": 2504148.0
+      },
+      "duration": {
+        "actual": 464.0,
+        "predicted": 568.0,
+        "baseline": 568.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E8T94",
+      "group": "435786",
+      "letDate": "2022-10-25",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 270,
+      "cost": {
+        "actual": 2503780.0,
+        "predicted": 2597172.423427931,
+        "baseline": 2596848.0
+      },
+      "duration": {
+        "actual": 221.0,
+        "predicted": 165.0,
+        "baseline": 165.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E8T95",
+      "group": "441719",
+      "letDate": "2022-10-25",
+      "sourceFile": "FDOT_FY2025_Q3.xlsx",
+      "sourceRow": 271,
+      "cost": {
+        "actual": 22079112.0,
+        "predicted": 22313830.458997484,
+        "baseline": 21849074.0
+      },
+      "duration": {
+        "actual": 615.0,
+        "predicted": 508.0,
+        "baseline": 508.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T1843",
+      "group": "436955",
+      "letDate": "2022-07-27",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 8,
+      "cost": {
+        "actual": 4254744.0,
+        "predicted": 4156831.6855384344,
+        "baseline": 4165582.0
+      },
+      "duration": {
+        "actual": 443.0,
+        "predicted": 225.0,
+        "baseline": 225.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E1V05",
+      "group": "444008",
+      "letDate": "2022-07-21",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 33,
+      "cost": {
+        "actual": 21651639.0,
+        "predicted": 22418763.360615525,
+        "baseline": 22180000.0
+      },
+      "duration": {
+        "actual": 697.0,
+        "predicted": 350.0,
+        "baseline": 350.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E1V51",
+      "group": "447437",
+      "letDate": "2022-08-02",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 41,
+      "cost": {
+        "actual": 24060306.0,
+        "predicted": 23477103.439032108,
+        "baseline": 23141400.0
+      },
+      "duration": {
+        "actual": 763.0,
+        "predicted": 650.0,
+        "baseline": 650.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2865",
+      "group": "443517",
+      "letDate": "2022-11-16",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 74,
+      "cost": {
+        "actual": 9149657.0,
+        "predicted": 7671522.650966529,
+        "baseline": 7663000.0
+      },
+      "duration": {
+        "actual": 681.0,
+        "predicted": 400.0,
+        "baseline": 400.0
+      },
+      "risk": {
+        "actual": 1,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2886",
+      "group": "445544",
+      "letDate": "2022-10-05",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 76,
+      "cost": {
+        "actual": 17771453.0,
+        "predicted": 16748293.566250628,
+        "baseline": 16754450.0
+      },
+      "duration": {
+        "actual": 917.0,
+        "predicted": 270.0,
+        "baseline": 270.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2889",
+      "group": "435756",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 77,
+      "cost": {
+        "actual": 4383212.0,
+        "predicted": 3839882.7196785137,
+        "baseline": 3832776.0
+      },
+      "duration": {
+        "actual": 638.0,
+        "predicted": 280.0,
+        "baseline": 280.0
+      },
+      "risk": {
+        "actual": 1,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2890",
+      "group": "445547",
+      "letDate": "2022-10-26",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 78,
+      "cost": {
+        "actual": 25953030.0,
+        "predicted": 25670255.324956365,
+        "baseline": 25595410.0
+      },
+      "duration": {
+        "actual": 924.0,
+        "predicted": 350.0,
+        "baseline": 350.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2894",
+      "group": "445402",
+      "letDate": "2022-11-16",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 79,
+      "cost": {
+        "actual": 13363147.0,
+        "predicted": 12472890.83047647,
+        "baseline": 12471547.0
+      },
+      "duration": {
+        "actual": 575.0,
+        "predicted": 240.0,
+        "baseline": 240.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T2934",
+      "group": "443310",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 87,
+      "cost": {
+        "actual": 27874372.0,
+        "predicted": 26142319.578307997,
+        "baseline": 26057502.0
+      },
+      "duration": {
+        "actual": 711.0,
+        "predicted": 450.0,
+        "baseline": 450.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "T3837",
+      "group": "222593",
+      "letDate": "2022-12-07",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 150,
+      "cost": {
+        "actual": 11821261.0,
+        "predicted": 12069982.517959451,
+        "baseline": 11772258.0
+      },
+      "duration": {
+        "actual": 608.0,
+        "predicted": 425.0,
+        "baseline": 425.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E3U65",
+      "group": "441885",
+      "letDate": "2022-11-17",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 179,
+      "cost": {
+        "actual": 3739460.0,
+        "predicted": 3719786.3316869987,
+        "baseline": 3672487.0
+      },
+      "duration": {
+        "actual": 695.0,
+        "predicted": 250.0,
+        "baseline": 250.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E3W01",
+      "group": "445591",
+      "letDate": "2022-09-08",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 183,
+      "cost": {
+        "actual": 6812783.0,
+        "predicted": 7645026.537427089,
+        "baseline": 7469384.0
+      },
+      "duration": {
+        "actual": 968.0,
+        "predicted": 365.0,
+        "baseline": 365.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E4V62",
+      "group": "436958",
+      "letDate": "2022-08-18",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 247,
+      "cost": {
+        "actual": 32554410.0,
+        "predicted": 31754977.791578945,
+        "baseline": 31058595.0
+      },
+      "duration": {
+        "actual": 649.0,
+        "predicted": 622.0,
+        "baseline": 622.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E4W05",
+      "group": "440473",
+      "letDate": "2022-12-02",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 248,
+      "cost": {
+        "actual": 4429433.0,
+        "predicted": 4025043.997714815,
+        "baseline": 3993841.0
+      },
+      "duration": {
+        "actual": 550.0,
+        "predicted": 324.0,
+        "baseline": 324.0
+      },
+      "risk": {
+        "actual": 1,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E7P68",
+      "group": "416733",
+      "letDate": "2022-12-14",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 429,
+      "cost": {
+        "actual": 15995436.0,
+        "predicted": 16077772.76762512,
+        "baseline": 15756084.0
+      },
+      "duration": {
+        "actual": 918.0,
+        "predicted": 550.0,
+        "baseline": 550.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E7R24",
+      "group": "441320",
+      "letDate": "2022-08-04",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 444,
+      "cost": {
+        "actual": 7042581.0,
+        "predicted": 7116880.187683828,
+        "baseline": 6997500.0
+      },
+      "duration": {
+        "actual": 779.0,
+        "predicted": 580.0,
+        "baseline": 580.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    },
+    {
+      "id": "E8T83",
+      "group": "442764",
+      "letDate": "2022-09-20",
+      "sourceFile": "FDOT_FY2026_Q4.xlsx",
+      "sourceRow": 457,
+      "cost": {
+        "actual": 102351127.0,
+        "predicted": 105913999.3396303,
+        "baseline": 102999958.0
+      },
+      "duration": {
+        "actual": 892.0,
+        "predicted": 1277.0,
+        "baseline": 1277.0
+      },
+      "risk": {
+        "actual": 0,
+        "predicted": null,
+        "probability": 0.060794044665012405
+      }
+    }
+  ]
+}

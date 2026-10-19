@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const { readModelEvidence } = require('./packages/ai-engine/model-evidence');
 const { normalizeGeometry } = require('./packages/ai-engine/engineering-ke/project-geometry');
 const { validatePricingOptions } = require('./packages/ai-engine/models/boq-cost-ledger');
 const app = express();
@@ -191,7 +192,16 @@ app.locals.boqEngine = boqEngine;
 app.locals.knowledgeBase = ACEPKnowledgeBase;
 
 let aiReady = false;
-ai.initialize().then(r => { aiReady = true; console.log(`[ACEP] AI Engine ready: ${r.totalRecords} records across ${r.models} models`); }).catch(e => console.error('[ACEP] AI init error:', e.message));
+let aiInitializationError = null;
+function isAIReady() {
+  aiReady = ai.getStatus().operationalReady === true;
+  return aiReady;
+}
+ai.initialize().then(r => {
+  isAIReady();
+  const message = `[ACEP] Model initialization: ${r.status}; ${r.successfulModels}/${r.requestedModels} fits succeeded. Accuracy requires independent evaluation.`;
+  if (aiReady) console.log(message); else console.error(message);
+}).catch(e => { aiInitializationError = e.message; console.error('[ACEP] AI init error:', e.message); });
 
 const store = require('./data/store');
 let projects = store.getProjects();
@@ -221,7 +231,9 @@ process.on('SIGTERM', () => { edl.persist(EDL_STATE_PATH); clearInterval(persist
 
 function waitForAI(fn) {
   return async (req, res) => {
-    if (!aiReady) return res.status(503).json({ error: 'AI Engine initializing', status: 'loading' });
+    if (!isAIReady()) return res.status(503).json({ error: 'AI models are not operationally ready',
+      status: aiInitializationError ? 'failed' : ai.getStatus().initializationStatus,
+      accuracyValidated: false });
     try { await fn(req, res); } catch (e) { console.error(e); res.status(500).json({ error: e.message }); }
   };
 }
@@ -398,7 +410,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'packages', 'ui', 'web', 'index.html'));
   } else {
     res.json({
-      name: 'ACEP Engineering OS', version: '2.0.0', status: 'running', aiReady,
+      name: 'ACEP Engineering OS', version: '2.0.0', status: 'running', aiReady: isAIReady(),
       description: 'AI Construction Engineering Platform - Internal AI Engine',
       models: ai.getStatus(),
       endpoints: {
@@ -415,9 +427,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/health', (req, res) => {
+  isAIReady();
   const status = ai.getStatus();
   res.json({
-    status: 'healthy', uptime: process.uptime(), aiReady, ai: status, timestamp: new Date().toISOString(),
+    status: aiReady ? 'healthy' : 'degraded', uptime: process.uptime(), aiReady, ai: status,
+    accuracyValidated: false, timestamp: new Date().toISOString(),
     engines: {
       ProjectUnderstandingEngine: { registered: true, status: status.projectAnalyzer ? 'trained' : 'idle' },
       VirtualBuildingEngine: { registered: true, status: status.projectAnalyzer ? 'trained' : 'idle' },
@@ -676,7 +690,7 @@ app.post('/api/v1/projects', (req, res) => {
 
   let aiResult = {};
   let boq = null, cost = null, sched = null, risks = null, quality = null;
-  if (aiReady) {
+  if (isAIReady()) {
     try {
       const desc = description || `مشروع ${name}`;
       const params = parseDescription(desc);
@@ -747,7 +761,7 @@ app.get('/api/v1/projects/:id', (req, res) => {
   const p = store.findProject(req.params.id);
   if (!p) return res.status(404).json({ error: 'Project not found' });
   let boq, cost, sched, risks, quality;
-  if (aiReady) {
+  if (isAIReady()) {
     try {
       const pp = getProjectParams(p);
       if (pp.area == null || pp.floors == null) throw new Error('Missing explicit project geometry');
@@ -3101,6 +3115,7 @@ app.get('/api/v1/phases/status', (req, res) => {
   try { qualityCheck = dataQualityPipeline.runFullCheck(); } catch {}
   const qcOverall = qualityCheck.overall || {};
   res.json({
+    modelEvidence: readModelEvidence(),
     p1_auditReport: { ok: require('fs').existsSync(path.join(__dirname, 'AI-AUDIT-REPORT-COMPLETE.json')), file: 'AI-AUDIT-REPORT-COMPLETE.json' },
     p2_knowledgeDataset: { ok: knowledgeDataset.getStats().projectTypes > 0, projectTypes: knowledgeDataset.getStats().projectTypes, boqItems: knowledgeDataset.getStats().unitPriceItems },
     p3_dataStandards: { ok: true, schemas: dataStandards.getStats().schemas, unitStandards: dataStandards.getStats().unitStandards },
@@ -3163,11 +3178,18 @@ app.post('/api/v1/benchmark-library/run', (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// Read-only frozen research evidence; never triggers training or changes model readiness.
+app.get('/api/v1/model-evidence', (req, res) => {
+  const evidence = readModelEvidence();
+  res.status(evidence.ok ? 200 : 503).json(evidence);
+});
+
 app.post('/api/v1/benchmark-library/compare', (req, res) => {
   try {
-    const { type, area, floors } = req.body;
+    const { type, area, floors } = req.body || {};
     if (!type) return res.status(400).json({ error: 'type required' });
-    res.json(benchmarkLibrary.compareWithAIModels({ type, area: area || 500, floors: floors || 2 }));
+    const comparison = benchmarkLibrary.compareWithAIModels({ type, area, floors });
+    res.status(comparison.ok ? 200 : 422).json(comparison);
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
@@ -4201,4 +4223,5 @@ app.listen(PORT, () => {
   console.log(`  Final Report:      ${finalReport ? '✓' : '✗'}   /api/v1/final-report/`);
   console.log('═══════════════════════════════════════════════════\n');
 });
+
 

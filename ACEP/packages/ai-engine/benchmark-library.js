@@ -1,257 +1,116 @@
+// Historical aggregate diagnostics are not independent model accuracy.
+const positive = n => typeof n === 'number' && Number.isFinite(n) && n > 0;
+const META = Object.freeze({ schemaVersion: 2, evaluationKind: 'historical_aggregate_diagnostic',
+  accuracyValidated: false, independentTest: false, acceptanceEligible: false });
 class BenchmarkLibrary {
-  constructor(knowledgeDataset, aiEngine, dataStandards, dataQualityPipeline) {
-    this.dataset = knowledgeDataset;
-    this.ai = aiEngine;
-    this.standards = dataStandards;
-    this.quality = dataQualityPipeline;
-    this._results = [];
-    this._lastRun = null;
+  constructor(dataset, ai, standards, quality) {
+    Object.assign(this, { dataset, ai, standards, quality, _results: [], _lastRun: null });
   }
-
   runAll() {
-    const sq = this.dataset.getStandardQuantities();
-    if (!sq || !sq.data) return { ok: false, error: 'No standard quantities data available' };
-
-    const startTime = Date.now();
-    const results = [];
-    const byModel = {};
-
+    const start = Date.now();
+    let sq;
+    try { sq = this.dataset.getStandardQuantities(); } catch (e) {
+      return { ...META, ok: false, error: e.message, passed: null, failed: null, byModel: {}, details: [] };
+    }
+    if (!sq?.data) return { ...META, ok: false, error: 'Historical references unavailable',
+      passed: null, failed: null, byModel: {}, details: [] };
+    const details = [];
     for (const [type, info] of Object.entries(sq.data)) {
-      if (info.samples < 10) continue;
-      const testCase = {
-        type,
-        area: info.avgBuildingArea || 500,
-        floors: Math.round(info.avgFloors?.mean || 2),
-        samples: info.samples,
-      };
-
-      const result = this._testProject(testCase, info);
-      results.push(result);
-
-      for (const [model, mr] of Object.entries(result.models)) {
-        if (!byModel[model]) byModel[model] = { total: 0, accuracySum: 0, errors: 0 };
-        byModel[model].total++;
-        if (mr.accuracy !== null) byModel[model].accuracySum += mr.accuracy;
-        if (mr.error) byModel[model].errors++;
-      }
+      if (!info || !Number.isSafeInteger(info.samples) || info.samples < 10) continue;
+      const area = positive(info.avgBuildingArea) ? info.avgBuildingArea : null;
+      const f = info.avgFloors?.mean;
+      const floors = positive(f) && Number.isSafeInteger(Math.round(f)) && Math.round(f) >= 1 ? Math.round(f) : null;
+      details.push(this._testProject({ type, area, floors, samples: info.samples }, info));
     }
-
-    const totalTests = results.reduce((s, r) => s + Object.keys(r.models).length, 0);
-    const passed = results.reduce((s, r) => s + Object.values(r.models).filter(m => m.passed).length, 0);
-    const duration = Date.now() - startTime;
-
-    const modelsFinal = {};
-    for (const [name, stats] of Object.entries(byModel)) {
-      modelsFinal[name] = {
-        total: stats.total,
-        avgAccuracy: stats.total > 0 ? Math.round(stats.accuracySum / stats.total * 10000) / 100 : 0,
-        errors: stats.errors,
-        passRate: stats.total > 0 ? Math.round((stats.total - stats.errors) / stats.total * 10000) / 100 : 0,
-      };
+    const byModel = {};
+    for (const d of details) for (const [name, v] of Object.entries(d.models)) {
+      const m = byModel[name] ||= { total: 0, scored: 0, unavailable: 0, errors: 0,
+        avgAccuracy: null, passRate: null, accuracyValidated: false };
+      m.total++;
+      if (Number.isFinite(v.relativeDifferencePercent)) m.scored++; else m.unavailable++;
+      if (v.error) m.errors++;
     }
-
-    this._lastRun = {
-      timestamp: new Date().toISOString(),
-      duration,
-      totalTests,
-      passed: Math.round(passed / totalTests * 10000) / 100,
-      failed: Math.round((totalTests - passed) / totalTests * 10000) / 100,
-      projectTypesTested: results.length,
-      byModel: modelsFinal,
-      details: results,
-    };
+    const totalTests = Object.values(byModel).reduce((n, s) => n + s.total, 0);
+    const scored = Object.values(byModel).reduce((n, s) => n + s.scored, 0);
+    this._lastRun = { ...META, ok: details.length > 0, timestamp: new Date().toISOString(),
+      duration: Date.now() - start, totalTests, scored, unavailable: totalTests - scored,
+      coverage: totalTests ? scored / totalTests : 0, passed: null, failed: null,
+      projectTypesTested: details.length, byModel, details,
+      limitations: ['Historical aggregates may overlap training and have unverified provenance.',
+        'Differences from a type mean are diagnostics, not errors on executed projects.',
+        'Historical mean building area is provisionally treated as per-floor area; its source basis is unverified.',
+        'Quantity comparisons need matched item scope, units and area basis.'] };
     this._results.push(this._lastRun);
     return this._lastRun;
   }
-
   _testProject(testCase, info) {
     const models = {};
-    const perM2 = info.perM2 || {};
-
-    const testConcrete = this._comparePerM2('concrete', perM2.concrete, testCase, 'Standard Quantities');
-    if (testConcrete) models.concreteQuantity = testConcrete;
-
-    const testSteel = this._comparePerM2('steel', perM2.steel, testCase, 'Standard Quantities');
-    if (testSteel) models.steelQuantity = testSteel;
-
-    const testBlocks = this._comparePerM2('blocks', perM2.blocks, testCase, 'Standard Quantities');
-    if (testBlocks) models.blocksQuantity = testBlocks;
-
-    const testTiles = this._comparePerM2('tiles', perM2.tiles, testCase, 'Standard Quantities');
-    if (testTiles) models.tilesQuantity = testTiles;
-
-    const testPaint = this._comparePerM2('paint', perM2.paint, testCase, 'Standard Quantities');
-    if (testPaint) models.paintQuantity = testPaint;
-
-    if (info.avgCost && info.avgCost.mean > 0) {
-      const aiCost = this._estimateCost(testCase.type, testCase.area, testCase.floors);
-      if (aiCost !== null) {
-        const costAccuracy = this._accuracy(aiCost, info.avgCost.mean);
-        models.costEstimation = {
-          actual: info.avgCost.mean,
-          predicted: aiCost,
-          accuracy: costAccuracy,
-          passed: costAccuracy >= 0.5,
-          mape: Math.round(Math.abs(1 - aiCost / info.avgCost.mean) * 10000) / 100,
-        };
-      }
+    for (const field of ['concrete', 'steel', 'blocks', 'tiles', 'paint']) {
+      models[field + 'Quantity'] = this._diagnostic(info.perM2?.[field]?.mean, null,
+        'matched_item_scope_units_and_area_basis_required');
     }
-
-    if (info.avgDuration && info.avgDuration.mean > 0) {
-      const aiDuration = this._estimateDuration(testCase.type, testCase.area, testCase.floors);
-      if (aiDuration !== null) {
-        const durAccuracy = this._accuracy(aiDuration, info.avgDuration.mean);
-        models.scheduleEstimation = {
-          actual: info.avgDuration.mean,
-          predicted: aiDuration,
-          accuracy: durAccuracy,
-          passed: durAccuracy >= 0.5,
-          mape: Math.round(Math.abs(1 - aiDuration / info.avgDuration.mean) * 10000) / 100,
-        };
-      }
-    }
-
-    const allPassed = Object.values(models).every(m => m.passed !== false);
-    const avgAccuracy = Object.values(models).reduce((s, m) => s + (m.accuracy || 0), 0) / Math.max(1, Object.values(models).length);
-
-    return {
-      projectType: testCase.type,
-      samples: testCase.samples,
-      area: testCase.area,
-      floors: testCase.floors,
-      models,
-      overallPassed: allPassed,
-      avgAccuracy: Math.round(avgAccuracy * 10000) / 100,
-      testedModels: Object.keys(models).length,
+    const geometryOK = positive(testCase.area) && Number.isSafeInteger(testCase.floors) && testCase.floors > 0;
+    const predict = (method, reference) => {
+      if (!geometryOK) return this._diagnostic(reference, null, 'historical_geometry_missing');
+      try { return this._diagnostic(reference, method()); }
+      catch (e) { return { ...this._diagnostic(reference, null, 'model_prediction_failed'), error: e.message }; }
     };
+    models.costEstimation = predict(() => this._estimateCost(testCase.type, testCase.area, testCase.floors), info.avgCost?.mean);
+    models.scheduleEstimation = predict(() => this._estimateDuration(testCase.type, testCase.area, testCase.floors), info.avgDuration?.mean);
+    return { projectType: testCase.type, samples: testCase.samples, area: testCase.area, floors: testCase.floors,
+      geometrySource: 'historical_type_mean', areaBasis: 'assumed_per_floor', models, overallPassed: null, avgAccuracy: null,
+      testedModels: Object.keys(models).length, accuracyValidated: false };
   }
-
-  _comparePerM2(field, stat, testCase, modelName) {
-    if (!stat || !stat.mean) return null;
-    const knowledgeRate = stat.mean;
-    const accuracy = 1.0;
-    return {
-      actual: knowledgeRate,
-      predicted: knowledgeRate,
-      accuracy,
-      passed: true,
-      unit: `${field}/m²`,
-      source: 'csv_historical',
-      samples: stat.samples,
-    };
+  _diagnostic(reference, predicted, reason) {
+    const refOK = positive(reference), predOK = positive(predicted);
+    const diff = refOK && predOK ? Math.abs(predicted / reference - 1) * 100 : null;
+    const available = Number.isFinite(diff);
+    return { referenceMean: refOK ? reference : null, predicted: predOK ? predicted : null,
+      relativeDifferencePercent: available ? diff : null, accuracy: null, passed: null, mape: null,
+      accuracyValidated: false, status: available ? 'diagnostic_only' : 'unscorable',
+      reason: reason || (!refOK ? 'reference_missing' : !predOK ? 'prediction_missing' : !available ? 'unsafe_arithmetic' : 'not_independent_ground_truth') };
   }
-
   _estimateCost(type, area, floors) {
-    const sq = this.dataset.getStandardQuantities(type);
-    const historicalAvg = sq?.avgCost?.mean || 0;
-    const historicalSamples = sq?.avgCost?.samples || 0;
-
-    let aiCost = null;
-    if (this.ai && this.ai.costEstimator) {
-      try {
-        const boq = this.ai.quantityEstimator?.estimateBOQ(type, area, floors);
-        const cost = this.ai.costEstimator.estimateCost(boq?.items || [], type, area, floors);
-        aiCost = cost?.totalCost || null;
-      } catch { /* skip */ }
-    }
-
-    if (historicalAvg > 0 && historicalSamples >= 10) {
-      if (aiCost !== null && aiCost > 0) {
-        const historicalWeight = Math.min(0.8, 0.4 + historicalSamples * 0.004);
-        return historicalAvg * historicalWeight + aiCost * (1 - historicalWeight);
-      }
-      return historicalAvg;
-    }
-    return aiCost;
+    if (!this.ai?.quantityEstimator || !this.ai?.costEstimator) return null;
+    const boq = this.ai.quantityEstimator.estimateBOQ(type, area, floors);
+    if (!Array.isArray(boq?.items) || !boq.items.length) return null;
+    const cost = this.ai.costEstimator.estimateCost(boq.items, type, area, floors);
+    if (cost?.complete === false || cost?.status === 'incomplete') return null;
+    return cost?.totalCost ?? null;
   }
-
   _estimateDuration(type, area, floors) {
-    const sq = this.dataset.getStandardQuantities(type);
-    const historicalAvg = sq?.avgDuration?.mean || 0;
-    const historicalSamples = sq?.avgDuration?.samples || 0;
-
-    let aiDuration = null;
-    if (this.ai && this.ai.scheduleOptimizer) {
-      try {
-        const sched = this.ai.scheduleOptimizer.generateSchedule(type, area, floors);
-        aiDuration = sched?.totalMonths || null;
-      } catch { /* skip */ }
-    }
-
-    if (historicalAvg > 0 && historicalSamples >= 10) {
-      if (aiDuration !== null && aiDuration > 0) {
-        const historicalWeight = Math.min(0.8, 0.4 + historicalSamples * 0.004);
-        return historicalAvg * historicalWeight + aiDuration * (1 - historicalWeight);
-      }
-      return historicalAvg;
-    }
-    return aiDuration;
+    if (!this.ai?.scheduleOptimizer) return null;
+    const totalArea = area * floors;
+    if (!Number.isFinite(totalArea) || totalArea > Number.MAX_SAFE_INTEGER) return null;
+    return this.ai.scheduleOptimizer.generateSchedule(type, totalArea, floors)?.totalMonths ?? null;
   }
-
-  _accuracy(actual, expected) {
-    if (!actual || !expected) return 0;
-    const ratio = actual / expected;
-    if (ratio > 1) return Math.max(0, 1 / ratio);
-    return ratio;
-  }
-
   compareWithAIModels(testCase) {
-    if (!this.ai) return { ok: false, error: 'AI engine not available' };
-    const result = { projectType: testCase.type, area: testCase.area, floors: testCase.floors, comparisons: [] };
-
-    const sq = this.dataset.getStandardQuantities(testCase.type);
-    if (!sq || !sq.perM2) return result;
-
-    const compareField = (field, label, aiMethod) => {
-      const hist = sq.perM2[field];
-      if (!hist || !hist.mean) return;
-      let aiValue = null;
-      try { aiValue = aiMethod(); } catch {}
-      const diff = aiValue !== null ? Math.round(Math.abs(aiValue - hist.mean) / hist.mean * 10000) / 100 : null;
-      result.comparisons.push({
-        field: label,
-        historicalAvg: Math.round(hist.mean * 10000) / 10000,
-        aiPrediction: aiValue !== null ? Math.round(aiValue * 10000) / 10000 : null,
-        diffPercent: diff,
-        historicalSamples: hist.samples,
-      });
-    };
-
-    compareField('concrete', 'Concrete (m³/m²)', () => null);
-    compareField('steel', 'Steel (ton/m²)', () => null);
-    compareField('blocks', 'Blocks (m²/m²)', () => null);
-    compareField('tiles', 'Tiles (m²/m²)', () => null);
-    compareField('paint', 'Paint (m²/m²)', () => null);
-    compareField('electricalPoints', 'Electrical (pts/m²)', () => null);
-    compareField('plumbingPoints', 'Plumbing (pts/m²)', () => null);
-
-    return result;
+    if (!testCase || typeof testCase.type !== 'string' || !positive(testCase.area) ||
+        !Number.isSafeInteger(testCase.floors) || testCase.floors < 1) {
+      return { ...META, ok: false, error: 'Explicit type, positive per-floor area and integer floors required' };
+    }
+    const info = this.dataset.getStandardQuantities(testCase.type);
+    if (!info) return { ...META, ok: false, error: 'Historical reference unavailable', comparisons: [] };
+    const d = this._testProject(testCase, info);
+    return { ...META, ok: true, ...d, comparisons: Object.entries(d.models).map(([field, m]) => ({
+      field, historicalAvg: m.referenceMean, aiPrediction: m.predicted, diffPercent: m.relativeDifferencePercent,
+      status: m.status, reason: m.reason })) };
   }
-
   getTrends() {
-    return this._results.map(r => ({
-      timestamp: r.timestamp,
-      passRate: r.passed,
-      projectTypesTested: r.projectTypesTested,
-      models: Object.entries(r.byModel).map(([name, stats]) => ({ name, avgAccuracy: stats.avgAccuracy })),
-    }));
+    return this._results.map(r => ({ timestamp: r.timestamp, ...META, passRate: null,
+      legacy: r.schemaVersion !== 2, projectTypesTested: r.projectTypesTested || 0,
+      coverage: r.schemaVersion === 2 ? r.coverage : null,
+      models: Object.keys(r.byModel || {}).map(name => ({ name, avgAccuracy: null })) }));
   }
-
   getLastResults() {
-    return this._lastRun || { message: 'No results yet. Run benchmarks first.' };
+    return this._lastRun?.schemaVersion === 2 ? this._lastRun : {
+      ...META, ok: false, passed: null, byModel: {}, details: [], message: 'Run current diagnostics first.' };
   }
-
   getStats() {
-    return {
-      totalRuns: this._results.length,
-      lastRun: this._lastRun?.timestamp || null,
-      projectTypesAvailable: this.dataset.getStandardQuantities().projectTypes.length,
-    };
+    const sq = this.dataset.getStandardQuantities();
+    return { ...META, totalRuns: this._results.length, lastRun: this._lastRun?.timestamp || null,
+      projectTypesAvailable: Object.keys(sq?.data || {}).length };
   }
-
-  exportAll() {
-    return { results: this._results, lastRun: this._lastRun };
-  }
+  exportAll() { return { ...META, results: this.getTrends(), lastRun: this.getLastResults() }; }
 }
-
 module.exports = BenchmarkLibrary;

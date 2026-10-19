@@ -38,7 +38,9 @@ class PeriodicEvaluation {
 
     if (actions.includes('benchmark') || actions.includes('full')) {
       const bm = this.benchmark.runAll();
-      evalResults.actions.push({ action: 'benchmark', ok: bm.passed !== undefined, details: detail === 'full' ? bm : { passRate: bm.passed, models: Object.keys(bm.byModel) } });
+      evalResults.actions.push({ action: 'benchmark', ok: bm.ok === true, accuracyValidated: false,
+        details: detail === 'full' ? bm : { passRate: null, evaluationKind: bm.evaluationKind,
+          accuracyValidated: false, coverage: bm.coverage ?? null, models: Object.keys(bm.byModel || {}) } });
     }
 
     if (actions.includes('quality') || actions.includes('full')) {
@@ -96,3 +98,4 @@ class PeriodicEvaluation {
 }
 
 module.exports = PeriodicEvaluation;
+
