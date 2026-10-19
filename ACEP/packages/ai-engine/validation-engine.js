@@ -8,6 +8,7 @@ class ValidationEngine {
   constructor(edl) {
     this.edl = edl;
     this.rules = [
+      this.v000_costInputReview,
       this.v001_boqVsDirectCost,
       this.v002_directVsTotalCost,
       this.v003_boqVsCostBreakdown,
@@ -59,8 +60,16 @@ class ValidationEngine {
     return project.validation;
   }
 
+  v000_costInputReview(project) {
+    if (project.cost?.status !== 'incomplete') return [];
+    return [{ code: 'V000_SCOPE', severity: 'warning', source: 'validation-engine',
+      message: 'التكلفة غير مكتملة: يلزم توضيح نطاق الأسعار أو استكمال بيانات التسعير',
+      between: ['cost.status', 'cost.pricingIssues'], recommendation: 'راجع البنود التي تحتاج توضيحًا قبل اعتماد الإجمالي' }];
+  }
+
   // ─── V001: BOQ total cost must not exceed direct cost ───
   v001_boqVsDirectCost(project) {
+    if (project.cost?.status === 'incomplete') return [];
     const issues = [];
     const boqTotal = project.boq?.summary?.totalCost || 0;
     const directCost = project.cost?.directCost || 0;
@@ -92,6 +101,7 @@ class ValidationEngine {
 
   // ─── V002: Direct cost must be ≤ total cost ───
   v002_directVsTotalCost(project) {
+    if (project.cost?.status === 'incomplete') return [];
     const issues = [];
     const direct = project.cost?.directCost || 0;
     const total = project.cost?.totalCost || 0;

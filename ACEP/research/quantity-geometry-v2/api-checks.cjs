@@ -8,11 +8,12 @@ const cost=require(path.join(root,'packages/ai-engine/models/cost-estimator'));
 const analyzer=require(path.join(root,'packages/ai-engine/models/project-analyzer'));
 const kb=require(path.join(root,'packages/ai-engine/knowledge-base'));
 const {normalizeGeometry}=require(path.join(root,'packages/ai-engine/engineering-ke/project-geometry'));
+const {validatePricingOptions}=require('../../packages/ai-engine/models/boq-cost-ledger');
 const block=(start,end)=>source.slice(source.indexOf(start),source.indexOf(end,source.indexOf(start)));
 async function main(){
  kb.initialize();await quantity.train();await cost.train();await analyzer.train();
  let records=[],id=0;const routes={};
- const context={normalizeGeometry,RangeError,console:{log(){},error(){}},aiReady:true,projects:[],
+ const context={normalizeGeometry,validatePricingOptions,RangeError,console:{log(){},error(){}},aiReady:true,projects:[],
   app:{post:(url,handler)=>routes['POST '+url]=handler,get:(url,handler)=>routes['GET '+url]=handler},
   store:{createProject:data=>{const p={id:'test-'+(++id),...data};records.push(p);return p;},getProjects:()=>records,findProject:id=>records.find(p=>p.id===id)},
   parseDescription:()=>({type:'Villa',area:null,floors:null}),
@@ -28,12 +29,12 @@ async function main(){
  const call=(method,req)=>{const res={statusCode:200,status(code){this.statusCode=code;return this;},json(value){this.body=value;return this;}};routes[method](req,res);return res;};
  const post=body=>call('POST /api/v1/projects',{body});const get=id=>call('GET /api/v1/projects/:id',{params:{id}});
  const tests=[];const test=(name,fn)=>{try{fn();tests.push({name,pass:true});}catch(e){tests.push({name,pass:false,error:e.message});}};
- const body={name:'Arithmetic fixture',description:'بناء فيلا كامل',type:'Villa',area:300,floors:2};
+ const body={name:'Arithmetic fixture',description:'بناء فيلا كامل',type:'Villa',area:300,floors:2,pricing:{defaultPriceScope:'installed',markups:{indirect:0,contingency:0,profit:0,tax:0}}};
  test('explicit project type is respected by analyzer',()=>{const r=post({...body,type:'Hospital'});assert.equal(r.body.project.aiAnalysis.projectType,'Hospital');});
  test('POST stores per-floor area and GET preserves cost',()=>{const r=post(body);assert.equal(r.statusCode,201);assert.equal(r.body.project.area,300);assert.equal(get(r.body.project.id).body.cost.totalCost,r.body.project.cost.totalCost);});
  test('POST total-built-up input is normalized once',()=>{const r=post({...body,area:600,areaBasis:'total_built_up'});assert.equal(r.body.project.area,300);assert.equal(r.body.project.areaBasis,'per_floor');assert.equal(r.body.project.boq.items.find(i=>i.code==='EXC-001').quantity,450);assert.equal(get(r.body.project.id).body.cost.totalCost,r.body.project.cost.totalCost);});
  test('explicit decimal area is not rounded through analyzer output',()=>{const r=post({...body,area:237.53});assert.equal(r.body.project.area,237.53);assert.equal(r.body.project.cost.geometry.perFloorAreaM2,237.53);});
- test('stored finishing and region survive GET recomputation',()=>{const r=post({...body,finishing:'Luxury',region:'Jeddah'});assert.equal(r.statusCode,201);const b=quantity.estimateBOQ('Villa',300,2,'Luxury','Jeddah');const expected=cost.estimateCost(b.items,'Villa',300,2,'Luxury','Jeddah');assert.equal(r.body.project.cost.totalCost,expected.totalCost);assert.equal(get(r.body.project.id).body.cost.totalCost,r.body.project.cost.totalCost);});
+ test('stored finishing and region survive GET recomputation',()=>{const r=post({...body,finishing:'Luxury',region:'Jeddah'});assert.equal(r.statusCode,201);const b=quantity.estimateBOQ('Villa',300,2,'Luxury','Jeddah');const expected=cost.estimateCost(b.items,'Villa',300,2,'Luxury','Jeddah',body.pricing);assert.ok(Number.isFinite(expected.knownDirectSubtotal) && expected.knownDirectSubtotal>0);assert.equal(r.body.project.cost.knownDirectSubtotal,expected.knownDirectSubtotal);assert.equal(get(r.body.project.id).body.cost.knownDirectSubtotal,expected.knownDirectSubtotal);assert.equal(r.body.project.cost.totalCost,expected.totalCost);assert.equal(get(r.body.project.id).body.cost.totalCost,r.body.project.cost.totalCost);});
  test('invalid explicit area and unsupported basis return 400 without persistence',()=>{for(const patch of [{area:-1},{area:0},{area:'300'},{areaBasis:'land_area'}]){const before=records.length;assert.equal(post({...body,...patch}).statusCode,400);assert.equal(records.length,before);}});
  test('offline create still normalizes explicit total area',()=>{context.aiReady=false;try{const r=post({...body,area:600,areaBasis:'total_built_up'});assert.equal(r.statusCode,201);assert.equal(r.body.project.area,300);assert.equal(r.body.project.areaBasis,'per_floor');}finally{context.aiReady=true;}});
  test('online missing dimensions do not produce assumed BOQ or price',()=>{const r=post({name:'Incomplete project'});assert.equal(r.statusCode,201);assert.equal(r.body.project.boq,null);assert.equal(r.body.project.cost,null);assert.equal(r.body.project.analysisStatus,'insufficient_data');assert.ok(r.body.project.missingFields.includes('area'));assert.equal(get(r.body.project.id).body.boq,null);assert.equal(get(r.body.project.id).body.cost,null);});

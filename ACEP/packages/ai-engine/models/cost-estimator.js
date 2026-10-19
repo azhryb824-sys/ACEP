@@ -5,6 +5,7 @@
  */
 
 const csv = require('./training-csv');
+const { priceBOQ } = require('./boq-cost-ledger');
 const path = require('path');
 const kb = require('../knowledge-base');
 const { normalizeGeometry } = require('../engineering-ke/project-geometry');
@@ -108,36 +109,41 @@ class CostEstimator {
     const totalArea = area * floors;
     const pt = kb.getProjectType(projectType);
 
+    if (boqItems != null && !Array.isArray(boqItems)) throw new RangeError('boqItems must be an array');
+    if (boqItems && boqItems.length) {
+      const defaultMarkups = {
+        indirect: 0.12 + (pt ? Math.max(0, pt.floors[1] - 10) * 0.002 : 0),
+        contingency: 0.03 + (floors > 10 ? 0.02 : 0) + (totalArea > 10000 ? 0.02 : 0),
+        profit: 0.1, tax: 0.15,
+      };
+      const result = priceBOQ(boqItems, { ...options, defaultMarkups }, item => {
+        const matches = this.materialPrices.filter(m => item.materialName && item.unit && item.grade &&
+          m.name === item.materialName && csv.unit(m.unit) === csv.unit(item.unit) && m.city === region && m.grade === item.grade);
+        return matches.length ? { price: matches.reduce((sum, m) => sum + m.price, 0) / matches.length,
+          source: 'unverified_csv_supply_rate' } : null;
+      });
+      const unitCost = result.totalCost === null ? null : result.totalCost / totalArea;
+      if (unitCost !== null && (!Number.isFinite(unitCost) || !Number.isSafeInteger(Math.round(unitCost * 100)))) {
+        throw new RangeError('area produces an unsafe cost per m2');
+      }
+      return { ...result, geometry,
+        costPerM2: unitCost === null ? null : Math.round(unitCost * 100) / 100,
+        regionalFactor: regionIndex, finishingMultiplier: multiplier,
+        dataPoints: { materials: this.materialPrices.length, labor: this.laborRates.length,
+          equipment: this.equipmentRates.length, suppliers: this.supplierData.length } };
+    }
+    if (options.markups !== undefined || options.defaultPriceScope !== undefined) {
+      throw new RangeError('markup or price-scope options require a nonempty BOQ');
+    }
+
     if ((!this.trained || this.materialPrices.length === 0) && !(Array.isArray(boqItems) && boqItems.length)) {
       return { ...this._fallbackEstimate(totalArea, projectType, finishing, region), geometry };
     }
 
-    // Explicit BOQ prices are authoritative, including zero. Supply rates must
-    // never be blended into installed rates or multiplied by incompatible units.
-    let materialCost = 0;
-    const pricingIssues=[];
-    if (boqItems && boqItems.length > 0) {
-      for (const [index,item] of boqItems.entries()) {
-        if (!item || item.insufficient || !Number.isFinite(item.quantity) || item.quantity < 0) {
-          pricingIssues.push({index,reason:'insufficient_or_invalid_quantity'}); continue;
-        }
-        let price=item.unitPrice;
-        if (price === undefined || price === null) {
-          // A material name, unit, city and grade establish a supply-rate match.
-          const matches=this.materialPrices.filter(m=>item.materialName && item.unit && item.grade &&
-            m.name===item.materialName && csv.unit(m.unit)===csv.unit(item.unit) &&
-            m.city===region && m.grade===item.grade);
-          if(matches.length)price=matches.reduce((sum,m)=>sum+m.price,0)/matches.length;
-        }
-        if (!Number.isFinite(price) || price < 0 || !Number.isFinite(item.quantity*price)) {
-          pricingIssues.push({index,reason:'missing_or_invalid_compatible_price'}); continue;
-        }
-        materialCost += item.quantity * price;
-      }
-    } else {
-      const baseRate = pt ? pt.costPerM2 * 0.45 : 1260;
-      materialCost = totalArea * baseRate * multiplier * regionIndex;
-    }
+    // Area-only estimates remain a separately labelled heuristic fallback.
+    const baseRate = pt ? pt.costPerM2 * 0.45 : 1260;
+    const materialCost = totalArea * baseRate * multiplier * regionIndex;
+    const pricingIssues = [];
 
     // ─── Labor Cost from training data ───
     const laborTrades = Object.keys(this.laborStats);

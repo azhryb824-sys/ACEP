@@ -130,6 +130,7 @@ class BOQEngine {
 
         // Build the item — NEVER allow null/empty values
         const boqItem = this._buildItem(itemDef, calcResult, pricePerUnit, enrichedParams);
+        boqItem.priceScope = 'unknown'; // No CSV field establishes installed/supply scope.
         boqItem.priceSource=this._csvPrice(itemDef.code,itemDef.unit,trainingStats) ? 'unverified_csv_reference' : 'heuristic_default';
 
         if (itemDef.confidence >= 0.70) {

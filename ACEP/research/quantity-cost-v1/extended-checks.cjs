@@ -46,10 +46,10 @@ await test('finishing and region applied once; summaries reconcile for primary/s
 await test('cost fit clears old groups on successful refit',async()=>{await cost.train();cost.materialStats.STALE={avg:1};cost.laborStats.STALE={avg:1};cost.equipStats.STALE={avg:1};await cost.train();for(const x of [cost.materialStats,cost.laborStats,cost.equipStats])assert.equal(x.STALE,undefined);});
 await test('failed cost fit preserves valid snapshot',async()=>{const old=cost.materialPrices;await assert.rejects(cost.train('/nonexistent/acep.csv'));assert.equal(cost.materialPrices,old);assert.equal(cost.trained,true);});
 await test('material lookup requires same name, unit, city and grade',()=>{
- const m=cost.materialPrices[0];const item={quantity:3,materialName:m.name,unit:m.unit,grade:m.grade};
+ const m=cost.materialPrices[0];const item={quantity:3,materialName:m.name,unit:m.unit,grade:m.grade,priceScope:'supply_only',installation:{labor:0,equipment:0}};
  const r=cost.estimateCost([item],'Villa',100,2,'Standard',m.city);
  const match=cost.materialPrices.filter(x=>x.name===m.name&&x.unit===m.unit&&x.grade===m.grade&&x.city===m.city);
- assert.equal(r.breakdown.materials.cost,Math.round(3*match.reduce((s,m)=>s+m.price,0)/match.length));
+ assert.equal(r.breakdown.materials.cost,Math.round(3*match.reduce((s,m)=>s+m.price,0)/match.length*100)/100);
  for(const patch of [{unit:'m2'},{grade:'unknown'},{materialName:'unknown'}])assert.equal(cost.estimateCost([{...item,...patch}],'Villa',100,2,'Standard',m.city).totalCost,null);
 });
 await test('negative, NaN, textual price and quantity cannot form complete estimates',()=>{

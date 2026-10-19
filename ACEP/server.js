@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { normalizeGeometry } = require('./packages/ai-engine/engineering-ke/project-geometry');
+const { validatePricingOptions } = require('./packages/ai-engine/models/boq-cost-ledger');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -512,13 +513,14 @@ app.post('/api/v1/analyze', waitForAI(async (req, res) => {
       { step: 'project-understanding', status: 'completed', result: `Project classified as ${ext.type} with ${(pred.confidence || 0) * 100}% confidence` },
       { step: 'virtual-building', status: 'completed', result: `${project.building.spaces.length} spaces identified across ${ext.floors} floors` },
       { step: 'boq-generation', status: 'completed', result: `${boq.items.length} BOQ items (${boq.suggestedItems.length} suggested) phase: ${boq.phase}` },
-      { step: 'cost-estimation', status: 'completed', result: `${(cost.totalCost || 0).toLocaleString()} SAR estimated (${(cost.costPerM2 || 0).toLocaleString()} SAR/m²)` },
+      { step: 'cost-estimation', status: cost.status === 'incomplete' ? 'requires_review' : 'completed',
+        result: cost.totalCost === null ? 'يلزم توضيح نطاق الأسعار أو استكمال بيانات التسعير' : `${cost.totalCost.toLocaleString()} SAR estimated (${cost.costPerM2.toLocaleString()} SAR/m²)` },
       { step: 'schedule-generation', status: 'completed', result: `${schedule.totalMonths} months (${schedule.totalDuration} days)` },
       { step: 'risk-analysis', status: 'completed', result: `${risks.riskCount} risks identified, level: ${risks.riskLevel}` },
       { step: 'quality-inspection', status: 'completed', result: `Quality score: ${quality.qualityScore}% (${quality.qualityGrade})` }
     ],
     boq: { items: boq.items, suggestedItems: boq.suggestedItems, summary: boq.summary, phase: boq.phase },
-    cost: { totalCost: cost.totalCost, directCost: cost.directCost, indirectCost: cost.indirectCost, currency: 'SAR', costPerM2: cost.costPerM2, breakdown: cost.breakdown, dataPoints: cost.dataPoints, confidence: cost.confidence, source: 'EDL: costEstimator' },
+    cost: { ...cost, source: 'EDL: costEstimator' },
     duration: schedule.totalMonths,
     schedule: { totalDays: schedule.totalDuration, totalMonths: schedule.totalMonths, activities: schedule.activities.length, criticalPath: schedule.criticalPath, optimization: schedule.optimization, source: 'EDL: scheduleOptimizer' },
     risks: { count: risks.riskCount, items: risks.risks.slice(0, 10), overallScore: risks.overallRiskScore, level: risks.riskLevel, source: 'EDL: riskAnalyzer' },
@@ -662,8 +664,9 @@ app.post('/api/v1/projects', (req, res) => {
   const { name, description, type, area, floors, region, finishing } = req.body || {};
   if (!name) return res.status(400).json({ error: 'name is required' });
 
-  let requestGeometry;
+  let requestGeometry, pricing;
   try {
+    pricing = validatePricingOptions(req.body.pricing);
     requestGeometry = normalizeGeometry({ area, floors, areaBasis: req.body.areaBasis });
   } catch (e) {
     if (e instanceof RangeError) return res.status(400).json({ error: e.message });
@@ -694,7 +697,7 @@ app.post('/api/v1/projects', (req, res) => {
       boq = ai.quantityEstimator.estimateBOQ(projectType, effectiveArea, effectiveFloors,
         finishing || 'Standard', region || 'Riyadh', { areaBasis: 'per_floor' });
       cost = ai.costEstimator.estimateCost(boq.items, projectType, effectiveArea, effectiveFloors,
-        finishing || 'Standard', region || 'Riyadh', { areaBasis: 'per_floor' });
+        finishing || 'Standard', region || 'Riyadh', { ...pricing, areaBasis: 'per_floor' });
       sched = ai.scheduleOptimizer.generateSchedule(projectType, analysis.totalArea, analysis.floors);
       risks = ai.riskAnalyzer.analyzeRisks(projectType, analysis.totalArea, analysis.floors);
       quality = ai.qualityInspector.inspectProject(projectType, analysis.totalArea, analysis.floors);
@@ -720,7 +723,7 @@ app.post('/api/v1/projects', (req, res) => {
     type: type || aiResult.type || 'Building',
     area: aiResult.area ?? requestGeometry.params.area ?? null,
     floors: aiResult.floors ?? floors ?? null,
-    areaBasis: 'per_floor', areaDefinition: aiResult.areaDefinition || requestGeometry.geometry,
+    areaBasis: 'per_floor', areaDefinition: aiResult.areaDefinition || requestGeometry.geometry, pricing,
     region: region || 'Riyadh', finishing: finishing || 'Standard',
     cost: aiResult.cost ?? null, ...aiResult
   });
@@ -730,7 +733,7 @@ app.post('/api/v1/projects', (req, res) => {
   const responseProject = {
     ...project,
     boq: (boq && boq.items) ? { items: boq.items, totalCost: boq.summary?.totalCost || 0, summary: boq.summary } : null,
-    cost: cost ? { totalCost: cost.totalCost, costPerM2: cost.costPerM2, status: cost.status, pricingIssues: cost.pricingIssues, geometry: cost.geometry, confidenceCalibrated: cost.confidenceCalibrated } : null,
+    cost: cost ? { ...cost } : null,
     schedule: sched ? { totalDays: sched.totalDuration, totalMonths: sched.totalMonths } : null,
     risks: risks ? { score: risks.overallRiskScore, level: risks.riskLevel } : null,
     quality: quality ? { score: quality.qualityScore, grade: quality.qualityGrade } : null
@@ -750,7 +753,7 @@ app.get('/api/v1/projects/:id', (req, res) => {
       boq = ai.quantityEstimator.estimateBOQ(pp.type, pp.area, pp.floors,
         pp.finishing || 'Standard', pp.region || 'Riyadh', { areaBasis: pp.areaBasis });
       cost = ai.costEstimator.estimateCost(boq.items, pp.type, pp.area, pp.floors,
-        pp.finishing || 'Standard', pp.region || 'Riyadh', { areaBasis: pp.areaBasis });
+        pp.finishing || 'Standard', pp.region || 'Riyadh', { ...validatePricingOptions(p.pricing), areaBasis: pp.areaBasis });
       sched = ai.scheduleOptimizer.generateSchedule(pp.type, pp.totalArea, pp.floors);
       risks = ai.riskAnalyzer.analyzeRisks(pp.type, pp.totalArea, pp.floors);
       quality = ai.qualityInspector.inspectProject(pp.type, pp.totalArea, pp.floors);
@@ -759,7 +762,7 @@ app.get('/api/v1/projects/:id', (req, res) => {
   res.json({
     ...p,
     boq: boq ? { items: boq.items.length, totalCost: boq.summary.totalCost, confidence: boq.summary.averageConfidence } : null,
-    cost: cost ? { totalCost: cost.totalCost, costPerM2: cost.costPerM2, status: cost.status, pricingIssues: cost.pricingIssues, geometry: cost.geometry, confidenceCalibrated: cost.confidenceCalibrated } : null,
+    cost: cost ? { ...cost } : null,
     schedule: sched ? { totalDays: sched.totalDuration, totalMonths: sched.totalMonths } : null,
     risks: risks ? { score: risks.overallRiskScore, level: risks.riskLevel } : null,
     quality: quality ? { score: quality.qualityScore, grade: quality.qualityGrade } : null
@@ -1189,6 +1192,9 @@ app.get('/api/v1/projects/:id/boq/export', waitForAI(async (req, res) => {
 app.post('/api/v1/projects/:id/cost/estimate', waitForAI(async (req, res) => {
   const p = projects.find(x => x.id === req.params.id);
   if (!p) return res.status(404).json({ error: 'Project not found' });
+  let pricing;
+  try { pricing = req.body?.pricing === undefined ? undefined : validatePricingOptions(req.body.pricing); }
+  catch (e) { return res.status(400).json({ error: e.message }); }
   let project = edl.getProject(p.id);
   if (!project) {
     project = edl.createProject(p.id, { name: p.name, description: p.description });
@@ -1200,7 +1206,8 @@ app.post('/api/v1/projects/:id/cost/estimate', waitForAI(async (req, res) => {
   if (!project.boq.items || project.boq.items.length === 0) {
     await workflow.stepBOQ(project, p.description || '');
   }
-  await workflow.stepCost(project);
+  if (!project.metadata.costPricing && p.pricing) project.metadata.costPricing = validatePricingOptions(p.pricing);
+  await workflow.stepCost(project, pricing);
   const v = validator.validate(project);
   res.json({
     projectId: p.id, ...project.cost,

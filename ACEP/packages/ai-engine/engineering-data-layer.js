@@ -138,9 +138,9 @@ class ProjectModel {
 
     // Cost
     this.cost = {
-      directCost: 0, indirectCost: 0, contingency: 0,
-      profit: 0, taxes: 0, totalCost: 0,
-      costPerM2: 0, confidence: 0,
+      directCost: null, indirectCost: null, contingency: null,
+      profit: null, taxes: null, totalCost: null,
+      costPerM2: null, confidence: 0, status: 'not_estimated', requiresInputReview: true,
       breakdown: {},
       dataPoints: 0
     };
@@ -287,20 +287,10 @@ class ProjectModel {
 
   // ─── Set Cost Data ──────────────────────
   setCost(costData) {
-    this.cost = {
-      directCost: costData.directCost || 0,
-      indirectCost: costData.indirectCost || 0,
-      contingency: costData.contingency || 0,
-      profit: costData.profit || 0,
-      taxes: costData.taxes || 0,
-      totalCost: costData.totalCost || 0,
-      costPerM2: costData.costPerM2 || 0,
-      confidence: costData.confidence || 0,
-      breakdown: costData.breakdown || {},
-      dataPoints: costData.dataPoints || 0
-    };
+    // Preserve null (unknown) and scope evidence; never turn an unresolved price into zero.
+    this.cost = { ...costData };
     this.metadata.updated = new Date().toISOString();
-    this.metadata.workflowStep = 'cost_estimated';
+    this.metadata.workflowStep = costData.status === 'incomplete' ? 'cost_requires_review' : 'cost_estimated';
     this.traceEvent('cost_estimation', 'costEstimator', { costData });
   }
 
@@ -442,7 +432,8 @@ class ProjectModel {
       area: effective.area || 200,
       floors: effective.floors || 3,
       boqItems: this.boq.items || [],
-      totalCost: this.cost.totalCost || 0,
+      totalCost: this.cost.totalCost ?? null,
+      costStatus: this.cost.status || null,
       schedule: {
         totalDuration: this.schedule.totalDuration,
         activities: this.schedule.activities,

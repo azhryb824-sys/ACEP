@@ -117,12 +117,16 @@ class WorkflowEngine {
   /**
    * Step 5: Estimate Cost (uses BOQ data)
    */
-  async stepCost(project) {
+  async stepCost(project, options) {
+    const pricing = options === undefined ? (project.metadata.costPricing || {}) : options;
     const effective = this._getEffectiveParams(project);
     const boqItems = project.boq.items;
     const costData = this.ai.costEstimator.estimateCost(
-      boqItems, effective.type, effective.area, effective.floors
+      boqItems, effective.type, effective.area, effective.floors,
+      project.approved.finishing || project.extracted.finishing || 'Standard',
+      project.approved.region || project.extracted.region || 'Riyadh', pricing
     );
+    if (options !== undefined) project.metadata.costPricing = JSON.parse(JSON.stringify(pricing));
     project.setCost(costData);
     return costData;
   }
@@ -200,7 +204,7 @@ class WorkflowEngine {
 
     // Step 5: Cost
     const cost = await this.stepCost(project);
-    steps.push({ name: 'cost', status: 'completed', data: { totalCost: cost.totalCost } });
+    steps.push({ name: 'cost', status: cost.status === 'incomplete' ? 'requires_review' : 'completed', data: { totalCost: cost.totalCost, pricingStatus: cost.status } });
 
     // Step 6: Schedule
     const schedule = await this.stepSchedule(project);

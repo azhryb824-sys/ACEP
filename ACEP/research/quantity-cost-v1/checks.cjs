@@ -12,7 +12,7 @@ async function run() {
  check('labor city follows CSV header',()=>assert(cost.getLaborRates('Mason','Riyadh').length>0));
  check('supplier city follows CSV header',()=>assert(cost.getSupplierMatches(null,'Khobar').length>0));
  check('equipment has city and operator flag',()=>{assert.equal(cost.equipmentRates[0].city,'Riyadh');assert.equal(cost.equipmentRates[0].withOperator,true);});
- const estimate=items=>cost.estimateCost(items,'Villa',100,2);
+ const estimate=items=>cost.estimateCost(items.map(i=>({...i,priceScope:'supply_only',installation:{labor:0,equipment:0}})),'Villa',100,2);
  check('explicit zero paint price is preserved',()=>assert.equal(estimate([{category:'Paint',unit:'m2',quantity:100,unitPrice:0}]).breakdown.materials.cost,0));
  check('explicit paint price does not mix SAR/gal with SAR/m2',()=>assert.equal(estimate([{category:'Paint',unit:'m2',quantity:100,unitPrice:18}]).breakdown.materials.cost,1800));
  check('missing paint coverage returns incomplete total',()=>{const r=estimate([{category:'Paint',unit:'m2',quantity:100}]);assert.equal(r.totalCost,null);assert.equal(r.status,'incomplete');});
