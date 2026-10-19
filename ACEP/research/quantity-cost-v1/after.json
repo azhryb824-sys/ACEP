@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "name": "labor city follows CSV header",
+      "pass": true
+    },
+    {
+      "name": "supplier city follows CSV header",
+      "pass": true
+    },
+    {
+      "name": "equipment has city and operator flag",
+      "pass": true
+    },
+    {
+      "name": "explicit zero paint price is preserved",
+      "pass": true
+    },
+    {
+      "name": "explicit paint price does not mix SAR/gal with SAR/m2",
+      "pass": true
+    },
+    {
+      "name": "missing paint coverage returns incomplete total",
+      "pass": true
+    },
+    {
+      "name": "insufficient BOQ item prevents complete total",
+      "pass": true
+    },
+    {
+      "name": "invalid project dimensions rejected",
+      "pass": true
+    },
+    {
+      "name": "quantity prices grouped by description and unit",
+      "pass": true
+    },
+    {
+      "name": "fallback cost per area agrees with total",
+      "pass": true
+    }
+  ],
+  "passed": 10,
+  "total": 10
+}

@@ -1,0 +1,56 @@
+{
+  "checks": [
+    {
+      "name": "labor city follows CSV header",
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert(cost.getLaborRates('Mason','Riyadh').length>0)\n"
+    },
+    {
+      "name": "supplier city follows CSV header",
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert(cost.getSupplierMatches(null,'Khobar').length>0)\n"
+    },
+    {
+      "name": "equipment has city and operator flag",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 'Riyadh'\n"
+    },
+    {
+      "name": "explicit zero paint price is preserved",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n3466 !== 0\n"
+    },
+    {
+      "name": "explicit paint price does not mix SAR/gal with SAR/m2",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n4186 !== 1800\n"
+    },
+    {
+      "name": "missing paint coverage returns incomplete total",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\nNaN !== null\n"
+    },
+    {
+      "name": "insufficient BOQ item prevents complete total",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n975548 !== null\n"
+    },
+    {
+      "name": "invalid project dimensions rejected",
+      "pass": false,
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "quantity prices grouped by description and unit",
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert(quantity.byItemUnit && quantity.byItemUnit['Excavation for foundations|m3'])\n"
+    },
+    {
+      "name": "fallback cost per area agrees with total",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n2800 !== 3500\n"
+    }
+  ],
+  "passed": 0,
+  "total": 10
+}

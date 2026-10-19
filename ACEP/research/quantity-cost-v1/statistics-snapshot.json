@@ -1,0 +1,1022 @@
+{
+  "kind": "descriptive_statistical_fit_not_neural_training",
+  "inputs": {
+    "boq_items.csv": {
+      "sha256": "75dcbe4301b2014eb75c0368de751b918578698566674f3b1e66621b3d34dfbf",
+      "bytes": 5620242
+    },
+    "material_prices.csv": {
+      "sha256": "b2460928f13b69bbe260c6ee37554e2d4c864e7869946f913519679833b3de47",
+      "bytes": 31657
+    },
+    "labor_rates.csv": {
+      "sha256": "249d4c3885c150aaed0f1f966abb860377b76fe7f61f9ff309e5d9b308d79803",
+      "bytes": 6991
+    },
+    "equipment_rates.csv": {
+      "sha256": "695a94451a9cfd69952f0e7419e643274855be5bfe4fe57417b6ab4dda5ee142",
+      "bytes": 6631
+    },
+    "suppliers.csv": {
+      "sha256": "f9dbc4af8bcd1125622f0dc336a11af92b3c7367b283110b712eba3551b95663",
+      "bytes": 6766
+    }
+  },
+  "quantity": {
+    "byCategory": {
+      "Plumbing|no": {
+        "count": 4863,
+        "priceMean": 104.9415998354926,
+        "priceMedian": 104.97,
+        "priceMin": 81.62,
+        "priceMax": 131.84
+      },
+      "EarthWork|m3": {
+        "count": 6088,
+        "priceMean": 21.89421484888311,
+        "priceMedian": 21.94,
+        "priceMin": 16.99,
+        "priceMax": 27.36
+      },
+      "Plaster|m2": {
+        "count": 5030,
+        "priceMean": 24.519393638170957,
+        "priceMedian": 24.58,
+        "priceMin": 19.25,
+        "priceMax": 30.7
+      },
+      "HVAC|no": {
+        "count": 5124,
+        "priceMean": 2187.7816705698624,
+        "priceMedian": 2191.41,
+        "priceMin": 1695.5,
+        "priceMax": 2710.25
+      },
+      "Concrete|m3": {
+        "count": 6312,
+        "priceMean": 393.81813688212856,
+        "priceMedian": 394.46500000000003,
+        "priceMin": 308.1,
+        "priceMax": 501.51
+      },
+      "Elevator|no": {
+        "count": 5344,
+        "priceMean": 218264.61552582346,
+        "priceMedian": 218710.25,
+        "priceMin": 172611.37,
+        "priceMax": 276004.62
+      },
+      "Windows|m2": {
+        "count": 4747,
+        "priceMean": 656.7490625658328,
+        "priceMedian": 658.26,
+        "priceMin": 503.88,
+        "priceMax": 848.71
+      },
+      "Doors|no": {
+        "count": 5145,
+        "priceMean": 1050.3831700680278,
+        "priceMedian": 1052.27,
+        "priceMin": 823.85,
+        "priceMax": 1335.64
+      },
+      "Marble|m2": {
+        "count": 4866,
+        "priceMean": 157.74424373201788,
+        "priceMedian": 158.235,
+        "priceMin": 122.89,
+        "priceMax": 196.96
+      },
+      "Reinforcement|ton": {
+        "count": 5481,
+        "priceMean": 3325.9197318007677,
+        "priceMedian": 3331.08,
+        "priceMin": 2585.51,
+        "priceMax": 4122.23
+      },
+      "Paint|m2": {
+        "count": 4877,
+        "priceMean": 15.749854418700043,
+        "priceMedian": 15.76,
+        "priceMin": 12.32,
+        "priceMax": 19.85
+      },
+      "Block|m2": {
+        "count": 5933,
+        "priceMean": 36.742887240856184,
+        "priceMedian": 36.82,
+        "priceMin": 28.41,
+        "priceMax": 46.37
+      },
+      "Electrical|no": {
+        "count": 5207,
+        "priceMean": 74.315688496255,
+        "priceMedian": 74.47,
+        "priceMin": 58.6,
+        "priceMax": 93.39
+      },
+      "Waterproofing|m2": {
+        "count": 5305,
+        "priceMean": 48.104380772855826,
+        "priceMedian": 48.14,
+        "priceMin": 37.75,
+        "priceMax": 61.47
+      },
+      "FireFighting|no": {
+        "count": 5051,
+        "priceMean": 305.7610037616315,
+        "priceMedian": 306.17,
+        "priceMin": 240.5,
+        "priceMax": 384.42
+      },
+      "Ceramic|m2": {
+        "count": 5689,
+        "priceMean": 56.86980312884517,
+        "priceMedian": 57.01,
+        "priceMin": 44,
+        "priceMax": 70.64
+      }
+    },
+    "byItemUnit": {
+      "PVC pipe 110mm|no": {
+        "count": 540,
+        "priceMean": 105.23894444444447,
+        "priceMedian": 105.13,
+        "priceMin": 85.25,
+        "priceMax": 125.69
+      },
+      "Excavation for foundations|m3": {
+        "count": 1276,
+        "priceMean": 21.904921630094005,
+        "priceMedian": 21.98,
+        "priceMin": 17.37,
+        "priceMax": 27.16
+      },
+      "Scratch coat|m2": {
+        "count": 1285,
+        "priceMean": 24.551891050583652,
+        "priceMedian": 24.65,
+        "priceMin": 19.27,
+        "priceMax": 29.97
+      },
+      "Split AC unit|no": {
+        "count": 840,
+        "priceMean": 2182.4233095238105,
+        "priceMedian": 2182.5299999999997,
+        "priceMin": 1787.29,
+        "priceMax": 2681.49
+      },
+      "RC beams|m3": {
+        "count": 780,
+        "priceMean": 393.14074358974324,
+        "priceMedian": 392.92499999999995,
+        "priceMin": 314.99,
+        "priceMax": 481.72
+      },
+      "Escalator|no": {
+        "count": 1365,
+        "priceMean": 218416.6337948719,
+        "priceMedian": 218831.12,
+        "priceMin": 175313.81,
+        "priceMax": 276004.62
+      },
+      "Curtain wall|m2": {
+        "count": 1212,
+        "priceMean": 658.5071947194715,
+        "priceMedian": 660.165,
+        "priceMin": 503.88,
+        "priceMax": 816.68
+      },
+      "Metal door|no": {
+        "count": 1070,
+        "priceMean": 1049.3135046728958,
+        "priceMedian": 1046.06,
+        "priceMin": 829.26,
+        "priceMax": 1305.39
+      },
+      "Marble cladding|m2": {
+        "count": 1204,
+        "priceMean": 158.3216777408639,
+        "priceMedian": 159.56,
+        "priceMin": 126.03,
+        "priceMax": 194.17
+      },
+      "Steel reinforcement 60ksi|ton": {
+        "count": 1385,
+        "priceMean": 3322.5809314079484,
+        "priceMedian": 3322.8,
+        "priceMin": 2685.39,
+        "priceMax": 4090.6
+      },
+      "Oil paint external|m2": {
+        "count": 1198,
+        "priceMean": 15.745642737896471,
+        "priceMedian": 15.81,
+        "priceMin": 12.32,
+        "priceMax": 19.85
+      },
+      "Air handling unit|no": {
+        "count": 854,
+        "priceMean": 2188.24430913349,
+        "priceMedian": 2186.035,
+        "priceMin": 1757.95,
+        "priceMax": 2710.25
+      },
+      "RC slabs|m3": {
+        "count": 806,
+        "priceMean": 392.5124193548383,
+        "priceMedian": 390.37,
+        "priceMin": 313.19,
+        "priceMax": 487.48
+      },
+      "Hollow concrete blocks 10cm|m2": {
+        "count": 1214,
+        "priceMean": 36.70453047775939,
+        "priceMedian": 36.775000000000006,
+        "priceMin": 28.95,
+        "priceMax": 46.37
+      },
+      "PVC conduit|no": {
+        "count": 554,
+        "priceMean": 74.45940433213,
+        "priceMedian": 74.33500000000001,
+        "priceMin": 58.6,
+        "priceMax": 92.83
+      },
+      "Floor drain|no": {
+        "count": 537,
+        "priceMean": 105.00042830540035,
+        "priceMedian": 104.97,
+        "priceMin": 82.61,
+        "priceMax": 131.35
+      },
+      "Aluminum window sliding|m2": {
+        "count": 1127,
+        "priceMean": 656.3821029281278,
+        "priceMedian": 655.42,
+        "priceMin": 524.89,
+        "priceMax": 848.71
+      },
+      "Wooden door|no": {
+        "count": 977,
+        "priceMean": 1052.766714431934,
+        "priceMedian": 1056.71,
+        "priceMin": 848.57,
+        "priceMax": 1307.57
+      },
+      "RC columns|m3": {
+        "count": 774,
+        "priceMean": 392.1419379844958,
+        "priceMedian": 390.57500000000005,
+        "priceMin": 308.1,
+        "priceMax": 479.16
+      },
+      "Polymer waterproofing|m2": {
+        "count": 1328,
+        "priceMean": 48.00951807228911,
+        "priceMedian": 47.935,
+        "priceMin": 38.94,
+        "priceMax": 60.02
+      },
+      "Hollow concrete blocks 15cm|m2": {
+        "count": 1200,
+        "priceMean": 36.783816666666624,
+        "priceMedian": 36.86,
+        "priceMin": 28.41,
+        "priceMax": 44.82
+      },
+      "Gypsum plaster|m2": {
+        "count": 1251,
+        "priceMean": 24.565147881694653,
+        "priceMedian": 24.73,
+        "priceMin": 19.25,
+        "priceMax": 29.89
+      },
+      "Diffuser|no": {
+        "count": 853,
+        "priceMean": 2191.870539273157,
+        "priceMedian": 2196.78,
+        "priceMin": 1749.34,
+        "priceMax": 2699.12
+      },
+      "Cement plaster internal|m2": {
+        "count": 1261,
+        "priceMean": 24.54327517842979,
+        "priceMedian": 24.51,
+        "priceMin": 19.53,
+        "priceMax": 30.7
+      },
+      "Steel reinforcement 40ksi|ton": {
+        "count": 1318,
+        "priceMean": 3314.9750379362704,
+        "priceMedian": 3315.33,
+        "priceMin": 2675.87,
+        "priceMax": 4106.91
+      },
+      "Fire hose cabinet|no": {
+        "count": 856,
+        "priceMean": 307.3498598130841,
+        "priceMedian": 309.255,
+        "priceMin": 240.5,
+        "priceMax": 369.07
+      },
+      "Marble flooring|m2": {
+        "count": 1253,
+        "priceMean": 157.41082202713488,
+        "priceMedian": 157.85,
+        "priceMin": 122.89,
+        "priceMax": 196.48
+      },
+      "Wall tiles|m2": {
+        "count": 1130,
+        "priceMean": 56.79337168141591,
+        "priceMedian": 56.84,
+        "priceMin": 45.79,
+        "priceMax": 69.99
+      },
+      "Hollow concrete blocks 20cm|m2": {
+        "count": 1169,
+        "priceMean": 36.78414029084687,
+        "priceMedian": 36.89,
+        "priceMin": 28.52,
+        "priceMax": 45.05
+      },
+      "Freight elevator|no": {
+        "count": 1302,
+        "priceMean": 218149.35211981548,
+        "priceMedian": 217610.765,
+        "priceMin": 175389.26,
+        "priceMax": 270950.76
+      },
+      "Wire 2.5mm|no": {
+        "count": 486,
+        "priceMean": 74.16069958847734,
+        "priceMedian": 74.31,
+        "priceMin": 60.06,
+        "priceMax": 90.57
+      },
+      "Site grading|m3": {
+        "count": 1170,
+        "priceMean": 21.871829059829043,
+        "priceMedian": 21.925,
+        "priceMin": 17.67,
+        "priceMax": 27.06
+      },
+      "Glass partition|m2": {
+        "count": 1209,
+        "priceMean": 656.7462282878413,
+        "priceMedian": 660.51,
+        "priceMin": 524.29,
+        "priceMax": 831.63
+      },
+      "UPVC door|no": {
+        "count": 1059,
+        "priceMean": 1046.4836071765822,
+        "priceMedian": 1046.05,
+        "priceMin": 824.27,
+        "priceMax": 1290.33
+      },
+      "Switch socket|no": {
+        "count": 527,
+        "priceMean": 74.39307400379514,
+        "priceMedian": 74.47,
+        "priceMin": 60.77,
+        "priceMax": 88.87
+      },
+      "Plain concrete (PC)|m3": {
+        "count": 769,
+        "priceMean": 393.92338101430494,
+        "priceMedian": 393.59,
+        "priceMin": 313.93,
+        "priceMax": 490.59
+      },
+      "Ductwork|no": {
+        "count": 813,
+        "priceMean": 2185.2629151291494,
+        "priceMedian": 2191.83,
+        "priceMin": 1695.5,
+        "priceMax": 2661.4
+      },
+      "Copper pipe 15mm|no": {
+        "count": 524,
+        "priceMean": 105.21036259541987,
+        "priceMedian": 105.695,
+        "priceMin": 85.92,
+        "priceMax": 128.63
+      },
+      "Aluminum window fixed|m2": {
+        "count": 1199,
+        "priceMean": 655.3196497080892,
+        "priceMedian": 655.44,
+        "priceMin": 519.88,
+        "priceMax": 796.38
+      },
+      "Water stop|m2": {
+        "count": 1261,
+        "priceMean": 48.13352101506746,
+        "priceMedian": 48.19,
+        "priceMin": 37.75,
+        "priceMax": 61.47
+      },
+      "Cement plaster external|m2": {
+        "count": 1233,
+        "priceMean": 24.414679643146822,
+        "priceMedian": 24.38,
+        "priceMin": 19.25,
+        "priceMax": 29.8
+      },
+      "Fire rated door|no": {
+        "count": 1029,
+        "priceMean": 1053.3286297376112,
+        "priceMedian": 1058.31,
+        "priceMin": 824.85,
+        "priceMax": 1299.98
+      },
+      "AAC blocks|m2": {
+        "count": 1177,
+        "priceMean": 36.79889549702637,
+        "priceMedian": 36.83,
+        "priceMin": 29.36,
+        "priceMax": 44.88
+      },
+      "Ceramic tiles 40x40|m2": {
+        "count": 1179,
+        "priceMean": 56.86090754877013,
+        "priceMedian": 57.04,
+        "priceMin": 45.93,
+        "priceMax": 70.12
+      },
+      "Anti-mold paint|m2": {
+        "count": 1211,
+        "priceMean": 15.793674649050361,
+        "priceMedian": 15.76,
+        "priceMin": 12.62,
+        "priceMax": 19.44
+      },
+      "Soil compaction|m3": {
+        "count": 1187,
+        "priceMean": 21.91531592249366,
+        "priceMedian": 21.96,
+        "priceMin": 17.31,
+        "priceMax": 27.14
+      },
+      "RC stairs|m3": {
+        "count": 803,
+        "priceMean": 394.10326276463275,
+        "priceMedian": 395.05,
+        "priceMin": 314.92,
+        "priceMax": 489.91
+      },
+      "Passenger elevator 6 stop|no": {
+        "count": 1361,
+        "priceMean": 218275.52645113904,
+        "priceMedian": 219430.18,
+        "priceMin": 172611.37,
+        "priceMax": 267753.44
+      },
+      "Mosaic tiles|m2": {
+        "count": 1111,
+        "priceMean": 57.02580558055806,
+        "priceMedian": 57.27,
+        "priceMin": 45.44,
+        "priceMax": 69.24
+      },
+      "Skirting|m2": {
+        "count": 1134,
+        "priceMean": 56.85067019400356,
+        "priceMedian": 57.035,
+        "priceMin": 44.39,
+        "priceMax": 69.38
+      },
+      "PVC pipe 50mm|no": {
+        "count": 588,
+        "priceMean": 104.4655782312926,
+        "priceMedian": 104.905,
+        "priceMin": 84.28,
+        "priceMax": 129.32
+      },
+      "Trench excavation|m3": {
+        "count": 1262,
+        "priceMean": 21.90487321711566,
+        "priceMedian": 21.955,
+        "priceMin": 16.99,
+        "priceMax": 27.36
+      },
+      "Concrete bricks|m2": {
+        "count": 1173,
+        "priceMean": 36.64340153452689,
+        "priceMedian": 36.72,
+        "priceMin": 29.28,
+        "priceMax": 46.18
+      },
+      "Textured paint|m2": {
+        "count": 1223,
+        "priceMean": 15.733311529026995,
+        "priceMedian": 15.75,
+        "priceMin": 12.39,
+        "priceMax": 19.26
+      },
+      "Water tank GRP|no": {
+        "count": 537,
+        "priceMean": 105.18973929236499,
+        "priceMedian": 104.91,
+        "priceMin": 84.56,
+        "priceMax": 131.01
+      },
+      "Grey water pipe|no": {
+        "count": 512,
+        "priceMean": 104.73757812499998,
+        "priceMedian": 104.92500000000001,
+        "priceMin": 81.62,
+        "priceMax": 131.84
+      },
+      "Emulsion paint internal|m2": {
+        "count": 1245,
+        "priceMean": 15.727534136546167,
+        "priceMedian": 15.74,
+        "priceMin": 12.67,
+        "priceMax": 19.49
+      },
+      "Porcelain tiles 60x60|m2": {
+        "count": 1135,
+        "priceMean": 56.82155066079294,
+        "priceMedian": 56.89,
+        "priceMin": 44,
+        "priceMax": 70.64
+      },
+      "MCB|no": {
+        "count": 509,
+        "priceMean": 74.1315324165029,
+        "priceMedian": 74.56,
+        "priceMin": 59.53,
+        "priceMax": 90.84
+      },
+      "Backfilling|m3": {
+        "count": 1193,
+        "priceMean": 21.872447611064537,
+        "priceMedian": 21.88,
+        "priceMin": 17.89,
+        "priceMax": 27.24
+      },
+      "Tie wire|ton": {
+        "count": 1409,
+        "priceMean": 3321.206266855932,
+        "priceMedian": 3324.44,
+        "priceMin": 2585.51,
+        "priceMax": 4072.46
+      },
+      "Sanitary fitting|no": {
+        "count": 522,
+        "priceMean": 105.17229885057468,
+        "priceMedian": 104.775,
+        "priceMin": 83.68,
+        "priceMax": 124.79
+      },
+      "Bitumen waterproofing|m2": {
+        "count": 1425,
+        "priceMean": 48.20344561403507,
+        "priceMedian": 48.37,
+        "priceMin": 39.26,
+        "priceMax": 59.74
+      },
+      "Light point|no": {
+        "count": 501,
+        "priceMean": 74.31826347305388,
+        "priceMedian": 74.13,
+        "priceMin": 59.04,
+        "priceMax": 91.7
+      },
+      "Granite flooring|m2": {
+        "count": 1209,
+        "priceMean": 157.43698097601302,
+        "priceMedian": 157.68,
+        "priceMin": 127.56,
+        "priceMax": 196.96
+      },
+      "Fire extinguisher|no": {
+        "count": 866,
+        "priceMean": 304.56009237875315,
+        "priceMedian": 303.05499999999995,
+        "priceMin": 248.8,
+        "priceMax": 378.31
+      },
+      "Pump set|no": {
+        "count": 541,
+        "priceMean": 104.69410351201482,
+        "priceMedian": 104.34,
+        "priceMin": 85.95,
+        "priceMax": 130.7
+      },
+      "Ducted AC|no": {
+        "count": 863,
+        "priceMean": 2190.179281575898,
+        "priceMedian": 2195.08,
+        "priceMin": 1762.66,
+        "priceMax": 2649.24
+      },
+      "Sprinkler head|no": {
+        "count": 827,
+        "priceMean": 304.41308343409906,
+        "priceMedian": 303.29,
+        "priceMin": 250.42,
+        "priceMax": 376.79
+      },
+      "Emergency light|no": {
+        "count": 856,
+        "priceMean": 305.67742990654244,
+        "priceMedian": 306.375,
+        "priceMin": 244.48,
+        "priceMax": 384.42
+      },
+      "Sliding door|no": {
+        "count": 1010,
+        "priceMean": 1050.2985940594056,
+        "priceMedian": 1050.98,
+        "priceMin": 823.85,
+        "priceMax": 1335.64
+      },
+      "Smoke detector|no": {
+        "count": 824,
+        "priceMean": 306.80106796116473,
+        "priceMedian": 307.72,
+        "priceMin": 244.17,
+        "priceMax": 381.34
+      },
+      "RC shear walls|m3": {
+        "count": 786,
+        "priceMean": 394.4697328244276,
+        "priceMedian": 396.48,
+        "priceMin": 315.82,
+        "priceMax": 478.49
+      },
+      "Exhaust fan|no": {
+        "count": 901,
+        "priceMean": 2188.443973362933,
+        "priceMedian": 2190.8,
+        "priceMin": 1755.85,
+        "priceMax": 2672.14
+      },
+      "Cable tray|no": {
+        "count": 506,
+        "priceMean": 74.16893280632411,
+        "priceMedian": 74.695,
+        "priceMin": 59.08,
+        "priceMax": 91.19
+      },
+      "Steel mesh|ton": {
+        "count": 1369,
+        "priceMean": 3344.6857048940824,
+        "priceMedian": 3354.09,
+        "priceMin": 2590.24,
+        "priceMax": 4122.23
+      },
+      "Fire alarm panel|no": {
+        "count": 822,
+        "priceMean": 305.7721776155718,
+        "priceMedian": 305.77,
+        "priceMin": 246.39,
+        "priceMax": 374.21
+      },
+      "Liquid membrane|m2": {
+        "count": 1291,
+        "priceMean": 48.064151820294335,
+        "priceMedian": 47.96,
+        "priceMin": 38.27,
+        "priceMax": 59.83
+      },
+      "Wire 4mm|no": {
+        "count": 503,
+        "priceMean": 74.20214711729622,
+        "priceMedian": 74.5,
+        "priceMin": 59.88,
+        "priceMax": 90.29
+      },
+      "Reinforced concrete (RC) foundations|m3": {
+        "count": 793,
+        "priceMean": 396.66060529634314,
+        "priceMedian": 400.35,
+        "priceMin": 312.88,
+        "priceMax": 486.81
+      },
+      "Lightweight concrete screed|m3": {
+        "count": 801,
+        "priceMean": 393.57098626716623,
+        "priceMedian": 395.65,
+        "priceMin": 318.6,
+        "priceMax": 501.51
+      },
+      "Earthing system|no": {
+        "count": 566,
+        "priceMean": 74.32517667844515,
+        "priceMedian": 74.32,
+        "priceMin": 60,
+        "priceMax": 93.39
+      },
+      "Passenger elevator 10 stop|no": {
+        "count": 1316,
+        "priceMean": 218209.69018237095,
+        "priceMedian": 218460.33000000002,
+        "priceMin": 177588.89,
+        "priceMax": 266081.55
+      },
+      "Granite countertop|m2": {
+        "count": 1200,
+        "priceMean": 157.82260000000014,
+        "priceMedian": 158.095,
+        "priceMin": 123.7,
+        "priceMax": 195.16
+      },
+      "Water heater|no": {
+        "count": 562,
+        "priceMean": 104.81987544483984,
+        "priceMedian": 104.93,
+        "priceMin": 82.86,
+        "priceMax": 128.66
+      },
+      "DB panel|no": {
+        "count": 529,
+        "priceMean": 74.36453686200376,
+        "priceMedian": 74.5,
+        "priceMin": 60.68,
+        "priceMax": 91.71
+      },
+      "Wire 6mm|no": {
+        "count": 526,
+        "priceMean": 74.5961596958175,
+        "priceMedian": 74.735,
+        "priceMin": 60.01,
+        "priceMax": 89.74
+      }
+    }
+  },
+  "cost": {
+    "materialStats": {
+      "Cement|ton": {
+        "count": 26,
+        "avg": 363.7688461538462,
+        "median": 348.04,
+        "min": 307.17,
+        "max": 436.9
+      },
+      "Rebar 60ksi|ton": {
+        "count": 28,
+        "avg": 3298.376071428572,
+        "median": 3293.16,
+        "min": 2687.22,
+        "max": 3925.84
+      },
+      "Ready Mix Concrete|m3": {
+        "count": 26,
+        "avg": 277.8923076923078,
+        "median": 274.59,
+        "min": 238.46,
+        "max": 325.13
+      },
+      "Hollow Block|m2": {
+        "count": 23,
+        "avg": 33.50565217391305,
+        "median": 34.16,
+        "min": 29.5,
+        "max": 38.44
+      },
+      "Porcelain Tiles|m2": {
+        "count": 20,
+        "avg": 56.40500000000001,
+        "median": 56.095,
+        "min": 48.8,
+        "max": 65.73
+      },
+      "Marble|m2": {
+        "count": 22,
+        "avg": 157.1645454545455,
+        "median": 156.32,
+        "min": 130.15,
+        "max": 180.4
+      },
+      "Paint|gal": {
+        "count": 27,
+        "avg": 57.76370370370369,
+        "median": 59.68,
+        "min": 49.6,
+        "max": 66.68
+      },
+      "PVC Pipe 110mm|m": {
+        "count": 28,
+        "avg": 22.05107142857143,
+        "median": 21.72,
+        "min": 18.44,
+        "max": 24.72
+      },
+      "Copper Pipe 15mm|m": {
+        "count": 24,
+        "avg": 26.463333333333342,
+        "median": 26.805,
+        "min": 22.93,
+        "max": 30.07
+      },
+      "Electrical Cable 4mm|m": {
+        "count": 21,
+        "avg": 4.368095238095239,
+        "median": 4.42,
+        "min": 3.79,
+        "max": 4.95
+      },
+      "Aluminum Window|m2": {
+        "count": 27,
+        "avg": 659.4722222222222,
+        "median": 682.39,
+        "min": 565.83,
+        "max": 734.92
+      },
+      "Wooden Door|no": {
+        "count": 26,
+        "avg": 1059.6319230769232,
+        "median": 1056.19,
+        "min": 866.44,
+        "max": 1221.38
+      },
+      "Gypsum Board|m2": {
+        "count": 26,
+        "avg": 32.98230769230769,
+        "median": 32.905,
+        "min": 28.86,
+        "max": 37.36
+      },
+      "Steel Section|ton": {
+        "count": 27,
+        "avg": 3688.5348148148146,
+        "median": 3660.05,
+        "min": 3245.85,
+        "max": 4130.37
+      },
+      "Glass|m2": {
+        "count": 29,
+        "avg": 158.19965517241374,
+        "median": 158.5,
+        "min": 135.71,
+        "max": 186.44
+      }
+    },
+    "laborStats": {
+      "Mason": {
+        "count": 13,
+        "avg": 156.91538461538462,
+        "min": 136.9,
+        "max": 184
+      },
+      "Steel Fixer": {
+        "count": 13,
+        "avg": 191.19230769230768,
+        "min": 165,
+        "max": 225.2
+      },
+      "Carpenter": {
+        "count": 13,
+        "avg": 174.3769230769231,
+        "min": 155.3,
+        "max": 198.8
+      },
+      "Concrete Worker": {
+        "count": 13,
+        "avg": 146.53076923076924,
+        "min": 126.3,
+        "max": 169.9
+      },
+      "Plasterer": {
+        "count": 13,
+        "avg": 165.06153846153848,
+        "min": 151.2,
+        "max": 186.1
+      },
+      "Painter": {
+        "count": 13,
+        "avg": 153.57692307692307,
+        "min": 137.4,
+        "max": 174.2
+      },
+      "Tiler": {
+        "count": 13,
+        "avg": 182.69230769230765,
+        "min": 158.4,
+        "max": 210.2
+      },
+      "Plumber": {
+        "count": 13,
+        "avg": 219.8692307692308,
+        "min": 194.9,
+        "max": 248
+      },
+      "Electrician": {
+        "count": 13,
+        "avg": 229.78461538461536,
+        "min": 194.6,
+        "max": 265.1
+      },
+      "HVAC Technician": {
+        "count": 13,
+        "avg": 246.64615384615382,
+        "min": 209,
+        "max": 288.5
+      },
+      "Welder": {
+        "count": 13,
+        "avg": 265.03846153846155,
+        "min": 231.5,
+        "max": 304.2
+      },
+      "Crane Operator": {
+        "count": 13,
+        "avg": 393.5230769230769,
+        "min": 328.2,
+        "max": 458.8
+      },
+      "Excavator Operator": {
+        "count": 13,
+        "avg": 333.3230769230769,
+        "min": 292.9,
+        "max": 390.7
+      },
+      "Safety Officer": {
+        "count": 13,
+        "avg": 307.18461538461537,
+        "min": 260.2,
+        "max": 353.9
+      },
+      "Site Engineer": {
+        "count": 13,
+        "avg": 441.8923076923077,
+        "min": 388.7,
+        "max": 513.5
+      },
+      "Surveyor": {
+        "count": 13,
+        "avg": 277.6384615384615,
+        "min": 248.1,
+        "max": 325.6
+      },
+      "Supervisor": {
+        "count": 13,
+        "avg": 349.21538461538455,
+        "min": 306.7,
+        "max": 412.4
+      },
+      "General Laborer": {
+        "count": 13,
+        "avg": 131.48461538461535,
+        "min": 115.1,
+        "max": 155.1
+      }
+    },
+    "equipStats": {
+      "Excavation": {
+        "count": 26,
+        "avg": 1614.8923076923077,
+        "min": 895.3,
+        "max": 2464.9
+      },
+      "Lifting": {
+        "count": 39,
+        "avg": 2709.6615384615384,
+        "min": 538.9,
+        "max": 5193
+      },
+      "Concrete": {
+        "count": 26,
+        "avg": 1053.1346153846152,
+        "min": 462.3,
+        "max": 1830.1
+      },
+      "Transportation": {
+        "count": 13,
+        "avg": 691.1307692307693,
+        "min": 583.7,
+        "max": 775.1
+      },
+      "Compaction": {
+        "count": 13,
+        "avg": 434.6384615384616,
+        "min": 367.8,
+        "max": 491.3
+      },
+      "Scaffolding": {
+        "count": 13,
+        "avg": 178.76923076923075,
+        "min": 162.4,
+        "max": 203.7
+      },
+      "Electrical": {
+        "count": 13,
+        "avg": 304.9384615384615,
+        "min": 255.5,
+        "max": 346
+      },
+      "Finishing": {
+        "count": 13,
+        "avg": 130.85384615384618,
+        "min": 106.8,
+        "max": 151.5
+      }
+    }
+  },
+  "notValidatedForProduction": true
+}

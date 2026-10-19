@@ -1,0 +1,54 @@
+{
+  "tests": [
+    {
+      "name": "CSV supports BOM, reordered headers, quoted commas, escaped quotes and newlines",
+      "pass": true
+    },
+    {
+      "name": "CSV rejects truncated quotes and duplicate/missing headers",
+      "pass": true
+    },
+    {
+      "name": "numeric parser rejects blanks, suffixes, infinity and negatives; retains zero",
+      "pass": true
+    },
+    {
+      "name": "quantity fit rejects malformed rows and retains audit counts",
+      "pass": true
+    },
+    {
+      "name": "quantity fit resets old groups and preserves zero prices",
+      "pass": true
+    },
+    {
+      "name": "failed quantity fit preserves previous valid state",
+      "pass": true
+    },
+    {
+      "name": "BOQ lookup requires matching item and unit, never reused price category",
+      "pass": true
+    },
+    {
+      "name": "finishing and region applied once; summaries reconcile for primary/suggested items",
+      "pass": true
+    },
+    {
+      "name": "cost fit clears old groups on successful refit",
+      "pass": true
+    },
+    {
+      "name": "failed cost fit preserves valid snapshot",
+      "pass": true
+    },
+    {
+      "name": "material lookup requires same name, unit, city and grade",
+      "pass": true
+    },
+    {
+      "name": "negative, NaN, textual price and quantity cannot form complete estimates",
+      "pass": true
+    }
+  ],
+  "passed": 12,
+  "total": 12
+}

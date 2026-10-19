@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "kind": "descriptive_statistical_fit_not_neural_training",
+  "createdAt": "2026-10-19T02:10:04.459Z",
+  "quantityFit": {
+    "items": 85062,
+    "categories": 16,
+    "itemUnitGroups": 87,
+    "audit": {
+      "rows": 85062,
+      "accepted": 85062,
+      "rejected": 0,
+      "provenance": "unverified_csv",
+      "accuracyValidated": false
+    }
+  },
+  "costFit": {
+    "materials": 380,
+    "labor": 234,
+    "equipment": 156,
+    "suppliers": 124,
+    "audit": {
+      "materials": {
+        "rows": 380,
+        "accepted": 380,
+        "rejected": 0
+      },
+      "labor": {
+        "rows": 234,
+        "accepted": 234,
+        "rejected": 0
+      },
+      "equipment": {
+        "rows": 156,
+        "accepted": 156,
+        "rejected": 0
+      },
+      "suppliers": {
+        "rows": 124,
+        "accepted": 124,
+        "rejected": 0
+      },
+      "provenance": "unverified_csv",
+      "accuracyValidated": false
+    }
+  },
+  "holdout": {
+    "split": "SHA256(project_id), fixed salt; modulo 5 == 0 held out",
+    "trainProjects": 8012,
+    "testProjects": 1988,
+    "projectOverlap": 0,
+    "trainRows": 68109,
+    "testRows": 16953,
+    "coveredRows": 16953,
+    "allDescriptionUnitMean": {
+      "n": 16953,
+      "mapePercent": 7.743427235066993
+    },
+    "eightMappedDescriptions": {
+      "baselineDefaults": {
+        "n": 1318,
+        "mapePercent": 26.529771559325457
+      },
+      "fittedMean": {
+        "n": 1318,
+        "mapePercent": 7.6987445657371545
+      }
+    }
+  },
+  "materialHoldout": {
+    "split": "supplier_name SHA256 fixed salt; same supplier never in both partitions",
+    "trainRows": 319,
+    "testRows": 61,
+    "coveredRows": 16,
+    "coveragePercent": 26.229508196721312,
+    "metrics": {
+      "n": 16,
+      "mapePercent": 0
+    },
+    "interpretation": "Not independent: all covered test rows reproduce a training price for the same feature key; do not interpret zero error as predictive accuracy",
+    "repeatedFeatureGroups": 53,
+    "allRepeatedFeatureGroupsHaveOnePrice": true
+  },
+  "provenanceEvidence": {
+    "generator": "packages/databases/training/scripts/generate_training_data.js",
+    "boq": "generateBOQItems uses category basePrice x city.costIndex x random jitter and random quantities",
+    "material": "generateMaterialPrices repeats one jittered material/city price across supplier records",
+    "interpretation": "Dataset patterns match the included synthetic generator; no independently verified project or market evidence supplied"
+  },
+  "inputs": {
+    "boq_items.csv": {
+      "sha256": "75dcbe4301b2014eb75c0368de751b918578698566674f3b1e66621b3d34dfbf",
+      "bytes": 5620242
+    },
+    "material_prices.csv": {
+      "sha256": "b2460928f13b69bbe260c6ee37554e2d4c864e7869946f913519679833b3de47",
+      "bytes": 31657
+    },
+    "labor_rates.csv": {
+      "sha256": "249d4c3885c150aaed0f1f966abb860377b76fe7f61f9ff309e5d9b308d79803",
+      "bytes": 6991
+    },
+    "equipment_rates.csv": {
+      "sha256": "695a94451a9cfd69952f0e7419e643274855be5bfe4fe57417b6ab4dda5ee142",
+      "bytes": 6631
+    },
+    "suppliers.csv": {
+      "sha256": "f9dbc4af8bcd1125622f0dc336a11af92b3c7367b283110b712eba3551b95663",
+      "bytes": 6766
+    }
+  },
+  "limitations": [
+    "CSV provenance and prices are unverified; not current market quotes",
+    "Project-ID separation is not independent real-world validation; generator/template leakage has not been excluded",
+    "No measured ground-truth quantities or actual final project costs",
+    "BOQ quantities and staffing/duration/overheads remain engineering heuristics",
+    "Installed BOQ rates may already include labor/equipment: cost scope needs review",
+    "Confidence is not empirically calibrated; no production approval"
+  ]
+}
