@@ -17,7 +17,7 @@ function readCSV(file, required) {
  const headers=(rows.shift()||[]).map(x=>x.trim());
  if(new Set(headers).size!==headers.length)throw Error('Duplicate CSV header');
  for(const h of required)if(!headers.includes(h))throw Error('Missing CSV header: '+h);
- const audit={rows:rows.length,accepted:0,rejected:0};
+ const audit={rows:rows.length,accepted:0,rejected:0,rejectionReasons:Object.create(null),rejectedExamples:[]};
  const records=rows.map((r,index)=>({values:r.length===headers.length?Object.fromEntries(headers.map((h,i)=>[h,r[i].trim()])):null,row:index+2}));
  return {records,audit};
 }
@@ -26,7 +26,7 @@ function number(value, min=0) {
  const n=Number(value);if(!Number.isFinite(n)||n<min)throw Error('Out-of-range numeric value');return n;
 }
 function load(file,required,map){const {records,audit}=readCSV(file,required);const data=[];
- for(const r of records){try{if(!r.values)throw Error('Column count');for(const h of required)if(!r.values[h])throw Error('Empty field');data.push(map(r.values));audit.accepted++;}catch(e){audit.rejected++;}}
+ for(const r of records){try{if(!r.values)throw Error('Column count');for(const h of required)if(!r.values[h])throw Error('Empty field: '+h);data.push(map(r.values));audit.accepted++;}catch(e){audit.rejected++;const reason=e.message||'Invalid record';audit.rejectionReasons[reason]=(audit.rejectionReasons[reason]||0)+1;if(audit.rejectedExamples.length<10)audit.rejectedExamples.push({row:r.row,reason});}}
  if(!data.length)throw Error('No valid records: '+file);return {data,audit};
 }
 function unit(value){const s=String(value||'').trim().toLowerCase();return ({'م²':'m2','م³':'m3','طن':'ton','م':'m','وحدة':'no','واحدة':'no','باب':'no','مصعد':'no'})[s]||s;}
@@ -44,3 +44,4 @@ function projectTypes(fp) {
 
 
 module.exports={readCSV,number,load,unit,projectTypes};
+

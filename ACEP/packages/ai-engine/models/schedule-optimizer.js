@@ -1,13 +1,13 @@
 'use strict';
 const path = require('node:path');
-const csv = require('./training-csv');
+const {loadProjects,validSupport,mean} = require('./project-training');
+const snapshots = require('./training-profile');
 const input = require('./model-input');
 const { analyzeActivityNetwork } = require('./activity-network');
 const finishingFactors = Object.freeze({ Raw: 0.7, Standard: 1, Good: 1.15, Premium: 1.3, Luxury: 1.5 });
 const methodFactors = Object.freeze({ Traditional: 1, Precast: 0.7, SteelFrame: 0.6, ICF: 0.85, AAC: 0.9, PostTension: 0.8 });
 const own = (o, key) => o && Object.hasOwn(o, key);
 const positive = n => typeof n === 'number' && Number.isFinite(n) && n > 0 && n <= Number.MAX_SAFE_INTEGER;
-const mean = rows => rows.reduce((s,n) => s+n/rows.length,0);
 class ScheduleOptimizer {
   constructor() {
     this.trained = false; this.projects = []; this.byType = Object.create(null);
@@ -24,20 +24,8 @@ class ScheduleOptimizer {
   // Fitting runs only in the authorized training environment. Never guess area basis.
   async train(csvPath, options = {}) {
     this.trained = false; this.byType = Object.create(null);
-    if (!options || typeof options !== 'object' || Array.isArray(options)) throw new TypeError('Invalid training options');
-    if (options.areaBasis !== undefined && !['per_floor','total_built_up'].includes(options.areaBasis)) throw new TypeError('Invalid training area basis');
     const fp = csvPath || path.join(__dirname,'..','..','..','packages','databases','training','csv','projects.csv');
-    const fit = csv.load(fp,['project_id','project_type','building_area_m2','floors','duration_months'],r=>{
-      const buildingArea=csv.number(r.building_area_m2,Number.MIN_VALUE), floors=csv.number(r.floors,1);
-      const durationMonths=csv.number(r.duration_months,Number.MIN_VALUE);
-      if (!positive(buildingArea) || !Number.isSafeInteger(floors) || !positive(durationMonths*22)) throw new RangeError('Unsafe project dimensions or duration');
-      const areaBasis=r.area_basis || options.areaBasis || null;
-      if (areaBasis !== null && !['per_floor','total_built_up'].includes(areaBasis)) throw new TypeError('Invalid area basis');
-      if (r.area_basis && options.areaBasis && r.area_basis !== options.areaBasis) throw new Error('Conflicting area basis');
-      const totalBuiltUpArea=areaBasis===null ? null : areaBasis==='per_floor' ? buildingArea*floors : buildingArea;
-      if (totalBuiltUpArea!==null && !positive(totalBuiltUpArea)) throw new RangeError('Unsafe built-up area');
-      return {id:r.project_id,type:r.project_type,buildingArea,floors,durationMonths,areaBasis,totalBuiltUpArea};
-    });
+    const fit = loadProjects(fp, options);
     const groups=new Map(), ids=new Set();
     for (const row of fit.data) {
       if (ids.has(row.id)) throw new Error('Duplicate training project: '+row.id);
@@ -54,9 +42,26 @@ class ScheduleOptimizer {
         floorsMin:Math.min(...floors),floorsMax:Math.max(...floors) };
     }
     this._projectCount=fit.data.length; this.projects=null;
-    this.trainingAudit={...fit.audit,areaBasisMissing:fit.data.filter(r=>r.areaBasis===null).length,provenance:'unverified_csv',accuracyValidated:false};
+    this.trainingAudit=fit.audit;
     this.trained=true;
-    return {total:this._projectCount,types:groups.size,audit:this.trainingAudit};
+    const eligibleTypes=Object.values(this.byType).filter(s=>this._validProfile(s)).length;
+    return {total:this._projectCount,types:groups.size,eligibleTypes,readyForInference:eligibleTypes>0,audit:this.trainingAudit};
+  }
+  _validProfile(s) {
+    return s && s.profileVersion===2 && s.areaBasis==='total_built_up' && Number.isSafeInteger(s.count) && s.count>0 &&
+      positive(s.durationMean) && validSupport(s,'totalBuiltUpAreaMean','floorsAvg');
+  }
+  exportProfile() {
+    if (!this.trained) throw new Error('Model not trained');
+    const eligible=Object.fromEntries(Object.entries(this.byType).filter(([,s])=>this._validProfile(s)));
+    return snapshots.exportProfile('scheduleOptimizer',eligible,this.trainingAudit,s=>this._validProfile(s));
+  }
+  loadProfile(value) {
+    this.trained=false;this.byType=Object.create(null);
+    const v=snapshots.readProfile(value,'scheduleOptimizer',s=>this._validProfile(s));
+    this.byType=v.profiles;this.trainingAudit=v.audit;this.trained=true;
+    this._projectCount=Object.values(v.profiles).reduce((n,s)=>n+s.count,0);
+    return {loadedTypes:Object.keys(v.profiles).length,accuracyValidated:false};
   }
   _incomplete(missing,status='incomplete') {
     return {...input.incomplete(missing),estimateStatus:status,inferenceVersion:10,activities:[],totalDuration:null,totalMonths:null,
@@ -128,3 +133,4 @@ class ScheduleOptimizer {
   }
 }
 module.exports=new ScheduleOptimizer();
+

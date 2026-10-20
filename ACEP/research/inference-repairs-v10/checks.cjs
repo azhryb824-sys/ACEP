@@ -54,7 +54,7 @@ let server;
   await check('Project area scaling uses mean of per-project products',()=>{
     analyzer.trained=true;
     analyzer.trainingStats.projectTypeStats={Villa:{count:6,avgArea:500,avgFloors:2,avgTotalBuiltUpArea:800,
-      avgCost:100000,avgConcrete:100,avgSteel:10,avgDuration:10,areaBasis:'assumed_per_floor'}};
+      avgCost:100000,avgConcrete:100,avgSteel:10,avgDuration:10,profileVersion:3,areaBasis:'total_built_up',totalAreaMin:100,totalAreaMax:3000,floorsMin:1,floorsMax:5}};
     const r=analyzer.analyzeProject('fixture',{type:'Villa',area:400,floors:2});
     assert.equal(r.estimatedCost,100000);assert.equal(r.historicalReference.totalBuiltUpArea,800);assert.equal(r.historicalReference.sourceVerified,false);
   });
@@ -148,3 +148,4 @@ let server;
   if(process.env.ACEP_CHECK_OUTPUT)fs.writeFileSync(process.env.ACEP_CHECK_OUTPUT,JSON.stringify(result,null,2));
   console.log(JSON.stringify(result,null,2));
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>server?.close());
+

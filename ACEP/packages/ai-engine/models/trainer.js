@@ -1,3 +1,4 @@
+const path = require('node:path');
 const projectAnalyzer = require('./project-analyzer');
 const quantityEstimator = require('./quantity-estimator');
 const costEstimator = require('./cost-estimator');
@@ -26,13 +27,26 @@ function requestedModels(value) {
   return [...new Set(names)];
 }
 
-async function runModels(names) {
+function trainingArguments(options) {
+  if (!options || typeof options!=='object' || Array.isArray(options)) throw new TypeError('Invalid training options');
+  for (const key of Object.keys(options)) if (!['dataDir','projectOptions'].includes(key)) throw new TypeError('Unknown training option: '+key);
+  if (options.dataDir!==undefined && (typeof options.dataDir!=='string' || !options.dataDir.trim())) throw new TypeError('Invalid dataDir');
+  const file = name => options.dataDir ? path.join(options.dataDir,name+'.csv') : undefined;
+  return {
+    projectAnalyzer:[file('projects'),options.projectOptions],scheduleOptimizer:[file('projects'),options.projectOptions],
+    quantityEstimator:[file('boq_items')],costEstimator:[file('material_prices'),file('labor_rates'),file('equipment_rates'),file('suppliers')],
+    riskAnalyzer:[file('risks'),file('projects')],qualityInspector:[file('quality_defects'),file('projects')],
+    supplierIntelligence:[file('suppliers'),file('material_prices')]
+  };
+}
+async function runModels(names, options={}) {
+  const argumentsByModel=trainingArguments(options);
   const results = { models: {}, errors: [], totalRecords: 0, successfulModels: 0, failedModels: 0,
     requestedModels: names.length, accuracyValidated: false };
   for (const name of names) {
     const model = trainers[name];
     try {
-      const result = await model.train();
+      const result = await model.train(...argumentsByModel[name]);
       if (!result || result.error || result.ok === false) throw new Error(result?.error || 'Training did not return a successful result');
       const counts = countFields[name].map(field => result[field]);
       if (counts.some(n => !Number.isSafeInteger(n) || n < 0)) throw new Error('Training returned invalid record counts');
@@ -40,7 +54,7 @@ async function runModels(names) {
       if (!Number.isSafeInteger(records) || records === 0 || !Number.isSafeInteger(results.totalRecords + records)) {
         throw new Error('Training returned empty or unsafe record counts');
       }
-      results.models[name] = { ok: true, result, records, accuracyValidated: false };
+      results.models[name] = { ok: true, result, records, readyForInference:result.readyForInference ?? null, accuracyValidated: false };
       results.totalRecords += records;
       results.successfulModels++;
     } catch (error) {
@@ -62,8 +76,8 @@ function logSummary(results) {
   else console.error(message);
 }
 
-async function trainAllModels() {
-  const results = await runModels(requestedModels());
+async function trainAllModels(options={}) {
+  const results = await runModels(requestedModels(), options);
   logSummary(results);
   // Preserve the old numeric `models` field as the requested count; expose outcomes separately.
   const { models: modelResults, ...summary } = results;
@@ -78,7 +92,7 @@ async function trainAllModelsFromUETS(uets, options = {}) {
   let enqueued;
   try { enqueued = uets.enqueueTraining(names, options); }
   catch (error) { return { error: error instanceof Error ? error.message : String(error), ok: false, status: 'failed', accuracyValidated: false }; }
-  const results = { ...(await runModels(names)), uets: true, queueId: enqueued && enqueued.id, notificationErrors: [] };
+  const results = { ...(await runModels(names,{dataDir:options.dataDir,projectOptions:options.projectOptions})), uets: true, queueId: enqueued && enqueued.id, notificationErrors: [] };
   if (typeof uets.enqueueEvaluation === 'function') {
     try { uets.enqueueEvaluation('training', { models: names, results }); }
     catch (error) { results.notificationErrors.push(`evaluation: ${error instanceof Error ? error.message : String(error)}`); }
@@ -93,4 +107,5 @@ async function trainAllModelsFromUETS(uets, options = {}) {
 }
 
 module.exports = { trainAllModels, trainAllModelsFromUETS };
+
 

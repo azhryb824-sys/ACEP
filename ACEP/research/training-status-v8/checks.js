@@ -10,7 +10,7 @@ function load(overrides = {}) {
   const calls = []; const logs = []; const models = {};
   names.forEach((name, i) => { models['./'+name] = { trained: true, train: async () => { calls.push(name); return overrides[name] ? overrides[name]() : values[i]; } }; });
   const module = { exports: {} };
-  vm.runInNewContext(source, { require: id => { assert.ok(Object.hasOwn(models,id)); return models[id]; }, module, console: { log: x => logs.push(x), error: x => logs.push(x) } });
+  vm.runInNewContext(source, { require: id => { if(id==='node:path')return path; assert.ok(Object.hasOwn(models,id)); return models[id]; }, module, console: { log: x => logs.push(x), error: x => logs.push(x) } });
   return { api: module.exports, calls, logs, models };
 }
 let scenarios = 0;
@@ -29,3 +29,4 @@ let scenarios = 0;
   t=load();r=await t.api.trainAllModelsFromUETS({enqueueTraining:()=>({id:'q'}),enqueueEvaluation:()=>{throw Error('notify failed');}},{models:['riskAnalyzer']});assert.equal(r.status,'succeeded');assert.equal(r.notificationErrors.length,1);scenarios++;
   console.log(JSON.stringify({scenarios,passed:scenarios,realModelFits:0},null,2));
 })().catch(e=>{console.error(e);process.exitCode=1;});
+

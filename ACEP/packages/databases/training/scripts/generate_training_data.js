@@ -1,11 +1,17 @@
 /**
  * ACEP Training Data Generator
- * Generates 100,000+ realistic Saudi construction records
+ * Generates SYNTHETIC compatibility fixtures, not observed construction records
  * Usage: node generate_training_data.js [--records=50000]
  */
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('node:crypto');
+const seedArg=process.argv.find(a=>a.startsWith('--seed='))?.slice(7);
+const seed=seedArg===undefined ? 20261020 : Number(seedArg);
+if (!Number.isSafeInteger(seed) || seed<0 || seed>0xffffffff) throw new TypeError('seed must be uint32');
+let randomState=seed;
+function random() { randomState=(randomState+0x6D2B79F5)>>>0;let t=randomState;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296; }
 
 // ===== CONSTANTS =====
 
@@ -195,14 +201,14 @@ const DEFECT_TYPES = [
 
 // ===== UTILITY FUNCTIONS =====
 
-const rand = (min, max) => Math.random() * (max - min) + min;
+const rand = (min, max) => random() * (max - min) + min;
 const randInt = (min, max) => Math.floor(rand(min, max + 1));
 const pick = (arr) => arr[randInt(0, arr.length - 1)];
-const pickMulti = (arr, n) => { const shuffled = [...arr].sort(() => 0.5 - Math.random()); return shuffled.slice(0, n); };
+const pickMulti = (arr, n) => { const shuffled = [...arr].sort(() => 0.5 - random()); return shuffled.slice(0, n); };
 const rnorm = (mean, std) => {
   let u = 0, v = 0;
-  while (u === 0) u = Math.random();
-  while (v === 0) v = Math.random();
+  while (u === 0) u = random();
+  while (v === 0) v = random();
   return mean + std * Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
 };
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -269,6 +275,8 @@ function generateProjects(count, startIndex = 1) {
 
     records.push({
       project_id: projectId,
+      area_basis: buildingArea>0?'per_floor':'',
+      source_kind:'synthetic',source_id:'acep_generator_v11_seed_'+seed,
       city: city.name,
       region: city.region,
       project_type: pt.type,
@@ -389,7 +397,7 @@ function generateRisks(project) {
                   rc.category === 'Quality' ? 'Additional testing regime' :
                   rc.category === 'Material' ? 'Alternative supplier sourcing' :
                   'Design review and structural analysis',
-      detected_by_ai: Math.random() > 0.6
+      detected_by_ai: random() > 0.6
     });
   });
   return records;
@@ -421,7 +429,7 @@ function generateEquipmentRates() {
         category: eq.category,
         city: city.name,
         daily_rate_sar: Math.round(rate * 10) / 10,
-        with_operator: Math.random() > 0.3
+        with_operator: random() > 0.3
       });
     });
   });
@@ -435,10 +443,10 @@ function generateDefects(project, count) {
     records.push({
       project_id: project.project_id,
       defect_type: dt.type,
-      severity: Math.random() > 0.7 ? pick(['Critical','High']) : dt.severity,
+      severity: random() > 0.7 ? pick(['Critical','High']) : dt.severity,
       location: `Floor ${randInt(1, project.floors || 5)} - ${pick(['Zone A','Zone B','Zone C','Core Area','East Wing','West Wing'])}`,
       element_type: pick(dt.elements),
-      detected_by: Math.random() > 0.5 ? 'AI' : 'Inspector',
+      detected_by: random() > 0.5 ? 'AI' : 'Inspector',
       confidence: randInt(75, 99),
       status: pick(['Open','InProgress','Resolved','Verified'])
     });
@@ -500,9 +508,11 @@ function toJSON(records) {
 async function main() {
   const args = process.argv.slice(2);
   const numRecords = parseInt(args.find(a => a.startsWith('--records='))?.split('=')[1] || '10000', 10);
-  const outputDir = path.join(__dirname, '..');
+  if (!Number.isSafeInteger(numRecords) || numRecords<1 || numRecords>100000) throw new TypeError('records must be 1..100000');
+  const outputDir = path.resolve(args.find(a=>a.startsWith('--output='))?.slice(9) || path.join(__dirname, '..'));
   const csvDir = path.join(outputDir, 'csv');
   const jsonDir = path.join(outputDir, 'json');
+  fs.mkdirSync(csvDir,{recursive:true});fs.mkdirSync(jsonDir,{recursive:true});
 
   console.log(`\n  🏗️  ACEP Training Data Generator`);
   console.log(`  ──────────────────────────────────`);
@@ -573,7 +583,7 @@ async function main() {
 
   const projectCols = ['project_id','city','region','project_type','land_area_m2','building_area_m2','floors','units',
     'finishing_level','construction_method','structural_system','concrete_m3','steel_ton','blocks_m2','tiles_m2',
-    'paint_m2','electrical_points','plumbing_points','estimated_cost_sar','duration_months','year'];
+    'paint_m2','electrical_points','plumbing_points','estimated_cost_sar','duration_months','year','area_basis','source_kind','source_id'];
 
   const boqCols = ['project_id','item_code','description_ar','category','unit','quantity','unit_price_sar','confidence','waste_factor'];
   const matCols = ['material_name','category','unit','city','supplier_name','avg_price_sar','price_date','quality_grade'];
@@ -602,6 +612,13 @@ async function main() {
     fs.writeFileSync(path.join(csvDir, `${f.name}.csv`), '\ufeff' + csv, 'utf8');
     console.log(`     📄 ${f.name}.csv (${f.records.length.toLocaleString()} records)`);
   }
+
+  const manifest={schemaVersion:1,sourceKind:'synthetic',seed,projects:numRecords,accuracyValidated:false,
+    generatorSHA256:crypto.createHash('sha256').update(fs.readFileSync(__filename)).digest('hex'),
+    areaBasis:'per_floor for building projects; Bridge/Road area and floors absent',
+    purpose:'Software compatibility only; not validation of predictive accuracy',files:{}};
+  for (const f of csvFiles) manifest.files[f.name+'.csv']={rows:f.records.length,sha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(csvDir,f.name+'.csv'))).digest('hex')};
+  fs.writeFileSync(path.join(outputDir,'synthetic-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
 
   // Write JSON samples (first 100 records for preview)
   console.log('\n  📦 Writing JSON files (sample: 100 records each)...');
@@ -634,4 +651,5 @@ async function main() {
   console.log(`  ──────────────────────────────────────\n`);
 }
 
-main().catch(console.error);
+if (require.main === module) main().catch(error=>{console.error(error);process.exitCode=1;});
+
