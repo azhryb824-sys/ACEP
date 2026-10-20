@@ -1,0 +1,55 @@
+{
+  "cycle": "v13",
+  "created_utc": "2026-10-20T02:35:29.973580+00:00",
+  "development_years": [
+    2010,
+    2023
+  ],
+  "calibration_year": 2024,
+  "test_year": 2025,
+  "fold_validation_years": [
+    2021,
+    2022,
+    2023
+  ],
+  "five_rule": "SHA256 ACEP-FDOE-V13-FIVE|project_id; first five distinct facility groups",
+  "metric": "Fraction of all eligible test predictions with absolute error <=10%; five fixed projects must all pass; full coverage; MAPE and P95 no worse than baseline",
+  "quality_policy": "Reject nonpositive target/gross area and net>gross; preserve missing other fields; no target outlier removal",
+  "feature_policy": "Same nonmonetary inputs as v12; no costs/fees/unit prices or target-derived features; fit year-trend on training only",
+  "candidate_policy": "Evaluate original v12 families plus bounded year-trend residual models, recent-window/recency-weighted models and geometric ensembles on fixed development folds only",
+  "test_exposure": "2025 source table was displayed during source discovery before protocol freeze. No 2025 performance measured or used to choose recipes. Label-blind computational selection, not an externally blinded study. No claim to absolute human-unseen labels.",
+  "test_sealing": "Separate labels; do not load until model selection and blind prediction artifacts hashed; never tune or rerun for selection using 2025 outcomes",
+  "fitting": "Kaggle only",
+  "acceptance_scope": "Retrospective Florida school contract cost, not tender forecast and not seven-engine approval",
+  "seed": 82025,
+  "five_projects": [
+    "FDOE-2025-PDF-049",
+    "FDOE-2025-PDF-046",
+    "FDOE-2025-PDF-012",
+    "FDOE-2025-PDF-018",
+    "FDOE-2025-PDF-038"
+  ],
+  "scope": "Retrospective Florida school contract cost, not tender forecast and not seven-engine approval",
+  "numeric_features": [
+    "year",
+    "gross_ft2",
+    "net_ft2",
+    "students",
+    "teachers",
+    "classes_k5",
+    "classes_68",
+    "classes_912"
+  ],
+  "categorical_features": [
+    "school_type",
+    "project_scope",
+    "district"
+  ],
+  "acceptance": {
+    "within10": 0.9,
+    "all_five_within10": true,
+    "coverage": 1.0,
+    "mape_no_worse_than_baseline": true,
+    "p95_no_worse_than_baseline": true
+  }
+}

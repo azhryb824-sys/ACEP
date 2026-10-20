@@ -1,0 +1,18 @@
+{
+  "train_kaggle.py": "1f045f0ef5344a350621f8b1abb1614e5b5db708d979d14f76c4bd6207c23e6b",
+  "model_runtime.py": "e4e09b54071928d3dde7aa9fb853db6f4c60e2cf3425347a53bd5b38bc7177e2",
+  "data/audit.json": "33d53ae475a2546a560e4281004720b1a92080ed8edc6fb6ef8bf8de52ff4897",
+  "data/calibration_features.csv": "fa934e05688eacbded5d7b782110465083faf13cf24ce6051631f74428adbe6b",
+  "data/calibration_labels.csv": "449c96878c10604c2dad5f7d7cdc59856642d7bdf1204089101c141881627b38",
+  "data/column_maps.json": "0492a20fc1d74cb1f7d7d65e4b8b6056d74d7f64034900d75c13dd6be8710070",
+  "data/contract.json": "41b6bb94c810e9acac2094f62ff77cfb74f4438709f2f8269d574dda774b6012",
+  "data/development_features.csv": "0fd6fc0cd5de25236dadadc915cfddc70fedafb93b17534d72ee06795e90c81f",
+  "data/development_labels.csv": "933694db9eabcc56ca5be9003ecf69a839e957ade3f58b826bf9f091bca10311",
+  "data/folds.json": "5ae17c9e0792c14e46845e098a589e9eabbfd201797ed2ac5836f0f219a3d51c",
+  "data/manifest.json": "709fdba5d889887f3968e904a0be090bd47b154ff4b72ad5e164b53175c05e53",
+  "data/source_quality.json": "3f479dc133cd1ddf14479dece0e0786b0375e17c081d426a5b7b474360467c03",
+  "data/sources.json": "da7bc9428dd243d5e33e400cb5cfe23c07337823112026eb45e8e472a7f5ecb6",
+  "data/split_audit.csv": "d81299c873cc1992870a0be198102fde93ce8656af280acf4e9165a8188129d8",
+  "data/test_features.csv": "1c6bc2be0e1460dc6ca0ea5a6a84a7df792b3965df2154f9f40f1086f083cd9e",
+  "data/test_labels.csv": "923a825252385a171d4cd81c7e31dd5a145860b2a847f3803a0d1b53da3353de"
+}

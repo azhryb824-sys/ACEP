@@ -1,0 +1,10 @@
+{
+  "local_fits": 0,
+  "unique_neural_seeds": 3,
+  "partial_preliminary_run_cancelled": true,
+  "source_labels_visible_during_audit": true,
+  "not_external_blinding": true,
+  "scope_unverified_for_pdf_rows": true,
+  "no_tender_date_guarantee": true,
+  "not_whole_engine_validation": true
+}

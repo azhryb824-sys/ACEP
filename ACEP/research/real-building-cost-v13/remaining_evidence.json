@@ -1,0 +1,17 @@
+{
+  "whole_task_complete": false,
+  "goal": "At least 90 percent engineering execution accuracy, with five fixed actual executed projects",
+  "current_study_scope": "Retrospective school construction contract cost only",
+  "units": {"cost":"nominal USD", "area":"ft2"},
+  "direct_SAR_production_import_supported": false,
+  "current_cycle_evidence": {
+    "project_analyzer": {"five_project_acceptance_established":false,"needed":"Verified original plans, project scope, design revisions and measured geometry labels"},
+    "quantity_estimator": {"five_project_acceptance_established":false,"needed":"Measured BOQ quantities linked to drawings, units, revisions and final as-built quantities"},
+    "cost_estimator": {"five_project_acceptance_established":false,"needed":"This study evaluates only contract cost; full-engine acceptance additionally needs scope-matched quantities, dated supply/installed quotes and independent actual final costs"},
+    "schedule_optimizer": {"five_project_acceptance_established":false,"needed":"Original approved activity network, calendars, baseline dates and actual start/finish dates for the same projects"},
+    "risk_analyzer": {"five_project_acceptance_established":false,"needed":"Time-stamped pre-outcome inputs and independently adjudicated risk outcomes with sufficient minority events"},
+    "quality_inspector": {"five_project_acceptance_established":false,"needed":"Project-linked inspection records, defect labels and outcomes, including acceptable and failed work"},
+    "supplier_intelligence": {"five_project_acceptance_established":false,"needed":"Dated orders, quoted terms, promised/actual deliveries, quality and payment outcomes linked to supplier and project"}
+  },
+  "next_evaluation_policy": "Do not tune on exposed 2025 outcomes then label them fresh. Select new recipes on development data, then freeze a genuinely separate cohort with project-linked evidence for each claimed engine."
+}

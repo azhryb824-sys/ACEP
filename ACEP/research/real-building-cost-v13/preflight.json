@@ -1,0 +1,14 @@
+{
+  "local_fits": 0,
+  "base_recipes": 47,
+  "aggregation_recipes": 2,
+  "distinct_neural_seeds": [
+    82025,
+    82026,
+    82027
+  ],
+  "notebook_sha256": "fad31e4223355323a8f0614e0d703c218cc0e5e1cfc566c60319e5913c6f4152",
+  "syntax_pass": true,
+  "test_targets_unchanged_after_integrity_repair": true,
+  "five_project_ids_unchanged": true
+}
