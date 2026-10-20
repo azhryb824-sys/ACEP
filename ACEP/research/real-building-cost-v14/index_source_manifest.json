@@ -1,0 +1,10 @@
+{
+  "file": "price_index_source.html",
+  "url": "https://fred.stlouisfed.org/data/PCU236222236222",
+  "sha256": "2f978308fbf87663d1a4857ece6265edcb4c10660d62219b20381fb513896cf9",
+  "bytes": 66573,
+  "retrieved_utc_date": "2026-10-20",
+  "source": "BLS via FRED",
+  "series": "PCU236222236222",
+  "vintage_policy": "current revised as downloaded, not a historical release vintage"
+}
