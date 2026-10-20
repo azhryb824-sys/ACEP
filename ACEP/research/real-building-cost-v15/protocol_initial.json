@@ -1,0 +1,50 @@
+{
+  "cycle": "ACEP v15",
+  "scope": "Retrospective reported school construction-contract cost, nominal USD",
+  "fixed_before_fitting": true,
+  "candidates": 37,
+  "output_basis": [
+    "gross",
+    "net",
+    "total"
+  ],
+  "ppi": [
+    false,
+    true
+  ],
+  "families": [
+    "ridge10",
+    "ridge100",
+    "forest5",
+    "forest15",
+    "boost_absolute",
+    "neural32"
+  ],
+  "baseline": "baseline_median",
+  "features": "physical: independent gross/net area, ratio, student density, year; school type, scope, district; omit teachers/class counts",
+  "folds": "unchanged v13/v14 purged 2021/2022/2023; 124 pooled records",
+  "selection": {
+    "eligibility": "MAPE, P95 APE, CVaR90 (mean worst ceil(0.1*n) errors), max APE and count APE>1 no worse than global median; max APE no worse than baseline in every temporal fold",
+    "ranking": [
+      "within10 descending",
+      "mape ascending",
+      "name ascending"
+    ],
+    "fallback": "baseline_median"
+  },
+  "seeds": [
+    92026,
+    92027,
+    92028
+  ],
+  "neural_updates": 2000,
+  "retain_all_rows_and_numeric_values": true,
+  "manual_source_matches_used_as_predictors": false,
+  "new_independent_holdout_records": 0,
+  "diagnostic": "Same previously exposed 64 projects and fixed five; no independent acceptance",
+  "calibration": "2024 only; 46 rows; nominal 90% multiplicative interval; no selection",
+  "support_review": "training-only 1%/99% bounds of net/gross ratio, gross area, net area; unknown scope; classroom heuristic. Flags do not remove rows from full-cohort metrics.",
+  "stop_rule": "One frozen candidate selection and diagnostic evaluation; no post-result retuning",
+  "all_fits": "Kaggle only",
+  "production_promotion": false
+}

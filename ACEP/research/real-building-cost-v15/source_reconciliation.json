@@ -1,0 +1,37 @@
+{
+  "status": "Unresolved source-scope review; no numeric or categorical overrides",
+  "numeric_corrections": 0,
+  "additional_independent_acceptance_records": 0,
+  "cases": [
+    {
+      "project_id": "FDOE-2025-PDF-031",
+      "facility": "Liberty Elementary School",
+      "FDOE_contract_cost_usd": 822037,
+      "primary_reference": "https://flauditor.gov/pages/dsb_efile%20rpts/2024%20charlotte%20county%20district%20school%20board.pdf",
+      "pdf_page": 54,
+      "printed_page": 50,
+      "source_project": "Liberty Elementary Modular Installation",
+      "as_of": "2024-06-30",
+      "contract_amount_usd": 847434,
+      "completed_to_date_usd": 528258,
+      "balance_committed_usd": 319176,
+      "conclusion": "Same school and a potentially relevant modular installation contract; an exact contract identifier, reconciled final amount and matched building area are absent. Do not replace the FDOE target, infer an installation-only flag for modeling, or treat a commitment as final expenditure."
+    },
+    {
+      "project_id": "FDOE-2025-PDF-054",
+      "facility": "Collins PK8",
+      "gross_ft2": 756979,
+      "net_ft2": 71395,
+      "primary_FDOE_reference": "https://www.fldoe.org/file/7742/25CostConst-PS.pdf",
+      "district_report_attempt": "https://www.hillsboroughschools.org/cms/lib/FL50000635/Centricity/domain/2920/pdf/2023AnnualReportGrowthManagement.pdf",
+      "district_report_retrieval": "404; not used as evidence",
+      "conclusion": "Low net/gross ratio remains a documented anomaly, not a proven typo. No matched primary contract schedule establishes a replacement area. Retain original fields."
+    },
+    {
+      "project_id": "FDOE-2025-PDF-007",
+      "facility": "Marion Technical College",
+      "primary_reference": "https://www.flsenate.gov/PublishedContent/Session/FiscalYear/FY2024-25/LocalFundingInitiativeRequests/FY2024-25_S2350.pdf",
+      "conclusion": "The legislative document is an 8.5-million-dollar funding request for a 16-classroom building, with expected completion in 2026. It is not a matched final contract for the FDOE 2025 four-classroom record. Excluded from training and acceptance."
+    }
+  ]
+}
