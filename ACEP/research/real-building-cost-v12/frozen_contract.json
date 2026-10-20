@@ -1,0 +1,67 @@
+{
+  "cycle": "ACEP v12",
+  "seed": 82024,
+  "fit_environment": "Kaggle only",
+  "scope": "Retrospective nominal-USD construction-contract cost estimation from reported building characteristics and completion-reference year. Not an award-time forecast, Saudi quote, total plant cost, or whole-engine acceptance.",
+  "feature_availability": "Historical design versions are unavailable; reported net/gross areas, capacities, scope and year may reflect as-built outcomes. No claim these were known at tender.",
+  "numeric_features": [
+    "year",
+    "gross_ft2",
+    "net_ft2",
+    "students",
+    "teachers",
+    "classes_k5",
+    "classes_68",
+    "classes_912"
+  ],
+  "categorical_features": [
+    "school_type",
+    "project_scope",
+    "district"
+  ],
+  "target": "contract_cost",
+  "currency": "USD",
+  "area_unit": "ft2",
+  "sqft_to_m2": 0.09290304,
+  "development_years": [
+    2010,
+    2020
+  ],
+  "calibration_year": 2021,
+  "test_year": 2024,
+  "five_projects": [
+    "FDOE-2024-028",
+    "FDOE-2024-041",
+    "FDOE-2024-033",
+    "FDOE-2024-026",
+    "FDOE-2024-029"
+  ],
+  "selection": "Pooled temporal-fold within-10% rate descending, then mean absolute percentage error ascending, then candidate name. No calibration/test labels used for model selection. Final fit uses development only.",
+  "interval": "90% nominal split-conformal multiplicative interval using 2021 calibration residuals after final fitting. Time shift prevents an exchangeability guarantee; report test coverage and width separately from point accuracy.",
+  "acceptance": {
+    "within10": 0.9,
+    "all_five_within10": true,
+    "coverage": 1.0,
+    "mape_no_worse_than_baseline": true,
+    "p95_no_worse_than_baseline": true
+  },
+  "excluded_features": [
+    "all monetary inputs",
+    "cost per area",
+    "cost per station",
+    "plant/facility totals",
+    "fees",
+    "funding codes",
+    "facility name/id",
+    "district outcomes"
+  ],
+  "test_policy": "New source and unseen cohort for ACEP. Test labels are parsed for data validity and stored separately, not inspected or used for fitting/model selection. Five distinct facility groups are fixed by ID hash before any model runs.",
+  "limits": [
+    "Completed public-sector Florida facility construction only.",
+    "Missing 2022 and 2023 annual workbooks in this cohort; 2024 tests temporal extrapolation.",
+    "Facility-name normalization is not verified parcel/site/contractor independence.",
+    "Repeated facility groups are purged across heldout partitions.",
+    "No initial estimates, execution durations, BOQ quantities, risks, inspections or supplier outcomes are available here.",
+    "Official publication is not a Creative Commons license declaration. Attribute FDOE; original source bytes retained for research reproducibility."
+  ]
+}
