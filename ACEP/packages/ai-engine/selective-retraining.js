@@ -35,10 +35,14 @@ class SelectiveRetraining {
     const startTime = Date.now();
 
     const weakAreas = { byModel: [], byProjectType: [], lowSamples: [], highMAPE: [] };
+    const evidenceGaps = [];
+    const validated = benchmark?.accuracyValidated === true && benchmark?.independentTest === true;
+    if (!validated) evidenceGaps.push({ code: 'independent_evaluation_required',
+      action: 'collect_linked_real_project_ground_truth', message: 'Historical diagnostics cannot establish predictive accuracy.' });
 
-    if (benchmark && benchmark.byModel) {
+    if (validated && benchmark.byModel) {
       for (const [name, stats] of Object.entries(benchmark.byModel)) {
-        if (stats.avgAccuracy < this._triggers.lowAccuracyThreshold * 100) {
+        if (typeof stats.avgAccuracy === 'number' && Number.isFinite(stats.avgAccuracy) && stats.avgAccuracy < this._triggers.lowAccuracyThreshold * 100) {
           weakAreas.byModel.push({ model: name, accuracy: stats.avgAccuracy, threshold: this._triggers.lowAccuracyThreshold * 100 });
         }
       }
@@ -60,10 +64,10 @@ class SelectiveRetraining {
       }
     }
 
-    if (benchmark && benchmark.details) {
+    if (validated && benchmark.details) {
       for (const detail of benchmark.details) {
         for (const [modelName, modelResult] of Object.entries(detail.models)) {
-          if (modelResult.mape && modelResult.mape > this._triggers.highMAPEThreshold) {
+          if (typeof modelResult.mape === 'number' && Number.isFinite(modelResult.mape) && modelResult.mape > this._triggers.highMAPEThreshold) {
             weakAreas.highMAPE.push({ type: detail.projectType, model: modelName, mape: modelResult.mape, threshold: this._triggers.highMAPEThreshold });
           }
         }
@@ -82,6 +86,9 @@ class SelectiveRetraining {
       priority,
       totalWeakAreas,
       weakAreas,
+      evidenceGaps,
+      evaluationNeeded: evidenceGaps.length > 0,
+      accuracyValidated: validated,
       triggers: { ...this._triggers },
     };
 
@@ -98,7 +105,7 @@ class SelectiveRetraining {
 
   retrain(options = {}) {
     const analysis = options.analysis || this.analyze();
-    const actions = [];
+    const actions = (analysis.evidenceGaps || []).map(gap => ({ type: 'collect_evaluation_evidence', ...gap }));
     const startTime = Date.now();
 
     for (const area of analysis.weakAreas.lowSamples) {
@@ -142,9 +149,11 @@ class SelectiveRetraining {
 
     this._retrainingHistory.push(retrainingSession);
 
-    if (options.execute) {
-      retrainingSession.completed = true;
-    }
+    // This method builds a plan only; an execute flag does not execute model fitting.
+    retrainingSession.status = 'planned';
+    retrainingSession.executionRequested = options.execute === true;
+    retrainingSession.executed = false;
+    retrainingSession.accuracyValidated = false;
 
     return retrainingSession;
   }
@@ -172,3 +181,4 @@ class SelectiveRetraining {
 }
 
 module.exports = SelectiveRetraining;
+

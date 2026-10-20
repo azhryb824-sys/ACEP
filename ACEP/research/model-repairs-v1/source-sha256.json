@@ -1,0 +1,14 @@
+{
+  "packages/ai-engine/models/model-input.js": "04186c7a8bc468c3f2a09ac0f1314b9d2a0fe5096b211e94291318e32dbdd793",
+  "packages/ai-engine/models/project-analyzer.js": "bf6b2214076fc50b16e0cc5cbd28c72d75bed378b06f55874af049a8ae26d368",
+  "packages/ai-engine/models/quantity-estimator.js": "81a8ab50720d1099f471850262f84acb9d78c50c5691e959c237b4894adc7f13",
+  "packages/ai-engine/models/risk-analyzer.js": "0458df2d2293d24e7ffadb8b9c5c797ec693d6bdb7a48161facc4f012204e3f6",
+  "packages/ai-engine/models/quality-inspector.js": "d637d1910c2fadcb5387b3b364681b5f76d2516b1db77de729b15c6d3ebd3099",
+  "packages/ai-engine/models/supplier-intelligence.js": "0f155c2a33a022563d01d54144530b17a5a440558b51b1f532aad5cd46fe4ed9",
+  "packages/ai-engine/models/training-csv.js": "912f9e6e044ef668dc7ab78016a04436d69369419678affe46f68dc31c8a5d70",
+  "packages/ai-engine/workflow-engine.js": "6c0f5dd1f17d52974ba3d278cb0d8ba2bbee845badb951dcccab76655b6ebf35",
+  "packages/ai-engine/engineering-data-layer.js": "5a455095a1a385fec11dd11346b83e742a60ca2df3296576fdf830d993b14a3d",
+  "packages/ai-engine/full-analysis-handler.js": "bffb1f05ad750d1a50886911fcbf002c7956d68212cf0520028404c31525f5c2",
+  "packages/ui/web/src/app.js": "d39ad7d010451220b7505feeec270a5234701fb3ee022c444b40df3175880f06",
+  "server.js": "0337eb8943c194522a691d753d5ecdf9a93fa421301b2a929fa9c76cc34839ba"
+}

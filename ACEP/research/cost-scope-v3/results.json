@@ -1,0 +1,1987 @@
+{
+  "parentCommit": "2aefeb15ecc02e81abce5e6d319ab673d53abc0d",
+  "scopeBefore": {
+    "tests": [
+      {
+        "name": "installed price counted once without extra labor or equipment",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n671595 !== 1000\n"
+      },
+      {
+        "name": "supply price uses explicit installation totals once",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n977003 !== 1150\n"
+      },
+      {
+        "name": "mixed scopes sum without whole-project heuristic additions",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n671795 !== 1240\n"
+      },
+      {
+        "name": "unknown scope blocks total but retains quoted subtotal",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n977003 !== null\n"
+      },
+      {
+        "name": "missing installation cannot imply free installation",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n977003 !== null\n"
+      },
+      {
+        "name": "installed plus separate installation is a conflict",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n977003 !== null\n"
+      },
+      {
+        "name": "all-in or tax-inclusive quotes are not marked up again",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n977003 !== null\n"
+      },
+      {
+        "name": "zero scoped price and explicit zero installation stay zero",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n975548 !== 0\n"
+      },
+      {
+        "name": "invalid installation amounts or currency block total",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n977003 !== null\n"
+      },
+      {
+        "name": "explicit default scope allows item overrides",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n978457 !== 2000\n"
+      },
+      {
+        "name": "unrecognized default scope rejected",
+        "pass": false,
+        "error": "Missing expected exception."
+      },
+      {
+        "name": "invalid markup never silently falls back",
+        "pass": false,
+        "error": "Missing expected exception."
+      },
+      {
+        "name": "explicit markup arithmetic reconciles",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 977003\n- 1454.75\n"
+      },
+      {
+        "name": "incomplete EDL cost stays null with scope issues",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n977003 !== null\n"
+      },
+      {
+        "name": "non-SAR price is not silently treated as SAR",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n977003 !== null\n"
+      },
+      {
+        "name": "unsafe financial arithmetic is rejected",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 1.4547499999999997e+202\n- null\n"
+      }
+    ],
+    "passed": 0,
+    "total": 16
+  },
+  "scopeAfter": {
+    "tests": [
+      {
+        "name": "installed price counted once without extra labor or equipment",
+        "pass": true
+      },
+      {
+        "name": "supply price uses explicit installation totals once",
+        "pass": true
+      },
+      {
+        "name": "mixed scopes sum without whole-project heuristic additions",
+        "pass": true
+      },
+      {
+        "name": "unknown scope blocks total but retains quoted subtotal",
+        "pass": true
+      },
+      {
+        "name": "missing installation cannot imply free installation",
+        "pass": true
+      },
+      {
+        "name": "installed plus separate installation is a conflict",
+        "pass": true
+      },
+      {
+        "name": "all-in or tax-inclusive quotes are not marked up again",
+        "pass": true
+      },
+      {
+        "name": "zero scoped price and explicit zero installation stay zero",
+        "pass": true
+      },
+      {
+        "name": "invalid installation amounts or currency block total",
+        "pass": true
+      },
+      {
+        "name": "explicit default scope allows item overrides",
+        "pass": true
+      },
+      {
+        "name": "unrecognized default scope rejected",
+        "pass": true
+      },
+      {
+        "name": "invalid markup never silently falls back",
+        "pass": true
+      },
+      {
+        "name": "explicit markup arithmetic reconciles",
+        "pass": true
+      },
+      {
+        "name": "incomplete EDL cost stays null with scope issues",
+        "pass": true
+      },
+      {
+        "name": "non-SAR price is not silently treated as SAR",
+        "pass": true
+      },
+      {
+        "name": "unsafe financial arithmetic is rejected",
+        "pass": true
+      }
+    ],
+    "passed": 16,
+    "total": 16
+  },
+  "integration": {
+    "boundary": "real_workflow_EDL_validator_cost_and_route_handler; no full server or browser",
+    "tests": [
+      {
+        "name": "new EDL project has unknown cost rather than a zero estimate",
+        "pass": true
+      },
+      {
+        "name": "tiny areas cannot produce infinite per-area cost",
+        "pass": true
+      },
+      {
+        "name": "workflow keeps unknown scope unresolved in EDL",
+        "pass": true
+      },
+      {
+        "name": "validator explains review without a false zero-cost warning",
+        "pass": true
+      },
+      {
+        "name": "workflow records explicit scope and does not add installation again",
+        "pass": true
+      },
+      {
+        "name": "re-estimation preserves reviewed pricing options",
+        "pass": true
+      },
+      {
+        "name": "EDL JSON round-trip preserves missing cost and review details",
+        "pass": true
+      },
+      {
+        "name": "actual cost route returns scope evidence and reviewed totals",
+        "pass": true
+      },
+      {
+        "name": "cost route rejects invalid pricing before changing review settings",
+        "pass": true
+      },
+      {
+        "name": "cost route without options reuses prior explicit settings",
+        "pass": true
+      }
+    ],
+    "passed": 10,
+    "total": 10
+  },
+  "ui": {
+    "boundary": "actual_browser_handler_source_with_DOM_and_API_stubs_not_full_browser",
+    "tests": [
+      {
+        "name": "unknown total displays review instead of zero",
+        "pass": true
+      },
+      {
+        "name": "legacy zero with pending review is not a completed zero estimate",
+        "pass": true
+      },
+      {
+        "name": "explicit completed zero remains a valid zero",
+        "pass": true
+      },
+      {
+        "name": "breakdown uses actual component names and amounts",
+        "pass": true
+      },
+      {
+        "name": "full analysis card preserves review and does not invent confidence interval",
+        "pass": true
+      },
+      {
+        "name": "nonfinite or negative totals cannot render as valid costs",
+        "pass": true
+      }
+    ],
+    "passed": 6,
+    "total": 6
+  },
+  "scenarios": {
+    "kind": "authored_arithmetic_not_actual_quotes_or_projects",
+    "passed": 100,
+    "total": 100,
+    "cases": [
+      {
+        "id": "scope-1",
+        "expectedDirect": 90,
+        "expectedTotal": 130.93,
+        "pass": true
+      },
+      {
+        "id": "scope-2",
+        "expectedDirect": 104.5,
+        "expectedTotal": 152.03,
+        "pass": true
+      },
+      {
+        "id": "scope-3",
+        "expectedDirect": 119.5,
+        "expectedTotal": 173.85,
+        "pass": true
+      },
+      {
+        "id": "scope-4",
+        "expectedDirect": 135,
+        "expectedTotal": 196.4,
+        "pass": true
+      },
+      {
+        "id": "scope-5",
+        "expectedDirect": 151,
+        "expectedTotal": 219.67,
+        "pass": true
+      },
+      {
+        "id": "scope-6",
+        "expectedDirect": 167.5,
+        "expectedTotal": 243.67,
+        "pass": true
+      },
+      {
+        "id": "scope-7",
+        "expectedDirect": 184.5,
+        "expectedTotal": 268.41,
+        "pass": true
+      },
+      {
+        "id": "scope-8",
+        "expectedDirect": 195,
+        "expectedTotal": 283.68,
+        "pass": true
+      },
+      {
+        "id": "scope-9",
+        "expectedDirect": 213,
+        "expectedTotal": 309.87,
+        "pass": true
+      },
+      {
+        "id": "scope-10",
+        "expectedDirect": 231.5,
+        "expectedTotal": 336.78,
+        "pass": true
+      },
+      {
+        "id": "scope-11",
+        "expectedDirect": 250.5,
+        "expectedTotal": 364.42,
+        "pass": true
+      },
+      {
+        "id": "scope-12",
+        "expectedDirect": 270,
+        "expectedTotal": 392.78,
+        "pass": true
+      },
+      {
+        "id": "scope-13",
+        "expectedDirect": 290,
+        "expectedTotal": 421.88,
+        "pass": true
+      },
+      {
+        "id": "scope-14",
+        "expectedDirect": 310.5,
+        "expectedTotal": 451.71,
+        "pass": true
+      },
+      {
+        "id": "scope-15",
+        "expectedDirect": 324.5,
+        "expectedTotal": 472.08,
+        "pass": true
+      },
+      {
+        "id": "scope-16",
+        "expectedDirect": 346,
+        "expectedTotal": 503.34,
+        "pass": true
+      },
+      {
+        "id": "scope-17",
+        "expectedDirect": 368,
+        "expectedTotal": 535.35,
+        "pass": true
+      },
+      {
+        "id": "scope-18",
+        "expectedDirect": 148.25,
+        "expectedTotal": 215.67,
+        "pass": true
+      },
+      {
+        "id": "scope-19",
+        "expectedDirect": 167,
+        "expectedTotal": 242.94,
+        "pass": true
+      },
+      {
+        "id": "scope-20",
+        "expectedDirect": 186.25,
+        "expectedTotal": 270.95,
+        "pass": true
+      },
+      {
+        "id": "scope-21",
+        "expectedDirect": 206,
+        "expectedTotal": 299.68,
+        "pass": true
+      },
+      {
+        "id": "scope-22",
+        "expectedDirect": 219.25,
+        "expectedTotal": 318.95,
+        "pass": true
+      },
+      {
+        "id": "scope-23",
+        "expectedDirect": 240,
+        "expectedTotal": 349.14,
+        "pass": true
+      },
+      {
+        "id": "scope-24",
+        "expectedDirect": 261.25,
+        "expectedTotal": 380.05,
+        "pass": true
+      },
+      {
+        "id": "scope-25",
+        "expectedDirect": 283,
+        "expectedTotal": 411.7,
+        "pass": true
+      },
+      {
+        "id": "scope-26",
+        "expectedDirect": 305.25,
+        "expectedTotal": 444.06,
+        "pass": true
+      },
+      {
+        "id": "scope-27",
+        "expectedDirect": 328,
+        "expectedTotal": 477.16,
+        "pass": true
+      },
+      {
+        "id": "scope-28",
+        "expectedDirect": 351.25,
+        "expectedTotal": 510.98,
+        "pass": true
+      },
+      {
+        "id": "scope-29",
+        "expectedDirect": 368,
+        "expectedTotal": 535.35,
+        "pass": true
+      },
+      {
+        "id": "scope-30",
+        "expectedDirect": 392.25,
+        "expectedTotal": 570.63,
+        "pass": true
+      },
+      {
+        "id": "scope-31",
+        "expectedDirect": 417,
+        "expectedTotal": 606.64,
+        "pass": true
+      },
+      {
+        "id": "scope-32",
+        "expectedDirect": 442.25,
+        "expectedTotal": 643.37,
+        "pass": true
+      },
+      {
+        "id": "scope-33",
+        "expectedDirect": 468,
+        "expectedTotal": 680.82,
+        "pass": true
+      },
+      {
+        "id": "scope-34",
+        "expectedDirect": 494.25,
+        "expectedTotal": 719.01,
+        "pass": true
+      },
+      {
+        "id": "scope-35",
+        "expectedDirect": 206.5,
+        "expectedTotal": 300.41,
+        "pass": true
+      },
+      {
+        "id": "scope-36",
+        "expectedDirect": 222.5,
+        "expectedTotal": 323.69,
+        "pass": true
+      },
+      {
+        "id": "scope-37",
+        "expectedDirect": 246,
+        "expectedTotal": 357.87,
+        "pass": true
+      },
+      {
+        "id": "scope-38",
+        "expectedDirect": 270,
+        "expectedTotal": 392.78,
+        "pass": true
+      },
+      {
+        "id": "scope-39",
+        "expectedDirect": 294.5,
+        "expectedTotal": 428.43,
+        "pass": true
+      },
+      {
+        "id": "scope-40",
+        "expectedDirect": 319.5,
+        "expectedTotal": 464.8,
+        "pass": true
+      },
+      {
+        "id": "scope-41",
+        "expectedDirect": 345,
+        "expectedTotal": 501.89,
+        "pass": true
+      },
+      {
+        "id": "scope-42",
+        "expectedDirect": 371,
+        "expectedTotal": 539.72,
+        "pass": true
+      },
+      {
+        "id": "scope-43",
+        "expectedDirect": 390.5,
+        "expectedTotal": 568.09,
+        "pass": true
+      },
+      {
+        "id": "scope-44",
+        "expectedDirect": 417.5,
+        "expectedTotal": 607.36,
+        "pass": true
+      },
+      {
+        "id": "scope-45",
+        "expectedDirect": 445,
+        "expectedTotal": 647.37,
+        "pass": true
+      },
+      {
+        "id": "scope-46",
+        "expectedDirect": 473,
+        "expectedTotal": 688.1,
+        "pass": true
+      },
+      {
+        "id": "scope-47",
+        "expectedDirect": 501.5,
+        "expectedTotal": 729.56,
+        "pass": true
+      },
+      {
+        "id": "scope-48",
+        "expectedDirect": 530.5,
+        "expectedTotal": 771.75,
+        "pass": true
+      },
+      {
+        "id": "scope-49",
+        "expectedDirect": 560,
+        "expectedTotal": 814.66,
+        "pass": true
+      },
+      {
+        "id": "scope-50",
+        "expectedDirect": 583,
+        "expectedTotal": 848.12,
+        "pass": true
+      },
+      {
+        "id": "scope-51",
+        "expectedDirect": 613.5,
+        "expectedTotal": 892.49,
+        "pass": true
+      },
+      {
+        "id": "scope-52",
+        "expectedDirect": 257.75,
+        "expectedTotal": 374.97,
+        "pass": true
+      },
+      {
+        "id": "scope-53",
+        "expectedDirect": 285,
+        "expectedTotal": 414.61,
+        "pass": true
+      },
+      {
+        "id": "scope-54",
+        "expectedDirect": 312.75,
+        "expectedTotal": 454.99,
+        "pass": true
+      },
+      {
+        "id": "scope-55",
+        "expectedDirect": 341,
+        "expectedTotal": 496.08,
+        "pass": true
+      },
+      {
+        "id": "scope-56",
+        "expectedDirect": 369.75,
+        "expectedTotal": 537.9,
+        "pass": true
+      },
+      {
+        "id": "scope-57",
+        "expectedDirect": 392,
+        "expectedTotal": 570.26,
+        "pass": true
+      },
+      {
+        "id": "scope-58",
+        "expectedDirect": 421.75,
+        "expectedTotal": 613.55,
+        "pass": true
+      },
+      {
+        "id": "scope-59",
+        "expectedDirect": 452,
+        "expectedTotal": 657.55,
+        "pass": true
+      },
+      {
+        "id": "scope-60",
+        "expectedDirect": 482.75,
+        "expectedTotal": 702.29,
+        "pass": true
+      },
+      {
+        "id": "scope-61",
+        "expectedDirect": 514,
+        "expectedTotal": 747.74,
+        "pass": true
+      },
+      {
+        "id": "scope-62",
+        "expectedDirect": 545.75,
+        "expectedTotal": 793.94,
+        "pass": true
+      },
+      {
+        "id": "scope-63",
+        "expectedDirect": 578,
+        "expectedTotal": 840.85,
+        "pass": true
+      },
+      {
+        "id": "scope-64",
+        "expectedDirect": 603.75,
+        "expectedTotal": 878.31,
+        "pass": true
+      },
+      {
+        "id": "scope-65",
+        "expectedDirect": 637,
+        "expectedTotal": 926.68,
+        "pass": true
+      },
+      {
+        "id": "scope-66",
+        "expectedDirect": 670.75,
+        "expectedTotal": 975.79,
+        "pass": true
+      },
+      {
+        "id": "scope-67",
+        "expectedDirect": 705,
+        "expectedTotal": 1025.6,
+        "pass": true
+      },
+      {
+        "id": "scope-68",
+        "expectedDirect": 739.75,
+        "expectedTotal": 1076.16,
+        "pass": true
+      },
+      {
+        "id": "scope-69",
+        "expectedDirect": 316,
+        "expectedTotal": 459.7,
+        "pass": true
+      },
+      {
+        "id": "scope-70",
+        "expectedDirect": 347.5,
+        "expectedTotal": 505.53,
+        "pass": true
+      },
+      {
+        "id": "scope-71",
+        "expectedDirect": 372.5,
+        "expectedTotal": 541.9,
+        "pass": true
+      },
+      {
+        "id": "scope-72",
+        "expectedDirect": 405,
+        "expectedTotal": 589.18,
+        "pass": true
+      },
+      {
+        "id": "scope-73",
+        "expectedDirect": 438,
+        "expectedTotal": 637.18,
+        "pass": true
+      },
+      {
+        "id": "scope-74",
+        "expectedDirect": 471.5,
+        "expectedTotal": 685.92,
+        "pass": true
+      },
+      {
+        "id": "scope-75",
+        "expectedDirect": 505.5,
+        "expectedTotal": 735.38,
+        "pass": true
+      },
+      {
+        "id": "scope-76",
+        "expectedDirect": 540,
+        "expectedTotal": 785.57,
+        "pass": true
+      },
+      {
+        "id": "scope-77",
+        "expectedDirect": 575,
+        "expectedTotal": 836.49,
+        "pass": true
+      },
+      {
+        "id": "scope-78",
+        "expectedDirect": 603.5,
+        "expectedTotal": 877.94,
+        "pass": true
+      },
+      {
+        "id": "scope-79",
+        "expectedDirect": 639.5,
+        "expectedTotal": 930.32,
+        "pass": true
+      },
+      {
+        "id": "scope-80",
+        "expectedDirect": 676,
+        "expectedTotal": 983.41,
+        "pass": true
+      },
+      {
+        "id": "scope-81",
+        "expectedDirect": 713,
+        "expectedTotal": 1037.24,
+        "pass": true
+      },
+      {
+        "id": "scope-82",
+        "expectedDirect": 750.5,
+        "expectedTotal": 1091.8,
+        "pass": true
+      },
+      {
+        "id": "scope-83",
+        "expectedDirect": 788.5,
+        "expectedTotal": 1147.08,
+        "pass": true
+      },
+      {
+        "id": "scope-84",
+        "expectedDirect": 827,
+        "expectedTotal": 1203.08,
+        "pass": true
+      },
+      {
+        "id": "scope-85",
+        "expectedDirect": 859,
+        "expectedTotal": 1249.64,
+        "pass": true
+      },
+      {
+        "id": "scope-86",
+        "expectedDirect": 367.25,
+        "expectedTotal": 534.26,
+        "pass": true
+      },
+      {
+        "id": "scope-87",
+        "expectedDirect": 403,
+        "expectedTotal": 586.27,
+        "pass": true
+      },
+      {
+        "id": "scope-88",
+        "expectedDirect": 439.25,
+        "expectedTotal": 639,
+        "pass": true
+      },
+      {
+        "id": "scope-89",
+        "expectedDirect": 476,
+        "expectedTotal": 692.46,
+        "pass": true
+      },
+      {
+        "id": "scope-90",
+        "expectedDirect": 513.25,
+        "expectedTotal": 746.65,
+        "pass": true
+      },
+      {
+        "id": "scope-91",
+        "expectedDirect": 551,
+        "expectedTotal": 801.57,
+        "pass": true
+      },
+      {
+        "id": "scope-92",
+        "expectedDirect": 582.25,
+        "expectedTotal": 847.03,
+        "pass": true
+      },
+      {
+        "id": "scope-93",
+        "expectedDirect": 621,
+        "expectedTotal": 903.41,
+        "pass": true
+      },
+      {
+        "id": "scope-94",
+        "expectedDirect": 660.25,
+        "expectedTotal": 960.5,
+        "pass": true
+      },
+      {
+        "id": "scope-95",
+        "expectedDirect": 700,
+        "expectedTotal": 1018.32,
+        "pass": true
+      },
+      {
+        "id": "scope-96",
+        "expectedDirect": 740.25,
+        "expectedTotal": 1076.88,
+        "pass": true
+      },
+      {
+        "id": "scope-97",
+        "expectedDirect": 781,
+        "expectedTotal": 1136.17,
+        "pass": true
+      },
+      {
+        "id": "scope-98",
+        "expectedDirect": 822.25,
+        "expectedTotal": 1196.17,
+        "pass": true
+      },
+      {
+        "id": "scope-99",
+        "expectedDirect": 857,
+        "expectedTotal": 1246.73,
+        "pass": true
+      },
+      {
+        "id": "scope-100",
+        "expectedDirect": 899.25,
+        "expectedTotal": 1308.18,
+        "pass": true
+      }
+    ]
+  },
+  "priorPrice": {
+    "checks": [
+      {
+        "name": "labor city follows CSV header",
+        "pass": true
+      },
+      {
+        "name": "supplier city follows CSV header",
+        "pass": true
+      },
+      {
+        "name": "equipment has city and operator flag",
+        "pass": true
+      },
+      {
+        "name": "explicit zero paint price is preserved",
+        "pass": true
+      },
+      {
+        "name": "explicit paint price does not mix SAR/gal with SAR/m2",
+        "pass": true
+      },
+      {
+        "name": "missing paint coverage returns incomplete total",
+        "pass": true
+      },
+      {
+        "name": "insufficient BOQ item prevents complete total",
+        "pass": true
+      },
+      {
+        "name": "invalid project dimensions rejected",
+        "pass": true
+      },
+      {
+        "name": "quantity prices grouped by description and unit",
+        "pass": true
+      },
+      {
+        "name": "fallback cost per area agrees with total",
+        "pass": true
+      }
+    ],
+    "passed": 10,
+    "total": 10
+  },
+  "priorExtended": {
+    "tests": [
+      {
+        "name": "CSV supports BOM, reordered headers, quoted commas, escaped quotes and newlines",
+        "pass": true
+      },
+      {
+        "name": "CSV rejects truncated quotes and duplicate/missing headers",
+        "pass": true
+      },
+      {
+        "name": "numeric parser rejects blanks, suffixes, infinity and negatives; retains zero",
+        "pass": true
+      },
+      {
+        "name": "quantity fit rejects malformed rows and retains audit counts",
+        "pass": true
+      },
+      {
+        "name": "quantity fit resets old groups and preserves zero prices",
+        "pass": true
+      },
+      {
+        "name": "failed quantity fit preserves previous valid state",
+        "pass": true
+      },
+      {
+        "name": "BOQ lookup requires matching item and unit, never reused price category",
+        "pass": true
+      },
+      {
+        "name": "finishing and region applied once; summaries reconcile for primary/suggested items",
+        "pass": true
+      },
+      {
+        "name": "cost fit clears old groups on successful refit",
+        "pass": true
+      },
+      {
+        "name": "failed cost fit preserves valid snapshot",
+        "pass": true
+      },
+      {
+        "name": "material lookup requires same name, unit, city and grade",
+        "pass": true
+      },
+      {
+        "name": "negative, NaN, textual price and quantity cannot form complete estimates",
+        "pass": true
+      }
+    ],
+    "passed": 12,
+    "total": 12
+  },
+  "priorGeometry": {
+    "checks": [
+      {
+        "name": "same footprint excavation does not shrink as floors increase",
+        "pass": true
+      },
+      {
+        "name": "transport relates to the same excavation volume",
+        "pass": true
+      },
+      {
+        "name": "explicit total built-up area and per-floor input agree for every BOQ item",
+        "pass": true
+      },
+      {
+        "name": "cost area basis agrees with quantity input semantics",
+        "pass": true
+      },
+      {
+        "name": "default area basis is visible as an assumption",
+        "pass": true
+      },
+      {
+        "name": "unsupported area basis is rejected",
+        "pass": true
+      },
+      {
+        "name": "total area requires explicit valid floors",
+        "pass": true
+      },
+      {
+        "name": "invalid negative or nonfinite area cannot produce a BOQ",
+        "pass": true
+      },
+      {
+        "name": "Arabic shell request is scoped to Shell",
+        "pass": true
+      },
+      {
+        "name": "finished shell followed by requested finishing stays Finishing",
+        "pass": true
+      }
+    ],
+    "passed": 10,
+    "total": 10
+  },
+  "priorAPI": {
+    "testBoundary": "actual_route_handlers_real_three_models_stub_other_services_and_store",
+    "tests": [
+      {
+        "name": "explicit project type is respected by analyzer",
+        "pass": true
+      },
+      {
+        "name": "POST stores per-floor area and GET preserves cost",
+        "pass": true
+      },
+      {
+        "name": "POST total-built-up input is normalized once",
+        "pass": true
+      },
+      {
+        "name": "explicit decimal area is not rounded through analyzer output",
+        "pass": true
+      },
+      {
+        "name": "stored finishing and region survive GET recomputation",
+        "pass": true
+      },
+      {
+        "name": "invalid explicit area and unsupported basis return 400 without persistence",
+        "pass": true
+      },
+      {
+        "name": "offline create still normalizes explicit total area",
+        "pass": true
+      },
+      {
+        "name": "online missing dimensions do not produce assumed BOQ or price",
+        "pass": true
+      },
+      {
+        "name": "partial geometry keeps missing floors unknown through create and read",
+        "pass": true
+      },
+      {
+        "name": "name-only creation remains available without AI data",
+        "pass": true
+      },
+      {
+        "name": "GET handles explicitly marked legacy total area without changing stored record",
+        "pass": true
+      },
+      {
+        "name": "unlabelled legacy area retains its previous per-floor interpretation",
+        "pass": true
+      }
+    ],
+    "passed": 12,
+    "total": 12
+  },
+  "prior100Arithmetic": {
+    "kind": "authored_arithmetic_and_metamorphic_scenarios_not_actual_projects",
+    "passed": 100,
+    "total": 100,
+    "results": [
+      {
+        "id": "geometry-001",
+        "type": "Villa",
+        "perFloorAreaM2": 120,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 180,
+        "expectedSlabM3": 21.6
+      },
+      {
+        "id": "geometry-002",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 257.37,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 386.06,
+        "expectedSlabM3": 92.65
+      },
+      {
+        "id": "geometry-003",
+        "type": "School",
+        "perFloorAreaM2": 394.74,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 592.11,
+        "expectedSlabM3": 213.16
+      },
+      {
+        "id": "geometry-004",
+        "type": "Hospital",
+        "perFloorAreaM2": 532.11,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 798.17,
+        "expectedSlabM3": 425.69
+      },
+      {
+        "id": "geometry-005",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 669.48,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 1004.22,
+        "expectedSlabM3": 736.43
+      },
+      {
+        "id": "geometry-006",
+        "type": "Factory",
+        "perFloorAreaM2": 806.85,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 1210.28,
+        "expectedSlabM3": 871.4
+      },
+      {
+        "id": "geometry-007",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 944.22,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 1416.33,
+        "expectedSlabM3": 1189.72
+      },
+      {
+        "id": "geometry-008",
+        "type": "Mosque",
+        "perFloorAreaM2": 1081.59,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 1622.38,
+        "expectedSlabM3": 1557.49
+      },
+      {
+        "id": "geometry-009",
+        "type": "Warehouse",
+        "perFloorAreaM2": 1218.96,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 1828.44,
+        "expectedSlabM3": 1974.72
+      },
+      {
+        "id": "geometry-010",
+        "type": "Hotel",
+        "perFloorAreaM2": 1356.33,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 2034.5,
+        "expectedSlabM3": 2441.39
+      },
+      {
+        "id": "geometry-011",
+        "type": "Mall",
+        "perFloorAreaM2": 1493.7,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 2240.55,
+        "expectedSlabM3": 2957.53
+      },
+      {
+        "id": "geometry-012",
+        "type": "Office_Building",
+        "perFloorAreaM2": 1631.07,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 2446.61,
+        "expectedSlabM3": 3523.11
+      },
+      {
+        "id": "geometry-013",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 1768.44,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 2652.66,
+        "expectedSlabM3": 4138.15
+      },
+      {
+        "id": "geometry-014",
+        "type": "Villa",
+        "perFloorAreaM2": 1905.81,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 2858.72,
+        "expectedSlabM3": 4802.64
+      },
+      {
+        "id": "geometry-015",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 2043.18,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 3064.77,
+        "expectedSlabM3": 5516.59
+      },
+      {
+        "id": "geometry-016",
+        "type": "School",
+        "perFloorAreaM2": 2180.55,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 3270.83,
+        "expectedSlabM3": 392.5
+      },
+      {
+        "id": "geometry-017",
+        "type": "Hospital",
+        "perFloorAreaM2": 2317.92,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 3476.88,
+        "expectedSlabM3": 927.17
+      },
+      {
+        "id": "geometry-018",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 2455.29,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 3682.94,
+        "expectedSlabM3": 1620.49
+      },
+      {
+        "id": "geometry-019",
+        "type": "Factory",
+        "perFloorAreaM2": 2592.66,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 3888.99,
+        "expectedSlabM3": 1866.72
+      },
+      {
+        "id": "geometry-020",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 2730.03,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 4095.05,
+        "expectedSlabM3": 2457.03
+      },
+      {
+        "id": "geometry-021",
+        "type": "Mosque",
+        "perFloorAreaM2": 2867.4,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 4301.1,
+        "expectedSlabM3": 3096.79
+      },
+      {
+        "id": "geometry-022",
+        "type": "Warehouse",
+        "perFloorAreaM2": 3004.77,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 4507.16,
+        "expectedSlabM3": 3786.01
+      },
+      {
+        "id": "geometry-023",
+        "type": "Hotel",
+        "perFloorAreaM2": 3142.14,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 4713.21,
+        "expectedSlabM3": 4524.68
+      },
+      {
+        "id": "geometry-024",
+        "type": "Mall",
+        "perFloorAreaM2": 3279.51,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 4919.27,
+        "expectedSlabM3": 5312.81
+      },
+      {
+        "id": "geometry-025",
+        "type": "Office_Building",
+        "perFloorAreaM2": 3416.88,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 5125.32,
+        "expectedSlabM3": 6150.38
+      },
+      {
+        "id": "geometry-026",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 3554.25,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 5331.38,
+        "expectedSlabM3": 7037.42
+      },
+      {
+        "id": "geometry-027",
+        "type": "Villa",
+        "perFloorAreaM2": 3691.62,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 5537.43,
+        "expectedSlabM3": 7973.9
+      },
+      {
+        "id": "geometry-028",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 3828.99,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 5743.49,
+        "expectedSlabM3": 8959.84
+      },
+      {
+        "id": "geometry-029",
+        "type": "School",
+        "perFloorAreaM2": 3966.36,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 5949.54,
+        "expectedSlabM3": 9995.23
+      },
+      {
+        "id": "geometry-030",
+        "type": "Hospital",
+        "perFloorAreaM2": 4103.73,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 6155.59,
+        "expectedSlabM3": 12311.19
+      },
+      {
+        "id": "geometry-031",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 4241.1,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 6361.65,
+        "expectedSlabM3": 933.04
+      },
+      {
+        "id": "geometry-032",
+        "type": "Factory",
+        "perFloorAreaM2": 4378.47,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 6567.71,
+        "expectedSlabM3": 1576.25
+      },
+      {
+        "id": "geometry-033",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 4515.84,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 6773.76,
+        "expectedSlabM3": 2438.55
+      },
+      {
+        "id": "geometry-034",
+        "type": "Mosque",
+        "perFloorAreaM2": 4653.21,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 6979.82,
+        "expectedSlabM3": 3350.31
+      },
+      {
+        "id": "geometry-035",
+        "type": "Warehouse",
+        "perFloorAreaM2": 4790.58,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 7185.87,
+        "expectedSlabM3": 4311.52
+      },
+      {
+        "id": "geometry-036",
+        "type": "Hotel",
+        "perFloorAreaM2": 4927.95,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 7391.92,
+        "expectedSlabM3": 5322.19
+      },
+      {
+        "id": "geometry-037",
+        "type": "Mall",
+        "perFloorAreaM2": 5065.32,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 7597.98,
+        "expectedSlabM3": 6382.3
+      },
+      {
+        "id": "geometry-038",
+        "type": "Office_Building",
+        "perFloorAreaM2": 5202.69,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 7804.04,
+        "expectedSlabM3": 7491.87
+      },
+      {
+        "id": "geometry-039",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 5340.06,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 8010.09,
+        "expectedSlabM3": 8650.9
+      },
+      {
+        "id": "geometry-040",
+        "type": "Villa",
+        "perFloorAreaM2": 5477.43,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 8216.15,
+        "expectedSlabM3": 9859.37
+      },
+      {
+        "id": "geometry-041",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 5614.8,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 8422.2,
+        "expectedSlabM3": 11117.3
+      },
+      {
+        "id": "geometry-042",
+        "type": "School",
+        "perFloorAreaM2": 5752.17,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 8628.26,
+        "expectedSlabM3": 12424.69
+      },
+      {
+        "id": "geometry-043",
+        "type": "Hospital",
+        "perFloorAreaM2": 5889.54,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 8834.31,
+        "expectedSlabM3": 15312.8
+      },
+      {
+        "id": "geometry-044",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 6026.91,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 9040.37,
+        "expectedSlabM3": 18562.88
+      },
+      {
+        "id": "geometry-045",
+        "type": "Factory",
+        "perFloorAreaM2": 164.28,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 246.42,
+        "expectedSlabM3": 443.56
+      },
+      {
+        "id": "geometry-046",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 301.65,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 452.48,
+        "expectedSlabM3": 54.3
+      },
+      {
+        "id": "geometry-047",
+        "type": "Mosque",
+        "perFloorAreaM2": 439.02,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 658.53,
+        "expectedSlabM3": 158.05
+      },
+      {
+        "id": "geometry-048",
+        "type": "Warehouse",
+        "perFloorAreaM2": 576.39,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 864.59,
+        "expectedSlabM3": 311.25
+      },
+      {
+        "id": "geometry-049",
+        "type": "Hotel",
+        "perFloorAreaM2": 713.76,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 1070.64,
+        "expectedSlabM3": 513.91
+      },
+      {
+        "id": "geometry-050",
+        "type": "Mall",
+        "perFloorAreaM2": 851.13,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 1276.7,
+        "expectedSlabM3": 766.02
+      },
+      {
+        "id": "geometry-051",
+        "type": "Office_Building",
+        "perFloorAreaM2": 988.5,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 1482.75,
+        "expectedSlabM3": 1067.58
+      },
+      {
+        "id": "geometry-052",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 1125.87,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 1688.8,
+        "expectedSlabM3": 1418.6
+      },
+      {
+        "id": "geometry-053",
+        "type": "Villa",
+        "perFloorAreaM2": 1263.24,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 1894.86,
+        "expectedSlabM3": 1819.07
+      },
+      {
+        "id": "geometry-054",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 1400.61,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 2100.92,
+        "expectedSlabM3": 2268.99
+      },
+      {
+        "id": "geometry-055",
+        "type": "School",
+        "perFloorAreaM2": 1537.98,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 2306.97,
+        "expectedSlabM3": 2768.36
+      },
+      {
+        "id": "geometry-056",
+        "type": "Hospital",
+        "perFloorAreaM2": 1675.35,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 2513.02,
+        "expectedSlabM3": 3685.77
+      },
+      {
+        "id": "geometry-057",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 1812.72,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 2719.08,
+        "expectedSlabM3": 4785.58
+      },
+      {
+        "id": "geometry-058",
+        "type": "Factory",
+        "perFloorAreaM2": 1950.09,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 2925.14,
+        "expectedSlabM3": 4563.21
+      },
+      {
+        "id": "geometry-059",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 2087.46,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 3131.19,
+        "expectedSlabM3": 5260.4
+      },
+      {
+        "id": "geometry-060",
+        "type": "Mosque",
+        "perFloorAreaM2": 2224.83,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 3337.25,
+        "expectedSlabM3": 6007.04
+      },
+      {
+        "id": "geometry-061",
+        "type": "Warehouse",
+        "perFloorAreaM2": 2362.2,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 3543.3,
+        "expectedSlabM3": 425.2
+      },
+      {
+        "id": "geometry-062",
+        "type": "Hotel",
+        "perFloorAreaM2": 2499.57,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 3749.36,
+        "expectedSlabM3": 899.85
+      },
+      {
+        "id": "geometry-063",
+        "type": "Mall",
+        "perFloorAreaM2": 2636.94,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 3955.41,
+        "expectedSlabM3": 1423.95
+      },
+      {
+        "id": "geometry-064",
+        "type": "Office_Building",
+        "perFloorAreaM2": 2774.31,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 4161.47,
+        "expectedSlabM3": 1997.5
+      },
+      {
+        "id": "geometry-065",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 2911.68,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 4367.52,
+        "expectedSlabM3": 2620.51
+      },
+      {
+        "id": "geometry-066",
+        "type": "Villa",
+        "perFloorAreaM2": 3049.05,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 4573.58,
+        "expectedSlabM3": 3292.97
+      },
+      {
+        "id": "geometry-067",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 3186.42,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 4779.63,
+        "expectedSlabM3": 4014.89
+      },
+      {
+        "id": "geometry-068",
+        "type": "School",
+        "perFloorAreaM2": 3323.79,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 4985.68,
+        "expectedSlabM3": 4786.26
+      },
+      {
+        "id": "geometry-069",
+        "type": "Hospital",
+        "perFloorAreaM2": 3461.16,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 5191.74,
+        "expectedSlabM3": 6230.09
+      },
+      {
+        "id": "geometry-070",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 3598.53,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 5397.8,
+        "expectedSlabM3": 7916.77
+      },
+      {
+        "id": "geometry-071",
+        "type": "Factory",
+        "perFloorAreaM2": 3735.9,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 5603.85,
+        "expectedSlabM3": 7397.08
+      },
+      {
+        "id": "geometry-072",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 3873.27,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 5809.91,
+        "expectedSlabM3": 8366.26
+      },
+      {
+        "id": "geometry-073",
+        "type": "Mosque",
+        "perFloorAreaM2": 4010.64,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 6015.96,
+        "expectedSlabM3": 9384.9
+      },
+      {
+        "id": "geometry-074",
+        "type": "Warehouse",
+        "perFloorAreaM2": 4148.01,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 6222.02,
+        "expectedSlabM3": 10452.99
+      },
+      {
+        "id": "geometry-075",
+        "type": "Hotel",
+        "perFloorAreaM2": 4285.38,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 6428.07,
+        "expectedSlabM3": 11570.53
+      },
+      {
+        "id": "geometry-076",
+        "type": "Mall",
+        "perFloorAreaM2": 4422.75,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 6634.13,
+        "expectedSlabM3": 796.1
+      },
+      {
+        "id": "geometry-077",
+        "type": "Office_Building",
+        "perFloorAreaM2": 4560.12,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 6840.18,
+        "expectedSlabM3": 1641.64
+      },
+      {
+        "id": "geometry-078",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 4697.49,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 7046.24,
+        "expectedSlabM3": 2536.64
+      },
+      {
+        "id": "geometry-079",
+        "type": "Villa",
+        "perFloorAreaM2": 4834.86,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 7252.29,
+        "expectedSlabM3": 3481.1
+      },
+      {
+        "id": "geometry-080",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 4972.23,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 7458.34,
+        "expectedSlabM3": 4475.01
+      },
+      {
+        "id": "geometry-081",
+        "type": "School",
+        "perFloorAreaM2": 5109.6,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 7664.4,
+        "expectedSlabM3": 5518.37
+      },
+      {
+        "id": "geometry-082",
+        "type": "Hospital",
+        "perFloorAreaM2": 5246.97,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 7870.46,
+        "expectedSlabM3": 7345.76
+      },
+      {
+        "id": "geometry-083",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 5384.34,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 8076.51,
+        "expectedSlabM3": 9476.44
+      },
+      {
+        "id": "geometry-084",
+        "type": "Factory",
+        "perFloorAreaM2": 5521.71,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 8282.57,
+        "expectedSlabM3": 8945.17
+      },
+      {
+        "id": "geometry-085",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 5659.08,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 8488.62,
+        "expectedSlabM3": 10186.34
+      },
+      {
+        "id": "geometry-086",
+        "type": "Mosque",
+        "perFloorAreaM2": 5796.45,
+        "floors": 11,
+        "pass": true,
+        "expectedExcavationM3": 8694.67,
+        "expectedSlabM3": 11476.97
+      },
+      {
+        "id": "geometry-087",
+        "type": "Warehouse",
+        "perFloorAreaM2": 5933.82,
+        "floors": 12,
+        "pass": true,
+        "expectedExcavationM3": 8900.73,
+        "expectedSlabM3": 12817.05
+      },
+      {
+        "id": "geometry-088",
+        "type": "Hotel",
+        "perFloorAreaM2": 6071.19,
+        "floors": 13,
+        "pass": true,
+        "expectedExcavationM3": 9106.79,
+        "expectedSlabM3": 14206.58
+      },
+      {
+        "id": "geometry-089",
+        "type": "Mall",
+        "perFloorAreaM2": 208.56,
+        "floors": 14,
+        "pass": true,
+        "expectedExcavationM3": 312.84,
+        "expectedSlabM3": 525.57
+      },
+      {
+        "id": "geometry-090",
+        "type": "Office_Building",
+        "perFloorAreaM2": 345.93,
+        "floors": 15,
+        "pass": true,
+        "expectedExcavationM3": 518.9,
+        "expectedSlabM3": 934.01
+      },
+      {
+        "id": "geometry-091",
+        "type": "Residential_Compound",
+        "perFloorAreaM2": 483.3,
+        "floors": 1,
+        "pass": true,
+        "expectedExcavationM3": 724.95,
+        "expectedSlabM3": 86.99
+      },
+      {
+        "id": "geometry-092",
+        "type": "Villa",
+        "perFloorAreaM2": 620.67,
+        "floors": 2,
+        "pass": true,
+        "expectedExcavationM3": 931,
+        "expectedSlabM3": 223.44
+      },
+      {
+        "id": "geometry-093",
+        "type": "Luxury_Villa",
+        "perFloorAreaM2": 758.04,
+        "floors": 3,
+        "pass": true,
+        "expectedExcavationM3": 1137.06,
+        "expectedSlabM3": 409.34
+      },
+      {
+        "id": "geometry-094",
+        "type": "School",
+        "perFloorAreaM2": 895.41,
+        "floors": 4,
+        "pass": true,
+        "expectedExcavationM3": 1343.12,
+        "expectedSlabM3": 644.7
+      },
+      {
+        "id": "geometry-095",
+        "type": "Hospital",
+        "perFloorAreaM2": 1032.78,
+        "floors": 5,
+        "pass": true,
+        "expectedExcavationM3": 1549.17,
+        "expectedSlabM3": 1032.78
+      },
+      {
+        "id": "geometry-096",
+        "type": "Residential_Tower",
+        "perFloorAreaM2": 1170.15,
+        "floors": 6,
+        "pass": true,
+        "expectedExcavationM3": 1755.23,
+        "expectedSlabM3": 1544.6
+      },
+      {
+        "id": "geometry-097",
+        "type": "Factory",
+        "perFloorAreaM2": 1307.52,
+        "floors": 7,
+        "pass": true,
+        "expectedExcavationM3": 1961.28,
+        "expectedSlabM3": 1647.48
+      },
+      {
+        "id": "geometry-098",
+        "type": "Apartment_Building",
+        "perFloorAreaM2": 1444.89,
+        "floors": 8,
+        "pass": true,
+        "expectedExcavationM3": 2167.34,
+        "expectedSlabM3": 2080.64
+      },
+      {
+        "id": "geometry-099",
+        "type": "Mosque",
+        "perFloorAreaM2": 1582.26,
+        "floors": 9,
+        "pass": true,
+        "expectedExcavationM3": 2373.39,
+        "expectedSlabM3": 2563.26
+      },
+      {
+        "id": "geometry-100",
+        "type": "Warehouse",
+        "perFloorAreaM2": 1719.63,
+        "floors": 10,
+        "pass": true,
+        "expectedExcavationM3": 2579.45,
+        "expectedSlabM3": 3095.33
+      }
+    ]
+  },
+  "existing": {
+    "boq": {
+      "passed": 162,
+      "failed": 0
+    },
+    "quantity": {
+      "passed": 55,
+      "failed": 0
+    },
+    "phases": {
+      "passed": 76,
+      "failed": 0
+    }
+  },
+  "regressionFixtureUpdates": [
+    "Prior material-price tests now declare supply_only and explicit zero installation, retaining the original unit/zero assertions",
+    "Prior geometry route tests declare installed scope with zero markups; a missing kitchen item keeps total null, so finishing comparison now checks a positive knownDirectSubtotal rather than comparing two null totals"
+  ],
+  "limits": [
+    "Authored arithmetic, not independent market quotes or executed projects",
+    "Route handlers/EDL/workflow are exercised but storage and other services can be stubbed; DOM handler tests are not a complete browser test",
+    "No local test browser was installed; no live-platform UI claim",
+    "Generated prices retain unknown scope and unverified heuristic or CSV source until caller declares scope",
+    "No neural training, merge or deployment; no engineering accuracy percentage"
+  ],
+  "sourceSHA256": {
+    "server.js": "088872093b2ee9bb5853c71bf8746c65a8029b07c08859ae1ad3da4ead32207c",
+    "packages/ai-engine/models/boq-cost-ledger.js": "ed4fa0395d6141600dba0329ac0d17393e6aed7a8450bf995370e0bc9427f40e",
+    "packages/ai-engine/models/cost-estimator.js": "07c7144cce608a78cfdcdceecd1e8ba578672a769456a86f9362481239651d56",
+    "packages/ai-engine/engineering-ke/boq-engine.js": "172315b5be4ada85c2b85b1293efbefc4d1d43d2253df239e233d7058ce6f88c",
+    "packages/ai-engine/engineering-data-layer.js": "62651657cd2aefdb2909be1b8fb5332289d1aae366cb241f773e2d0ccc994304",
+    "packages/ai-engine/workflow-engine.js": "05c25eb3d9fad690c0cbf02c4eb33698608d35ad6522a8a32eb19f8f3c160772",
+    "packages/ai-engine/validation-engine.js": "8744471837e2d36feb2b671ebec543538643ead13bd128f58fb77f8fcb09ea92",
+    "packages/ui/web/src/app.js": "796598a0631916234966132f3f0c9363df36f7c72184ca63370fb404d95cee97"
+  }
+}

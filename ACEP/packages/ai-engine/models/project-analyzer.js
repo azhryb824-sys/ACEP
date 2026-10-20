@@ -3,9 +3,11 @@
  * Pure JS - trained on CSV project data. No external ML dependencies.
  */
 
-const fs = require('fs');
+const {loadProjects,positive,validSupport,mean} = require('./project-training');
+const snapshots = require('./training-profile');
 const path = require('path');
 const kb = require('../knowledge-base');
+const input = require('./model-input');
 
 class ProjectAnalyzer {
   constructor() {
@@ -14,83 +16,55 @@ class ProjectAnalyzer {
     this.projects = [];
   }
 
-  async train(csvPath) {
-    const content = fs.readFileSync(csvPath || path.join(__dirname, '..', '..', '..', 'packages', 'databases', 'training', 'csv', 'projects.csv'), 'utf8');
-    const lines = content.trim().split('\n').slice(1);
-    this.projects = lines.map(l => {
-      const c = l.split(',');
-      return {
-        projectId: c[0], city: c[1], region: c[2], projectType: c[3],
-        landArea: parseFloat(c[4]) || 0, buildingArea: parseFloat(c[5]) || 0,
-        floors: parseInt(c[6]) || 1, units: parseInt(c[7]) || 0,
-        finishingLevel: c[8], constructionMethod: c[9], structuralSystem: c[10],
-        concrete: parseFloat(c[11]) || 0, steel: parseFloat(c[12]) || 0,
-        blocks: parseFloat(c[13]) || 0, tiles: parseFloat(c[14]) || 0,
-        paint: parseFloat(c[15]) || 0, electrical: parseFloat(c[16]) || 0,
-        plumbing: parseFloat(c[17]) || 0,
-        estimatedCost: parseFloat(c[18]) || 0,
-        duration: parseFloat(c[19]) || 0, year: parseInt(c[20]) || 2024
-      };
-    });
-
-    // Compute per-project-type statistics
-    const groups = {};
-    this.projects.forEach(p => {
-      if (!groups[p.projectType]) groups[p.projectType] = [];
-      groups[p.projectType].push(p);
-    });
-    for (const [type, items] of Object.entries(groups)) {
-      if (items.length < 2) continue;
+  async train(csvPath, options = {}) {
+    this.trained = false;
+    this.trainingStats.projectTypeStats = Object.create(null);
+    const fp = csvPath || path.join(__dirname, '..', '..', '..', 'packages', 'databases', 'training', 'csv', 'projects.csv');
+    const fit = loadProjects(fp, options, true), groups = new Map();
+    for (const row of fit.data) { if (!groups.has(row.type)) groups.set(row.type, []); groups.get(row.type).push(row); }
+    for (const [type,rows] of groups) {
+      const areas=rows.map(p=>p.totalBuiltUpArea), floors=rows.map(p=>p.floors), complete=areas.every(positive);
       this.trainingStats.projectTypeStats[type] = {
-        count: items.length,
-        avgCost: items.reduce((s, p) => s + p.estimatedCost, 0) / items.length,
-        avgArea: items.reduce((s, p) => s + p.buildingArea, 0) / items.length,
-        avgFloors: items.reduce((s, p) => s + p.floors, 0) / items.length,
-        avgConcrete: items.reduce((s, p) => s + p.concrete, 0) / items.length,
-        avgSteel: items.reduce((s, p) => s + p.steel, 0) / items.length,
-        avgDuration: items.reduce((s, p) => s + p.duration, 0) / items.length,
-        avgCostPerM2: items.reduce((s, p) => s + (p.buildingArea > 0 ? p.estimatedCost / (p.buildingArea * p.floors) : 0), 0) / items.length
+        profileVersion:3,count:rows.length,areaBasis:complete?'total_built_up':null,
+        avgCost:mean(rows.map(p=>p.estimatedCost)),avgArea:mean(rows.map(p=>p.buildingArea)),
+        avgTotalBuiltUpArea:complete?mean(areas):null,avgFloors:mean(floors),
+        avgConcrete:mean(rows.map(p=>p.concrete)),avgSteel:mean(rows.map(p=>p.steel)),
+        avgDuration:mean(rows.map(p=>p.durationMonths)),
+        avgCostPerM2:complete?mean(rows.map(p=>p.estimatedCost/p.totalBuiltUpArea)):null,
+        totalAreaMin:complete?Math.min(...areas):null,totalAreaMax:complete?Math.max(...areas):null,
+        floorsMin:Math.min(...floors),floorsMax:Math.max(...floors)
       };
     }
-    this.trained = true;
-    this._projectCount = this.projects.length;
-    this.projects = null;
-    return { projectCount: this._projectCount, typeCount: Object.keys(groups).length };
+    this._projectCount=fit.data.length;this.projects=null;this.trainingAudit=fit.audit;this.trained=true;
+    const eligibleTypes=Object.values(this.trainingStats.projectTypeStats).filter(s=>this._validProfile(s)).length;
+    return {projectCount:this._projectCount,typeCount:groups.size,eligibleTypes,readyForInference:eligibleTypes>0,audit:this.trainingAudit};
+  }
+  _validProfile(s) {
+    return s && s.profileVersion===3 && s.areaBasis==='total_built_up' && Number.isSafeInteger(s.count) && s.count>5 &&
+      [s.avgCost,s.avgConcrete,s.avgSteel,s.avgDuration].every(positive) && validSupport(s,'avgTotalBuiltUpArea','avgFloors');
+  }
+  exportProfile() {
+    if (!this.trained) throw new Error('Model not trained');
+    const eligible=Object.fromEntries(Object.entries(this.trainingStats.projectTypeStats).filter(([,s])=>this._validProfile(s)));
+    return snapshots.exportProfile('projectAnalyzer',eligible,this.trainingAudit,s=>this._validProfile(s));
+  }
+  loadProfile(value) {
+    this.trained=false;this.trainingStats.projectTypeStats=Object.create(null);
+    const v=snapshots.readProfile(value,'projectAnalyzer',s=>this._validProfile(s));
+    this.trainingStats.projectTypeStats=v.profiles;this.trainingAudit=v.audit;
+    this._projectCount=Object.values(v.profiles).reduce((n,s)=>n+s.count,0);this.trained=true;
+    return {loadedTypes:Object.keys(v.profiles).length,accuracyValidated:false};
   }
 
   analyzeProject(description, options = {}) {
-    if (!this.trained) return { error: 'Model not trained', trained: false };
-    let type = kb.detectProjectType(description);
+    const requestedType = options.type ?? kb.detectProjectType(description);
+    const missing = input.geometry(requestedType, options.area, options.floors, { perFloor: true });
+    if (missing.length) return { ...input.incomplete(missing), description, projectType: requestedType,
+      message: 'يلزم استكمال نوع المشروع والمساحة وعدد الأدوار' };
+    if (!this.trained) return {...input.incomplete(['trained_project_profile']), estimateStatus:'not_trained',trained:false};
+    let type = requestedType;
     const pt = kb.getProjectType(type);
     let stats = this.trainingStats.projectTypeStats[type];
-
-    // Fallback mapping for types not in training data
-    if (!stats || stats.count <= 5) {
-      const fallbackMap = {
-        'Apartment_Finishing': 'Apartment_Building',
-      };
-      const fallback = fallbackMap[type];
-      if (fallback && this.trainingStats.projectTypeStats[fallback]) {
-        type = fallback;
-        stats = this.trainingStats.projectTypeStats[fallback];
-      }
-    }
-
-    const missing = [];
-    if (options.area === null || options.area === undefined) missing.push('area');
-    if (options.floors === null || options.floors === undefined) missing.push('floors');
-
-    if (missing.length > 0) {
-      const msgs = { area: 'مساحة المشروع', floors: 'عدد الأدوار' };
-      return {
-        insufficientData: true,
-        message: 'لا يمكن استنتاج ' + missing.map(m => msgs[m] || m).join('، ') + ' من الوصف الحالي',
-        missing,
-        description,
-        projectType: type,
-        typeConfidence: options.typeConfidence || 0.5
-      };
-    }
 
     const area = options.area;
     const floors = options.floors;
@@ -100,31 +74,37 @@ class ProjectAnalyzer {
     const regionIndex = region ? kb.getRegionIndex(region) : 1.0;
 
     let estimatedCost, concreteM3, steelTon, duration;
-    if (stats && stats.count > 5) {
-      const scaleFactor = (area * floors) / (stats.avgArea * stats.avgFloors || 1);
+    if (this._validProfile(stats)) {
+      if (area*floors<stats.totalAreaMin || area*floors>stats.totalAreaMax || floors<stats.floorsMin || floors>stats.floorsMax) return {
+        ...input.incomplete(['comparable_project_history']),estimateStatus:'outside_training_support',requiresEngineeringReview:true,
+        trainingSupport:{totalArea:[stats.totalAreaMin,stats.totalAreaMax],floors:[stats.floorsMin,stats.floorsMax]}};
+      const scaleFactor = (area * floors) / stats.avgTotalBuiltUpArea;
       estimatedCost = stats.avgCost * scaleFactor * multiplier * regionIndex;
       concreteM3 = stats.avgConcrete * scaleFactor;
       steelTon = stats.avgSteel * scaleFactor;
       duration = stats.avgDuration * Math.sqrt(scaleFactor) * (floors / (stats.avgFloors || 1));
     } else {
       return {
-        insufficientData: true,
+        ...input.incomplete(['comparable_project_history_with_total_area']),
+        estimateStatus:'incompatible_or_insufficient_training_profile',
+        requiresEngineeringReview: true,
         message: 'لا توجد بيانات تدريب كافية لنوع المشروع "' + type + '". يرجى توفير تفاصيل إضافية.',
-        missing: ['training_data'],
         description,
         projectType: type,
-        typeConfidence: 0.5
+        typeConfidence: null
       };
     }
 
+    for (const value of [estimatedCost, concreteM3, steelTon, duration]) {
+      if (!Number.isFinite(value) || value < 0 || value > Number.MAX_SAFE_INTEGER / 100) throw new RangeError('Prediction exceeds supported numeric range');
+    }
     const spaces = kb.estimateSpaces(type, area, floors);
-    const confidence = stats ? Math.min(0.5 + stats.count * 0.005, 0.95) : 0.5;
 
     return {
       projectType: type,
-      totalArea: Math.round(area * floors),
-      areaPerFloor: Math.round(area),
-      floors: Math.round(floors),
+      totalArea: area * floors,
+      areaPerFloor: area,
+      floors,
       finishing,
       region,
       estimatedCost: Math.round(estimatedCost),
@@ -132,8 +112,12 @@ class ProjectAnalyzer {
       steelTon: Math.round(steelTon * 100) / 100,
       durationMonths: Math.round(duration),
       spaces,
-      confidence: Math.round(confidence * 100) / 100,
+      confidence: 0,
+      confidenceCalibrated: false,
+      estimateStatus: 'heuristic_estimate',
+      requiresEngineeringReview: true,
       trainingDataPoints: stats ? stats.count : 0,
+      historicalReference: { totalBuiltUpArea: stats.avgTotalBuiltUpArea, areaBasis: stats.areaBasis, provenance:this.trainingAudit?.provenance || 'unverified_profile', sourceVerified: false },
       insufficientData: false
     };
   }
@@ -142,3 +126,6 @@ class ProjectAnalyzer {
 }
 
 module.exports = new ProjectAnalyzer();
+
+
+

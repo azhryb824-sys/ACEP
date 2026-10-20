@@ -1,28 +1,37 @@
-const fs = require('fs');
 const path = require('path');
+const csv = require('./training-csv');
+const input = require('./model-input');
+const { summarizeInspectionOutcomes } = require('./inspection-outcomes');
 
 class QualityInspector {
   constructor() {
     this.trained = false;
     this.defects = [];
-    this.byDefectType = {};
+    this.byDefectType = Object.create(null);
     this.severityStats = {};
   }
 
-  async train(csvPath) {
-    this.byDefectType = {};
+  async train(csvPath, projectPath) {
+    this.trained = false;
+    this.byDefectType = Object.create(null);
+    this.byProjectType = Object.create(null);
     this.severityStats = {};
     const fp = csvPath || path.join(__dirname, '..', '..', '..', 'packages', 'databases', 'training', 'csv', 'quality_defects.csv');
-    this.defects = fs.readFileSync(fp, 'utf8').trim().split('\n').slice(1).map(l => {
-      const c = l.split(',');
-      return {
-        projectId: c[0], defectType: c[1], severity: c[2],
-        location: c[3], elementType: c[4], detectedBy: c[5],
-        confidence: parseInt(c[6]) || 0, status: c[7] || 'Open'
-      };
-    });
-
     const severities = { Critical: 3, High: 2, Medium: 1, Low: 0.5 };
+    const fit = csv.load(fp, ['project_id','defect_type','severity','location','element_type','confidence','status'], r => {
+      const confidence = csv.number(r.confidence);
+      if (confidence > 100 || !Object.hasOwn(severities, r.severity)) throw Error('Invalid quality observation');
+      return { projectId: r.project_id, defectType: r.defect_type, severity: r.severity,
+        location: r.location, elementType: r.element_type, detectedBy: r.detected_by || '', confidence, status: r.status };
+    });
+    this.defects = fit.data;
+    const projectTypes = csv.projectTypes(projectPath || path.join(path.dirname(fp), 'projects.csv'));
+    for (const d of this.defects) {
+      const type = projectTypes[d.projectId];
+      if (type) (this.byProjectType[type] ||= []).push(d);
+    }
+    this.trainingAudit = { ...fit.audit, unmatchedProjects: this.defects.filter(d => !projectTypes[d.projectId]).length,
+      provenance: 'unverified_csv', accuracyValidated: false, inspectionExposureAvailable: false };
     for (const d of this.defects) {
       if (!this.byDefectType[d.defectType]) this.byDefectType[d.defectType] = [];
       this.byDefectType[d.defectType].push(d);
@@ -54,47 +63,45 @@ class QualityInspector {
     }
 
     this.trained = true;
-    return { total: this.defects.length, types: Object.keys(this.byDefectType).length };
+    return { total: this.defects.length, types: Object.keys(this.byDefectType).length, audit: this.trainingAudit };
   }
 
   inspectProject(projectType, totalArea, floors, finishing) {
-    if (!this.trained) return { error: 'Not trained', defects: [] };
-    const types = Object.keys(this.byDefectType);
-    const scaleFactor = Math.max(0.3, Math.min(3, 1 + (totalArea / 20000) * 0.3 + (floors / 10) * 0.2));
-    const finishingFactor = { Raw: 0.6, Standard: 1.0, Good: 1.2, Premium: 1.5, Luxury: 2.0 }[finishing] || 1.0;
-
-    const defects = types.map(type => {
-      const stats = this.byDefectType[type];
-      const defectsPerM2 = stats.count / (totalArea || 1000);
-      const expectedDefects = Math.max(0, Math.round(defectsPerM2 * (totalArea / 100) * scaleFactor * finishingFactor));
-      const severityLabel = stats.severityAvg > 2 ? 'Critical' : stats.severityAvg > 1.5 ? 'High' : stats.severityAvg > 0.8 ? 'Medium' : 'Low';
-      const confidence = Math.min(0.95, stats.confidenceAvg / 100 * 1.1);
-
-      return {
-        type,
-        expectedCount: expectedDefects,
-        severity: severityLabel,
-        severityScore: Math.round(stats.severityAvg * 100) / 100,
-        confidence: Math.round(confidence * 100) / 100,
-        commonElements: stats.elements.slice(0, 3),
-        typicalLocations: stats.locations.slice(0, 3),
-        trainingSamples: stats.count
-      };
-    });
-
-    defects.sort((a, b) => b.severityScore - a.severityScore);
-    const topDefects = defects.filter(d => d.expectedCount > 0).slice(0, 8);
-    const qualityIndex = Math.round(100 - topDefects.reduce((s, d) => s + d.severityScore * d.expectedCount * 5, 0) / (totalArea || 1000) * 100);
-    const qualityScore = Math.max(0, Math.min(100, qualityIndex));
-
+    const missing = input.geometry(projectType, totalArea, floors);
+    if (missing.length) return { ...input.incomplete(missing), defects: [], qualityScore: null, qualityGrade: null, estimatedDefects: null, requiresQualityReview: true };
+    if (!this.trained) return { ...input.incomplete(['trained_quality_profile']), estimateStatus: 'not_trained',
+      defects: [], qualityScore: null, qualityGrade: null, estimatedDefects: null, requiresQualityReview: true };
+    // Defect-only records omit inspected exposure and projects with no defects.
+    // They support historical descriptions, not incidence or a project quality grade.
+    const rows = this.byProjectType[projectType] || [];
+    const groups = Object.create(null), weights = { Critical: 3, High: 2, Medium: 1, Low: 0.5 };
+    for (const d of rows) (groups[d.defectType] ||= []).push(d);
+    const defects = Object.entries(groups).map(([type, items]) => {
+      const severityScore = items.reduce((s,d) => s + weights[d.severity], 0) / items.length;
+      return { type, expectedCount: null,
+        severity: severityScore > 2 ? 'Critical' : severityScore > 1.5 ? 'High' : severityScore > 0.8 ? 'Medium' : 'Low',
+        severityScore: Math.round(severityScore * 100) / 100,
+        confidence: 0, confidenceCalibrated: false,
+        commonElements: [...new Set(items.map(d => d.elementType))].sort().slice(0,3),
+        typicalLocations: [...new Set(items.map(d => d.location))].sort().slice(0,3),
+        trainingSamples: items.length, dataBasis: 'project_type_historical_observations' };
+    }).sort((a,b) => b.severityScore - a.severityScore || a.type.localeCompare(b.type));
     return {
-      defects: topDefects,
-      qualityScore,
-      qualityGrade: qualityScore > 85 ? 'ممتاز' : qualityScore > 70 ? 'جيد' : qualityScore > 50 ? 'متوسط' : 'ضعيف',
+      defects,
+      qualityScore: null, qualityGrade: null, estimatedDefects: null,
+      estimateStatus: 'insufficient_inspection_exposure', requiresQualityReview: true,
+      confidence: 0, confidenceCalibrated: false,
+      message: 'بيانات العيوب التاريخية لا تكفي لحساب درجة جودة المشروع أو عدد عيوبه المتوقع؛ يلزم سجل تفتيش يشمل نطاق الفحص ونتائجه، بما فيها الحالات دون عيوب.',
+      missing: ['inspected_exposure', 'zero_defect_inspections', 'project_inspection_results'],
+      projectType, projectSpecificData: rows.length,
+      dataBasis: rows.length ? 'project_type_historical_observations' : 'no_project_type_history',
       totalTrainingDefects: this.defects.length,
-      defectTypes: types.length,
-      estimatedDefects: topDefects.reduce((s, d) => s + d.expectedCount, 0)
+      defectTypes: defects.length
     };
+  }
+
+  summarizeInspectionOutcomes(projectId, records) {
+    return summarizeInspectionOutcomes(projectId, records);
   }
 
   getCommonDefects(elementType) {
@@ -113,3 +120,4 @@ class QualityInspector {
 }
 
 module.exports = new QualityInspector();
+

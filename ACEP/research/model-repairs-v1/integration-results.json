@@ -1,0 +1,71 @@
+{
+  "boundary": "Actual route/DOM handler source with real models, workflow and EDL; in-memory storage and DOM/API stubs; no full HTTP server or browser",
+  "passed": 16,
+  "total": 16,
+  "tests": [
+    {
+      "name": "actual supplier route reports no_match",
+      "pass": true
+    },
+    {
+      "name": "actual supplier route passes requirements",
+      "pass": true
+    },
+    {
+      "name": "actual supplier route rejects unsupported requirements",
+      "pass": true
+    },
+    {
+      "name": "actual supplier route requires category",
+      "pass": true
+    },
+    {
+      "name": "actual comparison route returns groups with review",
+      "pass": true
+    },
+    {
+      "name": "quality route returns unknown score and counts",
+      "pass": true
+    },
+    {
+      "name": "quality route preserves incomplete geometry review",
+      "pass": true
+    },
+    {
+      "name": "inspection route avoids passing or failing uninspected project",
+      "pass": true
+    },
+    {
+      "name": "inspection route rejects absent project",
+      "pass": true
+    },
+    {
+      "name": "digital twin preserves unknown quality",
+      "pass": true
+    },
+    {
+      "name": "full-analysis actual registration runs real model pipeline",
+      "pass": true
+    },
+    {
+      "name": "full-analysis uses explicit saved dimensions when description is silent",
+      "pass": true
+    },
+    {
+      "name": "full-analysis actual registration fails on missing floor",
+      "pass": true
+    },
+    {
+      "name": "actual UI quality message does not claim a percentage",
+      "pass": true
+    },
+    {
+      "name": "actual UI renders missing quality as review",
+      "pass": true
+    },
+    {
+      "name": "actual UI supplier no_match is explicit",
+      "pass": true
+    }
+  ]
+}

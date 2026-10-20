@@ -1,0 +1,169 @@
+{
+  "targeted_before": {
+    "checks": [
+      {
+        "name": "labor city follows CSV header",
+        "pass": false,
+        "error": "The expression evaluated to a falsy value:\n\n  assert(cost.getLaborRates('Mason','Riyadh').length>0)\n"
+      },
+      {
+        "name": "supplier city follows CSV header",
+        "pass": false,
+        "error": "The expression evaluated to a falsy value:\n\n  assert(cost.getSupplierMatches(null,'Khobar').length>0)\n"
+      },
+      {
+        "name": "equipment has city and operator flag",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 'Riyadh'\n"
+      },
+      {
+        "name": "explicit zero paint price is preserved",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n3466 !== 0\n"
+      },
+      {
+        "name": "explicit paint price does not mix SAR/gal with SAR/m2",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n4186 !== 1800\n"
+      },
+      {
+        "name": "missing paint coverage returns incomplete total",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\nNaN !== null\n"
+      },
+      {
+        "name": "insufficient BOQ item prevents complete total",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n975548 !== null\n"
+      },
+      {
+        "name": "invalid project dimensions rejected",
+        "pass": false,
+        "error": "Missing expected exception."
+      },
+      {
+        "name": "quantity prices grouped by description and unit",
+        "pass": false,
+        "error": "The expression evaluated to a falsy value:\n\n  assert(quantity.byItemUnit && quantity.byItemUnit['Excavation for foundations|m3'])\n"
+      },
+      {
+        "name": "fallback cost per area agrees with total",
+        "pass": false,
+        "error": "Expected values to be strictly equal:\n\n2800 !== 3500\n"
+      }
+    ],
+    "passed": 0,
+    "total": 10
+  },
+  "targeted_after": {
+    "checks": [
+      {
+        "name": "labor city follows CSV header",
+        "pass": true
+      },
+      {
+        "name": "supplier city follows CSV header",
+        "pass": true
+      },
+      {
+        "name": "equipment has city and operator flag",
+        "pass": true
+      },
+      {
+        "name": "explicit zero paint price is preserved",
+        "pass": true
+      },
+      {
+        "name": "explicit paint price does not mix SAR/gal with SAR/m2",
+        "pass": true
+      },
+      {
+        "name": "missing paint coverage returns incomplete total",
+        "pass": true
+      },
+      {
+        "name": "insufficient BOQ item prevents complete total",
+        "pass": true
+      },
+      {
+        "name": "invalid project dimensions rejected",
+        "pass": true
+      },
+      {
+        "name": "quantity prices grouped by description and unit",
+        "pass": true
+      },
+      {
+        "name": "fallback cost per area agrees with total",
+        "pass": true
+      }
+    ],
+    "passed": 10,
+    "total": 10
+  },
+  "extended": {
+    "tests": [
+      {
+        "name": "CSV supports BOM, reordered headers, quoted commas, escaped quotes and newlines",
+        "pass": true
+      },
+      {
+        "name": "CSV rejects truncated quotes and duplicate/missing headers",
+        "pass": true
+      },
+      {
+        "name": "numeric parser rejects blanks, suffixes, infinity and negatives; retains zero",
+        "pass": true
+      },
+      {
+        "name": "quantity fit rejects malformed rows and retains audit counts",
+        "pass": true
+      },
+      {
+        "name": "quantity fit resets old groups and preserves zero prices",
+        "pass": true
+      },
+      {
+        "name": "failed quantity fit preserves previous valid state",
+        "pass": true
+      },
+      {
+        "name": "BOQ lookup requires matching item and unit, never reused price category",
+        "pass": true
+      },
+      {
+        "name": "finishing and region applied once; summaries reconcile for primary/suggested items",
+        "pass": true
+      },
+      {
+        "name": "cost fit clears old groups on successful refit",
+        "pass": true
+      },
+      {
+        "name": "failed cost fit preserves valid snapshot",
+        "pass": true
+      },
+      {
+        "name": "material lookup requires same name, unit, city and grade",
+        "pass": true
+      },
+      {
+        "name": "negative, NaN, textual price and quantity cannot form complete estimates",
+        "pass": true
+      }
+    ],
+    "passed": 12,
+    "total": 12
+  },
+  "existing_phases": {
+    "passed": 76,
+    "failed": 0
+  },
+  "existing_boq": {
+    "parent_passed": 161,
+    "parent_failed": 1,
+    "revised_passed": 161,
+    "revised_failed": 1,
+    "unchanged_failure": "Arabic عظم -> Full_Construction, expected Shell"
+  }
+}

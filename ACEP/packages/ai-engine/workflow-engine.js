@@ -64,7 +64,7 @@ class WorkflowEngine {
       floors: effective.floors,
       typeConfidence: project.extracted.typeConfidence || 0.7
     });
-    if (analysis.insufficientData) {
+    if (analysis.insufficientData || analysis.error) {
       project.metadata.workflowStep = 'analysis_failed';
       return { ok: false, error: analysis };
     }
@@ -117,12 +117,16 @@ class WorkflowEngine {
   /**
    * Step 5: Estimate Cost (uses BOQ data)
    */
-  async stepCost(project) {
+  async stepCost(project, options) {
+    const pricing = options === undefined ? (project.metadata.costPricing || {}) : options;
     const effective = this._getEffectiveParams(project);
     const boqItems = project.boq.items;
     const costData = this.ai.costEstimator.estimateCost(
-      boqItems, effective.type, effective.area, effective.floors
+      boqItems, effective.type, effective.area, effective.floors,
+      project.approved.finishing || project.extracted.finishing || 'Standard',
+      project.approved.region || project.extracted.region || 'Riyadh', pricing
     );
+    if (options !== undefined) project.metadata.costPricing = JSON.parse(JSON.stringify(pricing));
     project.setCost(costData);
     return costData;
   }
@@ -130,12 +134,23 @@ class WorkflowEngine {
   /**
    * Step 6: Generate Schedule (uses analysis data)
    */
-  async stepSchedule(project) {
+  async stepSchedule(project, options = {}) {
+    if (!options || typeof options !== 'object' || Array.isArray(options)) throw new TypeError('Invalid schedule options');
+    if (Object.keys(options).some(k => !['activities', 'timeUnit'].includes(k))) throw new TypeError('Unsupported schedule option');
+    if (Object.hasOwn(options, 'timeUnit') && !Object.hasOwn(options, 'activities')) throw new TypeError('timeUnit requires activities');
+    if (Object.hasOwn(options, 'activities')) {
+      const result = this.ai.scheduleOptimizer.scheduleFromActivities(options.activities, options.timeUnit);
+      project.setSchedule(result);
+      return result;
+    }
     const effective = this._getEffectiveParams(project);
-    const totalArea = project.predicted.totalArea || effective.area * effective.floors;
-    const floors = project.predicted.floors || effective.floors;
+    const totalArea = effective.area == null || effective.floors == null ? null : effective.area * effective.floors;
+    const floors = effective.floors;
     const scheduleData = this.ai.scheduleOptimizer.generateSchedule(
-      effective.type, totalArea, floors
+      effective.type, totalArea, floors,
+      project.approved.finishing || project.extracted.finishing || 'Standard',
+      project.approved.region || project.extracted.region || 'Riyadh',
+      project.approved.method || project.extracted.method || 'Traditional'
     );
     project.setSchedule(scheduleData);
     return scheduleData;
@@ -146,10 +161,12 @@ class WorkflowEngine {
    */
   async stepRisks(project) {
     const effective = this._getEffectiveParams(project);
-    const totalArea = project.predicted.totalArea || effective.area * effective.floors;
-    const floors = project.predicted.floors || effective.floors;
+    const totalArea = effective.area == null || effective.floors == null ? null : effective.area * effective.floors;
+    const floors = effective.floors;
     const riskData = this.ai.riskAnalyzer.analyzeRisks(
-      effective.type, totalArea, floors
+      effective.type, totalArea, floors,
+      project.approved.region || project.extracted.region,
+      project.approved.finishing || project.extracted.finishing
     );
     project.setRisks(riskData);
     return riskData;
@@ -160,10 +177,11 @@ class WorkflowEngine {
    */
   async stepQuality(project) {
     const effective = this._getEffectiveParams(project);
-    const totalArea = project.predicted.totalArea || effective.area * effective.floors;
-    const floors = project.predicted.floors || effective.floors;
+    const totalArea = effective.area == null || effective.floors == null ? null : effective.area * effective.floors;
+    const floors = effective.floors;
     const qualityData = this.ai.qualityInspector.inspectProject(
-      effective.type, totalArea, floors
+      effective.type, totalArea, floors,
+      project.approved.finishing || project.extracted.finishing
     );
     project.setQuality(qualityData);
     return qualityData;
@@ -196,28 +214,28 @@ class WorkflowEngine {
 
     // Step 4: BOQ
     const boq = await this.stepBOQ(project, description);
-    steps.push({ name: 'boq', status: 'completed', data: boq.summary });
+    steps.push({ name: 'boq', status: boq.requiresInputReview ? 'requires_review' : 'completed', data: boq.summary });
 
     // Step 5: Cost
     const cost = await this.stepCost(project);
-    steps.push({ name: 'cost', status: 'completed', data: { totalCost: cost.totalCost } });
+    steps.push({ name: 'cost', status: cost.status === 'incomplete' ? 'requires_review' : 'completed', data: { totalCost: cost.totalCost, pricingStatus: cost.status } });
 
     // Step 6: Schedule
     const schedule = await this.stepSchedule(project);
-    steps.push({ name: 'schedule', status: 'completed', data: { totalDays: schedule.totalDuration } });
+    steps.push({ name: 'schedule', status: schedule.requiresScheduleReview ? 'requires_review' : 'completed', data: { totalDays: schedule.totalDuration } });
 
     // Step 7: Risks
     const risks = await this.stepRisks(project);
-    steps.push({ name: 'risks', status: 'completed', data: { level: risks.riskLevel } });
+    steps.push({ name: 'risks', status: risks.requiresRiskReview || risks.requiresInputReview ? 'requires_review' : 'completed', data: { level: risks.riskLevel } });
 
     // Step 8: Quality
     const quality = await this.stepQuality(project);
-    steps.push({ name: 'quality', status: 'completed', data: { score: quality.qualityScore } });
+    steps.push({ name: 'quality', status: quality.requiresQualityReview ? 'requires_review' : 'completed', data: { score: quality.qualityScore } });
 
     // Validate
     project.validate();
-    project.metadata.status = 'completed';
-    project.metadata.workflowStep = 'completed';
+    project.metadata.status = steps.some(s => s.status === 'requires_review') ? 'requires_review' : 'completed';
+    project.metadata.workflowStep = project.metadata.status;
 
     return { ok: true, steps };
   }
@@ -239,9 +257,11 @@ class WorkflowEngine {
         case 'extraction':
           await this.stepExtraction(project, description, parseDescriptionFn);
           break;
-        case 'analysis':
-          await this.stepAnalysis(project, description);
+        case 'analysis': {
+          const result = await this.stepAnalysis(project, description);
+          if (!result.ok) return result;
           break;
+        }
         case 'virtual_building':
           await this.stepVirtualBuilding(project);
           break;
@@ -272,8 +292,8 @@ class WorkflowEngine {
   _getEffectiveParams(project) {
     return {
       type: project.approved.typeConfirmed ? project.approved.type : (project.extracted.type || 'Unknown'),
-      area: project.approved.areaConfirmed ? project.approved.area : (project.extracted.area || 0),
-      floors: project.approved.floorsConfirmed ? project.approved.floors : (project.extracted.floors || 1),
+      area: project.approved.areaConfirmed ? project.approved.area : (project.extracted.area ?? null),
+      floors: project.approved.floorsConfirmed ? project.approved.floors : (project.extracted.floors ?? null),
       rooms: project.approved.roomsConfirmed ? project.approved.rooms : (project.extracted.rooms || null),
       bathrooms: project.approved.bathroomsConfirmed ? project.approved.bathrooms : (project.extracted.bathrooms || null),
       hasKitchen: project.approved.kitchenConfirmed ? project.approved.hasKitchen : (project.extracted.hasKitchen || false),
@@ -316,3 +336,4 @@ class WorkflowEngine {
 }
 
 module.exports = WorkflowEngine;
+

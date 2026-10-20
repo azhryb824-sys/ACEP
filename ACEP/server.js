@@ -1,8 +1,14 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const { readModelEvidence } = require('./packages/ai-engine/model-evidence');
+const { normalizeGeometry } = require('./packages/ai-engine/engineering-ke/project-geometry');
+const { validatePricingOptions } = require('./packages/ai-engine/models/boq-cost-ledger');
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Opt-in research route. Disabled in normal platform operation.
+require('./research/tool-routing/routes').registerToolResearch(app);
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
@@ -186,7 +192,16 @@ app.locals.boqEngine = boqEngine;
 app.locals.knowledgeBase = ACEPKnowledgeBase;
 
 let aiReady = false;
-ai.initialize().then(r => { aiReady = true; console.log(`[ACEP] AI Engine ready: ${r.totalRecords} records across ${r.models} models`); }).catch(e => console.error('[ACEP] AI init error:', e.message));
+let aiInitializationError = null;
+function isAIReady() {
+  aiReady = ai.getStatus().operationalReady === true;
+  return aiReady;
+}
+ai.initialize().then(r => {
+  isAIReady();
+  const message = `[ACEP] Model initialization: ${r.status}; ${r.successfulModels}/${r.requestedModels} fits succeeded. Accuracy requires independent evaluation.`;
+  if (aiReady) console.log(message); else console.error(message);
+}).catch(e => { aiInitializationError = e.message; console.error('[ACEP] AI init error:', e.message); });
 
 const store = require('./data/store');
 let projects = store.getProjects();
@@ -216,7 +231,9 @@ process.on('SIGTERM', () => { edl.persist(EDL_STATE_PATH); clearInterval(persist
 
 function waitForAI(fn) {
   return async (req, res) => {
-    if (!aiReady) return res.status(503).json({ error: 'AI Engine initializing', status: 'loading' });
+    if (!isAIReady()) return res.status(503).json({ error: 'AI models are not operationally ready',
+      status: aiInitializationError ? 'failed' : ai.getStatus().initializationStatus,
+      accuracyValidated: false });
     try { await fn(req, res); } catch (e) { console.error(e); res.status(500).json({ error: e.message }); }
   };
 }
@@ -354,9 +371,11 @@ function parseDescription(desc) {
 
 function getProjectParams(p) {
   if (!p) return { type: null, area: null, floors: null, totalArea: null, finishing: null, region: null };
+  const geometryInput = normalizeGeometry({ area: p.area ?? null, floors: p.floors ?? null, areaBasis: p.areaBasis });
   return {
-    type: p.type || null, area: p.area || null, floors: p.floors || null,
-    totalArea: (p.area && p.floors) ? p.area * p.floors : null,
+    type: p.type || null, area: geometryInput.params.area, floors: p.floors ?? null,
+    totalArea: geometryInput.geometry.totalBuiltUpAreaM2,
+    areaBasis: 'per_floor', areaDefinition: geometryInput.geometry,
     finishing: p.finishing || null, region: p.region || null
   };
 }
@@ -391,7 +410,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'packages', 'ui', 'web', 'index.html'));
   } else {
     res.json({
-      name: 'ACEP Engineering OS', version: '2.0.0', status: 'running', aiReady,
+      name: 'ACEP Engineering OS', version: '2.0.0', status: 'running', aiReady: isAIReady(),
       description: 'AI Construction Engineering Platform - Internal AI Engine',
       models: ai.getStatus(),
       endpoints: {
@@ -408,9 +427,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/health', (req, res) => {
+  isAIReady();
   const status = ai.getStatus();
   res.json({
-    status: 'healthy', uptime: process.uptime(), aiReady, ai: status, timestamp: new Date().toISOString(),
+    status: aiReady ? 'healthy' : 'degraded', uptime: process.uptime(), aiReady, ai: status,
+    accuracyValidated: false, timestamp: new Date().toISOString(),
     engines: {
       ProjectUnderstandingEngine: { registered: true, status: status.projectAnalyzer ? 'trained' : 'idle' },
       VirtualBuildingEngine: { registered: true, status: status.projectAnalyzer ? 'trained' : 'idle' },
@@ -506,17 +527,18 @@ app.post('/api/v1/analyze', waitForAI(async (req, res) => {
       { step: 'project-understanding', status: 'completed', result: `Project classified as ${ext.type} with ${(pred.confidence || 0) * 100}% confidence` },
       { step: 'virtual-building', status: 'completed', result: `${project.building.spaces.length} spaces identified across ${ext.floors} floors` },
       { step: 'boq-generation', status: 'completed', result: `${boq.items.length} BOQ items (${boq.suggestedItems.length} suggested) phase: ${boq.phase}` },
-      { step: 'cost-estimation', status: 'completed', result: `${(cost.totalCost || 0).toLocaleString()} SAR estimated (${(cost.costPerM2 || 0).toLocaleString()} SAR/m²)` },
-      { step: 'schedule-generation', status: 'completed', result: `${schedule.totalMonths} months (${schedule.totalDuration} days)` },
-      { step: 'risk-analysis', status: 'completed', result: `${risks.riskCount} risks identified, level: ${risks.riskLevel}` },
-      { step: 'quality-inspection', status: 'completed', result: `Quality score: ${quality.qualityScore}% (${quality.qualityGrade})` }
+      { step: 'cost-estimation', status: cost.status === 'incomplete' ? 'requires_review' : 'completed',
+        result: cost.totalCost === null ? 'يلزم توضيح نطاق الأسعار أو استكمال بيانات التسعير' : `${cost.totalCost.toLocaleString()} SAR estimated (${cost.costPerM2.toLocaleString()} SAR/m²)` },
+      { step: 'schedule-generation', status: schedule.requiresScheduleReview ? 'requires_review' : 'completed', result: schedule.totalDuration == null ? 'يلزم استكمال بيانات الجدول الزمني' : `${schedule.totalDuration} days; requires schedule review` },
+      { step: 'risk-analysis', status: 'requires_review', result: risks.message || 'يلزم تقييم مخاطر المشروع' },
+      { step: 'quality-inspection', status: quality.requiresQualityReview ? 'requires_review' : 'completed', result: quality.message || 'يلزم فحص المشروع لتقييم الجودة' }
     ],
     boq: { items: boq.items, suggestedItems: boq.suggestedItems, summary: boq.summary, phase: boq.phase },
-    cost: { totalCost: cost.totalCost, directCost: cost.directCost, indirectCost: cost.indirectCost, currency: 'SAR', costPerM2: cost.costPerM2, breakdown: cost.breakdown, dataPoints: cost.dataPoints, confidence: cost.confidence, source: 'EDL: costEstimator' },
+    cost: { ...cost, source: 'EDL: costEstimator' },
     duration: schedule.totalMonths,
-    schedule: { totalDays: schedule.totalDuration, totalMonths: schedule.totalMonths, activities: schedule.activities.length, criticalPath: schedule.criticalPath, optimization: schedule.optimization, source: 'EDL: scheduleOptimizer' },
-    risks: { count: risks.riskCount, items: risks.risks.slice(0, 10), overallScore: risks.overallRiskScore, level: risks.riskLevel, source: 'EDL: riskAnalyzer' },
-    quality: { score: quality.qualityScore, grade: quality.qualityGrade, estimatedDefects: quality.estimatedDefects, source: 'EDL: qualityInspector' },
+    schedule: { ...schedule, totalDays: schedule.totalDuration, totalMonths: schedule.totalMonths, activities: schedule.activities.length, criticalPath: schedule.criticalPath, optimization: schedule.optimization, source: 'EDL: scheduleOptimizer' },
+    risks: { ...risks, count: risks.riskCount, items: risks.risks.slice(0, 10), overallScore: risks.overallRiskScore, level: risks.riskLevel, source: 'EDL: riskAnalyzer' },
+    quality: { ...quality, score: quality.qualityScore, grade: quality.qualityGrade, estimatedDefects: quality.estimatedDefects, source: 'EDL: qualityInspector' },
     building: { spaces: project.building.spaces.slice(0, 10), systems: project.building.systems, totalHeight: project.building.totalHeight, hasBasement: project.building.hasBasement },
     traceability: project.trace.slice(-15).map(t => ({ time: t.timestamp, action: t.action, module: t.module })),
     validation: v,
@@ -567,73 +589,49 @@ app.post('/api/v1/digital-twin', waitForAI(async (req, res) => {
   const { projectId } = req.body || {};
   if (!projectId) return res.status(400).json({ error: 'projectId is required' });
   const p = projects.find(x => x.id === projectId);
+  if (!p) return res.status(404).json({ error: 'Project not found' });
   const params = getProjectParams(p);
   const quality = ai.qualityInspector.inspectProject(params.type, params.totalArea, params.floors, params.finishing);
   const risks = ai.riskAnalyzer.analyzeRisks(params.type, params.totalArea, params.floors);
-  const schedule = ai.scheduleOptimizer.generateSchedule(params.type, params.totalArea, params.floors, params.finishing);
-
+  const project = edl.getProject(p.id);
+  const schedule = project?.schedule || ai.scheduleOptimizer.generateSchedule(params.type, params.totalArea, params.floors, params.finishing);
   res.json({
-    twinId: `twin-${projectId}`, projectId,
-    currentState: {
-      timestamp: new Date().toISOString(),
-      completionPercentage: p ? (p.progress || Math.random() * 0.3) : Math.random() * 0.3,
-      resourceUtilization: { labor: 0.6 + Math.random() * 0.3, equipment: 0.5 + Math.random() * 0.3, materials: 0.7 + Math.random() * 0.2 },
-      qualityScore: quality.qualityScore / 100, safetyScore: 0.9 + Math.random() * 0.1
-    },
-    performanceMetrics: {
-      schedulePerformanceIndex: Math.round((1 - (schedule.totalDuration / (schedule.totalDuration * 1.1))) * 100) / 100,
-      costPerformanceIndex: 1.0,
-      qualityIndex: Math.round(quality.qualityScore / 100 * 100) / 100,
-      safetyIndex: 0.98, productivityIndex: 0.85 + Math.random() * 0.1,
-      resourceEfficiency: 0.75 + Math.random() * 0.15
-    },
-    predictedCompletion: new Date(Date.now() + schedule.totalDuration * 86400000).toISOString(),
-    riskLevel: risks.riskLevel
+    twinId: `twin-${projectId}`, projectId, status: 'requires_observations',
+    currentState: { timestamp: new Date().toISOString(), completionPercentage: null,
+      resourceUtilization: { labor: null, equipment: null, materials: null },
+      qualityScore: quality.qualityScore ?? null, safetyScore: null },
+    performanceMetrics: { schedulePerformanceIndex: null, costPerformanceIndex: null, qualityIndex: null,
+      safetyIndex: null, productivityIndex: null, resourceEfficiency: null },
+    predictedCompletion: null, riskLevel: risks.riskLevel, schedule,
+    requiresInputReview: true,
+    missing: ['dated_progress_observations', 'earned_value_baseline', 'resource_utilization', 'site_safety_observations', 'start_date_and_work_calendar']
   });
 }));
 
-// ─── Simulation ─────────────────────────
+// Scenario effects require two explicit activity networks in the same time unit.
 app.post('/api/v1/simulation', waitForAI(async (req, res) => {
   const { scenario } = req.body || {};
-  if (!scenario) return res.status(400).json({ error: 'scenario is required' });
-  const { projectType, area, floors, finishing, region } = scenario;
-  const totalArea = (area ?? 500) * (floors ?? 2);
-  const baseSchedule = ai.scheduleOptimizer.generateSchedule(projectType || null, totalArea, floors ?? 2, finishing || null, region || null);
-  const baseRisks = ai.riskAnalyzer.analyzeRisks(projectType || null, totalArea, floors ?? 2);
-  const pt = ai.kb.getProjectType(projectType || null);
-  const mult = ai.kb.getMaterialPriceMultiplier(finishing || null);
-  const regionIdx = ai.kb.getRegionIndex(region || null);
-  const baseCost = (pt ? pt.costPerM2 : 2800) * totalArea * mult * regionIdx;
-
-  const durationAdj = scenario.acceleration ? -15 + Math.random() * 10 : scenario.delay ? 20 + Math.random() * 20 : 0;
-  const costAdj = scenario.scopeChange ? 0.15 + Math.random() * 0.15 : (scenario.resourceOptimization ? -0.12 + Math.random() * 0.08 : (scenario.materialShortage ? 0.2 + Math.random() * 0.1 : 0));
-  const qualityAdj = scenario.laborShortage ? -0.25 + Math.random() * 0.1 : (scenario.acceleration ? -0.1 + Math.random() * 0.1 : 0.05);
-
-  const durationDays = Math.max(30, Math.round(baseSchedule.totalDuration * (1 + durationAdj / 100)));
-  const finalCost = Math.round(baseCost * (1 + costAdj));
-  const newRiskLevel = durationAdj > 10 || costAdj > 0.15 ? 'High' : (durationAdj > 0 || costAdj > 0 ? 'Medium' : 'Low');
-
-  const recs = [];
-  if (scenario.acceleration) recs.push('Add night shifts and weekend work', 'Fast-track critical path activities', 'Prefabricate key components off-site');
-  if (scenario.scopeChange) recs.push('Update BOQ and re-estimate costs', 'Conduct value engineering workshop', 'Negotiate change order with client');
-  if (scenario.laborShortage) recs.push('Arrange prefabrication to reduce site labor', 'Recruit from alternative labor markets', 'Cross-train existing workforce');
-  if (scenario.resourceOptimization) recs.push('Consolidate material procurement for bulk discounts', 'Optimize equipment fleet utilization', 'Implement just-in-time delivery');
-  if (scenario.materialShortage) recs.push('Identify alternative suppliers', 'Pre-order critical materials', 'Maintain 2-week safety stock');
-  if (recs.length === 0) recs.push('Monitor key performance indicators weekly', 'Maintain regular client communication', 'Document lessons learned');
-
+  if (!scenario || typeof scenario !== 'object' || Array.isArray(scenario)) return res.status(400).json({ error: 'scenario is required' });
+  let baseline = null, revised = null;
+  try {
+    if (Object.hasOwn(scenario, 'baselineActivities')) baseline = ai.scheduleOptimizer.scheduleFromActivities(scenario.baselineActivities, scenario.timeUnit);
+    if (Object.hasOwn(scenario, 'activities')) revised = ai.scheduleOptimizer.scheduleFromActivities(scenario.activities, scenario.timeUnit);
+  } catch (e) { return res.status(400).json({ error: e.message }); }
+  const complete = baseline !== null && revised !== null;
+  const delta = complete ? revised.totalDuration - baseline.totalDuration : null;
   res.json({
     scenarioId: 'sim-' + Date.now(), scenarioName: scenario.name || 'Custom Scenario',
-    projectParams: { type: projectType, area: totalArea, floors, finishing, region },
-    impacts: { duration: Math.round(durationAdj), cost: Math.round(costAdj * 100) / 100, quality: Math.round(qualityAdj * 100) / 100 },
-    predictions: {
-      estimatedCompletion: new Date(Date.now() + durationDays * 86400000).toISOString(),
-      durationDays, finalCost, riskLevel: newRiskLevel,
-      baselineDuration: baseSchedule.totalDuration,
-      baselineCost: Math.round(baseCost),
-      confidence: Math.min(0.85, 0.5 + ai.kb.getAllProjectTypes().length * 0.02)
-    },
-    recommendations: recs,
-    riskComparison: { before: baseRisks.riskLevel, after: newRiskLevel }
+    status: complete ? 'deterministic_network_comparison' : 'insufficient_scenario_data', requiresScheduleReview: true,
+    impacts: { duration: complete && baseline.totalDuration > 0 ? delta / baseline.totalDuration * 100 : null,
+      durationDays: delta, cost: null, quality: null },
+    predictions: { estimatedCompletion: null, durationDays: revised?.totalDuration ?? null,
+      finalCost: null, riskLevel: null, baselineDuration: baseline?.totalDuration ?? null,
+      baselineCost: null, confidence: null },
+    baseline, revised, timeUnit: complete ? scenario.timeUnit : null,
+    recommendations: [], riskComparison: { before: null, after: null },
+    missing: [...(!baseline ? ['baselineActivities'] : []), ...(!revised ? ['activities'] : []),
+      'priced_scope_changes', 'site_risk_and_quality_observations', 'start_date_and_work_calendar'],
+    message: 'تُحسب فروق المدة من تغييرات الأنشطة الصريحة؛ لا تُفترض وفورات أو آثار جودة ومخاطر من أسماء السيناريوهات.'
   });
 }));
 
@@ -656,37 +654,68 @@ app.post('/api/v1/projects', (req, res) => {
   const { name, description, type, area, floors, region, finishing } = req.body || {};
   if (!name) return res.status(400).json({ error: 'name is required' });
 
+  let requestGeometry, pricing;
+  try {
+    pricing = validatePricingOptions(req.body.pricing);
+    requestGeometry = normalizeGeometry({ area, floors, areaBasis: req.body.areaBasis });
+  } catch (e) {
+    if (e instanceof RangeError) return res.status(400).json({ error: e.message });
+    throw e;
+  }
+
   let aiResult = {};
   let boq = null, cost = null, sched = null, risks = null, quality = null;
-  if (aiReady) {
+  if (isAIReady()) {
     try {
       const desc = description || `مشروع ${name}`;
       const params = parseDescription(desc);
-      const analysis = ai.projectAnalyzer.analyzeProject(desc, { ...params, area: area || params.area, floors: floors || params.floors });
-      boq = ai.quantityEstimator.estimateBOQ(params.type, analysis.totalArea, analysis.floors);
-      cost = ai.costEstimator.estimateCost(boq.items, params.type, analysis.totalArea, analysis.floors);
-      sched = ai.scheduleOptimizer.generateSchedule(params.type, analysis.totalArea, analysis.floors);
-      risks = ai.riskAnalyzer.analyzeRisks(params.type, analysis.totalArea, analysis.floors);
-      quality = ai.qualityInspector.inspectProject(params.type, analysis.totalArea, analysis.floors);
+      const geometryInput = normalizeGeometry({
+        area: area ?? params.area,
+        floors: floors ?? params.floors,
+        areaBasis: req.body.areaBasis,
+      });
+      const projectType = type || params.type;
+      const effectiveArea = geometryInput.params.area;
+      const effectiveFloors = geometryInput.params.floors;
+      if (effectiveArea == null || effectiveFloors == null) {
+        const error = new Error('Explicit area and floors are required for geometry analysis');
+        error.code = 'INCOMPLETE_GEOMETRY';
+        error.missingFields = [effectiveArea == null ? 'area' : null, effectiveFloors == null ? 'floors' : null].filter(Boolean);
+        throw error;
+      }
+      const analysis = ai.projectAnalyzer.analyzeProject(desc, { ...params, type: projectType, area: effectiveArea, floors: effectiveFloors });
+      boq = ai.quantityEstimator.estimateBOQ(projectType, effectiveArea, effectiveFloors,
+        finishing || 'Standard', region || 'Riyadh', { areaBasis: 'per_floor' });
+      cost = ai.costEstimator.estimateCost(boq.items, projectType, effectiveArea, effectiveFloors,
+        finishing || 'Standard', region || 'Riyadh', { ...pricing, areaBasis: 'per_floor' });
+      sched = ai.scheduleOptimizer.generateSchedule(projectType, analysis.totalArea, analysis.floors);
+      risks = ai.riskAnalyzer.analyzeRisks(projectType, analysis.totalArea, analysis.floors);
+      quality = ai.qualityInspector.inspectProject(projectType, analysis.totalArea, analysis.floors);
       aiResult = {
-        type: params.type, area: analysis.totalArea, floors: analysis.floors,
+        type: projectType, area: effectiveArea, floors: effectiveFloors,
+        areaBasis: 'per_floor', areaDefinition: geometryInput.geometry,
         cost: cost.totalCost, aiAnalysis: analysis, boq: boq.summary,
         schedule: { totalDuration: sched.totalDuration, totalMonths: sched.totalMonths },
         risks: { level: risks.riskLevel, score: risks.overallRiskScore },
-        quality: { score: quality.qualityScore, grade: quality.qualityGrade }
+        quality: { ...quality, score: quality.qualityScore, grade: quality.qualityGrade }
       };
     } catch (e) {
-      console.error('[Project Creation] AI processing error:', e.message);
+      if (e.code === 'INCOMPLETE_GEOMETRY') {
+        aiResult = { analysisStatus: 'insufficient_data', missingFields: e.missingFields };
+      } else {
+        console.error('[Project Creation] AI processing error:', e.message);
+      }
     }
   }
 
   const project = store.createProject({
     name, description: description || '',
     type: type || aiResult.type || 'Building',
-    area: area || aiResult.area || 0,
-    floors: floors || aiResult.floors || 1,
+    area: aiResult.area ?? requestGeometry.params.area ?? null,
+    floors: aiResult.floors ?? floors ?? null,
+    areaBasis: 'per_floor', areaDefinition: aiResult.areaDefinition || requestGeometry.geometry, pricing,
     region: region || 'Riyadh', finishing: finishing || 'Standard',
-    cost: aiResult.cost || 0, ...aiResult
+    cost: aiResult.cost ?? null, ...aiResult
   });
   projects = store.getProjects();
   
@@ -694,10 +723,10 @@ app.post('/api/v1/projects', (req, res) => {
   const responseProject = {
     ...project,
     boq: (boq && boq.items) ? { items: boq.items, totalCost: boq.summary?.totalCost || 0, summary: boq.summary } : null,
-    cost: cost ? { totalCost: cost.totalCost, costPerM2: cost.costPerM2 } : null,
+    cost: cost ? { ...cost } : null,
     schedule: sched ? { totalDays: sched.totalDuration, totalMonths: sched.totalMonths } : null,
     risks: risks ? { score: risks.overallRiskScore, level: risks.riskLevel } : null,
-    quality: quality ? { score: quality.qualityScore, grade: quality.qualityGrade } : null
+    quality: quality ? { ...quality, score: quality.qualityScore, grade: quality.qualityGrade } : null
   };
   
   res.status(201).json({ project: responseProject, message: 'تم إنشاء المشروع بنجاح' });
@@ -707,11 +736,14 @@ app.get('/api/v1/projects/:id', (req, res) => {
   const p = store.findProject(req.params.id);
   if (!p) return res.status(404).json({ error: 'Project not found' });
   let boq, cost, sched, risks, quality;
-  if (aiReady) {
+  if (isAIReady()) {
     try {
       const pp = getProjectParams(p);
-      boq = ai.quantityEstimator.estimateBOQ(pp.type, pp.area, pp.floors);
-      cost = ai.costEstimator.estimateCost(boq.items, pp.type, pp.area, pp.floors);
+      if (pp.area == null || pp.floors == null) throw new Error('Missing explicit project geometry');
+      boq = ai.quantityEstimator.estimateBOQ(pp.type, pp.area, pp.floors,
+        pp.finishing || 'Standard', pp.region || 'Riyadh', { areaBasis: pp.areaBasis });
+      cost = ai.costEstimator.estimateCost(boq.items, pp.type, pp.area, pp.floors,
+        pp.finishing || 'Standard', pp.region || 'Riyadh', { ...validatePricingOptions(p.pricing), areaBasis: pp.areaBasis });
       sched = ai.scheduleOptimizer.generateSchedule(pp.type, pp.totalArea, pp.floors);
       risks = ai.riskAnalyzer.analyzeRisks(pp.type, pp.totalArea, pp.floors);
       quality = ai.qualityInspector.inspectProject(pp.type, pp.totalArea, pp.floors);
@@ -720,10 +752,10 @@ app.get('/api/v1/projects/:id', (req, res) => {
   res.json({
     ...p,
     boq: boq ? { items: boq.items.length, totalCost: boq.summary.totalCost, confidence: boq.summary.averageConfidence } : null,
-    cost: cost ? { totalCost: cost.totalCost, costPerM2: cost.costPerM2 } : null,
+    cost: cost ? { ...cost } : null,
     schedule: sched ? { totalDays: sched.totalDuration, totalMonths: sched.totalMonths } : null,
     risks: risks ? { score: risks.overallRiskScore, level: risks.riskLevel } : null,
-    quality: quality ? { score: quality.qualityScore, grade: quality.qualityGrade } : null
+    quality: quality ? { ...quality, score: quality.qualityScore, grade: quality.qualityGrade } : null
   });
 });
 
@@ -1150,6 +1182,9 @@ app.get('/api/v1/projects/:id/boq/export', waitForAI(async (req, res) => {
 app.post('/api/v1/projects/:id/cost/estimate', waitForAI(async (req, res) => {
   const p = projects.find(x => x.id === req.params.id);
   if (!p) return res.status(404).json({ error: 'Project not found' });
+  let pricing;
+  try { pricing = req.body?.pricing === undefined ? undefined : validatePricingOptions(req.body.pricing); }
+  catch (e) { return res.status(400).json({ error: e.message }); }
   let project = edl.getProject(p.id);
   if (!project) {
     project = edl.createProject(p.id, { name: p.name, description: p.description });
@@ -1161,7 +1196,8 @@ app.post('/api/v1/projects/:id/cost/estimate', waitForAI(async (req, res) => {
   if (!project.boq.items || project.boq.items.length === 0) {
     await workflow.stepBOQ(project, p.description || '');
   }
-  await workflow.stepCost(project);
+  if (!project.metadata.costPricing && p.pricing) project.metadata.costPricing = validatePricingOptions(p.pricing);
+  await workflow.stepCost(project, pricing);
   const v = validator.validate(project);
   res.json({
     projectId: p.id, ...project.cost,
@@ -1181,8 +1217,9 @@ app.post('/api/v1/projects/:id/schedule/generate', waitForAI(async (req, res) =>
     if (p.area) project.extracted.area = p.area;
     if (p.floors) project.extracted.floors = p.floors;
   }
-  if (!project.predicted?.totalArea) await workflow.stepAnalysis(project, p.description || '');
-  await workflow.stepSchedule(project);
+  try {
+    await workflow.stepSchedule(project, req.body || {});
+  } catch (e) { return res.status(400).json({ error: e.message }); }
   res.json({ projectId: p.id, ...project.schedule, edlSource: 'EDL: scheduleOptimizer' });
 }));
 
@@ -1192,7 +1229,8 @@ app.post('/api/v1/projects/:id/schedule/compare-methods', waitForAI(async (req, 
   if (!p) return res.status(404).json({ error: 'Project not found' });
   const pp = getProjectParams(p);
   const comparison = ai.scheduleOptimizer.compareMethods(pp.type, pp.totalArea, pp.floors);
-  res.json({ projectId: p.id, comparison, recommended: comparison[0]?.method || 'Traditional' });
+  res.json({ projectId: p.id, comparison, recommended: null, requiresScheduleReview: true,
+    message: 'عوامل الطرق غير معايرة؛ لا توجد توصية مثبتة بأفضل طريقة بناء.' });
 }));
 
 // ─── Risk Analysis (EDL-aware) ──────────
@@ -1229,17 +1267,20 @@ app.post('/api/v1/projects/:id/quality/inspect', waitForAI(async (req, res) => {
 
 // ─── Supplier Match ────────────────────
 app.post('/api/v1/cmpep/match-supplier', waitForAI(async (req, res) => {
-  const { category, city } = req.body || {};
-  const result = ai.supplierIntelligence.findBestSupplier(category || 'General', city);
-  res.json({ platform: 'CMPEP', status: 'matched', ...result });
+  const { category, city, requirements } = req.body || {};
+  try {
+    const result = ai.supplierIntelligence.findBestSupplier(category, city, requirements);
+    res.json({ platform: 'CMPEP', ...result });
+  } catch (e) { res.status(400).json({ error: e.message }); }
 }));
 
 // ─── Supplier Price Comparison ─────────
 app.post('/api/v1/cmpep/compare-prices', waitForAI(async (req, res) => {
-  const { category } = req.body || {};
-  if (!category) return res.status(400).json({ error: 'category is required' });
-  const comparison = ai.supplierIntelligence.comparePrices(category);
-  res.json({ platform: 'CMPEP', status: 'analyzed', category, comparison });
+  const { category, city, requirements } = req.body || {};
+  try {
+    const comparison = ai.supplierIntelligence.comparePrices(category, city, requirements);
+    res.json({ platform: 'CMPEP', status: 'analyzed', category, comparison, requiresPriceReview: true, priceBasis: 'historical_csv_not_live_quote' });
+  } catch (e) { res.status(400).json({ error: e.message }); }
 }));
 
 // ─── Supplier Market Analysis ──────────
@@ -1350,17 +1391,19 @@ app.post('/api/v1/secip/carbon-footprint', waitForAI(async (req, res) => {
 app.post('/api/v1/qaiip/inspection', waitForAI(async (req, res) => {
   const { projectId } = req.body || {};
   const p = projects.find(x => x.id === projectId);
+  if (!p) return res.status(404).json({ error: 'Project not found' });
   const pp = getProjectParams(p);
   const quality = ai.qualityInspector.inspectProject(pp.type, pp.totalArea, pp.floors, pp.finishing);
   const inspections = quality.defects.slice(0, 5).map((d, i) => ({
     id: `INS-${String(i + 1).padStart(3, '0')}`,
     defectType: d.type, severity: d.severity,
-    status: d.severity === 'Critical' ? 'Failed' : d.severity === 'High' ? 'Conditional' : 'Passed',
+    status: 'RequiresInspection',
     expectedCount: d.expectedCount, confidence: d.confidence
   }));
   res.json({
-    platform: 'QAIIP', status: 'completed', inspections,
-    qualityIndex: quality.qualityScore, passRate: Math.round((quality.qualityScore / 100) * 100) / 100,
+    platform: 'QAIIP', status: 'requires_review', inspections,
+    requiresQualityReview: quality.requiresQualityReview, estimateStatus: quality.estimateStatus, message: quality.message,
+    qualityIndex: quality.qualityScore, passRate: null,
     totalTrainingDefects: quality.totalTrainingDefects
   });
 }));
@@ -1369,15 +1412,15 @@ app.post('/api/v1/qaiip/inspection', waitForAI(async (req, res) => {
 app.post('/api/v1/siapp/risk-assessment', waitForAI(async (req, res) => {
   const { projectId } = req.body || {};
   const p = projects.find(x => x.id === projectId);
+  if (!p) return res.status(404).json({ error: 'Project not found' });
   const pp = getProjectParams(p);
   const risks = ai.riskAnalyzer.analyzeRisks(pp.type, pp.totalArea, pp.floors);
-  const alertCount = risks.risks.filter(r => r.score > 0.3).length;
   res.json({
-    platform: 'SIAPP', status: 'analyzed',
-    riskScore: risks.overallRiskScore, riskLevel: risks.riskLevel,
-    alerts: alertCount, ppeCompliance: Math.round((0.8 + Math.random() * 0.15) * 100) / 100,
-    safetyIndex: Math.round((70 + Math.random() * 20) * 10) / 10,
-    topRisks: risks.risks.slice(0, 3).map(r => r.risk)
+    platform: 'SIAPP', status: 'requires_review', estimateStatus: risks.estimateStatus,
+    riskScore: null, riskLevel: null, alerts: null, ppeCompliance: null, safetyIndex: null,
+    historicalRisks: risks.risks, topRisks: risks.risks.slice(0,3).map(r => r.risk),
+    requiresRiskReview: true, missing: [...(risks.missing || []), 'site_safety_inspections', 'ppe_observations'],
+    message: 'لا توجد قياسات موقع موثقة لحساب الامتثال أو مؤشر السلامة؛ السجلات التاريخية مراجع للمراجعة فقط.'
   });
 }));
 
@@ -1856,70 +1899,9 @@ app.get('/api/v1/vision-jobs', (req, res) => {
 });
 
 // ─── Full Analysis Endpoint ──
-app.post('/api/v1/full-analysis', async (req, res) => {
-  const { description, projectId } = req.body || {};
-  console.log('[FullAnalysis] Called with:', JSON.stringify({ description, projectId }));
-  if (!description && !projectId) return res.status(400).json({ error: 'description or projectId required' });
-  genLog('?', 'API', `POST /api/v1/full-analysis projectId=${projectId}`);
-  const project = store.findProject(projectId);
-  const parsed = description ? parseDescription(description) : null;
-  const type = parsed?.type || project?.type || null;
-  const floors = parsed?.floors ?? project?.floors ?? null;
-  const area = parsed?.area ?? project?.area ?? null;
-  const name = project?.name || description || 'مشروع';
-  const response = {
-    projectId: projectId || 'proj-' + Date.now(),
-    facts: {
-      projectType: { value: type, confidence: 0.85 },
-      floors, hasBasement: false,
-      spaces: [], region: project?.city || 'الرياض', finishing: 'Standard'
-    },
-    extracted: { type, area, floors, rooms: null, bathrooms: null, hasKitchen: false, halls: null, city: project?.city || 'الرياض' },
-    building: { id: 'bld-' + Date.now(), projectType: type, skeleton: { numFloors: floors, hasBasement: false, totalHeight: floors ? floors * 3.2 : null }, spaces: [], systems: [], structuralElements: [] },
-    boq: { id: 'boq-' + Date.now(), items: [], suggestedItems: [], phase: 'Site', summary: { totalItems: 0, averageConfidence: 0.85 } },
-    cost: { totalDirectCost: 25000000, totalIndirectCost: 5000000, riskContingency: 3000000, profit: 5000000, taxes: 7000000, totalCost: project?.cost || 45000000, currency: 'SAR', costPerM2: area ? (project?.cost || 45000000) / area : null, confidence: 0.85, breakdown: [], dataPoints: 0 },
-    schedule: { activities: [], totalDuration: 365, totalMonths: 12, criticalPath: [], optimization: {} },
-    risks: { riskLevel: project?.status === 'Delayed' ? 'High' : 'Medium', description: 'تحليل أولي' },
-    quality: { qualityScore: project?.progress || 75, description: 'جودة متوقعة' },
-    descriptions: { raw: description || name },
-    workflow: [{ name: 'extraction', status: 'completed' }, { name: 'boq', status: 'completed' }, { name: 'cost', status: 'completed' }, { name: 'schedule', status: 'completed' }, { name: 'risks', status: 'completed' }, { name: 'quality', status: 'completed' }],
-    validation: { passed: true, errors: 0, warnings: 0, report: [] },
-    traceability: [],
-    reasoning: [{ ruleId: (type || 'unknown').toLowerCase().replace(/[^a-z]/g, '-') + '-standard', matched: true, confidence: 0.85 }],
-    metadata: { timestamp: new Date().toISOString(), duration: 800, confidence: 0.85, aiTrained: true, modelsUsed: 7, edlVersion: '1.0' }
-  };
-  try {
-    const boqResult = edl.getProject(projectId)?.boq || { items: [] };
-    const projectParams = { name, type, area, floors, description: description || '' };
-    if (typeof engineeringOrchestrator.runFullAnalysis === 'function') {
-      const analysis = engineeringOrchestrator.runFullAnalysis(boqResult, projectParams);
-      if (analysis) {
-        if (analysis.cost) { response.cost = { ...response.cost, ...analysis.cost }; response.cost.totalCost = analysis.cost.totalCost || response.cost.totalCost; }
-        if (analysis.schedule) response.schedule = { ...response.schedule, ...analysis.schedule };
-        if (analysis.boq) response.boq = { ...response.boq, ...analysis.boq };
-        if (analysis.risks) response.risks = { ...response.risks, ...analysis.risks };
-        if (analysis.quality) response.quality = { ...response.quality, ...analysis.quality };
-      }
-    }
-  } catch (innerE) { genLog('?', 'WARN', `Analysis engine fallback: ${innerE.message}`); }
-  // Attach digital profile if available
-  try {
-    let proj = null;
-    if (projectId) proj = edl.getProject(projectId);
-    if (!proj) {
-      proj = edl.createProject('__tmp_profile__', { name, description: description || name });
-      proj.rawInput.description = description || name;
-      proj.setExtracted({ type, typeConfidence: 0.7, area, floors, city: (typeof project === 'object' && project?.city) || null });
-    }
-    if (!proj.digitalProfile) {
-      const p = ai.projectProfiler.buildProfile(proj);
-      proj.setDigitalProfile(p);
-    }
-    response.digitalProfile = proj.digitalProfile;
-    if (!projectId) edl.deleteProject('__tmp_profile__');
-  } catch (e) { genLog('?', 'PROFILE_ERR', e.message); }
-  res.json(response);
-});
+app.post('/api/v1/full-analysis', waitForAI(require('./packages/ai-engine/full-analysis-handler')({
+  store, edl, workflow, validator, parseDescription
+})));
 
 // ─── Knowledge Base (Phase 8) ──
 app.get('/api/v1/knowledge-base/stats', (req, res) => {
@@ -3110,6 +3092,7 @@ app.get('/api/v1/phases/status', (req, res) => {
   try { qualityCheck = dataQualityPipeline.runFullCheck(); } catch {}
   const qcOverall = qualityCheck.overall || {};
   res.json({
+    modelEvidence: readModelEvidence(),
     p1_auditReport: { ok: require('fs').existsSync(path.join(__dirname, 'AI-AUDIT-REPORT-COMPLETE.json')), file: 'AI-AUDIT-REPORT-COMPLETE.json' },
     p2_knowledgeDataset: { ok: knowledgeDataset.getStats().projectTypes > 0, projectTypes: knowledgeDataset.getStats().projectTypes, boqItems: knowledgeDataset.getStats().unitPriceItems },
     p3_dataStandards: { ok: true, schemas: dataStandards.getStats().schemas, unitStandards: dataStandards.getStats().unitStandards },
@@ -3172,11 +3155,18 @@ app.post('/api/v1/benchmark-library/run', (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// Read-only frozen research evidence; never triggers training or changes model readiness.
+app.get('/api/v1/model-evidence', (req, res) => {
+  const evidence = readModelEvidence();
+  res.status(evidence.ok ? 200 : 503).json(evidence);
+});
+
 app.post('/api/v1/benchmark-library/compare', (req, res) => {
   try {
-    const { type, area, floors } = req.body;
+    const { type, area, floors } = req.body || {};
     if (!type) return res.status(400).json({ error: 'type required' });
-    res.json(benchmarkLibrary.compareWithAIModels({ type, area: area || 500, floors: floors || 2 }));
+    const comparison = benchmarkLibrary.compareWithAIModels({ type, area, floors });
+    res.status(comparison.ok ? 200 : 422).json(comparison);
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
@@ -4210,3 +4200,6 @@ app.listen(PORT, () => {
   console.log(`  Final Report:      ${finalReport ? '✓' : '✗'}   /api/v1/final-report/`);
   console.log('═══════════════════════════════════════════════════\n');
 });
+
+
+

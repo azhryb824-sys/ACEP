@@ -89,10 +89,11 @@ class AIOrchestrator extends WorkflowEngine {
 
     // Run the ValidationEngine across all modules
     const validationResult = this.validationEngine.validate(project);
-    project.metadata.status = validationResult.passed ? 'completed' : 'completed_with_warnings';
-    project.metadata.workflowStep = 'completed';
+    const requiresReview = steps.some(s => s.status === 'requires_review');
+    project.metadata.status = requiresReview ? 'requires_review' : validationResult.passed ? 'completed' : 'completed_with_warnings';
+    project.metadata.workflowStep = project.metadata.status;
     project.setOrchestrationState({
-      status: 'completed',
+      status: project.metadata.status,
       completedAt: new Date().toISOString(),
     });
 
@@ -152,11 +153,11 @@ class AIOrchestrator extends WorkflowEngine {
         }
         case 'schedule': {
           const schedule = await this.stepSchedule(project);
-          return { name: stepName, status: 'completed', data: { totalDays: schedule.totalDuration } };
+          return { name: stepName, status: schedule.requiresScheduleReview ? 'requires_review' : 'completed', data: { totalDays: schedule.totalDuration } };
         }
         case 'risks': {
           const risks = await this.stepRisks(project);
-          return { name: stepName, status: 'completed', data: { level: risks.riskLevel } };
+          return { name: stepName, status: risks.requiresRiskReview ? 'requires_review' : 'completed', data: { level: risks.riskLevel } };
         }
         case 'quality': {
           const quality = await this.stepQuality(project);
@@ -271,7 +272,7 @@ class AIOrchestrator extends WorkflowEngine {
         cost: i.totalCost || i.unitPrice || 0,
         phase: i.phase || 'Unknown',
       })),
-      risk: project.risks.riskLevel || 'Low',
+      risk: project.risks.riskLevel ?? null,
       phases: (project.schedule.activities || []).map(a => ({
         name: a.name || a.activity,
         duration: a.duration || 0,
@@ -428,7 +429,7 @@ class AIOrchestrator extends WorkflowEngine {
    */
   _cvCostVsRisk(project, currentStep) {
     if (currentStep !== 'risks' && currentStep !== 'quality') return null;
-    const riskLevel = project.risks.riskLevel || 'Low';
+    const riskLevel = project.risks.riskLevel ?? null;
     const contingency = project.cost.contingency || 0;
     const totalCost = project.cost.totalCost || 0;
 
@@ -498,3 +499,4 @@ class AIOrchestrator extends WorkflowEngine {
 }
 
 module.exports = AIOrchestrator;
+

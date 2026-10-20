@@ -1,3 +1,4 @@
+const path = require('node:path');
 const projectAnalyzer = require('./project-analyzer');
 const quantityEstimator = require('./quantity-estimator');
 const costEstimator = require('./cost-estimator');
@@ -6,175 +7,105 @@ const qualityInspector = require('./quality-inspector');
 const scheduleOptimizer = require('./schedule-optimizer');
 const supplierIntelligence = require('./supplier-intelligence');
 
-async function trainAllModels() {
-  console.log('═══════════════════════════════════════');
-  console.log('  ACEP AI Model Training Pipeline');
-  console.log('═══════════════════════════════════════');
-  let total = 0;
+const trainers = Object.freeze({
+  projectAnalyzer, quantityEstimator, costEstimator, riskAnalyzer,
+  qualityInspector, scheduleOptimizer, supplierIntelligence,
+});
+const countFields = Object.freeze({
+  projectAnalyzer: ['projectCount'], quantityEstimator: ['items'],
+  costEstimator: ['materials', 'labor', 'equipment', 'suppliers'],
+  riskAnalyzer: ['total'], qualityInspector: ['total'], scheduleOptimizer: ['total'],
+  supplierIntelligence: ['suppliers', 'priceRecords'],
+});
 
-  try {
-    console.log('\n📊 Training Project Analyzer...');
-    const r1 = await projectAnalyzer.train();
-    total += r1.projectCount;
-    console.log(`  ✓ Trained on ${r1.projectCount} projects (${r1.typeCount} types)`);
-  } catch (e) { console.error('  ✗ Project Analyzer failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Quantity Estimator...');
-    const r2 = await quantityEstimator.train();
-    total += r2.items;
-    console.log(`  ✓ Trained on ${r2.items} BOQ items (${r2.categories} categories)`);
-  } catch (e) { console.error('  ✗ Quantity Estimator failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Cost Estimator...');
-    const r3 = await costEstimator.train();
-    total += r3.materials + r3.labor + r3.equipment + r3.suppliers;
-    console.log(`  ✓ Materials: ${r3.materials}, Labor: ${r3.labor}, Equipment: ${r3.equipment}, Suppliers: ${r3.suppliers}`);
-  } catch (e) { console.error('  ✗ Cost Estimator failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Risk Analyzer...');
-    const r4 = await riskAnalyzer.train();
-    total += r4.total;
-    console.log(`  ✓ Trained on ${r4.total} risk records (${r4.categories} categories)`);
-  } catch (e) { console.error('  ✗ Risk Analyzer failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Quality Inspector...');
-    const r5 = await qualityInspector.train();
-    total += r5.total;
-    console.log(`  ✓ Trained on ${r5.total} quality defects (${r5.types} types)`);
-  } catch (e) { console.error('  ✗ Quality Inspector failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Schedule Optimizer...');
-    const r6 = await scheduleOptimizer.train();
-    total += r6.total;
-    console.log(`  ✓ Trained on ${r6.total} project schedules (${r6.types} types)`);
-  } catch (e) { console.error('  ✗ Schedule Optimizer failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Supplier Intelligence...');
-    const r7 = await supplierIntelligence.train();
-    total += r7.suppliers + r7.priceRecords;
-    console.log(`  ✓ Loaded ${r7.suppliers} suppliers, ${r7.priceRecords} price records`);
-  } catch (e) { console.error('  ✗ Supplier Intelligence failed:', e.message); }
-
-  console.log('\n═══════════════════════════════════════');
-  console.log(`✅ All ${7} models trained successfully`);
-  console.log(`   Total training records: ${total.toLocaleString()}`);
-  console.log('═══════════════════════════════════════');
-
-  return { totalRecords: total, models: 7 };
+function requestedModels(value) {
+  const names = value === undefined ? Object.keys(trainers) : value;
+  if (!Array.isArray(names) || names.length === 0) throw new TypeError('models must be a non-empty array');
+  for (const name of names) {
+    if (typeof name !== 'string' || !Object.hasOwn(trainers, name)) throw new TypeError(`Unknown model: ${String(name)}`);
+  }
+  return [...new Set(names)];
 }
 
-async function trainAllModels() {
-  console.log('═══════════════════════════════════════');
-  console.log('  ACEP AI Model Training Pipeline');
-  console.log('═══════════════════════════════════════');
-  let total = 0;
+function trainingArguments(options) {
+  if (!options || typeof options!=='object' || Array.isArray(options)) throw new TypeError('Invalid training options');
+  for (const key of Object.keys(options)) if (!['dataDir','projectOptions'].includes(key)) throw new TypeError('Unknown training option: '+key);
+  if (options.dataDir!==undefined && (typeof options.dataDir!=='string' || !options.dataDir.trim())) throw new TypeError('Invalid dataDir');
+  const file = name => options.dataDir ? path.join(options.dataDir,name+'.csv') : undefined;
+  return {
+    projectAnalyzer:[file('projects'),options.projectOptions],scheduleOptimizer:[file('projects'),options.projectOptions],
+    quantityEstimator:[file('boq_items')],costEstimator:[file('material_prices'),file('labor_rates'),file('equipment_rates'),file('suppliers')],
+    riskAnalyzer:[file('risks'),file('projects')],qualityInspector:[file('quality_defects'),file('projects')],
+    supplierIntelligence:[file('suppliers'),file('material_prices')]
+  };
+}
+async function runModels(names, options={}) {
+  const argumentsByModel=trainingArguments(options);
+  const results = { models: {}, errors: [], totalRecords: 0, successfulModels: 0, failedModels: 0,
+    requestedModels: names.length, accuracyValidated: false };
+  for (const name of names) {
+    const model = trainers[name];
+    try {
+      const result = await model.train(...argumentsByModel[name]);
+      if (!result || result.error || result.ok === false) throw new Error(result?.error || 'Training did not return a successful result');
+      const counts = countFields[name].map(field => result[field]);
+      if (counts.some(n => !Number.isSafeInteger(n) || n < 0)) throw new Error('Training returned invalid record counts');
+      const records = counts.reduce((sum, n) => sum + n, 0);
+      if (!Number.isSafeInteger(records) || records === 0 || !Number.isSafeInteger(results.totalRecords + records)) {
+        throw new Error('Training returned empty or unsafe record counts');
+      }
+      results.models[name] = { ok: true, result, records, readyForInference:result.readyForInference ?? null, accuracyValidated: false };
+      results.totalRecords += records;
+      results.successfulModels++;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (Object.hasOwn(model, 'trained')) model.trained = false;
+      results.models[name] = { ok: false, error: message, accuracyValidated: false };
+      results.errors.push(`${name}: ${message}`);
+      results.failedModels++;
+    }
+  }
+  results.status = results.failedModels === 0 ? 'succeeded' : results.successfulModels === 0 ? 'failed' : 'partial_failure';
+  results.ok = results.status === 'succeeded';
+  return results;
+}
 
-  try {
-    console.log('\n📊 Training Project Analyzer...');
-    const r1 = await projectAnalyzer.train();
-    total += r1.projectCount;
-    console.log(`  ✓ Trained on ${r1.projectCount} projects (${r1.typeCount} types)`);
-  } catch (e) { console.error('  ✗ Project Analyzer failed:', e.message); }
+function logSummary(results) {
+  const message = `Model training: ${results.successfulModels}/${results.requestedModels} succeeded; ${results.failedModels} failed. Predictive accuracy is not validated by this run.`;
+  if (results.ok) console.log(message);
+  else console.error(message);
+}
 
-  try {
-    console.log('\n📊 Training Quantity Estimator...');
-    const r2 = await quantityEstimator.train();
-    total += r2.items;
-    console.log(`  ✓ Trained on ${r2.items} BOQ items (${r2.categories} categories)`);
-  } catch (e) { console.error('  ✗ Quantity Estimator failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Cost Estimator...');
-    const r3 = await costEstimator.train();
-    total += r3.materials + r3.labor + r3.equipment + r3.suppliers;
-    console.log(`  ✓ Materials: ${r3.materials}, Labor: ${r3.labor}, Equipment: ${r3.equipment}, Suppliers: ${r3.suppliers}`);
-  } catch (e) { console.error('  ✗ Cost Estimator failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Risk Analyzer...');
-    const r4 = await riskAnalyzer.train();
-    total += r4.total;
-    console.log(`  ✓ Trained on ${r4.total} risk records (${r4.categories} categories)`);
-  } catch (e) { console.error('  ✗ Risk Analyzer failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Quality Inspector...');
-    const r5 = await qualityInspector.train();
-    total += r5.total;
-    console.log(`  ✓ Trained on ${r5.total} quality defects (${r5.types} types)`);
-  } catch (e) { console.error('  ✗ Quality Inspector failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Schedule Optimizer...');
-    const r6 = await scheduleOptimizer.train();
-    total += r6.total;
-    console.log(`  ✓ Trained on ${r6.total} project schedules (${r6.types} types)`);
-  } catch (e) { console.error('  ✗ Schedule Optimizer failed:', e.message); }
-
-  try {
-    console.log('\n📊 Training Supplier Intelligence...');
-    const r7 = await supplierIntelligence.train();
-    total += r7.suppliers + r7.priceRecords;
-    console.log(`  ✓ Loaded ${r7.suppliers} suppliers, ${r7.priceRecords} price records`);
-  } catch (e) { console.error('  ✗ Supplier Intelligence failed:', e.message); }
-
-  console.log('\n═══════════════════════════════════════');
-  console.log(`✅ All ${7} models trained successfully`);
-  console.log(`   Total training records: ${total.toLocaleString()}`);
-  console.log('═══════════════════════════════════════');
-
-  return { totalRecords: total, models: 7 };
+async function trainAllModels(options={}) {
+  const results = await runModels(requestedModels(), options);
+  logSummary(results);
+  // Preserve the old numeric `models` field as the requested count; expose outcomes separately.
+  const { models: modelResults, ...summary } = results;
+  return { ...summary, models: results.requestedModels, modelResults };
 }
 
 async function trainAllModelsFromUETS(uets, options = {}) {
-  const modelNames = options.models || [
-    'projectAnalyzer', 'quantityEstimator', 'costEstimator', 'riskAnalyzer',
-    'qualityInspector', 'scheduleOptimizer', 'supplierIntelligence',
-  ];
-
-  console.log('═══════════════════════════════════════');
-  console.log('  ACEP AI Model Training Pipeline (UETS)');
-  console.log('═══════════════════════════════════════');
-
-  if (!uets) return { error: 'UETS not configured' };
-
-  const enqueued = uets.enqueueTraining(modelNames, options);
-
-  const results = { models: {}, errors: [], uets: true, queueId: enqueued && enqueued.id };
-  const trainers = {
-    projectAnalyzer, quantityEstimator, costEstimator, riskAnalyzer,
-    qualityInspector, scheduleOptimizer, supplierIntelligence,
-  };
-
-  for (const name of modelNames) {
-    const model = trainers[name];
-    if (!model) { results.errors.push(`${name}: unknown model`); continue; }
-    try {
-      const r = await model.train();
-      results.models[name] = { ok: true, result: r };
-    } catch (e) {
-      results.models[name] = { ok: false, error: e.message };
-      results.errors.push(`${name}: ${e.message}`);
-    }
+  if (!uets || typeof uets.enqueueTraining !== 'function') {
+    return { error: 'UETS not configured', ok: false, status: 'failed', accuracyValidated: false };
   }
-
+  const names = requestedModels(options.models);
+  let enqueued;
+  try { enqueued = uets.enqueueTraining(names, options); }
+  catch (error) { return { error: error instanceof Error ? error.message : String(error), ok: false, status: 'failed', accuracyValidated: false }; }
+  const results = { ...(await runModels(names,{dataDir:options.dataDir,projectOptions:options.projectOptions})), uets: true, queueId: enqueued && enqueued.id, notificationErrors: [] };
   if (typeof uets.enqueueEvaluation === 'function') {
-    try { uets.enqueueEvaluation('training', { models: modelNames, results }); } catch {}
+    try { uets.enqueueEvaluation('training', { models: names, results }); }
+    catch (error) { results.notificationErrors.push(`evaluation: ${error instanceof Error ? error.message : String(error)}`); }
   }
   if (typeof uets.enqueueFeedback === 'function') {
-    try { uets.enqueueFeedback({ type: 'training', models: modelNames, timestamp: new Date().toISOString() }); } catch {}
+    try { uets.enqueueFeedback({ type: 'training', models: names, status: results.status,
+      successfulModels: results.successfulModels, failedModels: results.failedModels, timestamp: new Date().toISOString() }); }
+    catch (error) { results.notificationErrors.push(`feedback: ${error instanceof Error ? error.message : String(error)}`); }
   }
-
-  console.log(`✅ ${modelNames.length} models trained via UETS (errors: ${results.errors.length})`);
-  console.log('═══════════════════════════════════════');
-
+  logSummary(results);
   return results;
 }
 
 module.exports = { trainAllModels, trainAllModelsFromUETS };
+
+

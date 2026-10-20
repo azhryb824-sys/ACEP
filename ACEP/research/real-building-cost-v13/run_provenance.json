@@ -1,0 +1,19 @@
+{
+  "cycle": "ACEP v13",
+  "version": 17,
+  "script_version_id": 360254779,
+  "url": "https://www.kaggle.com/code/aaabbb2026/acep-engines-real-projects-v1/log?scriptVersionId=360254779",
+  "status": "succeeded",
+  "private": true,
+  "accelerator": "None",
+  "fitting_environment": "Kaggle",
+  "local_fits": 0,
+  "submitted_notebook_sha256": "fad31e4223355323a8f0614e0d703c218cc0e5e1cfc566c60319e5913c6f4152",
+  "supersedes_cancelled_version": 16,
+  "output_url": "https://www.kaggle.com/code/aaabbb2026/acep-engines-real-projects-v1/output?scriptVersionId=360254779",
+  "ui_runtime_seconds": 338.5,
+  "training_script_seconds": 298.80885950399994,
+  "independent_verification_passed": true,
+  "overall_task_complete": false,
+  "scoped_acceptance_passed": false
+}

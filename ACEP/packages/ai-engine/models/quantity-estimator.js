@@ -3,14 +3,15 @@
  *
  * Hybrid approach:
  * 1. Rule Engine determines WHICH items to generate based on project type + phase
- * 2. Training data (85,062 real BOQ items) provides unit prices per category
+ * 2. Supplied CSV records provide descriptive unit-price statistics; provenance is unverified
  * 3. No hardcoded building defaults. Every item is derived from project params + rules.
  */
 
-const fs = require('fs');
+const csv = require('./training-csv');
 const path = require('path');
 const kb = require('../knowledge-base');
 const boqRules = require('./boq-rules');
+const input = require('./model-input');
 
 class QuantityEstimator {
   constructor() {
@@ -23,46 +24,30 @@ class QuantityEstimator {
 
   async train(csvPath) {
     const fp = csvPath || path.join(__dirname, '..', '..', '..', 'packages', 'databases', 'training', 'csv', 'boq_items.csv');
-    this.boqData = fs.readFileSync(fp, 'utf8').trim().split('\n').slice(1).map(l => {
-      const c = l.split(',');
-      return {
-        projectId: c[0], itemCode: c[1], description: c[2],
-        category: c[3], unit: c[4], quantity: parseFloat(c[5]) || 0,
-        unitPrice: parseFloat(c[6]) || 0, confidence: parseInt(c[7]) || 0,
-        wasteFactor: parseFloat(c[8]) || 0
-      };
-    });
-
-    // Build per-category price stats from training data
-    const cats = {};
-    for (const item of this.boqData) {
-      if (!item.unitPrice || item.unitPrice <= 0) continue;
-      const prefix = (item.itemCode || item.category || 'GEN').split('-')[0];
-      if (!cats[prefix]) cats[prefix] = [];
-      cats[prefix].push(item.unitPrice);
-    }
-    for (const [cat, prices] of Object.entries(cats)) {
-      prices.sort((a, b) => a - b);
-      this.byCategory[cat] = {
-        count: prices.length,
-        priceMean: prices.reduce((s, v) => s + v, 0) / prices.length,
-        priceMedian: prices[Math.floor(prices.length / 2)],
-        priceMin: prices[0],
-        priceMax: prices[prices.length - 1]
-      };
-    }
-
-    this.trained = true;
-    this._boqCount = this.boqData.length;
-    this.boqData = null;
-    return { items: this._boqCount, categories: Object.keys(this.byCategory).length };
+    const fit = csv.load(fp,
+      ['project_id','item_code','description_ar','category','unit','quantity','unit_price_sar','confidence','waste_factor'],
+      r=>({projectId:r.project_id,description:r.description_ar,category:r.category,unit:csv.unit(r.unit),quantity:csv.number(r.quantity),unitPrice:csv.number(r.unit_price_sar),confidence:csv.number(r.confidence),wasteFactor:csv.number(r.waste_factor)}));
+    const group=(key)=>{
+      const groups=Object.create(null),stats=Object.create(null);
+      for(const item of fit.data){const k=key(item);(groups[k] ||= []).push(item.unitPrice);}
+      for(const [k,p] of Object.entries(groups)){
+        p.sort((a,b)=>a-b);const n=p.length;
+        stats[k]={count:n,priceMean:p.reduce((a,b)=>a+b,0)/n,priceMedian:(p[Math.floor((n-1)/2)]+p[Math.floor(n/2)])/2,priceMin:p[0],priceMax:p[n-1]};
+      }
+      return stats;
+    };
+    this.byCategory=group(r=>r.category+'|'+r.unit);
+    this.byItemUnit=group(r=>r.description+'|'+r.unit);
+    this.trainingAudit={...fit.audit,provenance:'unverified_csv',accuracyValidated:false};
+    this.trained=true;this._boqCount=fit.data.length;this.boqData=null;
+    return {items:this._boqCount,categories:Object.keys(this.byCategory).length,itemUnitGroups:Object.keys(this.byItemUnit).length,audit:this.trainingAudit};
   }
 
   /**
    * Generate BOQ for a project.
    *
    * @param {string} projectType - e.g. 'Apartment_Finishing', 'Villa', etc.
-   * @param {number} area - land/building area in m²
+   * @param {number} area - area of one floor in m² by default; extraParams.areaBasis can be total_built_up
    * @param {number} floors - number of floors
    * @param {string} finishing - finishing level (Standard, Premium, etc.)
    * @param {string} region - region/city name
@@ -70,12 +55,18 @@ class QuantityEstimator {
    * @returns {{ items: object[], summary: object }}
    */
   estimateBOQ(projectType, area, floors, finishing = 'Standard', region = 'Riyadh', extraParams = {}) {
-    if (!this.trained) return { items: [], summary: { totalItems: 0, totalCost: 0, averageConfidence: 0 } };
+    const missing = input.geometry(projectType, area, floors, { perFloor: extraParams.areaBasis !== 'total_built_up' });
+    if (missing.length) return { ...input.incomplete(missing), items: [], suggestedItems: [], assumptions: [],
+      summary: { totalItems: 0, totalCost: null, totalSuggestedCost: null, averageConfidence: 0 } };
+    if (!this.trained) return { ...input.incomplete(['trained_quantity_profile']), estimateStatus: 'not_trained',
+      items: [], suggestedItems: [], assumptions: [],
+      summary: { totalItems: 0, totalCost: null, totalSuggestedCost: null, averageConfidence: 0 } };
 
     const params = {
       type: projectType,
-      area: area || 0,
-      floors: floors || 1,
+      areaBasis: extraParams.areaBasis,
+      area: area ?? null,
+      floors: floors ?? null,
       rooms: extraParams.rooms || null,
       bathrooms: extraParams.bathrooms || null,
       hasKitchen: extraParams.hasKitchen || false,
@@ -86,13 +77,13 @@ class QuantityEstimator {
     };
 
     // Generate BOQ via Engineering Knowledge Base engine (v3)
-    const result = boqRules.generateBOQ(params, { byCategory: this.byCategory });
+    const result = boqRules.generateBOQ(params, { byItemUnit: this.byItemUnit, suppressRegionalAdjustment: true });
 
     // Apply finishing & region price adjustments from training data
     const multiplier = kb.getMaterialPriceMultiplier(finishing);
     const regionIndex = kb.getRegionIndex(region);
     if (multiplier !== 1 || regionIndex !== 1) {
-      for (const item of result.items) {
+      for (const item of [...result.items, ...(result.suggestedItems || [])]) {
         if (item.unitPrice && !item.insufficient) {
           item.unitPrice = Math.round(item.unitPrice * multiplier * regionIndex * 100) / 100;
           item.totalPrice = Math.round(item.quantity * item.unitPrice * 100) / 100;
@@ -101,7 +92,11 @@ class QuantityEstimator {
       }
     }
 
+    result.summary.totalCost=Math.round(result.items.reduce((s,i)=>s+(i.totalPrice||0),0)*100)/100;
+    result.summary.totalSuggestedCost=Math.round((result.suggestedItems||[]).reduce((s,i)=>s+(i.totalPrice||0),0)*100)/100;
     return {
+      requiresInputReview: (result.assumptions || []).length > 0,
+      estimateStatus: (result.assumptions || []).length ? 'assumptions_require_review' : 'rule_estimate',
       items: result.items,
       suggestedItems: result.suggestedItems,
       assumptions: result.assumptions,
@@ -123,8 +118,9 @@ class QuantityEstimator {
   getBOQAssumptions(projectType, area, floors, finishing = 'Standard', region = 'Riyadh', extraParams = {}) {
     const params = {
       type: projectType,
-      area: area || 0,
-      floors: floors || 1,
+      areaBasis: extraParams.areaBasis,
+      area: area ?? null,
+      floors: floors ?? null,
       rooms: extraParams.rooms || null,
       bathrooms: extraParams.bathrooms || null,
       hasKitchen: extraParams.hasKitchen || false,
@@ -163,3 +159,4 @@ class QuantityEstimator {
 }
 
 module.exports = new QuantityEstimator();
+

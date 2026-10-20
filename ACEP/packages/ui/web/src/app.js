@@ -109,7 +109,7 @@
       if (data) {
         if (vals[0]) vals[0].textContent = project.status === 'Active' ? 'نشط' : project.status || '-';
         if (vals[1]) vals[1].textContent = data.cost?.confidence ? `${Math.round(data.cost.confidence * 100)}%` : `${Math.round(project.progress || 0)}%`;
-        if (rows[2]) { const v = rows[2].querySelector('.font-semibold'); if (v && data.schedule?.totalDuration) v.textContent = data.schedule.totalDuration + ' يوم'; }
+        if (rows[2]) { const v = rows[2].querySelector('.font-semibold'); if (v) v.textContent = data.schedule?.totalDuration == null ? 'يلزم استكمال الجدول' : data.schedule.totalDuration + ' يوم'; }
         if (rows[3]) { const v = rows[3].querySelector('.font-semibold'); if (v && data.boq?.items?.length) v.textContent = `ACEP-${project.type?.substring(0,3) || 'Vis'}-v1`; }
       } else {
         if (vals[0]) vals[0].textContent = project.status === 'Active' ? 'نشط' : project.status || '-';
@@ -269,6 +269,17 @@
   }
 
   // ─── Analysis: Full AI analysis ────────
+  function costPresentation(cost) {
+    const complete = cost && Number.isFinite(cost.totalCost) && cost.totalCost >= 0 &&
+      cost.status !== 'incomplete' && !cost.requiresCostScopeReview && !cost.requiresInputReview;
+    return {
+      complete,
+      label: complete ? cost.totalCost.toLocaleString('en-US') + ' SAR' : 'تحتاج مراجعة',
+      compact: complete ? (cost.totalCost / 1e6).toFixed(1) + 'M' : 'تحتاج مراجعة',
+      detail: !complete ? (cost?.requiresCostScopeReview ? 'حدّد نطاق السعر واستكمل بياناته' : 'استكمل بيانات التسعير') : 'تقدير يحتاج مراجعة',
+    };
+  }
+
   async function runFullAnalysis() {
     const project = getCurrentProject();
     const projectName = project ? (project.name || project.id) : (state.currentProject || '');
@@ -284,8 +295,8 @@
     showToast('جاري التحليل الشامل بالذكاء الاصطناعي...', 'info');
     try {
       const data = await apiCall('/api/v1/full-analysis', 'POST', { description: desc });
-      const costStr = Number(data.cost.totalCost).toLocaleString('en-US');
-      showToast('اكتمل التحليل: ' + data.facts.projectType.value + ' - ' + costStr + ' SAR', 'success');
+      const costView = costPresentation(data.cost);
+      showToast('اكتمل التحليل: ' + data.facts.projectType.value + ' - ' + costView.label, costView.complete ? 'success' : 'warning');
 
       // Update confidence bar
       const confEl = document.querySelector('.confidence-fill');
@@ -320,21 +331,21 @@
 
       // Update cost stat card
       const costVal = document.getElementById('analysis-cost-value');
-      if (costVal && data.cost) costVal.textContent = (Number(data.cost.totalCost) / 1e6).toFixed(1) + 'M';
+      if (costVal) costVal.textContent = costView.compact;
       const costConf = document.getElementById('analysis-cost-confidence');
-      if (costConf && data.cost) costConf.textContent = 'هامش ±' + Math.round((1 - data.cost.confidence) * 100) + '%';
+      if (costConf) costConf.textContent = costView.detail;
 
       // Update duration stat card
       const durVal = document.getElementById('analysis-duration-value');
-      if (durVal && data.schedule) durVal.textContent = data.schedule.totalMonths + ' شهر';
+      if (durVal && data.schedule) durVal.textContent = data.schedule.totalMonths == null ? (data.schedule.totalDuration == null ? 'يلزم استكمال الجدول' : data.schedule.totalDuration + ' يوم') : data.schedule.totalMonths + ' شهر';
       const durConf = document.getElementById('analysis-duration-confidence');
       if (durConf && data.schedule) durConf.textContent = 'المسار الحاسم: ' + (data.schedule.criticalPath ? data.schedule.criticalPath.length : '—') + ' نشاط';
 
       // Update quality & risks (legacy selectors)
       const qText = document.querySelector('#page-analysis .card-stat-value');
-      if (qText && data.quality) qText.textContent = (data.quality.qualityScore || 0) + '%';
+      if (qText && data.quality) qText.textContent = (data.quality.requiresQualityReview || !Number.isFinite(data.quality.qualityScore ?? data.quality.score)) ? 'تحتاج فحصاً' : (data.quality.qualityScore ?? data.quality.score) + '%';
       const rText = document.querySelectorAll('#page-analysis .card-stat-value')[1];
-      if (rText && data.risks) rText.textContent = data.risks.level || 'Medium';
+      if (rText && data.risks) rText.textContent = data.risks.level ?? data.risks.riskLevel ?? 'تحتاج مراجعة';
 
       // Update analysis timeline
       if (data.analysis && Array.isArray(data.analysis)) {
@@ -343,9 +354,9 @@
           if (steps[i]) {
             const item = steps[i].closest('.timeline-item');
             const dot = item?.querySelector('.timeline-dot');
-            if (dot) { dot.textContent = '✓'; dot.className = 'timeline-dot active'; }
+            if (dot) { dot.textContent = step.status === 'requires_review' ? '!' : '✓'; dot.className = step.status === 'requires_review' ? 'timeline-dot' : 'timeline-dot active'; }
             const statusEl = item?.querySelector('.timeline-time');
-            if (statusEl) statusEl.textContent = 'اكتمل - ' + (step.result ? step.result.substring(0, 60) : '');
+            if (statusEl) statusEl.textContent = (step.status === 'requires_review' ? 'تحتاج مراجعة - ' : 'اكتمل - ') + (step.result ? step.result.substring(0, 60) : '');
           }
         });
       }
@@ -982,32 +993,24 @@
     try {
       const data = await apiCall('/api/v1/projects/' + pid + '/cost/estimate', 'POST');
       state.costData = data;
-      document.querySelector('#page-cost .card-stat:nth-child(1) .card-stat-value').textContent = (data.directCost / 1e6).toFixed(1) + 'M';
-      document.querySelector('#page-cost .card-stat:nth-child(2) .card-stat-value').textContent = (data.indirectCost / 1e6).toFixed(1) + 'M';
-      document.querySelector('#page-cost .card-stat:nth-child(3) .card-stat-value').textContent = (data.profit / 1e6).toFixed(1) + 'M';
-      // Update breakdown bars
-      if (data.breakdown) {
-        const bars = document.querySelectorAll('#page-cost .progress-fill');
-        const labels = document.querySelectorAll('#page-cost .flex.justify-between.text-sm span:first-child');
-        if (bars.length && data.breakdown.materials) {
-          const cats = [
-            { name: 'أعمال خرسانية', pct: data.breakdown.materials.percentage, color: 'var(--color-primary-500)' },
-            { name: 'أعمال حديد', pct: data.breakdown.labor ? data.breakdown.labor.percentage / 2 : 18, color: 'var(--color-secondary-500)' },
-            { name: 'أعمال معمارية', pct: 15, color: 'var(--color-accent-500)' },
-            { name: 'أعمال ميكانيكية', pct: 10, color: 'var(--color-warning-500)' },
-            { name: 'أعمال كهربائية', pct: 8, color: 'var(--color-danger-500)' }
-          ];
-          // Rebuild breakdown
-          const container = document.querySelector('#page-cost .flex.flex-col.gap-3');
-          if (container) {
-            container.innerHTML = cats.map(c =>
-              '<div><div class="flex justify-between text-sm mb-1"><span>' + c.name + '</span><span>' + c.pct + '% - ' + ((data.totalCost * c.pct / 100) / 1e6).toFixed(1) + 'M</span></div>' +
-              '<div class="progress-bar"><div class="progress-fill" style="width:' + c.pct + '%;background:' + c.color + ';"></div></div></div>'
-            ).join('');
-          }
-        }
+      const costView = costPresentation(data);
+      for (const [index, key] of [[1, 'directCost'], [2, 'indirectCost'], [3, 'profit']]) {
+        const node = document.querySelector('#page-cost .card-stat:nth-child(' + index + ') .card-stat-value');
+        if (node) node.textContent = costView.complete && Number.isFinite(data[key]) ? (data[key] / 1e6).toFixed(1) + 'M' : 'تحتاج مراجعة';
       }
-      showToast('تم تحليل التكاليف', 'success');
+      const container = document.querySelector('#page-cost .flex.flex-col.gap-3');
+      if (container) {
+        const components = [['materials', 'توريد مواد'], ['installed', 'بنود شاملة التركيب'],
+          ['labor', 'عمالة إضافية'], ['equipment', 'معدات إضافية']];
+        container.innerHTML = components.map(([key, label]) => {
+          const component = data.breakdown?.[key];
+          const pct = costView.complete && Number.isFinite(component?.percentage) ? Math.max(0, Math.min(100, component.percentage)) : 0;
+          const text = costView.complete && Number.isFinite(component?.cost) ? component.cost.toLocaleString('en-US') + ' SAR' : 'غير مكتمل';
+          return '<div><div class="flex justify-between text-sm mb-1"><span>' + label + '</span><span>' + text + '</span></div>' +
+            '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%;background:var(--color-primary-500);"></div></div></div>';
+        }).join('');
+      }
+      showToast(costView.complete ? 'تم حساب تقدير التكاليف' : costView.detail, costView.complete ? 'success' : 'warning');
     } catch (e) {
       showToast('خطأ: ' + e.message, 'error');
     }
@@ -1020,7 +1023,7 @@
     showToast('جاري إنشاء الجدول الزمني...', 'info');
     try {
       const data = await apiCall('/api/v1/projects/' + pid + '/schedule/generate', 'POST');
-      showToast('تم إنشاء جدول زمني بـ ' + data.totalDuration + ' يوماً', 'success');
+      showToast(data.totalDuration == null ? 'يلزم سجل مدة بأساس مساحة واضح أو شبكة أنشطة ومدد صريحة.' : 'مدة الجدول ' + data.totalDuration + ' يوماً؛ يلزم مراجعة الموارد والتقويم.', 'warning');
     } catch (e) {
       showToast('خطأ: ' + e.message, 'error');
     }
@@ -1030,10 +1033,10 @@
   async function analyzeRisks() {
     if (!state.currentProject) { showToast('⚠️ يرجى اختيار مشروع أولاً', 'warning'); return; }
     const pid = state.currentProject;
-    showToast('جاري تحليل المخاطر بنموذج AI (40,140 سجل)...', 'info');
+    showToast('جاري مراجعة بيانات المخاطر...', 'info');
     try {
       const data = await apiCall('/api/v1/projects/' + pid + '/risks/analyze', 'POST');
-      showToast('تم تحليل المخاطر: ' + data.risks.length + ' خطراً - المستوى: ' + data.riskLevel, 'success');
+      showToast(data.message || 'لا تكفي البيانات لتقدير احتمال وقوع المخاطر؛ يلزم تقييم المشروع.', 'warning');
     } catch (e) {
       showToast('خطأ: ' + e.message, 'error');
     }
@@ -1044,7 +1047,7 @@
     showToast('جاري مطابقة الموردين...', 'info');
     try {
       const data = await apiCall('/api/v1/cmpep/match-supplier', 'POST', { category: 'خرسانة' });
-      showToast('تم العثور على ' + data.totalCompanies + ' مورد', 'success');
+      showToast(data.status === 'no_match' ? 'لا يوجد مورد مطابق للتخصص والمدينة' : 'تم العثور على ' + data.totalSuppliers + ' مورد؛ يلزم التحقق من بياناته وأسعاره', data.status === 'no_match' ? 'warning' : 'success');
     } catch (e) {
       showToast('خطأ: ' + e.message, 'error');
     }
@@ -1057,7 +1060,7 @@
     showToast('جاري فحص الجودة بالذكاء الاصطناعي...', 'info');
     try {
       const data = await apiCall('/api/v1/projects/' + pid + '/quality/inspect', 'POST');
-      showToast('درجة الجودة: ' + data.qualityScore + '% - ' + data.qualityGrade + ' - ' + data.estimatedDefects + ' عيب متوقع', 'success');
+      showToast(data.message || 'تقييم الجودة يتطلب نتائج فحص المشروع؛ المعروض سجل عيوب تاريخي.', 'warning');
     } catch (e) {
       showToast('خطأ: ' + e.message, 'error');
     }
@@ -1615,8 +1618,9 @@
     // ─── Quality page ───
     document.querySelector('#page-quality .btn-primary')?.addEventListener('click', function() {
       showToast('جاري فحص الجودة بنموذج AI...', 'info');
-      apiCall('/api/v1/qaiip/inspection', 'POST', {}).then(d => {
-        showToast('فحص الجودة: ' + d.qualityIndex + '% نجاح - ' + d.inspections.length + ' تفتيش', 'success');
+      if (!state.currentProject) { showToast('يرجى اختيار مشروع أولاً', 'warning'); return; }
+      apiCall('/api/v1/qaiip/inspection', 'POST', { projectId: state.currentProject }).then(d => {
+        showToast(d.message || 'تقييم الجودة يتطلب نتائج فحص المشروع.', 'warning');
       }).catch(() => inspectQuality());
     });
     document.querySelector('#page-quality .btn-outline')?.addEventListener('click', inspectQuality);
@@ -1625,9 +1629,10 @@
     // ─── Safety page ───
     document.querySelector('#page-safety .btn-primary')?.addEventListener('click', function() {
       showToast('جاري تقييم المخاطر...', 'info');
-      apiCall('/api/v1/siapp/risk-assessment', 'POST', {}).then(d => {
-        showToast('تم التقييم: درجة المخاطر ' + d.riskScore + ' - ' + d.alerts + ' تنبيهات', 'success');
-      }).catch(() => showToast('تم تقييم المخاطر', 'success'));
+      if (!state.currentProject) { showToast('يرجى اختيار مشروع أولاً', 'warning'); return; }
+      apiCall('/api/v1/siapp/risk-assessment', 'POST', { projectId: state.currentProject }).then(d => {
+        showToast(d.message || 'يلزم فحص سلامة الموقع.', 'warning');
+      }).catch(e => showToast('خطأ: ' + e.message, 'error'));
     });
 
     // ─── Marketplace page ───
@@ -1972,3 +1977,4 @@
   window.openProject = openProject;
   window.refreshBOQPage = refreshBOQPage;
 })();
+

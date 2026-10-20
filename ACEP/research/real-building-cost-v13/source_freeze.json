@@ -1,0 +1,9 @@
+{
+  "build_notebook.py": "d5b76c464973cb7c316cf424f9cb9c4899e990aa8e97da202260a850c61a1c4e",
+  "download_sources.py": "939b96c57d3bfc991ea23a23c0095c69e0c94a123af702529bdf24ddef087e23",
+  "extract_pdf.py": "1237cb7902cae5f44df40c58781f7cfb7c3cbf48fe6315c7ba5df6b42dc576ac",
+  "model_runtime.py": "e4e09b54071928d3dde7aa9fb853db6f4c60e2cf3425347a53bd5b38bc7177e2",
+  "prepare_data.py": "cf54b887f9cb92eb5d998a90cfa83271a807f3d12b98ef63c860754854cb87f3",
+  "train_kaggle.py": "1f045f0ef5344a350621f8b1abb1614e5b5db708d979d14f76c4bd6207c23e6b",
+  "verify_results.py": "c49a2d27c2d95e622ac8fe33229e64137f41bc3fecace5d70f5680f73b2e9bb4"
+}

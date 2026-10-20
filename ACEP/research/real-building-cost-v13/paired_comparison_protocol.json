@@ -1,0 +1,11 @@
+{
+  "purpose": "Secondary paired comparison on the same 2025 cohort; never used for v13 selection",
+  "reference_run_version": 15,
+  "reference_script_version": 360227284,
+  "reference_model_sha256": "b369dbf99c5493059991d16b5464b6e62d4f87ba6fd1978dc607684b905373f0",
+  "prediction_file_sha256": "ae8d54aec8877368d8f3e2f21ad60d3471d64bd99b81619b48531c541184098e",
+  "cohort": 2025,
+  "label_file_loaded": false,
+  "local_fits": 0,
+  "causal_architecture_attribution": false
+}

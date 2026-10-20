@@ -230,15 +230,20 @@ class EngineeringKnowledgeBase {
       Hotel: { Bedroom: 50, Reception: 1, MeetingRoom: 2, Bathroom: 55, Corridor: 10, Storage: 3 },
       Mall: { Bathroom: 8, Storage: 4, Corridor: 15 }
     };
-    const spaces = configs[type] || { Bedroom: 2, LivingRoom: 1, Kitchen: 1, Bathroom: 1, Hallway: 1 };
+    // A template is not a measured floor plan. Do not invent residential rooms
+    // for unsupported types or add random area changes between identical calls.
+    const spaces = configs[type];
+    if (!spaces) return [];
     return Object.entries(spaces).flatMap(([spaceType, count]) => {
       const info = this.getSpace(spaceType);
       if (!info) return [];
       return Array.from({ length: count }, (_, i) => ({
         id: `${spaceType.toLowerCase()}-${i + 1}`,
         type: spaceType,
-        area: info.typicalArea + Math.floor(Math.random() * 10),
-        finishingLevel: info.finishingLevel
+        area: info.typicalArea,
+        finishingLevel: info.finishingLevel,
+        estimateBasis: 'type_template',
+        requiresDrawingVerification: true
       }));
     });
   }
@@ -263,3 +268,4 @@ class EngineeringKnowledgeBase {
 }
 
 module.exports = new EngineeringKnowledgeBase();
+

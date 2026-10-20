@@ -1,0 +1,17 @@
+{
+  "cycle": "ACEP v14",
+  "fit_environment": "Kaggle only",
+  "scope": "Retrospective nominal USD school construction-contract cost from reported/as-built features; not tender-time or Saudi estimation",
+  "development_years": [2010, 2023],
+  "calibration_year": 2024,
+  "diagnostic_year": 2025,
+  "test_status": "Previously exposed in v13. Diagnostic paired comparison only. No independent acceptance or 90-percent deployment claim may be made even if numerical gates pass.",
+  "target_policy": "Keep every v13 row, partition, label and fixed-five identifier unchanged; no cost-based removals or target correction",
+  "data_repairs": "Use explicit new-construction / TYPE OF ADDITION tables matched by nonmonetary fields only. Flag implausible class counts, preserve original numeric fields. Compare compact models excluding capacity/classroom inputs.",
+  "external_index": "BLS PCU236222236222 via FRED, previous-calendar-year annual mean. Current revised vintage only, not historical point-in-time or Florida-specific index. Additions application unvalidated.",
+  "candidate_policy": "Fixed 35 recipes: 3 unadjusted median baselines; full/compact features crossed with raw/PPI normalization and Ridge10/100, ExtraTrees leaf5/15, gradient boosting Huber/absolute depth2, neural32x2000/64x2000. No test-dependent ensembles or retuning.",
+  "selection": "On pooled 2021/2022/2023 development folds, require MAPE and P95 no worse than global median baseline; among eligible candidates maximize within10, then minimize MAPE, then name. Median baseline is eligible fallback.",
+  "diagnostic_gates": {"within10": 0.9, "all_five_within10": true, "coverage": 1.0, "mape_no_worse_than_baseline": true, "p95_no_worse_than_baseline": true},
+  "production_approved": false,
+  "seven_engine_90pct_established": false
+}

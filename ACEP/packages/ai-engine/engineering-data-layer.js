@@ -138,9 +138,9 @@ class ProjectModel {
 
     // Cost
     this.cost = {
-      directCost: 0, indirectCost: 0, contingency: 0,
-      profit: 0, taxes: 0, totalCost: 0,
-      costPerM2: 0, confidence: 0,
+      directCost: null, indirectCost: null, contingency: null,
+      profit: null, taxes: null, totalCost: null,
+      costPerM2: null, confidence: 0, status: 'not_estimated', requiresInputReview: true,
       breakdown: {},
       dataPoints: 0
     };
@@ -148,7 +148,8 @@ class ProjectModel {
     // Schedule
     this.schedule = {
       activities: [],
-      totalDuration: 0, totalMonths: 0,
+      totalDuration: null, totalMonths: null,
+      estimateStatus: 'not_estimated', requiresScheduleReview: true,
       criticalPath: [],
       optimization: null
     };
@@ -156,15 +157,15 @@ class ProjectModel {
     // Risks
     this.risks = {
       risks: [],
-      overallRiskScore: 0,
-      riskLevel: 'Low',
+      overallRiskScore: null,
+      riskLevel: null,
       riskCount: 0
     };
 
     // Quality
     this.quality = {
-      qualityScore: 0, qualityGrade: '',
-      estimatedDefects: 0,
+      qualityScore: null, qualityGrade: null,
+      estimatedDefects: null, requiresQualityReview: true,
       defects: []
     };
 
@@ -274,6 +275,7 @@ class ProjectModel {
   // ─── Set BOQ Data ───────────────────────
   setBOQ(boqResult) {
     this.boq = {
+      ...boqResult,
       items: boqResult.items || [],
       suggestedItems: boqResult.suggestedItems || [],
       phase: boqResult.phase || 'Unknown',
@@ -287,59 +289,53 @@ class ProjectModel {
 
   // ─── Set Cost Data ──────────────────────
   setCost(costData) {
-    this.cost = {
-      directCost: costData.directCost || 0,
-      indirectCost: costData.indirectCost || 0,
-      contingency: costData.contingency || 0,
-      profit: costData.profit || 0,
-      taxes: costData.taxes || 0,
-      totalCost: costData.totalCost || 0,
-      costPerM2: costData.costPerM2 || 0,
-      confidence: costData.confidence || 0,
-      breakdown: costData.breakdown || {},
-      dataPoints: costData.dataPoints || 0
-    };
+    // Preserve null (unknown) and scope evidence; never turn an unresolved price into zero.
+    this.cost = { ...costData };
     this.metadata.updated = new Date().toISOString();
-    this.metadata.workflowStep = 'cost_estimated';
+    this.metadata.workflowStep = costData.status === 'incomplete' ? 'cost_requires_review' : 'cost_estimated';
     this.traceEvent('cost_estimation', 'costEstimator', { costData });
   }
 
   // ─── Set Schedule Data ──────────────────
   setSchedule(scheduleData) {
     this.schedule = {
+      ...scheduleData,
       activities: scheduleData.activities || [],
-      totalDuration: scheduleData.totalDuration || 0,
-      totalMonths: scheduleData.totalMonths || 0,
+      totalDuration: scheduleData.totalDuration ?? null,
+      totalMonths: scheduleData.totalMonths ?? null,
       criticalPath: scheduleData.criticalPath || [],
       optimization: scheduleData.optimization || null
     };
     this.metadata.updated = new Date().toISOString();
-    this.metadata.workflowStep = 'scheduled';
+    this.metadata.workflowStep = scheduleData.requiresScheduleReview ? 'schedule_requires_review' : 'scheduled';
     this.traceEvent('schedule', 'scheduleOptimizer', { scheduleData });
   }
 
   // ─── Set Risk Data ──────────────────────
   setRisks(riskData) {
     this.risks = {
+      ...riskData,
       risks: riskData.risks || [],
-      overallRiskScore: riskData.overallRiskScore || 0,
-      riskLevel: riskData.riskLevel || 'Low',
+      overallRiskScore: riskData.overallRiskScore ?? null,
+      riskLevel: riskData.riskLevel ?? null,
       riskCount: (riskData.risks || []).length
     };
     this.metadata.updated = new Date().toISOString();
-    this.metadata.workflowStep = 'risks_analyzed';
+    this.metadata.workflowStep = riskData.requiresRiskReview || riskData.requiresInputReview ? 'risks_require_review' : 'risks_analyzed';
     this.traceEvent('risk_analysis', 'riskAnalyzer', { riskData });
   }
 
   // ─── Set Quality Data ───────────────────
   setQuality(qualityData) {
     this.quality = {
-      qualityScore: qualityData.qualityScore || 0,
-      qualityGrade: qualityData.qualityGrade || '',
-      estimatedDefects: qualityData.estimatedDefects || 0,
+      ...qualityData,
+      qualityScore: qualityData.qualityScore ?? null,
+      qualityGrade: qualityData.qualityGrade ?? null,
+      estimatedDefects: qualityData.estimatedDefects ?? null,
       defects: qualityData.defects || []
     };
     this.metadata.updated = new Date().toISOString();
+    this.metadata.workflowStep = qualityData.requiresQualityReview ? 'quality_requires_review' : 'quality_analyzed';
     this.traceEvent('quality', 'qualityInspector', { qualityData });
   }
 
@@ -442,7 +438,8 @@ class ProjectModel {
       area: effective.area || 200,
       floors: effective.floors || 3,
       boqItems: this.boq.items || [],
-      totalCost: this.cost.totalCost || 0,
+      totalCost: this.cost.totalCost ?? null,
+      costStatus: this.cost.status || null,
       schedule: {
         totalDuration: this.schedule.totalDuration,
         activities: this.schedule.activities,
@@ -597,7 +594,16 @@ class ProjectModel {
     if (data.boq) this.boq = data.boq;
     if (data.cost) this.cost = data.cost;
     if (data.schedule) this.schedule = data.schedule;
-    if (data.risks) this.risks = data.risks;
+    if (data.risks) this.risks = data.risks.inferenceVersion === 10 ? data.risks : {
+      risks: [], overallRiskScore: null, riskLevel: null, riskCount: 0, confidence: null,
+      estimateStatus: 'legacy_output_requires_recalculation', requiresRiskReview: true,
+      message: 'يلزم إعادة مراجعة سجل المخاطر القديم قبل عرضه.'
+    };
+    if (data.schedule && data.schedule.inferenceVersion !== 10) this.schedule = {
+      activities: data.schedule.activities || [], totalDuration: null, totalMonths: null, criticalPath: [],
+      estimateStatus: 'legacy_output_requires_recalculation', requiresScheduleReview: true,
+      message: 'الأنشطة المحفوظة متاحة؛ يلزم إعادة حساب المدة مع تحديد وحدتها.'
+    };
     if (data.quality) this.quality = data.quality;
     if (data.procurement) this.procurement = data.procurement;
     if (data.validation) this.validation = data.validation;
@@ -610,3 +616,4 @@ class ProjectModel {
 }
 
 module.exports = { EngineeringDataLayer, ProjectModel };
+

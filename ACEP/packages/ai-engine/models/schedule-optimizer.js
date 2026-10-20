@@ -1,141 +1,136 @@
-const fs = require('fs');
-const path = require('path');
-
+'use strict';
+const path = require('node:path');
+const {loadProjects,validSupport,mean} = require('./project-training');
+const snapshots = require('./training-profile');
+const input = require('./model-input');
+const { analyzeActivityNetwork } = require('./activity-network');
+const finishingFactors = Object.freeze({ Raw: 0.7, Standard: 1, Good: 1.15, Premium: 1.3, Luxury: 1.5 });
+const methodFactors = Object.freeze({ Traditional: 1, Precast: 0.7, SteelFrame: 0.6, ICF: 0.85, AAC: 0.9, PostTension: 0.8 });
+const own = (o, key) => o && Object.hasOwn(o, key);
+const positive = n => typeof n === 'number' && Number.isFinite(n) && n > 0 && n <= Number.MAX_SAFE_INTEGER;
 class ScheduleOptimizer {
   constructor() {
-    this.trained = false;
-    this.projects = [];
-    this.byType = {};
+    this.trained = false; this.projects = []; this.byType = Object.create(null);
+    // Planning assumptions, not measured task productivity or resource limits.
     this.activityTemplates = {
-      'Site Preparation': { weight: 0.08, min: 3, max: 30 },
-      'Foundation': { weight: 0.15, min: 7, max: 60 },
-      'Structural Frame': { weight: 0.25, min: 14, max: 180 },
-      'MEP Rough-in': { weight: 0.12, min: 10, max: 90 },
-      'Masonry & Block': { weight: 0.08, min: 7, max: 60 },
-      'Plaster & Finishing': { weight: 0.10, min: 10, max: 90 },
-      'Flooring & Tiles': { weight: 0.06, min: 7, max: 60 },
-      'Ceiling & Partitions': { weight: 0.05, min: 5, max: 45 },
-      'Doors & Windows': { weight: 0.03, min: 5, max: 30 },
-      'Painting & Decoration': { weight: 0.04, min: 5, max: 45 },
-      'Exterior & Landscape': { weight: 0.06, min: 7, max: 60 },
-      'Commissioning & Handover': { weight: 0.03, min: 5, max: 30 }
+      'Site Preparation': {weight:.08,min:3}, 'Foundation': {weight:.15,min:7},
+      'Structural Frame': {weight:.25,min:14}, 'MEP Rough-in': {weight:.12,min:10},
+      'Masonry & Block': {weight:.08,min:7}, 'Plaster & Finishing': {weight:.10,min:10},
+      'Flooring & Tiles': {weight:.06,min:7}, 'Ceiling & Partitions': {weight:.05,min:5},
+      'Doors & Windows': {weight:.03,min:5}, 'Painting & Decoration': {weight:.04,min:5},
+      'Exterior & Landscape': {weight:.06,min:7}, 'Commissioning & Handover': {weight:.03,min:5}
     };
   }
-
-  async train(csvPath) {
-    this.byType = {};
-    const fp = csvPath || path.join(__dirname, '..', '..', '..', 'packages', 'databases', 'training', 'csv', 'projects.csv');
-    this.projects = fs.readFileSync(fp, 'utf8').trim().split('\n').slice(1).map(l => {
-      const c = l.split(',');
-      return {
-        id: c[0], city: c[1], region: c[2], type: c[3],
-        landArea: parseFloat(c[4]) || 0, buildingArea: parseFloat(c[5]) || 0,
-        floors: parseInt(c[6]) || 1, units: parseInt(c[7]) || 0,
-        finishing: c[8] || 'Standard', method: c[9] || 'Traditional',
-        structure: c[10] || 'RC Frame',
-        concrete: parseFloat(c[11]) || 0, steel: parseFloat(c[12]) || 0,
-        blocks: parseFloat(c[13]) || 0, tiles: parseFloat(c[14]) || 0,
-        paint: parseFloat(c[15]) || 0, electrical: parseFloat(c[16]) || 0,
-        plumbing: parseFloat(c[17]) || 0,
-        cost: parseFloat(c[18]) || 0, durationMonths: parseFloat(c[19]) || 0
-      };
-    }).filter(p => p.durationMonths > 0);
-
-    for (const p of this.projects) {
-      if (!this.byType[p.type]) this.byType[p.type] = [];
-      this.byType[p.type].push(p);
+  // Fitting runs only in the authorized training environment. Never guess area basis.
+  async train(csvPath, options = {}) {
+    this.trained = false; this.byType = Object.create(null);
+    const fp = csvPath || path.join(__dirname,'..','..','..','packages','databases','training','csv','projects.csv');
+    const fit = loadProjects(fp, options);
+    const groups=new Map(), ids=new Set();
+    for (const row of fit.data) {
+      if (ids.has(row.id)) throw new Error('Duplicate training project: '+row.id);
+      ids.add(row.id); if (!groups.has(row.type)) groups.set(row.type,[]); groups.get(row.type).push(row);
     }
-
-    for (const [type, items] of Object.entries(this.byType)) {
-      const durations = items.map(i => i.durationMonths).sort((a, b) => a - b);
-      const areas = items.map(i => i.buildingArea).filter(a => a > 0);
-      const floors = items.map(i => i.floors);
-      const n = items.length;
-      this.byType[type] = {
-        count: n,
-        durationMean: durations.reduce((s, v) => s + v, 0) / n,
-        durationMedian: durations[Math.floor(n / 2)],
-        durationMin: durations[0], durationMax: durations[n - 1],
-        durationStd: Math.sqrt(durations.reduce((s, v) => s + (v - durations.reduce((s2, v2) => s2 + v2, 0) / n) ** 2, 0) / n),
-        areaMean: areas.length > 0 ? areas.reduce((s, v) => s + v, 0) / areas.length : 0,
-        floorsAvg: floors.reduce((s, v) => s + v, 0) / n,
-        costPerDay: items.reduce((s, i) => s + i.cost, 0) / items.reduce((s, i) => s + i.durationMonths * 22, 0)
-      };
+    for (const [type,rows] of groups) {
+      const durations=rows.map(r=>r.durationMonths).sort((a,b)=>a-b), floors=rows.map(r=>r.floors);
+      const areas=rows.map(r=>r.totalBuiltUpArea), completeArea=areas.every(positive);
+      this.byType[type]={ profileVersion:2,count:rows.length,durationMean:mean(durations),
+        durationMedian:(durations[Math.floor((rows.length-1)/2)]+durations[Math.floor(rows.length/2)])/2,
+        durationMin:durations[0],durationMax:durations.at(-1),areaMean:mean(rows.map(r=>r.buildingArea)),floorsAvg:mean(floors),
+        totalBuiltUpAreaMean:completeArea?mean(areas):null,areaBasis:completeArea?'total_built_up':null,
+        totalAreaMin:completeArea?Math.min(...areas):null,totalAreaMax:completeArea?Math.max(...areas):null,
+        floorsMin:Math.min(...floors),floorsMax:Math.max(...floors) };
     }
-
-    this.trained = true;
-    this._projectCount = this.projects.length;
-    this.projects = null;
-    return { total: this._projectCount, types: Object.keys(this.byType).length };
+    this._projectCount=fit.data.length; this.projects=null;
+    this.trainingAudit=fit.audit;
+    this.trained=true;
+    const eligibleTypes=Object.values(this.byType).filter(s=>this._validProfile(s)).length;
+    return {total:this._projectCount,types:groups.size,eligibleTypes,readyForInference:eligibleTypes>0,audit:this.trainingAudit};
   }
-
-  generateSchedule(projectType, totalArea, floors, finishing = 'Standard', region = 'Riyadh', method = 'Traditional') {
-    if (!this.trained) return this._fallbackSchedule(totalArea, floors, finishing);
-
-    const stats = this.byType[projectType];
-    const baseMonths = stats ? stats.durationMean : 8;
-    const baseDuration = baseMonths * 22;
-
-    const avgArea = stats && stats.areaMean > 0 ? stats.areaMean : 5000;
-    const avgFloors = stats && stats.floorsAvg > 0 ? stats.floorsAvg : 2;
-    const areaFactor = 1 + Math.log2(Math.max(1, totalArea / avgArea)) * 0.15;
-    const floorsFactor = 1 + (floors - avgFloors) * 0.08;
-    const finishingFactor = { Raw: 0.7, Standard: 1.0, Good: 1.15, Premium: 1.3, Luxury: 1.5 }[finishing] || 1.0;
-    const methodFactor = { Traditional: 1.0, Precast: 0.7, SteelFrame: 0.6, ICF: 0.85, AAC: 0.9, PostTension: 0.8 }[method] || 1.0;
-
-    const totalDays = Math.max(30, Math.round(baseDuration * areaFactor * floorsFactor * finishingFactor * methodFactor));
-
-    const activities = Object.entries(this.activityTemplates).map(([name, tmpl], i) => {
-      const base = Math.max(tmpl.min, Math.round(tmpl.weight * totalDays));
-      const scaled = Math.round(base * (1 + (floors - 2) * 0.05) * (method === 'Precast' ? 0.8 : 1));
-      return {
-        id: `A${i + 1}`,
-        name,
-        duration: Math.max(tmpl.min, scaled),
-        predecessors: i > 0 ? [`A${i}`] : []
-      };
+  _validProfile(s) {
+    return s && s.profileVersion===2 && s.areaBasis==='total_built_up' && Number.isSafeInteger(s.count) && s.count>0 &&
+      positive(s.durationMean) && validSupport(s,'totalBuiltUpAreaMean','floorsAvg');
+  }
+  exportProfile() {
+    if (!this.trained) throw new Error('Model not trained');
+    const eligible=Object.fromEntries(Object.entries(this.byType).filter(([,s])=>this._validProfile(s)));
+    return snapshots.exportProfile('scheduleOptimizer',eligible,this.trainingAudit,s=>this._validProfile(s));
+  }
+  loadProfile(value) {
+    this.trained=false;this.byType=Object.create(null);
+    const v=snapshots.readProfile(value,'scheduleOptimizer',s=>this._validProfile(s));
+    this.byType=v.profiles;this.trainingAudit=v.audit;this.trained=true;
+    this._projectCount=Object.values(v.profiles).reduce((n,s)=>n+s.count,0);
+    return {loadedTypes:Object.keys(v.profiles).length,accuracyValidated:false};
+  }
+  _incomplete(missing,status='incomplete') {
+    return {...input.incomplete(missing),estimateStatus:status,inferenceVersion:10,activities:[],totalDuration:null,totalMonths:null,
+      criticalPath:[],optimization:null,resourceFeasible:null,requiresScheduleReview:true,confidence:null};
+  }
+  analyzeActivityNetwork(activities) { return analyzeActivityNetwork(activities); }
+  scheduleFromActivities(activities,timeUnit) {
+    if (!['working_day','calendar_day'].includes(timeUnit)) throw new TypeError('Explicit timeUnit must be working_day or calendar_day');
+    const network=analyzeActivityNetwork(activities);
+    return {...network,inferenceVersion:10,criticalPath:network.criticalActivities,totalMonths:null,timeBasis:timeUnit,
+      calendar:{timeUnit,workingDaysPerMonth:null,assumed:false},optimization:null,predictiveAccuracy:null,
+      message:'المدة محسوبة من الأنشطة والروابط المقدمة؛ توافر الموارد والتقويم التفصيلي يحتاجان مراجعة.'};
+  }
+  generateSchedule(projectType,totalArea,floors,finishing='Standard',region='Riyadh',method='Traditional') {
+    const missing=input.geometry(projectType,totalArea,floors);
+    if (missing.length) return this._incomplete(missing);
+    if (!own(finishingFactors,finishing)) return this._incomplete(['supported_finishing'],'unsupported_scope');
+    if (!own(methodFactors,method)) return this._incomplete(['supported_construction_method'],'unsupported_scope');
+    if (!this.trained) return this._incomplete(['trained_schedule_profile'],'not_trained');
+    if (!own(this.byType,projectType)) return this._incomplete(['project_type_schedule_history'],'unsupported_project_type');
+    const s=this.byType[projectType];
+    if (s.profileVersion!==2 || s.areaBasis!=='total_built_up' || !positive(s.totalBuiltUpAreaMean)) return this._incomplete(['declared_training_area_basis'],'incompatible_training_profile');
+    if (!Number.isSafeInteger(s.count) || s.count<1 || ![s.durationMean,s.floorsAvg,s.totalAreaMin,s.totalAreaMax,s.floorsMin,s.floorsMax].every(positive) ||
+      s.totalAreaMin>s.totalAreaMax || s.floorsMin>s.floorsMax || s.totalBuiltUpAreaMean<s.totalAreaMin || s.totalBuiltUpAreaMean>s.totalAreaMax || s.floorsAvg<s.floorsMin || s.floorsAvg>s.floorsMax) return this._incomplete(['valid_schedule_profile'],'invalid_training_profile');
+    if (totalArea<s.totalAreaMin || totalArea>s.totalAreaMax || floors<s.floorsMin || floors>s.floorsMax) return {
+      ...this._incomplete(['comparable_project_history'],'outside_training_support'),trainingSupport:{totalArea:[s.totalAreaMin,s.totalAreaMax],floors:[s.floorsMin,s.floorsMax]}};
+    const baseDuration=s.durationMean*22,areaFactor=1+Math.log2(Math.max(1,totalArea/s.totalBuiltUpAreaMean))*.15;
+    const floorsFactor=1+(floors-s.floorsAvg)*.08;
+    if (floorsFactor<=0) return this._incomplete(['supported_floor_adjustment'],'outside_heuristic_domain');
+    const finishingFactor=finishingFactors[finishing],methodFactor=methodFactors[method];
+    const estimate=Math.max(30,Math.round(baseDuration*areaFactor*floorsFactor*finishingFactor*methodFactor));
+    return this._allocate(estimate,{trainingData:s.count,
+      parameters:{baseDuration,referenceTotalBuiltUpArea:s.totalBuiltUpAreaMean,areaFactor,floorsFactor,finishingFactor,methodFactor},
+      assumptions:{finishing,method,region,regionAdjustmentApplied:false,factorsCalibrated:false},
+      dataBasis:'declared_area_basis_historical_profile',provenance:this.trainingAudit?.provenance || 'unverified_profile'});
+  }
+  // Explicit scenario API; never a fallback for missing evidence.
+  generateTemplateSchedule(totalArea,floors,finishing='Standard') {
+    const missing=input.geometry('Template',totalArea,floors);
+    if (missing.length) return this._incomplete(missing);
+    if (!own(finishingFactors,finishing)) return this._incomplete(['supported_finishing'],'unsupported_scope');
+    return this._allocate(Math.round((30+floors*10+totalArea*.01)*finishingFactors[finishing]),
+      {dataBasis:'explicit_template_scenario',trainingData:0,assumptions:{finishing,factorsCalibrated:false}});
+  }
+  _allocate(estimate,metadata) {
+    if (!Number.isSafeInteger(estimate) || estimate<0) throw new RangeError('Unsafe duration estimate');
+    const entries=Object.entries(this.activityTemplates),minimum=entries.reduce((s,[,t])=>s+t.min,0);
+    const target=Math.max(estimate,minimum),extra=target-minimum,weight=entries.reduce((s,[,t])=>s+t.weight,0);
+    const shares=entries.map(([,t],i)=>({i,value:extra*(t.weight/weight)}));
+    const durations=entries.map(([,t],i)=>t.min+Math.floor(shares[i].value));
+    const remainder=target-durations.reduce((s,n)=>s+n,0);
+    if (!Number.isSafeInteger(remainder) || remainder<0 || remainder>entries.length) throw new RangeError('Unsafe duration allocation');
+    shares.sort((a,b)=>(b.value-Math.floor(b.value))-(a.value-Math.floor(a.value)) || a.i-b.i);
+    for(let i=0;i<remainder;i++) durations[shares[i].i]++;
+    const activities=entries.map(([name],i)=>({id:'A'+(i+1),name,duration:durations[i],predecessors:i?['A'+i]:[]}));
+    const network=analyzeActivityNetwork(activities);
+    return {...network,...metadata,activities:network.activities.map(a=>({...a,predecessors:a.predecessors.map(p=>p.id)})),inferenceVersion:10,heuristicDurationEstimate:estimate,minimumTemplateDuration:minimum,minimumDurationAdjustment:target-estimate,
+      totalMonths:Math.round(network.totalDuration/22*10)/10,criticalPath:network.criticalActivities,
+      calendar:{workingDaysPerMonth:22,assumed:true},schedulingBasis:'sequential_template',timeBasis:'assumed_working_day',
+      estimateStatus:'heuristic_estimate',requiresScheduleReview:true,optimization:{parallelExecution:0,compressionPotential:null},confidence:null,
+      message:'سيناريو تخطيط أولي بعوامل غير معايرة؛ يلزم اعتماد الأنشطة والموارد والتقويم.'};
+  }
+  compareMethods(projectType,totalArea,floors) {
+    return Object.keys(methodFactors).map(method=>{
+      const s=this.generateSchedule(projectType,totalArea,floors,'Standard','Riyadh',method);
+      return {method,durationDays:s.totalDuration,criticalPath:s.criticalPath,estimateStatus:s.estimateStatus,missing:s.missing || [],
+        requiresScheduleReview:true,recommendationEligible:false,comparisonBasis:'uncalibrated_factor_scenarios'};
     });
-
-    const criticalPath = activities.map(a => a.id);
-    const totalActivityDays = activities.reduce((s, a) => s + a.duration, 0);
-    const optimization = {
-      parallelExecution: Math.round((1 - totalActivityDays / (totalDays * 1.5)) * 100),
-      compressionPotential: totalDays > 365 ? 'Medium' : totalDays > 180 ? 'Low' : 'Minimal'
-    };
-
-    return {
-      activities,
-      totalDuration: totalDays,
-      totalMonths: Math.round(totalDays / 22 * 10) / 10,
-      criticalPath,
-      optimization,
-      parameters: { baseDuration, areaFactor: Math.round(areaFactor * 100) / 100, floorsFactor: Math.round(floorsFactor * 100) / 100, finishingFactor, methodFactor },
-      trainingData: stats ? stats.count : 0,
-      confidence: stats ? Math.min(0.9, 0.5 + stats.count * 0.0002) : 0.6
-    };
-  }
-
-  _fallbackSchedule(totalArea, floors, finishing) {
-    const base = 30 + floors * 10 + totalArea * 0.01;
-    const finishingF = { Raw: 0.7, Standard: 1.0, Good: 1.15, Premium: 1.3, Luxury: 1.5 }[finishing] || 1.0;
-    const totalDays = Math.round(base * finishingF);
-    const activities = [
-      { id: 'A1', name: 'Site Preparation', duration: 7, predecessors: [] },
-      { id: 'A2', name: 'Foundation', duration: 14, predecessors: ['A1'] },
-      { id: 'A3', name: 'Structure', duration: Math.round(21 + floors * 7), predecessors: ['A2'] },
-      { id: 'A4', name: 'Finishing', duration: Math.round(30 + totalArea * 0.005), predecessors: ['A3'] },
-      { id: 'A5', name: 'Handover', duration: 10, predecessors: ['A4'] }
-    ];
-    return { activities, totalDuration: totalDays, criticalPath: activities.map(a => a.id), confidence: 0.6 };
-  }
-
-  compareMethods(projectType, totalArea, floors) {
-    const methods = ['Traditional', 'Precast', 'SteelFrame', 'ICF', 'AAC', 'PostTension'];
-    return methods.map(m => {
-      const s = this.generateSchedule(projectType, totalArea, floors, 'Standard', 'Riyadh', m);
-      return { method: m, durationDays: s.totalDuration, criticalPath: s.criticalPath };
-    }).sort((a, b) => a.durationDays - b.durationDays);
   }
 }
+module.exports=new ScheduleOptimizer();
 
-module.exports = new ScheduleOptimizer();

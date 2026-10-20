@@ -15,6 +15,16 @@
 const kb = require('./boq-knowledge-base');
 const AssumptionManager = require('./assumption-manager');
 const PriceLearner = require('./price-learner');
+const { unit } = require('../models/training-csv');
+const { normalizeGeometry } = require('./project-geometry');
+// Deliberately narrow semantic matches. Do not share concrete rates with lifts
+// merely because the KB reuses a price category. Scope/grade remain unverified.
+const CSV_ITEM_MATCHES = {
+ 'EXC-001':'Excavation for foundations',
+ 'FND-001':'Plain concrete (PC)', 'FND-002':'Reinforced concrete (RC) foundations',
+ 'STR-001':'RC columns','STR-002':'RC beams','STR-003':'RC slabs',
+ 'STR-004':'RC shear walls','STR-006':'RC stairs'
+};
 
 // ─── Default Unit Prices (fallback when training data unavailable) ────
 const DEFAULT_PRICES = {
@@ -42,12 +52,14 @@ class BOQEngine {
    * @returns {object} - { items, suggestedItems, assumptions, phase, summary }
    */
   generate(params, trainingStats) {
+    const geometryInput = normalizeGeometry(params);
+    params = geometryInput.params;
     const projectType = params.type || 'Unknown';
     const userPhase = params.phase || kb.detectPhase(projectType, params.description || '');
 
     // First, check for missing params and generate assumptions
     const assumptionResult = this.assumptionManager.generateAssumptions(params);
-    const enrichedParams = { ...params };
+    const enrichedParams = { ...params, phase: userPhase };
 
     // Apply learning-based defaults for missing parameters
     for (const assumption of assumptionResult.assumptions) {
@@ -55,6 +67,15 @@ class BOQEngine {
         enrichedParams[assumption.field] = assumption.proposedValue;
       }
     }
+
+    const effectiveGeometry = normalizeGeometry(enrichedParams).geometry;
+    const geometry = { ...geometryInput.geometry,
+      perFloorAreaM2: effectiveGeometry.perFloorAreaM2,
+      totalBuiltUpAreaM2: effectiveGeometry.totalBuiltUpAreaM2,
+      floors: effectiveGeometry.floors,
+      dimensionsInferred: assumptionResult.assumptions.some(a =>
+        a.type === 'missing_parameter' && ['area', 'floors'].includes(a.field)),
+    };
 
     // Determine which lifecycle phases apply to this project
     const lifecyclePhases = kb.getApplicablePhases(projectType, userPhase);
@@ -105,10 +126,12 @@ class BOQEngine {
         }
 
         // Determine unit price (with learning + region adjustment)
-        const pricePerUnit = this._estimateUnitPrice(itemDef.priceCat, trainingStats, enrichedParams.city);
+        const pricePerUnit = this._estimateUnitPrice(itemDef.priceCat, trainingStats, enrichedParams.city, itemDef.unit, itemDef.code);
 
         // Build the item — NEVER allow null/empty values
         const boqItem = this._buildItem(itemDef, calcResult, pricePerUnit, enrichedParams);
+        boqItem.priceScope = 'unknown'; // No CSV field establishes installed/supply scope.
+        boqItem.priceSource=this._csvPrice(itemDef.code,itemDef.unit,trainingStats) ? 'unverified_csv_reference' : 'heuristic_default';
 
         if (itemDef.confidence >= 0.70) {
           items.push(boqItem);
@@ -126,7 +149,7 @@ class BOQEngine {
         item.calculationMethod = 'قيد الانتظار — تتطلب بيانات إضافية';
       }
       if (item.unitPrice === null || item.unitPrice === undefined) {
-        item.unitPrice = this._estimateUnitPrice(item.priceCat || 'NET', trainingStats, enrichedParams.city);
+        item.unitPrice = this._estimateUnitPrice(item.priceCat || 'NET', trainingStats, enrichedParams.city, item.unit, item.code);
         item.totalPrice = (item.quantity || 0) * item.unitPrice;
       }
       if (item.totalPrice === null || item.totalPrice === undefined) {
@@ -136,7 +159,7 @@ class BOQEngine {
     for (const item of suggestedItems) {
       if (item.quantity === null || item.quantity === undefined) { item.quantity = 0; item.totalPrice = 0; }
       if (item.unitPrice === null || item.unitPrice === undefined) {
-        item.unitPrice = this._estimateUnitPrice(item.priceCat || 'NET', trainingStats, enrichedParams.city);
+        item.unitPrice = this._estimateUnitPrice(item.priceCat || 'NET', trainingStats, enrichedParams.city, item.unit, item.code);
         item.totalPrice = (item.quantity || 0) * item.unitPrice;
       }
       if (item.totalPrice === null || item.totalPrice === undefined) {
@@ -171,7 +194,8 @@ class BOQEngine {
         totalSuggestedCost: Math.round(totalSuggested * 100) / 100,
         averageConfidence: avgConf,
         phasesUsed: lifecyclePhases.length,
-        engineVersion: '3.0-ke',
+        geometry,
+        engineVersion: '3.1-geometry',
         generatedAt: new Date().toISOString(),
         dataSource: 'engineering_knowledge_base',
       },
@@ -194,6 +218,8 @@ class BOQEngine {
    * Get assumptions for review (before finalizing BOQ).
    */
   getAssumptions(params) {
+    const geometryInput = normalizeGeometry(params);
+    params = geometryInput.params;
     const projectType = params.type || 'Unknown';
     const userPhase = params.phase || kb.detectPhase(projectType, params.description || '');
     const lifecyclePhases = kb.getApplicablePhases(projectType, userPhase);
@@ -213,6 +239,7 @@ class BOQEngine {
 
     return {
       projectType,
+      geometry: geometryInput.geometry,
       phase: userPhase,
       lifecyclePhases: lifecyclePhases.map(pid => {
         const p = kb.PHASES.find(x => x.id === pid);
@@ -246,6 +273,7 @@ class BOQEngine {
    * Get explanation for a specific BOQ item code.
    */
   getItemExplanation(code, params) {
+    params = normalizeGeometry(params).params;
     for (const item of kb.ALL_ITEMS) {
       if (item.code === code) {
         const calcResult = item.calc(params);
@@ -434,13 +462,17 @@ class BOQEngine {
     };
   }
 
-  _estimateUnitPrice(priceCat, trainingStats, region) {
+  _csvPrice(code, itemUnit, stats) {
+    const description=CSV_ITEM_MATCHES[code];
+    return description && stats?.byItemUnit?.[description+'|'+unit(itemUnit)];
+  }
+
+  _estimateUnitPrice(priceCat, trainingStats, region, itemUnit, code) {
     let base = DEFAULT_PRICES[priceCat] || 100;
-    if (trainingStats && trainingStats.byCategory) {
-      const stats = trainingStats.byCategory[priceCat];
-      if (stats && stats.priceMean > 0) base = stats.priceMean;
-    }
-    return this.priceLearner.estimateUnitPrice(priceCat, base, region);
+    const stats=this._csvPrice(code,itemUnit,trainingStats);
+    if(stats && Number.isFinite(stats.priceMean) && stats.priceMean>=0)base=stats.priceMean;
+    return this.priceLearner.estimateUnitPrice(priceCat, base,
+      trainingStats?.suppressRegionalAdjustment ? undefined : region);
   }
 
   /**

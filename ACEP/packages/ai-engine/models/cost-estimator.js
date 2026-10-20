@@ -1,12 +1,14 @@
 /**
  * ACEP Internal Cost Estimator — v2 (Training-Data Driven)
- * Estimates using actual material prices (380 records), labor rates (234), equipment (156).
- * No hardcoded percentage ratios. Every cost is derived from real pricing data.
+ * Fits descriptive statistics from supplied CSV records; provenance is not verified.
+ * Project totals retain heuristic staffing, duration, overhead and tax assumptions.
  */
 
-const fs = require('fs');
+const csv = require('./training-csv');
+const { priceBOQ } = require('./boq-cost-ledger');
 const path = require('path');
 const kb = require('../knowledge-base');
+const { normalizeGeometry } = require('../engineering-ke/project-geometry');
 
 class CostEstimator {
   constructor() {
@@ -23,60 +25,42 @@ class CostEstimator {
   async train(materialPath, laborPath, equipPath, supplierPath) {
     const baseDir = path.join(__dirname, '..', '..', '..', 'packages', 'databases', 'training', 'csv');
 
-    // Material prices
-    try {
-      const content = fs.readFileSync(materialPath || path.join(baseDir, 'material_prices.csv'), 'utf8');
-      this.materialPrices = content.trim().split('\n').slice(1).map(l => {
-        const c = l.split(',');
-        return { name: c[0], category: c[1], unit: c[2], city: c[3], supplier: c[4], price: parseFloat(c[5]) || 0, date: c[6], grade: c[7] };
-      }).filter(m => m.price > 0);
-    } catch (e) { this.materialPrices = []; }
-
-    // Labor rates
-    try {
-      const content = fs.readFileSync(laborPath || path.join(baseDir, 'labor_rates.csv'), 'utf8');
-      this.laborRates = content.trim().split('\n').slice(1).map(l => {
-        const c = l.split(',');
-        return { trade: c[0], category: c[1], dailyRate: parseFloat(c[2]) || 0, city: c[3] };
-      }).filter(l => l.dailyRate > 0);
-    } catch (e) { this.laborRates = []; }
-
-    // Equipment rates
-    try {
-      const content = fs.readFileSync(equipPath || path.join(baseDir, 'equipment_rates.csv'), 'utf8');
-      this.equipmentRates = content.trim().split('\n').slice(1).map(l => {
-        const c = l.split(',');
-        return { name: c[0], category: c[1], unit: c[2], dailyRate: parseFloat(c[3]) || 0, hourlyRate: parseFloat(c[4]) || 0 };
-      }).filter(e => e.dailyRate > 0);
-    } catch (e) { this.equipmentRates = []; }
-
-    // Supplier data
-    try {
-      const content = fs.readFileSync(supplierPath || path.join(baseDir, 'suppliers.csv'), 'utf8');
-      this.supplierData = content.trim().split('\n').slice(1).map(l => {
-        const c = l.split(',');
-        return { name: c[0], category: c[1], city: c[2], rating: parseFloat(c[3]) || 0, projects: parseInt(c[4]) || 0, priceLevel: c[5] };
-      });
-    } catch (e) { this.supplierData = []; }
+    // Load atomically: a failed fit preserves the previous valid snapshot.
+    const materials = csv.load(materialPath || path.join(baseDir, 'material_prices.csv'),
+      ['material_name','category','unit','city','supplier_name','avg_price_sar','price_date','quality_grade'],
+      r=>({name:r.material_name,category:r.category,unit:r.unit,city:r.city,supplier:r.supplier_name,price:csv.number(r.avg_price_sar),date:r.price_date,grade:r.quality_grade}));
+    const labor = csv.load(laborPath || path.join(baseDir, 'labor_rates.csv'),
+      ['trade','city','daily_rate_sar','year'],
+      r=>({trade:r.trade,city:r.city,dailyRate:csv.number(r.daily_rate_sar),year:csv.number(r.year)}));
+    const equipment = csv.load(equipPath || path.join(baseDir, 'equipment_rates.csv'),
+      ['equipment_name','category','city','daily_rate_sar','with_operator'],
+      r=>{if(!['true','false'].includes(r.with_operator))throw Error('Invalid operator flag');return {name:r.equipment_name,category:r.category,city:r.city,unit:'day',dailyRate:csv.number(r.daily_rate_sar),withOperator:r.with_operator==='true'};});
+    const suppliers = csv.load(supplierPath || path.join(baseDir, 'suppliers.csv'),
+      ['supplier_name','city','speciality','rating','delivery_speed_days','contract_years','compliance_percent','total_deals'],
+      r=>({name:r.supplier_name,city:r.city,category:r.speciality,rating:csv.number(r.rating),deliveryDays:csv.number(r.delivery_speed_days),contractYears:csv.number(r.contract_years),compliancePercent:csv.number(r.compliance_percent),projects:csv.number(r.total_deals)}));
+    this.materialPrices=materials.data; this.laborRates=labor.data;
+    this.equipmentRates=equipment.data; this.supplierData=suppliers.data;
+    this.materialStats=Object.create(null);this.laborStats=Object.create(null);this.equipStats=Object.create(null);
+    this.trainingAudit={materials:materials.audit,labor:labor.audit,equipment:equipment.audit,suppliers:suppliers.audit,provenance:'unverified_csv',accuracyValidated:false};
 
     // Build material category stats
-    const matGroups = {};
+    const matGroups = Object.create(null);
     this.materialPrices.forEach(m => {
-      if (!matGroups[m.category]) matGroups[m.category] = [];
-      matGroups[m.category].push(m.price);
+      if (!matGroups[m.category+'|'+csv.unit(m.unit)]) matGroups[m.category+'|'+csv.unit(m.unit)] = [];
+      matGroups[m.category+'|'+csv.unit(m.unit)].push(m.price);
     });
     for (const [cat, prices] of Object.entries(matGroups)) {
       prices.sort((a, b) => a - b);
       this.materialStats[cat] = {
         count: prices.length,
         avg: prices.reduce((s, v) => s + v, 0) / prices.length,
-        median: prices[Math.floor(prices.length / 2)],
+        median: (prices[Math.floor((prices.length - 1) / 2)] + prices[Math.floor(prices.length / 2)]) / 2,
         min: prices[0], max: prices[prices.length - 1]
       };
     }
 
     // Build labor stats by trade
-    const laborGroups = {};
+    const laborGroups = Object.create(null);
     this.laborRates.forEach(l => {
       if (!laborGroups[l.trade]) laborGroups[l.trade] = [];
       laborGroups[l.trade].push(l.dailyRate);
@@ -91,7 +75,7 @@ class CostEstimator {
     }
 
     // Build equipment stats
-    const equipGroups = {};
+    const equipGroups = Object.create(null);
     this.equipmentRates.forEach(e => {
       if (!equipGroups[e.category]) equipGroups[e.category] = [];
       equipGroups[e.category].push(e.dailyRate);
@@ -110,37 +94,56 @@ class CostEstimator {
       materials: this.materialPrices.length,
       labor: this.laborRates.length,
       equipment: this.equipmentRates.length,
-      suppliers: this.supplierData.length
+      suppliers: this.supplierData.length,
+      audit: this.trainingAudit
     };
   }
 
-  estimateCost(boqItems, projectType, area, floors, finishing = 'Standard', region = 'Riyadh') {
+  estimateCost(boqItems, projectType, area, floors, finishing = 'Standard', region = 'Riyadh', options = {}) {
+    if (!Number.isFinite(area) || area <= 0 || !Number.isInteger(floors) || floors <= 0 || !Number.isFinite(area * floors)) throw new RangeError('area and floors must be positive finite project dimensions');
+    const geometryInput = normalizeGeometry({ area, floors, areaBasis: options.areaBasis });
+    area = geometryInput.params.area;
+    const geometry = geometryInput.geometry;
     const multiplier = kb.getMaterialPriceMultiplier(finishing);
     const regionIndex = kb.getRegionIndex(region);
     const totalArea = area * floors;
     const pt = kb.getProjectType(projectType);
 
-    if (!this.trained || this.materialPrices.length === 0) {
-      return this._fallbackEstimate(totalArea, projectType, finishing, region);
+    if (boqItems != null && !Array.isArray(boqItems)) throw new RangeError('boqItems must be an array');
+    if (boqItems && boqItems.length) {
+      const defaultMarkups = {
+        indirect: 0.12 + (pt ? Math.max(0, pt.floors[1] - 10) * 0.002 : 0),
+        contingency: 0.03 + (floors > 10 ? 0.02 : 0) + (totalArea > 10000 ? 0.02 : 0),
+        profit: 0.1, tax: 0.15,
+      };
+      const result = priceBOQ(boqItems, { ...options, defaultMarkups }, item => {
+        const matches = this.materialPrices.filter(m => item.materialName && item.unit && item.grade &&
+          m.name === item.materialName && csv.unit(m.unit) === csv.unit(item.unit) && m.city === region && m.grade === item.grade);
+        return matches.length ? { price: matches.reduce((sum, m) => sum + m.price, 0) / matches.length,
+          source: 'unverified_csv_supply_rate' } : null;
+      });
+      const unitCost = result.totalCost === null ? null : result.totalCost / totalArea;
+      if (unitCost !== null && (!Number.isFinite(unitCost) || !Number.isSafeInteger(Math.round(unitCost * 100)))) {
+        throw new RangeError('area produces an unsafe cost per m2');
+      }
+      return { ...result, geometry,
+        costPerM2: unitCost === null ? null : Math.round(unitCost * 100) / 100,
+        regionalFactor: regionIndex, finishingMultiplier: multiplier,
+        dataPoints: { materials: this.materialPrices.length, labor: this.laborRates.length,
+          equipment: this.equipmentRates.length, suppliers: this.supplierData.length } };
+    }
+    if (options.markups !== undefined || options.defaultPriceScope !== undefined) {
+      throw new RangeError('markup or price-scope options require a nonempty BOQ');
     }
 
-    // ─── Material Cost from training data ───
-    let materialCost = 0;
-    if (boqItems && boqItems.length > 0) {
-      // Use BOQ unit prices if available, but adjust by actual market prices
-      for (const item of boqItems) {
-        const matCat = this._mapBOQtoMaterialCategory(item.category);
-        const stats = this.materialStats[matCat];
-        const marketPrice = stats ? stats.avg : item.unitPrice;
-        // Blend: 60% market data, 40% BOQ data
-        const blendedPrice = marketPrice * 0.6 + item.unitPrice * 0.4;
-        materialCost += item.quantity * blendedPrice;
-      }
-    } else {
-      // Estimate from project type + area
-      const baseRate = pt ? pt.costPerM2 * 0.45 : 1260; // 45% of total cost is materials
-      materialCost = totalArea * baseRate * multiplier * regionIndex;
+    if ((!this.trained || this.materialPrices.length === 0) && !(Array.isArray(boqItems) && boqItems.length)) {
+      return { ...this._fallbackEstimate(totalArea, projectType, finishing, region), geometry };
     }
+
+    // Area-only estimates remain a separately labelled heuristic fallback.
+    const baseRate = pt ? pt.costPerM2 * 0.45 : 1260;
+    const materialCost = totalArea * baseRate * multiplier * regionIndex;
+    const pricingIssues = [];
 
     // ─── Labor Cost from training data ───
     const laborTrades = Object.keys(this.laborStats);
@@ -177,16 +180,16 @@ class CostEstimator {
     const totalCost = directCost + indirectCost + contingency + profit + taxes;
 
     const breakdown = {
-      materials: { cost: Math.round(materialCost), percentage: Math.round(materialCost / directCost * 100) },
-      labor: { cost: Math.round(laborCost), percentage: Math.round(laborCost / directCost * 100) },
-      equipment: { cost: Math.round(equipmentCost), percentage: Math.round(equipmentCost / directCost * 100) },
-      indirect: { cost: Math.round(indirectCost), percentage: Math.round(indirectCost / totalCost * 100) },
-      contingency: { cost: Math.round(contingency), percentage: Math.round(contingency / totalCost * 100) },
-      profit: { cost: Math.round(profit), percentage: Math.round(profit / totalCost * 100) },
-      taxes: { cost: Math.round(taxes), percentage: Math.round(taxes / totalCost * 100) }
+      materials: { cost: Math.round(materialCost), percentage: Math.round(materialCost / (directCost || 1) * 100) },
+      labor: { cost: Math.round(laborCost), percentage: Math.round(laborCost / (directCost || 1) * 100) },
+      equipment: { cost: Math.round(equipmentCost), percentage: Math.round(equipmentCost / (directCost || 1) * 100) },
+      indirect: { cost: Math.round(indirectCost), percentage: Math.round(indirectCost / (totalCost || 1) * 100) },
+      contingency: { cost: Math.round(contingency), percentage: Math.round(contingency / (totalCost || 1) * 100) },
+      profit: { cost: Math.round(profit), percentage: Math.round(profit / (totalCost || 1) * 100) },
+      taxes: { cost: Math.round(taxes), percentage: Math.round(taxes / (totalCost || 1) * 100) }
     };
 
-    const confidence = Math.min(0.5 + this.materialPrices.length * 0.001, 0.9);
+    const confidence = 0; // No held-out project-cost calibration is available.
 
     return {
       directCost: Math.round(directCost),
@@ -194,9 +197,16 @@ class CostEstimator {
       contingency: Math.round(contingency),
       profit: Math.round(profit),
       taxes: Math.round(taxes),
-      totalCost: Math.round(totalCost),
+      geometry,
+      status: pricingIssues.length ? 'incomplete' : 'heuristic_estimate',
+      pricingIssues,
+      pricedMaterialSubtotal: Math.round(materialCost),
+      estimateBasis: 'explicit_BOQ_or_exact_supply_match_plus_heuristic_labor_equipment_overheads',
+      confidenceCalibrated: false,
+      requiresCostScopeReview: Boolean(boqItems && boqItems.length),
+      totalCost: pricingIssues.length ? null : Math.round(totalCost),
       currency: 'SAR',
-      costPerM2: Math.round(totalCost / totalArea),
+      costPerM2: pricingIssues.length ? null : Math.round(Math.round(totalCost) / totalArea),
       breakdown,
       confidence: Math.round(confidence * 100) / 100,
       regionalFactor: regionIndex,
@@ -234,13 +244,13 @@ class CostEstimator {
       directCost: Math.round(direct), indirectCost: Math.round(base * 0.1),
       contingency: Math.round(base * 0.05), profit: Math.round(base * 0.1),
       taxes: Math.round(base * 0.15), totalCost: Math.round(base * 1.25),
-      currency: 'SAR', costPerM2: Math.round(base / totalArea),
+      currency: 'SAR', costPerM2: Math.round(Math.round(base * 1.25) / totalArea),
       breakdown: { materials: { cost: Math.round(direct * 0.5), percentage: 50 },
         labor: { cost: Math.round(direct * 0.3), percentage: 30 },
         equipment: { cost: Math.round(direct * 0.2), percentage: 20 },
         indirect: { cost: Math.round(base * 0.1), percentage: 10 },
         contingency: { cost: Math.round(base * 0.05), percentage: 5 } },
-      confidence: 0.65, fallback: true
+      confidence: 0, confidenceCalibrated: false, status: 'heuristic_estimate', fallback: true
     };
   }
 

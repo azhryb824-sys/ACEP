@@ -1,0 +1,23 @@
+[
+  {
+    "year": 2022,
+    "url": "https://www.fldoe.org/file/7742/22CostConst-PS.pdf",
+    "file": "schools_2022.pdf",
+    "bytes": 695864,
+    "sha256": "85100066cbc105623b9147105033da3da8d190ca467d03e9cbdf394a34136c01"
+  },
+  {
+    "year": 2023,
+    "url": "https://www.fldoe.org/file/7742/23CostConst-PS.pdf",
+    "file": "schools_2023.pdf",
+    "bytes": 532636,
+    "sha256": "db785c5da53ffadea695263ac5e5b856cad5565beceb8e9b19003ee15a2ac82b"
+  },
+  {
+    "year": 2025,
+    "url": "https://www.fldoe.org/file/7742/25CostConst-PS.pdf",
+    "file": "schools_2025.pdf",
+    "bytes": 801357,
+    "sha256": "3aa50e474747a614685150dd323a29456a58643baef9113299e23bcb304e2412"
+  }
+]

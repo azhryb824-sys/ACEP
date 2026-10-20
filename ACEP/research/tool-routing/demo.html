@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ACEP | الحسابات المباشرة</title>
+<style>
+body{font-family:Tahoma,Arial,sans-serif;background:#eef3f7;color:#172f43;margin:0;padding:32px 20px}main{max-width:850px;margin:auto}header{display:flex;align-items:center;justify-content:space-between;gap:16px}h1{font-size:26px}small{color:#586d7c}section{background:white;border:1px solid #d6e0e8;border-radius:18px;padding:24px;margin-top:20px}label{display:block;margin:12px 0 8px;font-weight:bold}select,textarea,button{font:inherit;border-radius:8px;padding:12px;border:1px solid #b9cbd8;box-sizing:border-box}select,textarea{width:100%;background:white;color:#172f43}textarea{line-height:1.9;resize:vertical}button{background:#106a62;color:white;cursor:pointer;margin-top:14px;border:0}button:disabled{opacity:.6;cursor:wait}pre{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7;direction:ltr;text-align:left;background:#f4f7fa;padding:16px;border-radius:10px}#message{font-size:20px;font-weight:bold;color:#106a62}details{margin-top:16px}p{line-height:1.8}.badge{background:#e3f3ee;padding:8px 12px;border-radius:20px;font-size:12px}a{color:#106a62}
+</style>
+<main>
+<header><h1>ACEP · الحسابات المباشرة</h1><span class="badge">تجربة بحثية</span></header>
+<p>حساب الحجم والمساحة والهدر والتوريد من البيانات الصريحة. اكتب كل حقل مع وحدته وافصل الحقول بعلامة «؛».</p>
+<section>
+<label for="tool">نوع الحساب</label>
+<select id="tool"><option value="volume">حجم مستطيل</option><option value="area">صافي المساحة</option><option value="waste">كمية بعد الهدر</option><option value="cost">تكلفة التوريد</option></select>
+<label for="source">البيانات الأصلية</label><textarea id="source" rows="4"></textarea>
+<small>الطول والارتفاع: م أو سم أو مم. المساحة: م². السعر: ريال/م². العدد يجب أن يذكر صراحةً.</small>
+<details><summary>فحص اقتراح JSON مقابل البيانات</summary><label for="prediction">اقتراح النموذج (اختياري)</label><textarea id="prediction" rows="5" dir="ltr" placeholder='{"action":"call","tool":"rectangular_volume","arguments":{},"missing_fields":[]}'></textarea></details>
+<button id="calculate" type="button">احسب وتحقق</button>
+</section>
+<section aria-live="polite"><p id="message">جاهز للحساب</p><div id="questions"></div><details><summary>النتيجة ومصادر القيم</summary><pre id="result">لا توجد نتيجة بعد.</pre></details></section>
+<p><small>هذه التجربة تدعم صيغة الحقول المعروضة فقط، ولا تستنتج تصميمًا إنشائيًا أو أسعارًا أو قياسات غير مذكورة.</small></p>
+</main>
+<script>
+const templates={volume:'حجم مستطيل؛ الطول: 620 سم؛ العرض: 3.7 م؛ السمك: 160 مم؛ العدد: 1',area:'صافي المساحة؛ الإجمالي: 203.6 م²؛ الفتحات: 31.2 م²',waste:'كمية بعد الهدر؛ الصافي: 72.5 م²؛ الهدر: 8 %',cost:'تكلفة التوريد؛ الكمية: 78.3 م²؛ سعر الوحدة: 65 ريال/م²'};
+const labels={length_m:'الطول',width_m:'العرض',height_m:'السمك أو الارتفاع',count:'العدد',gross_m2:'إجمالي المساحة',openings_m2:'مساحة الفتحات',net_quantity:'الكمية الصافية',waste_percent:'نسبة الهدر',quantity:'الكمية',unit_price:'سعر الوحدة'};
+const tool=document.getElementById('tool'),source=document.getElementById('source'),button=document.getElementById('calculate'),message=document.getElementById('message'),questions=document.getElementById('questions');
+source.value=templates.volume;
+tool.addEventListener('change',()=>{source.value=templates[tool.value];document.getElementById('prediction').value='';});
+button.addEventListener('click',async()=>{
+ button.disabled=true;message.textContent='جارٍ التحقق…';questions.textContent='';
+ const body={text:source.value},prediction=document.getElementById('prediction').value.trim();if(prediction)body.prediction=prediction;
+ try{
+  const response=await fetch('/api/v1/research/tools/calculate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const data=await response.json();document.getElementById('result').textContent=JSON.stringify(data,null,2);
+  if(data.status==='calculated')message.textContent='النتيجة: '+data.value+' '+({m3:'م³',m2:'م²',SAR:'ريال'}[data.unit]||data.unit);
+  else if(data.status==='clarify'){message.textContent='نحتاج بيانات إضافية';questions.textContent=(data.missing_fields||[]).map(field=>'يرجى تحديد '+(labels[field]||field)).join('، ');}
+  else if(data.status==='invalid_input')message.textContent='راجع القيم: يوجد مدخل غير صالح.';
+  else if(data.reason==='source_review_veto')message.textContent='راجع قياسات الإجمالي والفتحات؛ لم يُنفّذ الحساب بسبب تعارض في بيانات المصدر.';
+  else message.textContent='لم يُنفّذ الحساب. راجع الصيغة أو القيم المقترحة.';
+ }catch{message.textContent='تعذر الاتصال بالحاسبة. حاول مجددًا.';}
+ finally{button.disabled=false;}
+});
+</script>
+</html>

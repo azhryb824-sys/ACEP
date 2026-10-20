@@ -1,0 +1,28 @@
+const assert=require('node:assert/strict');
+const cost=require('../../packages/ai-engine/models/cost-estimator');
+const kb=require('../../packages/ai-engine/knowledge-base');
+const {EngineeringDataLayer}=require('../../packages/ai-engine/engineering-data-layer');
+const noMarkups={indirect:0,contingency:0,profit:0,tax:0};
+const quote=(patch={})=>({code:'Q1',quantity:10,unit:'m2',unitPrice:100,priceScope:'installed',...patch});
+const tests=[];const check=(name,fn)=>{try{fn();tests.push({name,pass:true});}catch(e){tests.push({name,pass:false,error:e.message});}};
+async function main(){kb.initialize();await cost.train();
+ const estimate=(items,options={})=>cost.estimateCost(items,'Villa',100,2,'Standard','Riyadh',{markups:noMarkups,...options});
+ check('installed price counted once without extra labor or equipment',()=>{const r=estimate([quote()]);assert.equal(r.directCost,1000);assert.equal(r.totalCost,1000);assert.equal(r.breakdown.labor.cost,0);assert.equal(r.breakdown.equipment.cost,0);assert.equal(r.breakdown.installed.cost,1000);});
+ check('supply price uses explicit installation totals once',()=>{const r=estimate([quote({priceScope:'supply_only',installation:{labor:100,equipment:50}})]);assert.equal(r.totalCost,1150);assert.equal(r.breakdown.materials.cost,1000);assert.equal(r.breakdown.labor.cost,100);});
+ check('mixed scopes sum without whole-project heuristic additions',()=>{const r=estimate([quote(),quote({quantity:2,priceScope:'supply_only',installation:{labor:30,equipment:10}})]);assert.equal(r.directCost,1240);assert.equal(r.totalCost,1240);});
+ check('unknown scope blocks total but retains quoted subtotal',()=>{const r=estimate([quote({priceScope:undefined})]);assert.equal(r.totalCost,null);assert.equal(r.pricedBOQSubtotal,1000);assert.equal(r.requiresCostScopeReview,true);});
+ check('missing installation cannot imply free installation',()=>{const r=estimate([quote({priceScope:'supply_only'})]);assert.equal(r.totalCost,null);assert(r.pricingIssues.some(x=>x.reason==='installation_costs_required'));});
+ check('installed plus separate installation is a conflict',()=>{const r=estimate([quote({installation:{labor:100,equipment:0}})]);assert.equal(r.totalCost,null);assert(r.pricingIssues.some(x=>x.reason==='installation_already_included'));});
+ check('all-in or tax-inclusive quotes are not marked up again',()=>{for(const patch of [{priceScope:'all_in'},{taxIncluded:true}])assert.equal(estimate([quote(patch)]).totalCost,null);});
+ check('zero scoped price and explicit zero installation stay zero',()=>assert.equal(estimate([quote({unitPrice:0,priceScope:'supply_only',installation:{labor:0,equipment:0}})]).totalCost,0));
+ check('invalid installation amounts or currency block total',()=>{for(const installation of [{labor:-1,equipment:0},{labor:'10',equipment:0},{labor:10,equipment:Infinity},{labor:10,equipment:0,currency:'USD'}])assert.equal(estimate([quote({priceScope:'supply_only',installation})]).totalCost,null);});
+ check('explicit default scope allows item overrides',()=>{const r=estimate([quote({priceScope:undefined}),quote({priceScope:'supply_only',installation:{labor:0,equipment:0}})],{defaultPriceScope:'installed'});assert.equal(r.totalCost,2000);});
+ check('unrecognized default scope rejected',()=>assert.throws(()=>estimate([quote()],{defaultPriceScope:'all_in'}),/defaultPriceScope/));
+ check('invalid markup never silently falls back',()=>{for(const markups of [{tax:-.1},{profit:'0.1'},{indirect:Infinity}])assert.throws(()=>estimate([quote()],{markups}),/markup/);});
+ check('explicit markup arithmetic reconciles',()=>{const r=estimate([quote()],{markups:{indirect:.1,contingency:.05,profit:.1,tax:.15}});assert.equal(r.totalCost,1454.75);assert.equal(r.directCost,1000);assert.equal(r.profit,115);assert.equal(r.taxes,189.75);});
+ check('incomplete EDL cost stays null with scope issues',()=>{const edl=new EngineeringDataLayer();const p=edl.createProject('scope-incomplete',{});const r=estimate([quote({priceScope:undefined})]);p.setCost(r);assert.equal(p.cost.totalCost,null);assert.equal(p.cost.requiresCostScopeReview,true);assert(p.cost.pricingIssues.length>0);assert.equal(p.get3DParams().totalCost,null);});
+ check('non-SAR price is not silently treated as SAR',()=>assert.equal(estimate([quote({currency:'USD'})]).totalCost,null));
+ check('unsafe financial arithmetic is rejected',()=>assert.equal(estimate([quote({quantity:1e200})]).totalCost,null));
+ console.log('RESULT_JSON='+JSON.stringify({tests,passed:tests.filter(x=>x.pass).length,total:tests.length}));process.exitCode=tests.every(x=>x.pass)?0:1;
+}
+main().catch(e=>{console.error(e);process.exitCode=1;});

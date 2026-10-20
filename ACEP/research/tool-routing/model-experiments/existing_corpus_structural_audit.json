@@ -1,0 +1,2839 @@
+Warning: truncated output (original token count: 50545)
+Total output lines: 7067
+
+{
+  "scope": "structural audit of existing repository JSONL only",
+  "files": [
+    {
+      "file": "packages/datasets/contract_ai/test.jsonl",
+      "sha256": "1280b47892705f1fc999bd9d499adb1c88d5a65df4daa7567fcd8c3bf0245aaf",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "contract_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/contract_ai/training.jsonl",
+      "sha256": "3280ad7bcd6c7693f05601feda45105d219541cb19d08246162601671d013b43",
+      "valid_records": 160,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "contract_ai": 160
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 160
+      }
+    },
+    {
+      "file": "packages/datasets/contract_ai/validation.jsonl",
+      "sha256": "d2693c0496e738a7eddc4c3b308511ca581e3713fdd62ba052b9a5e7cb75a15d",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "contract_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/cost_ai/test.jsonl",
+      "sha256": "4d3acacb2121fc392f8e3fe7c5d8f0bb735b03a756387cd3a0ca7ca88423e417",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "cost_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/cost_ai/training.jsonl",
+      "sha256": "83f13563d8b865da8d7bc8aa6b8e347a6f7626cb800576cdad2b002eb8c52b40",
+      "valid_records": 160,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "cost_ai": 160
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 160
+      }
+    },
+    {
+      "file": "packages/datasets/cost_ai/validation.jsonl",
+      "sha256": "c3013ad1190f8781a0858648e29b5b19d2d72eed894d6e7016e2db3dd6e6abde",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "cost_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/drawing_ai/test.jsonl",
+      "sha256": "611e4b7f9ce43b91e639c3a8acff0ac98d0112ad4ef862a5f11806370d6ca1dd",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "drawing_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/drawing_ai/training.jsonl",
+      "sha256": "90898b6ad41b5499597a6a1d7314b1d1501f805cad00dc041ebc3001f489fb88",
+      "valid_records": 160,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "drawing_ai": 160
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 160
+      }
+    },
+    {
+      "file": "packages/datasets/drawing_ai/validation.jsonl",
+      "sha256": "b564e1bd672dfa85b4eb8623006e432d3f665dfcc43becf64545d7acf18787f1",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "drawing_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/engineering_llm/test.jsonl",
+      "sha256": "c354a2e37ddefa35d81156af30237c952e3ea20e272792f497d66385079e754c",
+      "valid_records": 30,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "engineering_llm": 30
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 30
+      }
+    },
+    {
+      "file": "packages/datasets/engineering_llm/training.jsonl",
+      "sha256": "0e5a7ea3e557a27593e53e8b6d01855fe613acb5e6e4d0bb046e1347ad526552",
+      "valid_records": 240,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "engineering_llm": 240
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 240
+      }
+    },
+    {
+      "file": "packages/datasets/engineering_llm/validation.jsonl",
+      "sha256": "95c178fc3caa797a1ea8dfd2ac63dd55cca8c2be848b3ef4510646e1fb53353a",
+      "valid_records": 30,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "engineering_llm": 30
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 30
+      }
+    },
+    {
+      "file": "packages/datasets/planning_ai/test.jsonl",
+      "sha256": "3e501c8fcb808336e9b16a1072c33c10aed89aad0de432f942be51f7f603f236",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "planning_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/planning_ai/training.jsonl",
+      "sha256": "907e08379a04dc05d5a95e25a72b0dbc65b4e2b55887f655edb670b560bf559e",
+      "valid_records": 160,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "planning_ai": 160
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 160
+      }
+    },
+    {
+      "file": "packages/datasets/planning_ai/validation.jsonl",
+      "sha256": "878fa289498b07b9c162147974785017cc64aef52d0d42424ee6df33286e99d9",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "planning_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/procurement_ai/test.jsonl",
+      "sha256": "30f2cadc08753c05f585dbafc7fbcb39be276c95ddd2ab440a0ff9200cc758e3",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "procurement_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/procurement_ai/training.jsonl",
+      "sha256": "2b97b6df2fd7db0117defbbe027621913445c4982657ccec3f6aaa7f3056463c",
+      "valid_records": 160,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "procurement_ai": 160
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 160
+      }
+    },
+    {
+      "file": "packages/datasets/procurement_ai/validation.jsonl",
+      "sha256": "6622ffbfa8445a283dbb965dcef8f43c94230bc539fe9da278e4c8653081271f",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "procurement_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/quality_ai/test.jsonl",
+      "sha256": "bd6775e769bee81a8a49db9abcb7a617aa6212532c484ef01d0830110e18bd65",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quality_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/quality_ai/training.jsonl",
+      "sha256": "5cd3a18e01a416a2e783793b4747a2b757bd2286f6c2b878248f13441ef394e7",
+      "valid_records": 160,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quality_ai": 160
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 160
+      }
+    },
+    {
+      "file": "packages/datasets/quality_ai/validation.jsonl",
+      "sha256": "4af22b42de908579d82866ee7791b46dd478499ecfc9b5edb0ca5740c3246d58",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quality_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/quantity_ai/test.jsonl",
+      "sha256": "ab08f4c72b9a02ae29c66b3b8ce63678cfe206251cf682a8434d699a52329a50",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quantity_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/quantity_ai/training.jsonl",
+      "sha256": "8d594496fe4e8e6fda96500b2270cdd70e5b541fc7c3769919f7f9eb446400f1",
+      "valid_records": 160,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quantity_ai": 160
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 160
+      }
+    },
+    {
+      "file": "packages/datasets/quantity_ai/validation.jsonl",
+      "sha256": "5c5215d81bf28215be356861131196a1977edd8ab40c90b845b3db4414621fad",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quantity_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/risk_ai/test.jsonl",
+      "sha256": "cf07dad9d5b8252a1b534c6d2f207ea769553bd22c92d4086f0fbdaaa41631ba",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "risk_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/risk_ai/training.jsonl",
+      "sha256": "f5b2fe234c4f070048f5a237870e1223262336b1e98ef6022b80a4fca16483b7",
+      "valid_records": 160,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "risk_ai": 160
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 160
+      }
+    },
+    {
+      "file": "packages/datasets/risk_ai/validation.jsonl",
+      "sha256": "2ad6702c87b4afbd15730f6cfc9197ff2538b7291a91ecd0c5c648257f0a9312",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "risk_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/safety_ai/test.jsonl",
+      "sha256": "5ad4d62ae813b0c8ae0c6c18579afeefd287149f516563f888fc1570ebc8c7ab",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "safety_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "packages/datasets/safety_ai/training.jsonl",
+      "sha256": "f782c4632326a4ed1b7b2235b94ddd96f08b5665c68ece4dd3eafdc75b42b5b3",
+      "valid_records": 160,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "safety_ai": 160
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 160
+      }
+    },
+    {
+      "file": "packages/datasets/safety_ai/validation.jsonl",
+      "sha256": "41f484e7649e95792dceb0886df1f3b553faea7b483ca8b422efd42aed8cdd53",
+      "valid_records": 20,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "safety_ai": 20
+      },
+      "sources": {
+        "ACEP-Data-Factory-v1": 20
+      }
+    },
+    {
+      "file": "data/uets/jsonl/contract_ai/training.jsonl",
+      "sha256": "831f3ed6a82dc7dd7315536bc695e6a9118d79478ab08b1d448974887cd19c1f",
+      "valid_records": 450,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "contract_ai": 450
+      },
+      "sources": {
+        "UETS-EGT-v1": 450
+      }
+    },
+    {
+      "file": "data/uets/jsonl/contract_ai/validation.jsonl",
+      "sha256": "d91d2fdbee19203b3dda96b27cd9a000957972a4e562a9efcce3d1e8f24c25d5",
+      "valid_records": 50,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "contract_ai": 50
+      },
+      "sources": {
+        "UETS-EGT-v1": 50
+      }
+    },
+    {
+      "file": "data/uets/jsonl/cost_ai/training.jsonl",
+      "sha256": "5a7a50d4d4aa7b9b55988f39d7221493a1cb7a27ee30aa8701adb61ef84e675e",
+      "valid_records": 450,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "cost_ai": 450
+      },
+      "sources": {
+        "UETS-EGT-v1": 450
+      }
+    },
+    {
+      "file": "data/uets/jsonl/cost_ai/validation.jsonl",
+      "sha256": "8ebfdf2d740024cff313fec754beb15cdb766d0f4552cc82df71553ab63e31e0",
+      "valid_records": 50,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "cost_ai": 50
+      },
+      "sources": {
+        "UETS-EGT-v1": 50
+      }
+    },
+    {
+      "file": "data/uets/jsonl/drawing_ai/training.jsonl",
+      "sha256": "12e8d4a744d2e973f1cf17b7731f33be963b4f18177881266faef239bfa1f665",
+      "valid_records": 450,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "drawing_ai": 450
+      },
+      "sources": {
+        "UETS-EGT-v1": 450
+      }
+    },
+    {
+      "file": "data/uets/jsonl/drawing_ai/validation.jsonl",
+      "sha256": "f7f56e01433a7185768566d72996b10d7157f6947d8ba4a2dbd2ad9babbef3cf",
+      "valid_records": 50,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "drawing_ai": 50
+      },
+      "sources": {
+        "UETS-EGT-v1": 50
+      }
+    },
+    {
+      "file": "data/uets/jsonl/engineering_llm/training.jsonl",
+      "sha256": "27d2dbfb4ff642875b2b1ad399bd98eadcecdce45108d1bafc55dc6f81b12b6d",
+      "valid_records": 450,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "engineering_llm": 450
+      },
+      "sources": {
+        "UETS-EGT-v1": 450
+      }
+    },
+    {
+      "file": "data/uets/jsonl/engineering_llm/validation.jsonl",
+      "sha256": "d59ce11d4c0f7ad385dfd69f9a891ac28ae7badc5d25604a3bc5170fd6c75e4c",
+      "valid_records": 50,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "engineering_llm": 50
+      },
+      "sources": {
+        "UETS-EGT-v1": 50
+      }
+    },
+    {
+      "file": "data/uets/jsonl/planning_ai/training.jsonl",
+      "sha256": "92a57dede6fb9ab95b348fb5189aa15ac11c8c4356fe0d8e1c0fb0dca1fb2033",
+      "valid_records": 450,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "planning_ai": 450
+      },
+      "sources": {
+        "UETS-EGT-v1": 450
+      }
+    },
+    {
+      "file": "data/uets/jsonl/planning_ai/validation.jsonl",
+      "sha256": "cb4d894df232c3bef742f8801caa674747155170d631773fa56b645184d710c4",
+      "valid_records": 50,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "planning_ai": 50
+      },
+      "sources": {
+        "UETS-EGT-v1": 50
+      }
+    },
+    {
+      "file": "data/uets/jsonl/procurement_ai/training.jsonl",
+      "sha256": "81aadb9ec90adb7d5d591c07459c72ac440d01294ea55e1ca05b260440c632a9",
+      "valid_records": 450,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "procurement_ai": 450
+      },
+      "sources": {
+        "UETS-EGT-v1": 450
+      }
+    },
+    {
+      "file": "data/uets/jsonl/procurement_ai/validation.jsonl",
+      "sha256": "ea7f0fa53612368da63a4a464c869c9e07fbeffa5091ef799ab687fc5823e28a",
+      "valid_records": 50,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "procurement_ai": 50
+      },
+      "sources": {
+        "UETS-EGT-v1": 50
+      }
+    },
+    {
+      "file": "data/uets/jsonl/quality_ai/training.jsonl",
+      "sha256": "e3a1f45cfedc217f2073137cb6237b8a851c64ca023ff28378c582781d00437b",
+      "valid_records": 450,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quality_ai": 450
+      },
+      "sources": {
+        "UETS-EGT-v1": 450
+      }
+    },
+    {
+      "file": "data/uets/jsonl/quality_ai/validation.jsonl",
+      "sha256": "2dcebdfe0dff6bcc9106c03cde24d665b109bc1f0663dee3e60a96d40cd23f79",
+      "valid_records": 50,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quality_ai": 50
+      },
+      "sources": {
+        "UETS-EGT-v1": 50
+      }
+    },
+    {
+      "file": "data/uets/jsonl/quantity_ai/training.jsonl",
+      "sha256": "67bd7289a0bc223ca8289e133277bb512c7288284fca861b7b89b903bb96427a",
+      "valid_records": 450,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quantity_ai": 450
+      },
+      "sources": {
+        "UETS-EGT-v1": 450
+      }
+    },
+    {
+      "file": "data/uets/jsonl/quantity_ai/validation.jsonl",
+      "sha256": "5b382b93dd778e2204187ddb80549735ffaac851e11e81653e861220f586fc6c",
+      "valid_records": 50,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quantity_ai": 50
+      },
+      "sources": {
+        "UETS-EGT-v1": 50
+      }
+    },
+    {
+      "file": "data/uets/jsonl/risk_ai/training.jsonl",
+      "sha256": "4d811ba0bba2a3436b65043ed793281600cd70d71965a4167a7f75b85ad19b40",
+      "valid_records": 450,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "risk_ai": 450
+      },
+      "sources": {
+        "UETS-EGT-v1": 450
+      }
+    },
+    {
+      "file": "data/uets/jsonl/risk_ai/validation.jsonl",
+      "sha256": "de74f7ab648b64b66ca501b0f9300d641e5117a9d5a06f786e5195af51938b5c",
+      "valid_records": 50,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "risk_ai": 50
+      },
+      "sources": {
+        "UETS-EGT-v1": 50
+      }
+    },
+    {
+      "file": "data/uets/jsonl/safety_ai/training.jsonl",
+      "sha256": "b0ccb27ae7f0157eb7bda86535a3888a0c811bff6a1bdbef7393add24d7e7a9b",
+      "valid_records": 450,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "safety_ai": 450
+      },
+      "sources": {
+        "UETS-EGT-v1": 450
+      }
+    },
+    {
+      "file": "data/uets/jsonl/safety_ai/validation.jsonl",
+      "sha256": "17d78842dc429963cbe038713d46e6e0fe17fdf2c6bb04ec0c581fc3fb2df244",
+      "valid_records": 50,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "safety_ai": 50
+      },
+      "sources": {
+        "UETS-EGT-v1": 50
+      }
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/contract_ai/test.jsonl",
+      "sha256": "5b5f9710e15bb7a66d7cae499f5bdfdd03ff43e133ccdf13fbb2815851f3d6cb",
+      "valid_records": 1,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "contract_ai": 1
+      },
+      "sources": {
+        "unspecified": 1
+      }
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/contract_ai/training.jsonl",
+      "sha256": "4fc612571d7339b1c6ae1c6b67189d55fa307a6b6a41429805c0a01af6968c62",
+      "valid_records": 0,
+      "invalid_lines": 98,
+      "errors": [
+        {
+          "line": 1,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 2,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 3,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 4,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 5,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 6,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 7,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 8,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 25 (char 24)"
+        },
+        {
+          "line": 9,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 10,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 11,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 12,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 13,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 27 (char 26)"
+        },
+        {
+          "line": 14,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 29 (char 28)"
+        },
+        {
+          "line": 15,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 19 (char 18)"
+        },
+        {
+          "line": 16,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 17,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 18,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 19,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 20,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 21,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 23 (char 22)"
+        },
+        {
+          "line": 22,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 23,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 24,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 25,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 26,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 27,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 24 (char 23)"
+        },
+        {
+          "line": 28,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 29,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 30,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 31,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 32,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 33,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 34,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 35,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 28 (char 27)"
+        },
+        {
+          "line": 36,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 26 (char 25)"
+        },
+        {
+          "line": 37,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 38,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 39,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 40,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 25 (char 24)"
+        },
+        {
+          "line": 41,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 32 (char 31)"
+        },
+        {
+          "line": 42,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 22 (char 21)"
+        },
+        {
+          "line": 43,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 31 (char 30)"
+        },
+        {
+          "line": 44,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 26 (char 25)"
+        },
+        {
+          "line": 45,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 46,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 47,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 48,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 49,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 50,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 51,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 52,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 53,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 54,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 55,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 56,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 19 (char 18)"
+        },
+        {
+          "line": 57,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 58,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 59,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 27 (char 26)"
+        },
+        {
+          "line": 60,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 61,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 62,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 63,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 23 (char 22)"
+        },
+        {
+          "line": 64,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 22 (char 21)"
+        },
+        {
+          "line": 65,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 66,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 67,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 68,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 69,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 24 (char 23)"
+        },
+        {
+          "line": 70,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 71,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 72,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 73,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 74,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 75,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 76,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 77,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 78,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 79,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 80,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 81,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 82,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 83,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 84,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 24 (char 23)"
+        },
+        {
+          "line": 85,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 18 (char 17)"
+        },
+        {
+          "line": 86,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 87,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 88,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 19 (char 18)"
+        },
+        {
+          "line": 89,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 90,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 91,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 18 (char 17)"
+        },
+        {
+          "line": 92,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 21 (char 20)"
+        },
+        {
+          "line": 93,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 94,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 95,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 96,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 97,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 98,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        }
+      ],
+      "domains": {},
+      "sources": {}
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/contract_ai/validation.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "valid_records": 0,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {},
+      "sources": {}
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/cost_ai/test.jsonl",
+      "sha256": "70000f30ae202ce1e000f18f8b6a14a141744e6295a06be1912b387e058277de",
+      "valid_records": 1,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "cost_ai": 1
+      },
+      "sources": {
+        "unspecified": 1
+      }
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/cost_ai/training.jsonl",
+      "sha256": "21d8904ccb4eaf729b2ad5e3d20be496af7bea2367ad00934bd92f278bd0b17b",
+      "valid_records": 1,
+      "invalid_lines": 27,
+      "errors": [
+        {
+          "line": 2,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 3,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 4,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 5,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 6,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 25 (char 24)"
+        },
+        {
+          "line": 7,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 24 (char 23)"
+        },
+        {
+          "line": 8,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 9,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 10,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 11,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 12,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 13,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 14,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 15,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 16,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 17,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 18,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 19,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 20,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 21,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 22,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 23,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 24,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 25,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 26 (char 25)"
+        },
+        {
+          "line": 26,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 22 (char 21)"
+        },
+        {
+          "line": 27,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 28,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        }
+      ],
+      "domains": {
+        "cost_ai": 1
+      },
+      "sources": {
+        "unspecified": 1
+      }
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/cost_ai/validation.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "valid_records": 0,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {},
+      "sources": {}
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/drawing_ai/test.jsonl",
+      "sha256": "923ff0320212b0b51a5a1f16cda4ee3e8d979ac20ac7bf1faabccd4ea29192a1",
+      "valid_records": 1,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "drawing_ai": 1
+      },
+      "sources": {
+        "unspecified": 1
+      }
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/drawing_ai/training.jsonl",
+      "sha256": "d46c317a498e80b74ab51b4c3ad1589cc755848fa9a58949b5d6175d52e17c18",
+      "valid_records": 0,
+      "invalid_lines": 104,
+      "errors": [
+        {
+          "line": 1,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 2,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 3,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 4,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 5,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 19 (char 18)"
+        },
+        {
+          "line": 6,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 7,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 8,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 9,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 10,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 11,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 12,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 24 (char 23)"
+        },
+        {
+          "line": 13,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 22 (char 21)"
+        },
+        {
+          "line": 14,
+          "error": "ValueError",
+          "reason": "record_not_object"
+        },
+        {
+          "line": 15,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 16,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 21 …30545 tokens truncated…char 1)"
+        },
+        {
+          "line": 86,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 87,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 88,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 89,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 90,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 91,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 92,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 93,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 94,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 23 (char 22)"
+        },
+        {
+          "line": 95,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 25 (char 24)"
+        },
+        {
+          "line": 96,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 26 (char 25)"
+        },
+        {
+          "line": 97,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 30 (char 29)"
+        },
+        {
+          "line": 98,
+          "error": "ValueError",
+          "reason": "record_not_object"
+        },
+        {
+          "line": 99,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 100,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 101,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 102,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 103,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 104,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 105,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 106,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        }
+      ],
+      "domains": {},
+      "sources": {}
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/quality_ai/validation.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "valid_records": 0,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {},
+      "sources": {}
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/quantity_ai/test.jsonl",
+      "sha256": "a4629440e3e9f1ace2ec9e38c34514f347a4530471eb6b4669f6fd7318036cc1",
+      "valid_records": 1,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quantity_ai": 1
+      },
+      "sources": {
+        "unspecified": 1
+      }
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/quantity_ai/training.jsonl",
+      "sha256": "21a476087b14f6a53e357a4e35ed87eb0ad8159d0a6fefd5a88189555cf1fed5",
+      "valid_records": 3,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "quantity_ai": 3
+      },
+      "sources": {
+        "unspecified": 3
+      }
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/quantity_ai/validation.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "valid_records": 0,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {},
+      "sources": {}
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/risk_ai/test.jsonl",
+      "sha256": "b8b7dc496a574c9eeaad97122aceea015e6817369bbf24082b5a8a869243ea18",
+      "valid_records": 1,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "risk_ai": 1
+      },
+      "sources": {
+        "unspecified": 1
+      }
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/risk_ai/training.jsonl",
+      "sha256": "5db94c0f5ff63be8ce1d7389acd10eeff7e349ae9fcc943309ce17d6b214f415",
+      "valid_records": 0,
+      "invalid_lines": 115,
+      "errors": [
+        {
+          "line": 1,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 2,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 3,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 4,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 5,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 6,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 19 (char 18)"
+        },
+        {
+          "line": 7,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 8,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 9,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 10,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 12 (char 11)"
+        },
+        {
+          "line": 11,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 8 (char 7)"
+        },
+        {
+          "line": 12,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 13,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 22 (char 21)"
+        },
+        {
+          "line": 14,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 15,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 16,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 8 (char 7)"
+        },
+        {
+          "line": 17,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 18,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 22 (char 21)"
+        },
+        {
+          "line": 19,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 20,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 21,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 8 (char 7)"
+        },
+        {
+          "line": 22,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 23,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 22 (char 21)"
+        },
+        {
+          "line": 24,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 25,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 26,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 27,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 28,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 29,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 30,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 31,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 32,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 33,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 34,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 35,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 36,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 37,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 18 (char 17)"
+        },
+        {
+          "line": 38,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 39,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 40,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 41,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 42,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 43,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 25 (char 24)"
+        },
+        {
+          "line": 44,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 45,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 46,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 47,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 48,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 49,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 50,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 51,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 52,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 53,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 54,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 55,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 56,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 57,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 58,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 30 (char 29)"
+        },
+        {
+          "line": 59,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 26 (char 25)"
+        },
+        {
+          "line": 60,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 25 (char 24)"
+        },
+        {
+          "line": 61,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 23 (char 22)"
+        },
+        {
+          "line": 62,
+          "error": "ValueError",
+          "reason": "record_not_object"
+        },
+        {
+          "line": 63,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 64,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 65,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 66,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 67,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 68,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 69,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 70,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 71,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 72,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 73,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 74,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 75,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 76,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 77,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 78,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 8 (char 7)"
+        },
+        {
+          "line": 79,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 80,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 81,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 82,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 83,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 84,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 8 (char 7)"
+        },
+        {
+          "line": 85,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 86,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 87,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 88,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 89,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 90,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 91,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 92,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 93,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 94,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 95,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 96,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 97,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 98,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 99,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 100,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 101,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 102,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 103,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 104,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 105,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 106,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 38 (char 37)"
+        },
+        {
+          "line": 107,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 30 (char 29)"
+        },
+        {
+          "line": 108,
+          "error": "ValueError",
+          "reason": "record_not_object"
+        },
+        {
+          "line": 109,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 110,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 111,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 112,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 113,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 114,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 115,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        }
+      ],
+      "domains": {},
+      "sources": {}
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/risk_ai/validation.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "valid_records": 0,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {},
+      "sources": {}
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/safety_ai/test.jsonl",
+      "sha256": "c13b84798534f244b0aae6d85a53b279d80531ee159dddfb1b37f646d004d487",
+      "valid_records": 1,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {
+        "safety_ai": 1
+      },
+      "sources": {
+        "unspecified": 1
+      }
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/safety_ai/training.jsonl",
+      "sha256": "b12d4db42b0393640d2fa2dfbd0eef5e0b1d29afcb7bc1b0f0a1d60349a5ab4c",
+      "valid_records": 0,
+      "invalid_lines": 117,
+      "errors": [
+        {
+          "line": 1,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 2,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 3,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 4,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 5,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 6,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 7,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 8,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 9,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 10,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 11,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 12,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 27 (char 26)"
+        },
+        {
+          "line": 13,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 26 (char 25)"
+        },
+        {
+          "line": 14,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 19 (char 18)"
+        },
+        {
+          "line": 15,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 21 (char 20)"
+        },
+        {
+          "line": 16,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 32 (char 31)"
+        },
+        {
+          "line": 17,
+          "error": "ValueError",
+          "reason": "record_not_object"
+        },
+        {
+          "line": 18,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 19,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 20,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 21,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 22,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 23,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 24,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 25,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 26,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 27,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 28,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 29,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 30,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 31,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 32,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 33,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 34,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 35,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 28 (char 27)"
+        },
+        {
+          "line": 36,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 30 (char 29)"
+        },
+        {
+          "line": 37,
+          "error": "ValueError",
+          "reason": "record_not_object"
+        },
+        {
+          "line": 38,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 39,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 23 (char 22)"
+        },
+        {
+          "line": 40,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 24 (char 23)"
+        },
+        {
+          "line": 41,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 44 (char 43)"
+        },
+        {
+          "line": 42,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 36 (char 35)"
+        },
+        {
+          "line": 43,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 28 (char 27)"
+        },
+        {
+          "line": 44,
+          "error": "ValueError",
+          "reason": "record_not_object"
+        },
+        {
+          "line": 45,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 46,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 47,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 48,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 49,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 50,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 51,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 52,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 53,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 54,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 55,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 56,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 57,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 58,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 59,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 60,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 61,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 18 (char 17)"
+        },
+        {
+          "line": 62,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 63,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 64,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 24 (char 23)"
+        },
+        {
+          "line": 65,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 23 (char 22)"
+        },
+        {
+          "line": 66,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 30 (char 29)"
+        },
+        {
+          "line": 67,
+          "error": "ValueError",
+          "reason": "record_not_object"
+        },
+        {
+          "line": 68,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 69,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 70,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 71,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 72,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 73,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 74,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 75,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 76,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 77,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 78,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 79,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 15 (char 14)"
+        },
+        {
+          "line": 80,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 81,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 82,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 19 (char 18)"
+        },
+        {
+          "line": 83,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 22 (char 21)"
+        },
+        {
+          "line": 84,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 23 (char 22)"
+        },
+        {
+          "line": 85,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 86,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 29 (char 28)"
+        },
+        {
+          "line": 87,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 21 (char 20)"
+        },
+        {
+          "line": 88,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 27 (char 26)"
+        },
+        {
+          "line": 89,
+          "error": "ValueError",
+          "reason": "record_not_object"
+        },
+        {
+          "line": 90,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 91,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 92,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 93,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 94,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 95,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 96,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        },
+        {
+          "line": 97,
+          "error": "JSONDecodeError",
+          "reason": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        },
+        {
+          "line": 98,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 7 (char 6)"
+        },
+        {
+          "line": 99,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 100,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 10 (char 9)"
+        },
+        {
+          "line": 101,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 16 (char 15)"
+        },
+        {
+          "line": 102,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 103,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 11 (char 10)"
+        },
+        {
+          "line": 104,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 14 (char 13)"
+        },
+        {
+          "line": 105,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 24 (char 23)"
+        },
+        {
+          "line": 106,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 32 (char 31)"
+        },
+        {
+          "line": 107,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 27 (char 26)"
+        },
+        {
+          "line": 108,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 38 (char 37)"
+        },
+        {
+          "line": 109,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 46 (char 45)"
+        },
+        {
+          "line": 110,
+          "error": "ValueError",
+          "reason": "record_not_object"
+        },
+        {
+          "line": 111,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 5 (char 4)"
+        },
+        {
+          "line": 112,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 113,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 13 (char 12)"
+        },
+        {
+          "line": 114,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 20 (char 19)"
+        },
+        {
+          "line": 115,
+          "error": "JSONDecodeError",
+          "reason": "Extra data: line 1 column 17 (char 16)"
+        },
+        {
+          "line": 116,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 3 (char 2)"
+        },
+        {
+          "line": 117,
+          "error": "JSONDecodeError",
+          "reason": "Expecting value: line 1 column 1 (char 0)"
+        }
+      ],
+      "domains": {},
+      "sources": {}
+    },
+    {
+      "file": "ai-data-factory/datasets/datasets/safety_ai/validation.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "valid_records": 0,
+      "invalid_lines": 0,
+      "errors": [],
+      "domains": {},
+      "sources": {}
+    }
+  ],
+  "totals": {
+    "files": 80,
+    "valid_records": 7120,
+    "invalid_lines": 1213,
+    "normalized_duplicate_content_excess": 308,
+    "cross_split_content_groups": 23,
+    "cross_split_prompt_groups": 125,
+    "conflicting_prompt_groups": 225
+  },
+  "engineering_correctness_reviewed": false,
+  "semantic_overlap_reviewed": false,
+  "training_authorized_by_this_audit": false
+}

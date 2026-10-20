@@ -1,0 +1,93 @@
+[
+  {
+    "year": 2010,
+    "url": "https://www.fldoe.org/file/7742/0078086-2010costconstructionreports.xls",
+    "file": "schools_2010.xls",
+    "bytes": 2890752,
+    "sha256": "be676875ff2fa53380241023102b487b947136aa4c93f2be2584cd2ada5e72fd"
+  },
+  {
+    "year": 2011,
+    "url": "https://www.fldoe.org/file/7742/0078085-2011costconstructionreports.xls",
+    "file": "schools_2011.xls",
+    "bytes": 3035136,
+    "sha256": "68a89191ec5f85358e70b0a3c2864b9c9f51454536b7d54f3b97b3c3c0d7d767"
+  },
+  {
+    "year": 2012,
+    "url": "https://www.fldoe.org/file/7742/0078084-2012costconstructionreports.xls",
+    "file": "schools_2012.xls",
+    "bytes": 990208,
+    "sha256": "dd5844a2f46ac1906e712c9ad370571e04ed8564c6065e86a23ff673b0e4459e"
+  },
+  {
+    "year": 2013,
+    "url": "https://www.fldoe.org/file/7742/0078083-2013costconstructionreports.xls",
+    "file": "schools_2013.xls",
+    "bytes": 955904,
+    "sha256": "9ecfd1d597c7e984e682df73ae112db9dc5ab60857674ecaa4a8194cbec63abd"
+  },
+  {
+    "year": 2014,
+    "url": "https://www.fldoe.org/file/7742/2014CostConstruction.xls",
+    "file": "schools_2014.xls",
+    "bytes": 845824,
+    "sha256": "466cea7c456105c1773599e03dffdc790fc509cfeb083b994aa6c83226ffe4a3"
+  },
+  {
+    "year": 2015,
+    "url": "https://www.fldoe.org/file/7742/15CostConstruct.xls",
+    "file": "schools_2015.xls",
+    "bytes": 824320,
+    "sha256": "8b46c58fbeed5c3b9d86b6eb85fa7215aaa22a96d4526573ffc47aa1ae82829c"
+  },
+  {
+    "year": 2016,
+    "url": "https://www.fldoe.org/file/7742/16CostConstructSchools.xls",
+    "file": "schools_2016.xls",
+    "bytes": 831488,
+    "sha256": "bbf00e8af318ac7a7dacf0066e0e02cf45f341f7f585bc28f25226f3344eb156"
+  },
+  {
+    "year": 2017,
+    "url": "https://www.fldoe.org/file/7742/17CostConstructSchools.xls",
+    "file": "schools_2017.xls",
+    "bytes": 841216,
+    "sha256": "f0ad8e834bebb6478ed59f31c06ce1407c6c9437f772fc1309c9f5702b4c452a"
+  },
+  {
+    "year": 2018,
+    "url": "https://www.fldoe.org/file/7742/18CostConstructSchools.xls",
+    "file": "schools_2018.xls",
+    "bytes": 884224,
+    "sha256": "45f1a6572ea918d3c61b0d9501a3545d992ddcf0960946fa0a7ea43239919a4d"
+  },
+  {
+    "year": 2019,
+    "url": "https://www.fldoe.org/file/7742/19CostConstructSchools.xls",
+    "file": "schools_2019.xls",
+    "bytes": 897536,
+    "sha256": "df1b2b7da4c557a264f81e4b6f4779551d0a39907aa784ac69c442633eeb7e44"
+  },
+  {
+    "year": 2020,
+    "url": "https://www.fldoe.org/file/7742/20CostConstructSchools.xls",
+    "file": "schools_2020.xls",
+    "bytes": 7251968,
+    "sha256": "d9e8492ff65bc92e1db26b6acd4aa99fc0638689dcd0b09f9ac019f7a168e5e0"
+  },
+  {
+    "year": 2021,
+    "url": "https://www.fldoe.org/file/7742/21CostConstructSchools.xlsx",
+    "file": "schools_2021.xlsx",
+    "bytes": 160785,
+    "sha256": "d7b00ee1bef5d72ec2729e5dd610f24a0fecc39ad3c28e2a798d34bc0878f5bd"
+  },
+  {
+    "year": 2024,
+    "url": "https://www.fldoe.org/file/7742/24CostConst-PS.xlsm",
+    "file": "schools_2024.xlsm",
+    "bytes": 169523,
+    "sha256": "5e7a31934ab72749815cb9c18e556346e8c0ae029d45c9e49b1323789a10adca"
+  }
+]
